@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class Version(object):
     """ Corresponds to IDD object `Version`
         Specifies the EnergyPlus version of the IDF file.
@@ -9,12 +12,17 @@ class Version(object):
     internal_name = "Version"
     field_count = 1
     required_fields = ["Version Identifier"]
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Version`
         """
         self._data = OrderedDict()
         self._data["Version Identifier"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -62,23 +70,46 @@ class Version(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `version_identifier`'.format(value))
+                                 ' for field `Version.version_identifier`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `version_identifier`')
+                                 'for field `Version.version_identifier`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `version_identifier`')
+                                 'for field `Version.version_identifier`')
         self._data["Version Identifier"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Version:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Version:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Version: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Version: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -96,8 +127,27 @@ class Version(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -117,6 +167,10 @@ class SimulationControl(object):
     internal_name = "SimulationControl"
     field_count = 5
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SimulationControl`
@@ -127,6 +181,7 @@ class SimulationControl(object):
         self._data["Do Plant Sizing Calculation"] = None
         self._data["Run Simulation for Sizing Periods"] = None
         self._data["Run Simulation for Weather File Run Periods"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -207,13 +262,13 @@ class SimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `do_zone_sizing_calculation`'.format(value))
+                                 ' for field `SimulationControl.do_zone_sizing_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `do_zone_sizing_calculation`')
+                                 'for field `SimulationControl.do_zone_sizing_calculation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `do_zone_sizing_calculation`')
+                                 'for field `SimulationControl.do_zone_sizing_calculation`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -236,10 +291,10 @@ class SimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `do_zone_sizing_calculation`'.format(value))
+                                     'field `SimulationControl.do_zone_sizing_calculation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `do_zone_sizing_calculation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SimulationControl.do_zone_sizing_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Do Zone Sizing Calculation"] = value
 
@@ -276,13 +331,13 @@ class SimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `do_system_sizing_calculation`'.format(value))
+                                 ' for field `SimulationControl.do_system_sizing_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `do_system_sizing_calculation`')
+                                 'for field `SimulationControl.do_system_sizing_calculation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `do_system_sizing_calculation`')
+                                 'for field `SimulationControl.do_system_sizing_calculation`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -305,10 +360,10 @@ class SimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `do_system_sizing_calculation`'.format(value))
+                                     'field `SimulationControl.do_system_sizing_calculation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `do_system_sizing_calculation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SimulationControl.do_system_sizing_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Do System Sizing Calculation"] = value
 
@@ -344,13 +399,13 @@ class SimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `do_plant_sizing_calculation`'.format(value))
+                                 ' for field `SimulationControl.do_plant_sizing_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `do_plant_sizing_calculation`')
+                                 'for field `SimulationControl.do_plant_sizing_calculation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `do_plant_sizing_calculation`')
+                                 'for field `SimulationControl.do_plant_sizing_calculation`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -373,10 +428,10 @@ class SimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `do_plant_sizing_calculation`'.format(value))
+                                     'field `SimulationControl.do_plant_sizing_calculation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `do_plant_sizing_calculation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SimulationControl.do_plant_sizing_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Do Plant Sizing Calculation"] = value
 
@@ -411,13 +466,13 @@ class SimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `run_simulation_for_sizing_periods`'.format(value))
+                                 ' for field `SimulationControl.run_simulation_for_sizing_periods`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `run_simulation_for_sizing_periods`')
+                                 'for field `SimulationControl.run_simulation_for_sizing_periods`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `run_simulation_for_sizing_periods`')
+                                 'for field `SimulationControl.run_simulation_for_sizing_periods`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -440,10 +495,10 @@ class SimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `run_simulation_for_sizing_periods`'.format(value))
+                                     'field `SimulationControl.run_simulation_for_sizing_periods`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `run_simulation_for_sizing_periods`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SimulationControl.run_simulation_for_sizing_periods`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Run Simulation for Sizing Periods"] = value
 
@@ -478,13 +533,13 @@ class SimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `run_simulation_for_weather_file_run_periods`'.format(value))
+                                 ' for field `SimulationControl.run_simulation_for_weather_file_run_periods`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `run_simulation_for_weather_file_run_periods`')
+                                 'for field `SimulationControl.run_simulation_for_weather_file_run_periods`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `run_simulation_for_weather_file_run_periods`')
+                                 'for field `SimulationControl.run_simulation_for_weather_file_run_periods`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -507,21 +562,44 @@ class SimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `run_simulation_for_weather_file_run_periods`'.format(value))
+                                     'field `SimulationControl.run_simulation_for_weather_file_run_periods`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `run_simulation_for_weather_file_run_periods`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SimulationControl.run_simulation_for_weather_file_run_periods`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Run Simulation for Weather File Run Periods"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SimulationControl:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SimulationControl:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SimulationControl: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SimulationControl: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -539,8 +617,27 @@ class SimulationControl(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -558,6 +655,10 @@ class Building(object):
     internal_name = "Building"
     field_count = 8
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 8
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Building`
@@ -571,6 +672,7 @@ class Building(object):
         self._data["Solar Distribution"] = None
         self._data["Maximum Number of Warmup Days"] = None
         self._data["Minimum Number of Warmup Days"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -667,13 +769,13 @@ class Building(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `Building.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `Building.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `Building.name`')
         self._data["Name"] = value
 
     @property
@@ -705,7 +807,7 @@ class Building(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `north_axis`'.format(value))
+                                 ' for field `Building.north_axis`'.format(value))
         self._data["North Axis"] = value
 
     @property
@@ -742,13 +844,13 @@ class Building(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `terrain`'.format(value))
+                                 ' for field `Building.terrain`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `terrain`')
+                                 'for field `Building.terrain`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `terrain`')
+                                 'for field `Building.terrain`')
             vals = {}
             vals["country"] = "Country"
             vals["suburbs"] = "Suburbs"
@@ -774,10 +876,10 @@ class Building(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `terrain`'.format(value))
+                                     'field `Building.terrain`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `terrain`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `Building.terrain`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Terrain"] = value
 
@@ -811,13 +913,13 @@ class Building(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `loads_convergence_tolerance_value`'.format(value))
+                                 ' for field `Building.loads_convergence_tolerance_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `loads_convergence_tolerance_value`')
+                                 'for field `Building.loads_convergence_tolerance_value`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `loads_convergence_tolerance_value`')
+                                 'for field `Building.loads_convergence_tolerance_value`')
         self._data["Loads Convergence Tolerance Value"] = value
 
     @property
@@ -850,13 +952,13 @@ class Building(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_convergence_tolerance_value`'.format(value))
+                                 ' for field `Building.temperature_convergence_tolerance_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `temperature_convergence_tolerance_value`')
+                                 'for field `Building.temperature_convergence_tolerance_value`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `temperature_convergence_tolerance_value`')
+                                 'for field `Building.temperature_convergence_tolerance_value`')
         self._data["Temperature Convergence Tolerance Value"] = value
 
     @property
@@ -893,13 +995,13 @@ class Building(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `solar_distribution`'.format(value))
+                                 ' for field `Building.solar_distribution`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `solar_distribution`')
+                                 'for field `Building.solar_distribution`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `solar_distribution`')
+                                 'for field `Building.solar_distribution`')
             vals = {}
             vals["minimalshadowing"] = "MinimalShadowing"
             vals["fullexterior"] = "FullExterior"
@@ -925,10 +1027,10 @@ class Building(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `solar_distribution`'.format(value))
+                                     'field `Building.solar_distribution`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `solar_distribution`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `Building.solar_distribution`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Solar Distribution"] = value
 
@@ -964,15 +1066,15 @@ class Building(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_number_of_warmup_days`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `Building.maximum_number_of_warmup_days`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_number_of_warmup_days`'.format(value))
+                                         'for field `Building.maximum_number_of_warmup_days`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
-                                 'for field `maximum_number_of_warmup_days`')
+                                 'for field `Building.maximum_number_of_warmup_days`')
         self._data["Maximum Number of Warmup Days"] = value
 
     @property
@@ -1010,25 +1112,48 @@ class Building(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `minimum_number_of_warmup_days`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `Building.minimum_number_of_warmup_days`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `minimum_number_of_warmup_days`'.format(value))
+                                         'for field `Building.minimum_number_of_warmup_days`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
-                                 'for field `minimum_number_of_warmup_days`')
+                                 'for field `Building.minimum_number_of_warmup_days`')
         self._data["Minimum Number of Warmup Days"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Building:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Building:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Building: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Building: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1046,8 +1171,27 @@ class Building(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1062,6 +1206,10 @@ class ShadowCalculation(object):
     internal_name = "ShadowCalculation"
     field_count = 5
     required_fields = ["Calculation Frequency"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ShadowCalculation`
@@ -1072,6 +1220,7 @@ class ShadowCalculation(object):
         self._data["Maximum Figures in Shadow Overlap Calculations"] = None
         self._data["Polygon Clipping Algorithm"] = None
         self._data["Sky Diffuse Modeling Algorithm"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1152,13 +1301,13 @@ class ShadowCalculation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `calculation_method`'.format(value))
+                                 ' for field `ShadowCalculation.calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `calculation_method`')
+                                 'for field `ShadowCalculation.calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `calculation_method`')
+                                 'for field `ShadowCalculation.calculation_method`')
             vals = {}
             vals["averageoverdaysinfrequency"] = "AverageOverDaysInFrequency"
             vals["timestepfrequency"] = "TimestepFrequency"
@@ -1181,10 +1330,10 @@ class ShadowCalculation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `calculation_method`'.format(value))
+                                     'field `ShadowCalculation.calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ShadowCalculation.calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Calculation Method"] = value
 
@@ -1223,15 +1372,15 @@ class ShadowCalculation(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `calculation_frequency`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ShadowCalculation.calculation_frequency`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `calculation_frequency`'.format(value))
+                                         'for field `ShadowCalculation.calculation_frequency`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `calculation_frequency`')
+                                 'for field `ShadowCalculation.calculation_frequency`')
         self._data["Calculation Frequency"] = value
 
     @property
@@ -1265,15 +1414,15 @@ class ShadowCalculation(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_figures_in_shadow_overlap_calculations`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ShadowCalculation.maximum_figures_in_shadow_overlap_calculations`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_figures_in_shadow_overlap_calculations`'.format(value))
+                                         'for field `ShadowCalculation.maximum_figures_in_shadow_overlap_calculations`'.format(value))
             if value < 200:
                 raise ValueError('value need to be greater or equal 200 '
-                                 'for field `maximum_figures_in_shadow_overlap_calculations`')
+                                 'for field `ShadowCalculation.maximum_figures_in_shadow_overlap_calculations`')
         self._data["Maximum Figures in Shadow Overlap Calculations"] = value
 
     @property
@@ -1307,13 +1456,13 @@ class ShadowCalculation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `polygon_clipping_algorithm`'.format(value))
+                                 ' for field `ShadowCalculation.polygon_clipping_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `polygon_clipping_algorithm`')
+                                 'for field `ShadowCalculation.polygon_clipping_algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `polygon_clipping_algorithm`')
+                                 'for field `ShadowCalculation.polygon_clipping_algorithm`')
             vals = {}
             vals["convexweileratherton"] = "ConvexWeilerAtherton"
             vals["sutherlandhodgman"] = "SutherlandHodgman"
@@ -1336,10 +1485,10 @@ class ShadowCalculation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `polygon_clipping_algorithm`'.format(value))
+                                     'field `ShadowCalculation.polygon_clipping_algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `polygon_clipping_algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ShadowCalculation.polygon_clipping_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Polygon Clipping Algorithm"] = value
 
@@ -1376,13 +1525,13 @@ class ShadowCalculation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sky_diffuse_modeling_algorithm`'.format(value))
+                                 ' for field `ShadowCalculation.sky_diffuse_modeling_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sky_diffuse_modeling_algorithm`')
+                                 'for field `ShadowCalculation.sky_diffuse_modeling_algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sky_diffuse_modeling_algorithm`')
+                                 'for field `ShadowCalculation.sky_diffuse_modeling_algorithm`')
             vals = {}
             vals["simpleskydiffusemodeling"] = "SimpleSkyDiffuseModeling"
             vals["detailedskydiffusemodeling"] = "DetailedSkyDiffuseModeling"
@@ -1405,21 +1554,44 @@ class ShadowCalculation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `sky_diffuse_modeling_algorithm`'.format(value))
+                                     'field `ShadowCalculation.sky_diffuse_modeling_algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `sky_diffuse_modeling_algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ShadowCalculation.sky_diffuse_modeling_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sky Diffuse Modeling Algorithm"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ShadowCalculation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ShadowCalculation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ShadowCalculation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ShadowCalculation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1437,8 +1609,27 @@ class ShadowCalculation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1453,12 +1644,17 @@ class SurfaceConvectionAlgorithmInside(object):
     internal_name = "SurfaceConvectionAlgorithm:Inside"
     field_count = 1
     required_fields = ["Algorithm"]
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside`
         """
         self._data = OrderedDict()
         self._data["Algorithm"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1516,13 +1712,13 @@ class SurfaceConvectionAlgorithmInside(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `algorithm`'.format(value))
+                                 ' for field `SurfaceConvectionAlgorithmInside.algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `algorithm`')
+                                 'for field `SurfaceConvectionAlgorithmInside.algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `algorithm`')
+                                 'for field `SurfaceConvectionAlgorithmInside.algorithm`')
             vals = {}
             vals["simple"] = "Simple"
             vals["tarp"] = "TARP"
@@ -1547,21 +1743,44 @@ class SurfaceConvectionAlgorithmInside(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `algorithm`'.format(value))
+                                     'field `SurfaceConvectionAlgorithmInside.algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SurfaceConvectionAlgorithmInside.algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SurfaceConvectionAlgorithmInside:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SurfaceConvectionAlgorithmInside:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SurfaceConvectionAlgorithmInside: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SurfaceConvectionAlgorithmInside: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1579,8 +1798,27 @@ class SurfaceConvectionAlgorithmInside(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1595,12 +1833,17 @@ class SurfaceConvectionAlgorithmOutside(object):
     internal_name = "SurfaceConvectionAlgorithm:Outside"
     field_count = 1
     required_fields = ["Algorithm"]
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside`
         """
         self._data = OrderedDict()
         self._data["Algorithm"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1659,13 +1902,13 @@ class SurfaceConvectionAlgorithmOutside(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `algorithm`'.format(value))
+                                 ' for field `SurfaceConvectionAlgorithmOutside.algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `algorithm`')
+                                 'for field `SurfaceConvectionAlgorithmOutside.algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `algorithm`')
+                                 'for field `SurfaceConvectionAlgorithmOutside.algorithm`')
             vals = {}
             vals["simplecombined"] = "SimpleCombined"
             vals["tarp"] = "TARP"
@@ -1691,21 +1934,44 @@ class SurfaceConvectionAlgorithmOutside(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `algorithm`'.format(value))
+                                     'field `SurfaceConvectionAlgorithmOutside.algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SurfaceConvectionAlgorithmOutside.algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SurfaceConvectionAlgorithmOutside:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SurfaceConvectionAlgorithmOutside:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SurfaceConvectionAlgorithmOutside: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SurfaceConvectionAlgorithmOutside: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1723,8 +1989,27 @@ class SurfaceConvectionAlgorithmOutside(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1744,6 +2029,10 @@ class HeatBalanceAlgorithm(object):
     internal_name = "HeatBalanceAlgorithm"
     field_count = 4
     required_fields = ["Algorithm"]
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatBalanceAlgorithm`
@@ -1753,6 +2042,7 @@ class HeatBalanceAlgorithm(object):
         self._data["Surface Temperature Upper Limit"] = None
         self._data["Minimum Surface Convection Heat Transfer Coefficient Value"] = None
         self._data["Maximum Surface Convection Heat Transfer Coefficient Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1826,13 +2116,13 @@ class HeatBalanceAlgorithm(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `algorithm`'.format(value))
+                                 ' for field `HeatBalanceAlgorithm.algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `algorithm`')
+                                 'for field `HeatBalanceAlgorithm.algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `algorithm`')
+                                 'for field `HeatBalanceAlgorithm.algorithm`')
             vals = {}
             vals["conductiontransferfunction"] = "ConductionTransferFunction"
             vals["moisturepenetrationdepthconductiontransferfunction"] = "MoisturePenetrationDepthConductionTransferFunction"
@@ -1857,10 +2147,10 @@ class HeatBalanceAlgorithm(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `algorithm`'.format(value))
+                                     'field `HeatBalanceAlgorithm.algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `HeatBalanceAlgorithm.algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -1893,10 +2183,10 @@ class HeatBalanceAlgorithm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `surface_temperature_upper_limit`'.format(value))
+                                 ' for field `HeatBalanceAlgorithm.surface_temperature_upper_limit`'.format(value))
             if value < 200.0:
                 raise ValueError('value need to be greater or equal 200.0 '
-                                 'for field `surface_temperature_upper_limit`')
+                                 'for field `HeatBalanceAlgorithm.surface_temperature_upper_limit`')
         self._data["Surface Temperature Upper Limit"] = value
 
     @property
@@ -1928,10 +2218,10 @@ class HeatBalanceAlgorithm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_surface_convection_heat_transfer_coefficient_value`'.format(value))
+                                 ' for field `HeatBalanceAlgorithm.minimum_surface_convection_heat_transfer_coefficient_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `minimum_surface_convection_heat_transfer_coefficient_value`')
+                                 'for field `HeatBalanceAlgorithm.minimum_surface_convection_heat_transfer_coefficient_value`')
         self._data["Minimum Surface Convection Heat Transfer Coefficient Value"] = value
 
     @property
@@ -1963,20 +2253,43 @@ class HeatBalanceAlgorithm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_surface_convection_heat_transfer_coefficient_value`'.format(value))
+                                 ' for field `HeatBalanceAlgorithm.maximum_surface_convection_heat_transfer_coefficient_value`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `maximum_surface_convection_heat_transfer_coefficient_value`')
+                                 'for field `HeatBalanceAlgorithm.maximum_surface_convection_heat_transfer_coefficient_value`')
         self._data["Maximum Surface Convection Heat Transfer Coefficient Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field HeatBalanceAlgorithm:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field HeatBalanceAlgorithm:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for HeatBalanceAlgorithm: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for HeatBalanceAlgorithm: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1994,8 +2307,27 @@ class HeatBalanceAlgorithm(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2011,6 +2343,10 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
     internal_name = "HeatBalanceSettings:ConductionFiniteDifference"
     field_count = 4
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatBalanceSettings:ConductionFiniteDifference`
@@ -2020,6 +2356,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         self._data["Space Discretization Constant"] = None
         self._data["Relaxation Factor"] = None
         self._data["Inside Face Surface Temperature Convergence Criteria"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2091,13 +2428,13 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `difference_scheme`'.format(value))
+                                 ' for field `HeatBalanceSettingsConductionFiniteDifference.difference_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `difference_scheme`')
+                                 'for field `HeatBalanceSettingsConductionFiniteDifference.difference_scheme`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `difference_scheme`')
+                                 'for field `HeatBalanceSettingsConductionFiniteDifference.difference_scheme`')
             vals = {}
             vals["cranknicholsonsecondorder"] = "CrankNicholsonSecondOrder"
             vals["fullyimplicitfirstorder"] = "FullyImplicitFirstOrder"
@@ -2120,10 +2457,10 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `difference_scheme`'.format(value))
+                                     'field `HeatBalanceSettingsConductionFiniteDifference.difference_scheme`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `difference_scheme`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `HeatBalanceSettingsConductionFiniteDifference.difference_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Difference Scheme"] = value
 
@@ -2155,7 +2492,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `space_discretization_constant`'.format(value))
+                                 ' for field `HeatBalanceSettingsConductionFiniteDifference.space_discretization_constant`'.format(value))
         self._data["Space Discretization Constant"] = value
 
     @property
@@ -2187,13 +2524,13 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relaxation_factor`'.format(value))
+                                 ' for field `HeatBalanceSettingsConductionFiniteDifference.relaxation_factor`'.format(value))
             if value < 0.01:
                 raise ValueError('value need to be greater or equal 0.01 '
-                                 'for field `relaxation_factor`')
+                                 'for field `HeatBalanceSettingsConductionFiniteDifference.relaxation_factor`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relaxation_factor`')
+                                 'for field `HeatBalanceSettingsConductionFiniteDifference.relaxation_factor`')
         self._data["Relaxation Factor"] = value
 
     @property
@@ -2225,23 +2562,46 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `inside_face_surface_temperature_convergence_criteria`'.format(value))
+                                 ' for field `HeatBalanceSettingsConductionFiniteDifference.inside_face_surface_temperature_convergence_criteria`'.format(value))
             if value < 1e-07:
                 raise ValueError('value need to be greater or equal 1e-07 '
-                                 'for field `inside_face_surface_temperature_convergence_criteria`')
+                                 'for field `HeatBalanceSettingsConductionFiniteDifference.inside_face_surface_temperature_convergence_criteria`')
             if value > 0.01:
                 raise ValueError('value need to be smaller 0.01 '
-                                 'for field `inside_face_surface_temperature_convergence_criteria`')
+                                 'for field `HeatBalanceSettingsConductionFiniteDifference.inside_face_surface_temperature_convergence_criteria`')
         self._data["Inside Face Surface Temperature Convergence Criteria"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field HeatBalanceSettingsConductionFiniteDifference:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field HeatBalanceSettingsConductionFiniteDifference:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for HeatBalanceSettingsConductionFiniteDifference: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for HeatBalanceSettingsConductionFiniteDifference: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2259,8 +2619,27 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2275,12 +2654,17 @@ class ZoneAirHeatBalanceAlgorithm(object):
     internal_name = "ZoneAirHeatBalanceAlgorithm"
     field_count = 1
     required_fields = []
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirHeatBalanceAlgorithm`
         """
         self._data = OrderedDict()
         self._data["Algorithm"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2332,13 +2716,13 @@ class ZoneAirHeatBalanceAlgorithm(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `algorithm`'.format(value))
+                                 ' for field `ZoneAirHeatBalanceAlgorithm.algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `algorithm`')
+                                 'for field `ZoneAirHeatBalanceAlgorithm.algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `algorithm`')
+                                 'for field `ZoneAirHeatBalanceAlgorithm.algorithm`')
             vals = {}
             vals["thirdorderbackwarddifference"] = "ThirdOrderBackwardDifference"
             vals["analyticalsolution"] = "AnalyticalSolution"
@@ -2362,21 +2746,44 @@ class ZoneAirHeatBalanceAlgorithm(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `algorithm`'.format(value))
+                                     'field `ZoneAirHeatBalanceAlgorithm.algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneAirHeatBalanceAlgorithm.algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneAirHeatBalanceAlgorithm:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneAirHeatBalanceAlgorithm:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneAirHeatBalanceAlgorithm: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneAirHeatBalanceAlgorithm: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2394,8 +2801,27 @@ class ZoneAirHeatBalanceAlgorithm(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2410,6 +2836,10 @@ class ZoneAirContaminantBalance(object):
     internal_name = "ZoneAirContaminantBalance"
     field_count = 4
     required_fields = []
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirContaminantBalance`
@@ -2419,6 +2849,7 @@ class ZoneAirContaminantBalance(object):
         self._data["Outdoor Carbon Dioxide Schedule Name"] = None
         self._data["Generic Contaminant Concentration"] = None
         self._data["Outdoor Generic Contaminant Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2491,13 +2922,13 @@ class ZoneAirContaminantBalance(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `carbon_dioxide_concentration`'.format(value))
+                                 ' for field `ZoneAirContaminantBalance.carbon_dioxide_concentration`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `carbon_dioxide_concentration`')
+                                 'for field `ZoneAirContaminantBalance.carbon_dioxide_concentration`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `carbon_dioxide_concentration`')
+                                 'for field `ZoneAirContaminantBalance.carbon_dioxide_concentration`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -2520,10 +2951,10 @@ class ZoneAirContaminantBalance(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `carbon_dioxide_concentration`'.format(value))
+                                     'field `ZoneAirContaminantBalance.carbon_dioxide_concentration`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `carbon_dioxide_concentration`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneAirContaminantBalance.carbon_dioxide_concentration`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Carbon Dioxide Concentration"] = value
 
@@ -2554,13 +2985,13 @@ class ZoneAirContaminantBalance(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outdoor_carbon_dioxide_schedule_name`'.format(value))
+                                 ' for field `ZoneAirContaminantBalance.outdoor_carbon_dioxide_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outdoor_carbon_dioxide_schedule_name`')
+                                 'for field `ZoneAirContaminantBalance.outdoor_carbon_dioxide_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outdoor_carbon_dioxide_schedule_name`')
+                                 'for field `ZoneAirContaminantBalance.outdoor_carbon_dioxide_schedule_name`')
         self._data["Outdoor Carbon Dioxide Schedule Name"] = value
 
     @property
@@ -2594,13 +3025,13 @@ class ZoneAirContaminantBalance(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generic_contaminant_concentration`'.format(value))
+                                 ' for field `ZoneAirContaminantBalance.generic_contaminant_concentration`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generic_contaminant_concentration`')
+                                 'for field `ZoneAirContaminantBalance.generic_contaminant_concentration`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generic_contaminant_concentration`')
+                                 'for field `ZoneAirContaminantBalance.generic_contaminant_concentration`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -2623,10 +3054,10 @@ class ZoneAirContaminantBalance(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `generic_contaminant_concentration`'.format(value))
+                                     'field `ZoneAirContaminantBalance.generic_contaminant_concentration`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generic_contaminant_concentration`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneAirContaminantBalance.generic_contaminant_concentration`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Generic Contaminant Concentration"] = value
 
@@ -2658,23 +3089,46 @@ class ZoneAirContaminantBalance(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outdoor_generic_contaminant_schedule_name`'.format(value))
+                                 ' for field `ZoneAirContaminantBalance.outdoor_generic_contaminant_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outdoor_generic_contaminant_schedule_name`')
+                                 'for field `ZoneAirContaminantBalance.outdoor_generic_contaminant_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outdoor_generic_contaminant_schedule_name`')
+                                 'for field `ZoneAirContaminantBalance.outdoor_generic_contaminant_schedule_name`')
         self._data["Outdoor Generic Contaminant Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneAirContaminantBalance:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneAirContaminantBalance:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneAirContaminantBalance: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneAirContaminantBalance: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2692,8 +3146,27 @@ class ZoneAirContaminantBalance(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2710,6 +3183,10 @@ class ZoneAirMassFlowConservation(object):
     internal_name = "ZoneAirMassFlowConservation"
     field_count = 2
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirMassFlowConservation`
@@ -2717,6 +3194,7 @@ class ZoneAirMassFlowConservation(object):
         self._data = OrderedDict()
         self._data["Adjust Zone Mixing For Zone Air Mass Flow Balance"] = None
         self._data["Source Zone Infiltration Treatment"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2788,13 +3266,13 @@ class ZoneAirMassFlowConservation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
+                                 ' for field `ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `adjust_zone_mixing_for_zone_air_mass_flow_balance`')
+                                 'for field `ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `adjust_zone_mixing_for_zone_air_mass_flow_balance`')
+                                 'for field `ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -2817,10 +3295,10 @@ class ZoneAirMassFlowConservation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
+                                     'field `ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Adjust Zone Mixing For Zone Air Mass Flow Balance"] = value
 
@@ -2867,13 +3345,13 @@ class ZoneAirMassFlowConservation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_zone_infiltration_treatment`'.format(value))
+                                 ' for field `ZoneAirMassFlowConservation.source_zone_infiltration_treatment`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_zone_infiltration_treatment`')
+                                 'for field `ZoneAirMassFlowConservation.source_zone_infiltration_treatment`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_zone_infiltration_treatment`')
+                                 'for field `ZoneAirMassFlowConservation.source_zone_infiltration_treatment`')
             vals = {}
             vals["addinfiltrationflow"] = "AddInfiltrationFlow"
             vals["adjustinfiltrationflow"] = "AdjustInfiltrationFlow"
@@ -2896,21 +3374,44 @@ class ZoneAirMassFlowConservation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `source_zone_infiltration_treatment`'.format(value))
+                                     'field `ZoneAirMassFlowConservation.source_zone_infiltration_treatment`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `source_zone_infiltration_treatment`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneAirMassFlowConservation.source_zone_infiltration_treatment`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Source Zone Infiltration Treatment"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneAirMassFlowConservation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneAirMassFlowConservation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneAirMassFlowConservation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneAirMassFlowConservation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2928,8 +3429,27 @@ class ZoneAirMassFlowConservation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2944,6 +3464,10 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
     internal_name = "ZoneCapacitanceMultiplier:ResearchSpecial"
     field_count = 4
     required_fields = []
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCapacitanceMultiplier:ResearchSpecial`
@@ -2953,6 +3477,7 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         self._data["Humidity Capacity Multiplier"] = None
         self._data["Carbon Dioxide Capacity Multiplier"] = None
         self._data["Generic Contaminant Capacity Multiplier"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3023,10 +3548,10 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_capacity_multiplier`'.format(value))
+                                 ' for field `ZoneCapacitanceMultiplierResearchSpecial.temperature_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `temperature_capacity_multiplier`')
+                                 'for field `ZoneCapacitanceMultiplierResearchSpecial.temperature_capacity_multiplier`')
         self._data["Temperature Capacity Multiplier"] = value
 
     @property
@@ -3058,10 +3583,10 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `humidity_capacity_multiplier`'.format(value))
+                                 ' for field `ZoneCapacitanceMultiplierResearchSpecial.humidity_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `humidity_capacity_multiplier`')
+                                 'for field `ZoneCapacitanceMultiplierResearchSpecial.humidity_capacity_multiplier`')
         self._data["Humidity Capacity Multiplier"] = value
 
     @property
@@ -3093,10 +3618,10 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `carbon_dioxide_capacity_multiplier`'.format(value))
+                                 ' for field `ZoneCapacitanceMultiplierResearchSpecial.carbon_dioxide_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `carbon_dioxide_capacity_multiplier`')
+                                 'for field `ZoneCapacitanceMultiplierResearchSpecial.carbon_dioxide_capacity_multiplier`')
         self._data["Carbon Dioxide Capacity Multiplier"] = value
 
     @property
@@ -3128,20 +3653,43 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `generic_contaminant_capacity_multiplier`'.format(value))
+                                 ' for field `ZoneCapacitanceMultiplierResearchSpecial.generic_contaminant_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `generic_contaminant_capacity_multiplier`')
+                                 'for field `ZoneCapacitanceMultiplierResearchSpecial.generic_contaminant_capacity_multiplier`')
         self._data["Generic Contaminant Capacity Multiplier"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneCapacitanceMultiplierResearchSpecial:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneCapacitanceMultiplierResearchSpecial:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneCapacitanceMultiplierResearchSpecial: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneCapacitanceMultiplierResearchSpecial: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3159,8 +3707,27 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3178,12 +3745,17 @@ class Timestep(object):
     internal_name = "Timestep"
     field_count = 1
     required_fields = ["Number of Timesteps per Hour"]
+    extensible_fields = 0
+    format = "singleline"
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Timestep`
         """
         self._data = OrderedDict()
         self._data["Number of Timesteps per Hour"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3242,28 +3814,51 @@ class Timestep(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_timesteps_per_hour`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `Timestep.number_of_timesteps_per_hour`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_timesteps_per_hour`'.format(value))
+                                         'for field `Timestep.number_of_timesteps_per_hour`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_timesteps_per_hour`')
+                                 'for field `Timestep.number_of_timesteps_per_hour`')
             if value > 60:
                 raise ValueError('value need to be smaller 60 '
-                                 'for field `number_of_timesteps_per_hour`')
+                                 'for field `Timestep.number_of_timesteps_per_hour`')
         self._data["Number of Timesteps per Hour"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Timestep:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Timestep:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Timestep: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Timestep: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3281,8 +3876,27 @@ class Timestep(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3298,6 +3912,10 @@ class ConvergenceLimits(object):
     internal_name = "ConvergenceLimits"
     field_count = 4
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ConvergenceLimits`
@@ -3307,6 +3925,7 @@ class ConvergenceLimits(object):
         self._data["Maximum HVAC Iterations"] = None
         self._data["Minimum Plant Iterations"] = None
         self._data["Maximum Plant Iterations"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3382,18 +4001,18 @@ class ConvergenceLimits(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `minimum_system_timestep`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConvergenceLimits.minimum_system_timestep`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `minimum_system_timestep`'.format(value))
+                                         'for field `ConvergenceLimits.minimum_system_timestep`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
-                                 'for field `minimum_system_timestep`')
+                                 'for field `ConvergenceLimits.minimum_system_timestep`')
             if value > 60:
                 raise ValueError('value need to be smaller 60 '
-                                 'for field `minimum_system_timestep`')
+                                 'for field `ConvergenceLimits.minimum_system_timestep`')
         self._data["Minimum System Timestep"] = value
 
     @property
@@ -3426,15 +4045,15 @@ class ConvergenceLimits(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_hvac_iterations`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConvergenceLimits.maximum_hvac_iterations`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_hvac_iterations`'.format(value))
+                                         'for field `ConvergenceLimits.maximum_hvac_iterations`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `maximum_hvac_iterations`')
+                                 'for field `ConvergenceLimits.maximum_hvac_iterations`')
         self._data["Maximum HVAC Iterations"] = value
 
     @property
@@ -3470,15 +4089,15 @@ class ConvergenceLimits(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `minimum_plant_iterations`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConvergenceLimits.minimum_plant_iterations`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `minimum_plant_iterations`'.format(value))
+                                         'for field `ConvergenceLimits.minimum_plant_iterations`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `minimum_plant_iterations`')
+                                 'for field `ConvergenceLimits.minimum_plant_iterations`')
         self._data["Minimum Plant Iterations"] = value
 
     @property
@@ -3513,25 +4132,48 @@ class ConvergenceLimits(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_plant_iterations`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConvergenceLimits.maximum_plant_iterations`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_plant_iterations`'.format(value))
+                                         'for field `ConvergenceLimits.maximum_plant_iterations`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
-                                 'for field `maximum_plant_iterations`')
+                                 'for field `ConvergenceLimits.maximum_plant_iterations`')
         self._data["Maximum Plant Iterations"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConvergenceLimits:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConvergenceLimits:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConvergenceLimits: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConvergenceLimits: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3549,8 +4191,27 @@ class ConvergenceLimits(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3565,12 +4226,17 @@ class ProgramControl(object):
     internal_name = "ProgramControl"
     field_count = 1
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ProgramControl`
         """
         self._data = OrderedDict()
         self._data["Number of Threads Allowed"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3622,25 +4288,48 @@ class ProgramControl(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_threads_allowed`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ProgramControl.number_of_threads_allowed`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_threads_allowed`'.format(value))
+                                         'for field `ProgramControl.number_of_threads_allowed`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
-                                 'for field `number_of_threads_allowed`')
+                                 'for field `ProgramControl.number_of_threads_allowed`')
         self._data["Number of Threads Allowed"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ProgramControl:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ProgramControl:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ProgramControl: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ProgramControl: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3658,8 +4347,27 @@ class ProgramControl(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

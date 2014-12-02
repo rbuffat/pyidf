@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class RefrigerationCase(object):
     """ Corresponds to IDD object `Refrigeration:Case`
         The Refrigeration Case object works in conjunction with a compressor rack, a
@@ -14,6 +17,10 @@ class RefrigerationCase(object):
     internal_name = "Refrigeration:Case"
     field_count = 35
     required_fields = ["Name", "Zone Name", "Latent Case Credit Curve Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 28
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Case`
@@ -54,6 +61,7 @@ class RefrigerationCase(object):
         self._data["Case Credit Fraction Schedule Name"] = None
         self._data["Design Evaporator Temperature or Brine Inlet Temperature"] = None
         self._data["Average Refrigerant Charge Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -338,13 +346,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCase.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCase.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCase.name`')
         self._data["Name"] = value
 
     @property
@@ -375,13 +383,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCase.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RefrigerationCase.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RefrigerationCase.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -411,13 +419,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RefrigerationCase.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RefrigerationCase.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RefrigerationCase.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -449,10 +457,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_ambient_temperature`'.format(value))
+                                 ' for field `RefrigerationCase.rated_ambient_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_ambient_temperature`')
+                                 'for field `RefrigerationCase.rated_ambient_temperature`')
         self._data["Rated Ambient Temperature"] = value
 
     @property
@@ -485,13 +493,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_ambient_relative_humidity`'.format(value))
+                                 ' for field `RefrigerationCase.rated_ambient_relative_humidity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_ambient_relative_humidity`')
+                                 'for field `RefrigerationCase.rated_ambient_relative_humidity`')
             if value >= 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `rated_ambient_relative_humidity`')
+                                 'for field `RefrigerationCase.rated_ambient_relative_humidity`')
         self._data["Rated Ambient Relative Humidity"] = value
 
     @property
@@ -523,10 +531,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_total_cooling_capacity_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.rated_total_cooling_capacity_per_unit_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_total_cooling_capacity_per_unit_length`')
+                                 'for field `RefrigerationCase.rated_total_cooling_capacity_per_unit_length`')
         self._data["Rated Total Cooling Capacity per Unit Length"] = value
 
     @property
@@ -558,13 +566,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_latent_heat_ratio`'.format(value))
+                                 ' for field `RefrigerationCase.rated_latent_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_latent_heat_ratio`')
+                                 'for field `RefrigerationCase.rated_latent_heat_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `rated_latent_heat_ratio`')
+                                 'for field `RefrigerationCase.rated_latent_heat_ratio`')
         self._data["Rated Latent Heat Ratio"] = value
 
     @property
@@ -596,13 +604,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_runtime_fraction`'.format(value))
+                                 ' for field `RefrigerationCase.rated_runtime_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_runtime_fraction`')
+                                 'for field `RefrigerationCase.rated_runtime_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `rated_runtime_fraction`')
+                                 'for field `RefrigerationCase.rated_runtime_fraction`')
         self._data["Rated Runtime Fraction"] = value
 
     @property
@@ -634,10 +642,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `case_length`'.format(value))
+                                 ' for field `RefrigerationCase.case_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `case_length`')
+                                 'for field `RefrigerationCase.case_length`')
         self._data["Case Length"] = value
 
     @property
@@ -669,10 +677,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `case_operating_temperature`'.format(value))
+                                 ' for field `RefrigerationCase.case_operating_temperature`'.format(value))
             if value >= 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `case_operating_temperature`')
+                                 'for field `RefrigerationCase.case_operating_temperature`')
         self._data["Case Operating Temperature"] = value
 
     @property
@@ -706,13 +714,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `latent_case_credit_curve_type`'.format(value))
+                                 ' for field `RefrigerationCase.latent_case_credit_curve_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `latent_case_credit_curve_type`')
+                                 'for field `RefrigerationCase.latent_case_credit_curve_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `latent_case_credit_curve_type`')
+                                 'for field `RefrigerationCase.latent_case_credit_curve_type`')
             vals = {}
             vals["casetemperaturemethod"] = "CaseTemperatureMethod"
             vals["relativehumiditymethod"] = "RelativeHumidityMethod"
@@ -736,10 +744,10 @@ class RefrigerationCase(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `latent_case_credit_curve_type`'.format(value))
+                                     'field `RefrigerationCase.latent_case_credit_curve_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `latent_case_credit_curve_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCase.latent_case_credit_curve_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Latent Case Credit Curve Type"] = value
 
@@ -770,13 +778,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `latent_case_credit_curve_name`'.format(value))
+                                 ' for field `RefrigerationCase.latent_case_credit_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `latent_case_credit_curve_name`')
+                                 'for field `RefrigerationCase.latent_case_credit_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `latent_case_credit_curve_name`')
+                                 'for field `RefrigerationCase.latent_case_credit_curve_name`')
         self._data["Latent Case Credit Curve Name"] = value
 
     @property
@@ -808,10 +816,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `standard_case_fan_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.standard_case_fan_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `standard_case_fan_power_per_unit_length`')
+                                 'for field `RefrigerationCase.standard_case_fan_power_per_unit_length`')
         self._data["Standard Case Fan Power per Unit Length"] = value
 
     @property
@@ -843,10 +851,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `operating_case_fan_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.operating_case_fan_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `operating_case_fan_power_per_unit_length`')
+                                 'for field `RefrigerationCase.operating_case_fan_power_per_unit_length`')
         self._data["Operating Case Fan Power per Unit Length"] = value
 
     @property
@@ -877,7 +885,7 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `standard_case_lighting_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.standard_case_lighting_power_per_unit_length`'.format(value))
         self._data["Standard Case Lighting Power per Unit Length"] = value
 
     @property
@@ -908,7 +916,7 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `installed_case_lighting_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.installed_case_lighting_power_per_unit_length`'.format(value))
         self._data["Installed Case Lighting Power per Unit Length"] = value
 
     @property
@@ -937,13 +945,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `case_lighting_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCase.case_lighting_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `case_lighting_schedule_name`')
+                                 'for field `RefrigerationCase.case_lighting_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `case_lighting_schedule_name`')
+                                 'for field `RefrigerationCase.case_lighting_schedule_name`')
         self._data["Case Lighting Schedule Name"] = value
 
     @property
@@ -975,13 +983,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_lighting_energy_to_case`'.format(value))
+                                 ' for field `RefrigerationCase.fraction_of_lighting_energy_to_case`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_lighting_energy_to_case`')
+                                 'for field `RefrigerationCase.fraction_of_lighting_energy_to_case`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_lighting_energy_to_case`')
+                                 'for field `RefrigerationCase.fraction_of_lighting_energy_to_case`')
         self._data["Fraction of Lighting Energy to Case"] = value
 
     @property
@@ -1013,10 +1021,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `case_antisweat_heater_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.case_antisweat_heater_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `case_antisweat_heater_power_per_unit_length`')
+                                 'for field `RefrigerationCase.case_antisweat_heater_power_per_unit_length`')
         self._data["Case Anti-Sweat Heater Power per Unit Length"] = value
 
     @property
@@ -1050,10 +1058,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_antisweat_heater_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.minimum_antisweat_heater_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_antisweat_heater_power_per_unit_length`')
+                                 'for field `RefrigerationCase.minimum_antisweat_heater_power_per_unit_length`')
         self._data["Minimum Anti-Sweat Heater Power per Unit Length"] = value
 
     @property
@@ -1089,13 +1097,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `antisweat_heater_control_type`'.format(value))
+                                 ' for field `RefrigerationCase.antisweat_heater_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `antisweat_heater_control_type`')
+                                 'for field `RefrigerationCase.antisweat_heater_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `antisweat_heater_control_type`')
+                                 'for field `RefrigerationCase.antisweat_heater_control_type`')
             vals = {}
             vals["none"] = "None"
             vals["constant"] = "Constant"
@@ -1121,10 +1129,10 @@ class RefrigerationCase(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `antisweat_heater_control_type`'.format(value))
+                                     'field `RefrigerationCase.antisweat_heater_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `antisweat_heater_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCase.antisweat_heater_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Anti-Sweat Heater Control Type"] = value
 
@@ -1158,7 +1166,7 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `humidity_at_zero_antisweat_heater_energy`'.format(value))
+                                 ' for field `RefrigerationCase.humidity_at_zero_antisweat_heater_energy`'.format(value))
         self._data["Humidity at Zero Anti-Sweat Heater Energy"] = value
 
     @property
@@ -1192,10 +1200,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `case_height`'.format(value))
+                                 ' for field `RefrigerationCase.case_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `case_height`')
+                                 'for field `RefrigerationCase.case_height`')
         self._data["Case Height"] = value
 
     @property
@@ -1227,13 +1235,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_antisweat_heater_energy_to_case`'.format(value))
+                                 ' for field `RefrigerationCase.fraction_of_antisweat_heater_energy_to_case`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_antisweat_heater_energy_to_case`')
+                                 'for field `RefrigerationCase.fraction_of_antisweat_heater_energy_to_case`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_antisweat_heater_energy_to_case`')
+                                 'for field `RefrigerationCase.fraction_of_antisweat_heater_energy_to_case`')
         self._data["Fraction of Anti-Sweat Heater Energy to Case"] = value
 
     @property
@@ -1266,10 +1274,10 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `case_defrost_power_per_unit_length`'.format(value))
+                                 ' for field `RefrigerationCase.case_defrost_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `case_defrost_power_per_unit_length`')
+                                 'for field `RefrigerationCase.case_defrost_power_per_unit_length`')
         self._data["Case Defrost Power per Unit Length"] = value
 
     @property
@@ -1308,13 +1316,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `case_defrost_type`'.format(value))
+                                 ' for field `RefrigerationCase.case_defrost_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `case_defrost_type`')
+                                 'for field `RefrigerationCase.case_defrost_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `case_defrost_type`')
+                                 'for field `RefrigerationCase.case_defrost_type`')
             vals = {}
             vals["none"] = "None"
             vals["offcycle"] = "OffCycle"
@@ -1343,10 +1351,10 @@ class RefrigerationCase(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `case_defrost_type`'.format(value))
+                                     'field `RefrigerationCase.case_defrost_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `case_defrost_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCase.case_defrost_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Case Defrost Type"] = value
 
@@ -1377,13 +1385,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `case_defrost_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCase.case_defrost_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `case_defrost_schedule_name`')
+                                 'for field `RefrigerationCase.case_defrost_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `case_defrost_schedule_name`')
+                                 'for field `RefrigerationCase.case_defrost_schedule_name`')
         self._data["Case Defrost Schedule Name"] = value
 
     @property
@@ -1418,13 +1426,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `case_defrost_dripdown_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCase.case_defrost_dripdown_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `case_defrost_dripdown_schedule_name`')
+                                 'for field `RefrigerationCase.case_defrost_dripdown_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `case_defrost_dripdown_schedule_name`')
+                                 'for field `RefrigerationCase.case_defrost_dripdown_schedule_name`')
         self._data["Case Defrost Drip-Down Schedule Name"] = value
 
     @property
@@ -1461,13 +1469,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_energy_correction_curve_type`'.format(value))
+                                 ' for field `RefrigerationCase.defrost_energy_correction_curve_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_energy_correction_curve_type`')
+                                 'for field `RefrigerationCase.defrost_energy_correction_curve_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_energy_correction_curve_type`')
+                                 'for field `RefrigerationCase.defrost_energy_correction_curve_type`')
             vals = {}
             vals["none"] = "None"
             vals["casetemperaturemethod"] = "CaseTemperatureMethod"
@@ -1492,10 +1500,10 @@ class RefrigerationCase(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `defrost_energy_correction_curve_type`'.format(value))
+                                     'field `RefrigerationCase.defrost_energy_correction_curve_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `defrost_energy_correction_curve_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCase.defrost_energy_correction_curve_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Energy Correction Curve Type"] = value
 
@@ -1528,13 +1536,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_energy_correction_curve_name`'.format(value))
+                                 ' for field `RefrigerationCase.defrost_energy_correction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_energy_correction_curve_name`')
+                                 'for field `RefrigerationCase.defrost_energy_correction_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_energy_correction_curve_name`')
+                                 'for field `RefrigerationCase.defrost_energy_correction_curve_name`')
         self._data["Defrost Energy Correction Curve Name"] = value
 
     @property
@@ -1566,13 +1574,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `under_case_hvac_return_air_fraction`'.format(value))
+                                 ' for field `RefrigerationCase.under_case_hvac_return_air_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `under_case_hvac_return_air_fraction`')
+                                 'for field `RefrigerationCase.under_case_hvac_return_air_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `under_case_hvac_return_air_fraction`')
+                                 'for field `RefrigerationCase.under_case_hvac_return_air_fraction`')
         self._data["Under Case HVAC Return Air Fraction"] = value
 
     @property
@@ -1603,13 +1611,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigerated_case_restocking_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCase.refrigerated_case_restocking_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigerated_case_restocking_schedule_name`')
+                                 'for field `RefrigerationCase.refrigerated_case_restocking_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigerated_case_restocking_schedule_name`')
+                                 'for field `RefrigerationCase.refrigerated_case_restocking_schedule_name`')
         self._data["Refrigerated Case Restocking Schedule Name"] = value
 
     @property
@@ -1640,13 +1648,13 @@ class RefrigerationCase(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `case_credit_fraction_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCase.case_credit_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `case_credit_fraction_schedule_name`')
+                                 'for field `RefrigerationCase.case_credit_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `case_credit_fraction_schedule_name`')
+                                 'for field `RefrigerationCase.case_credit_fraction_schedule_name`')
         self._data["Case Credit Fraction Schedule Name"] = value
 
     @property
@@ -1682,13 +1690,13 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_evaporator_temperature_or_brine_inlet_temperature`'.format(value))
+                                 ' for field `RefrigerationCase.design_evaporator_temperature_or_brine_inlet_temperature`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `design_evaporator_temperature_or_brine_inlet_temperature`')
+                                 'for field `RefrigerationCase.design_evaporator_temperature_or_brine_inlet_temperature`')
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
-                                 'for field `design_evaporator_temperature_or_brine_inlet_temperature`')
+                                 'for field `RefrigerationCase.design_evaporator_temperature_or_brine_inlet_temperature`')
         self._data["Design Evaporator Temperature or Brine Inlet Temperature"] = value
 
     @property
@@ -1719,17 +1727,40 @@ class RefrigerationCase(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `average_refrigerant_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationCase.average_refrigerant_charge_inventory`'.format(value))
         self._data["Average Refrigerant Charge Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCase:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCase:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCase: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCase: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1747,8 +1778,27 @@ class RefrigerationCase(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1768,6 +1818,10 @@ class RefrigerationCompressorRack(object):
     internal_name = "Refrigeration:CompressorRack"
     field_count = 26
     required_fields = ["Name", "Compressor Rack COP Function of Temperature Curve Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 25
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:CompressorRack`
@@ -1799,6 +1853,7 @@ class RefrigerationCompressorRack(object):
         self._data["End-Use Subcategory"] = None
         self._data["Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name"] = None
         self._data["Heat Rejection Zone Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2020,13 +2075,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCompressorRack.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCompressorRack.name`')
         self._data["Name"] = value
 
     @property
@@ -2059,13 +2114,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_rejection_location`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.heat_rejection_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_rejection_location`')
+                                 'for field `RefrigerationCompressorRack.heat_rejection_location`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_rejection_location`')
+                                 'for field `RefrigerationCompressorRack.heat_rejection_location`')
             vals = {}
             vals["outdoors"] = "Outdoors"
             vals["zone"] = "Zone"
@@ -2088,10 +2143,10 @@ class RefrigerationCompressorRack(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heat_rejection_location`'.format(value))
+                                     'field `RefrigerationCompressorRack.heat_rejection_location`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heat_rejection_location`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCompressorRack.heat_rejection_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Rejection Location"] = value
 
@@ -2126,10 +2181,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_compressor_rack_cop`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.design_compressor_rack_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `design_compressor_rack_cop`')
+                                 'for field `RefrigerationCompressorRack.design_compressor_rack_cop`')
         self._data["Design Compressor Rack COP"] = value
 
     @property
@@ -2161,13 +2216,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `compressor_rack_cop_function_of_temperature_curve_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.compressor_rack_cop_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `compressor_rack_cop_function_of_temperature_curve_name`')
+                                 'for field `RefrigerationCompressorRack.compressor_rack_cop_function_of_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `compressor_rack_cop_function_of_temperature_curve_name`')
+                                 'for field `RefrigerationCompressorRack.compressor_rack_cop_function_of_temperature_curve_name`')
         self._data["Compressor Rack COP Function of Temperature Curve Name"] = value
 
     @property
@@ -2200,10 +2255,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_condenser_fan_power`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.design_condenser_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_condenser_fan_power`')
+                                 'for field `RefrigerationCompressorRack.design_condenser_fan_power`')
         self._data["Design Condenser Fan Power"] = value
 
     @property
@@ -2233,13 +2288,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_fan_power_function_of_temperature_curve_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.condenser_fan_power_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_fan_power_function_of_temperature_curve_name`')
+                                 'for field `RefrigerationCompressorRack.condenser_fan_power_function_of_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_fan_power_function_of_temperature_curve_name`')
+                                 'for field `RefrigerationCompressorRack.condenser_fan_power_function_of_temperature_curve_name`')
         self._data["Condenser Fan Power Function of Temperature Curve Name"] = value
 
     @property
@@ -2274,13 +2329,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_type`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_type`')
+                                 'for field `RefrigerationCompressorRack.condenser_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_type`')
+                                 'for field `RefrigerationCompressorRack.condenser_type`')
             vals = {}
             vals["aircooled"] = "AirCooled"
             vals["evaporativelycooled"] = "EvaporativelyCooled"
@@ -2304,10 +2359,10 @@ class RefrigerationCompressorRack(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `condenser_type`'.format(value))
+                                     'field `RefrigerationCompressorRack.condenser_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `condenser_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCompressorRack.condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -2337,13 +2392,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `watercooled_condenser_inlet_node_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `watercooled_condenser_inlet_node_name`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `watercooled_condenser_inlet_node_name`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_inlet_node_name`')
         self._data["Water-Cooled Condenser Inlet Node Name"] = value
 
     @property
@@ -2372,13 +2427,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `watercooled_condenser_outlet_node_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `watercooled_condenser_outlet_node_name`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `watercooled_condenser_outlet_node_name`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_outlet_node_name`')
         self._data["Water-Cooled Condenser Outlet Node Name"] = value
 
     @property
@@ -2412,13 +2467,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `watercooled_loop_flow_type`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_loop_flow_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `watercooled_loop_flow_type`')
+                                 'for field `RefrigerationCompressorRack.watercooled_loop_flow_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `watercooled_loop_flow_type`')
+                                 'for field `RefrigerationCompressorRack.watercooled_loop_flow_type`')
             vals = {}
             vals["variableflow"] = "VariableFlow"
             vals["constantflow"] = "ConstantFlow"
@@ -2441,10 +2496,10 @@ class RefrigerationCompressorRack(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `watercooled_loop_flow_type`'.format(value))
+                                     'field `RefrigerationCompressorRack.watercooled_loop_flow_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `watercooled_loop_flow_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCompressorRack.watercooled_loop_flow_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water-Cooled Loop Flow Type"] = value
 
@@ -2475,13 +2530,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `watercooled_condenser_outlet_temperature_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_outlet_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `watercooled_condenser_outlet_temperature_schedule_name`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_outlet_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `watercooled_condenser_outlet_temperature_schedule_name`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_outlet_temperature_schedule_name`')
         self._data["Water-Cooled Condenser Outlet Temperature Schedule Name"] = value
 
     @property
@@ -2513,10 +2568,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `watercooled_condenser_design_flow_rate`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `watercooled_condenser_design_flow_rate`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_design_flow_rate`')
         self._data["Water-Cooled Condenser Design Flow Rate"] = value
 
     @property
@@ -2547,10 +2602,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `watercooled_condenser_maximum_flow_rate`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `watercooled_condenser_maximum_flow_rate`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_maximum_flow_rate`')
         self._data["Water-Cooled Condenser Maximum Flow Rate"] = value
 
     @property
@@ -2583,13 +2638,13 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `watercooled_condenser_maximum_water_outlet_temperature`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_maximum_water_outlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
-                                 'for field `watercooled_condenser_maximum_water_outlet_temperature`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_maximum_water_outlet_temperature`')
             if value > 60.0:
                 raise ValueError('value need to be smaller 60.0 '
-                                 'for field `watercooled_condenser_maximum_water_outlet_temperature`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_maximum_water_outlet_temperature`')
         self._data["Water-Cooled Condenser Maximum Water Outlet Temperature"] = value
 
     @property
@@ -2622,13 +2677,13 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `watercooled_condenser_minimum_water_inlet_temperature`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.watercooled_condenser_minimum_water_inlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
-                                 'for field `watercooled_condenser_minimum_water_inlet_temperature`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_minimum_water_inlet_temperature`')
             if value > 30.0:
                 raise ValueError('value need to be smaller 30.0 '
-                                 'for field `watercooled_condenser_minimum_water_inlet_temperature`')
+                                 'for field `RefrigerationCompressorRack.watercooled_condenser_minimum_water_inlet_temperature`')
         self._data["Water-Cooled Condenser Minimum Water Inlet Temperature"] = value
 
     @property
@@ -2662,13 +2717,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `evaporative_condenser_availability_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.evaporative_condenser_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `evaporative_condenser_availability_schedule_name`')
+                                 'for field `RefrigerationCompressorRack.evaporative_condenser_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `evaporative_condenser_availability_schedule_name`')
+                                 'for field `RefrigerationCompressorRack.evaporative_condenser_availability_schedule_name`')
         self._data["Evaporative Condenser Availability Schedule Name"] = value
 
     @property
@@ -2702,13 +2757,13 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporative_condenser_effectiveness`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `evaporative_condenser_effectiveness`')
+                                 'for field `RefrigerationCompressorRack.evaporative_condenser_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `evaporative_condenser_effectiveness`')
+                                 'for field `RefrigerationCompressorRack.evaporative_condenser_effectiveness`')
         self._data["Evaporative Condenser Effectiveness"] = value
 
     @property
@@ -2744,8 +2799,8 @@ class RefrigerationCompressorRack(object):
                     self._data["Evaporative Condenser Air Flow Rate"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `evaporative_condenser_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RefrigerationCompressorRack.evaporative_condenser_air_flow_rate`'.format(value))
                     self._data["Evaporative Condenser Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
@@ -2754,10 +2809,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `evaporative_condenser_air_flow_rate`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `evaporative_condenser_air_flow_rate`')
+                                 'for field `RefrigerationCompressorRack.evaporative_condenser_air_flow_rate`')
         self._data["Evaporative Condenser Air Flow Rate"] = value
 
     @property
@@ -2794,10 +2849,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `basin_heater_capacity`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `basin_heater_capacity`')
+                                 'for field `RefrigerationCompressorRack.basin_heater_capacity`')
         self._data["Basin Heater Capacity"] = value
 
     @property
@@ -2830,10 +2885,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `basin_heater_setpoint_temperature`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
-                                 'for field `basin_heater_setpoint_temperature`')
+                                 'for field `RefrigerationCompressorRack.basin_heater_setpoint_temperature`')
         self._data["Basin Heater Setpoint Temperature"] = value
 
     @property
@@ -2869,8 +2924,8 @@ class RefrigerationCompressorRack(object):
                     self._data["Design Evaporative Condenser Water Pump Power"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `design_evaporative_condenser_water_pump_power`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RefrigerationCompressorRack.design_evaporative_condenser_water_pump_power`'.format(value))
                     self._data["Design Evaporative Condenser Water Pump Power"] = "Autocalculate"
                     return
             except ValueError:
@@ -2879,10 +2934,10 @@ class RefrigerationCompressorRack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `design_evaporative_condenser_water_pump_power`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.design_evaporative_condenser_water_pump_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_evaporative_condenser_water_pump_power`')
+                                 'for field `RefrigerationCompressorRack.design_evaporative_condenser_water_pump_power`')
         self._data["Design Evaporative Condenser Water Pump Power"] = value
 
     @property
@@ -2913,13 +2968,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `evaporative_water_supply_tank_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.evaporative_water_supply_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `evaporative_water_supply_tank_name`')
+                                 'for field `RefrigerationCompressorRack.evaporative_water_supply_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `evaporative_water_supply_tank_name`')
+                                 'for field `RefrigerationCompressorRack.evaporative_water_supply_tank_name`')
         self._data["Evaporative Water Supply Tank Name"] = value
 
     @property
@@ -2953,13 +3008,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_air_inlet_node_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_air_inlet_node_name`')
+                                 'for field `RefrigerationCompressorRack.condenser_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_air_inlet_node_name`')
+                                 'for field `RefrigerationCompressorRack.condenser_air_inlet_node_name`')
         self._data["Condenser Air Inlet Node Name"] = value
 
     @property
@@ -2989,13 +3044,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCompressorRack.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCompressorRack.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -3026,13 +3081,13 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationCompressorRack.refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationCompressorRack.refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`')
         self._data["Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name"] = value
 
     @property
@@ -3064,23 +3119,46 @@ class RefrigerationCompressorRack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_rejection_zone_name`'.format(value))
+                                 ' for field `RefrigerationCompressorRack.heat_rejection_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_rejection_zone_name`')
+                                 'for field `RefrigerationCompressorRack.heat_rejection_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_rejection_zone_name`')
+                                 'for field `RefrigerationCompressorRack.heat_rejection_zone_name`')
         self._data["Heat Rejection Zone Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCompressorRack:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCompressorRack:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCompressorRack: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCompressorRack: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3098,8 +3176,27 @@ class RefrigerationCompressorRack(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3117,54 +3214,19 @@ class RefrigerationCaseAndWalkInList(object):
         may not be included in any list that also includes cases or walk-ins.
     """
     internal_name = "Refrigeration:CaseAndWalkInList"
-    field_count = 41
+    field_count = 1
     required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 0
+    extensible_keys = ["Case or WalkIn 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:CaseAndWalkInList`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self._data["Case or WalkIn 1 Name"] = None
-        self._data["Case or WalkIn 2 Name"] = None
-        self._data["Case or WalkIn 3 Name"] = None
-        self._data["Case or WalkIn 4 Name"] = None
-        self._data["Case or WalkIn 5 Name"] = None
-        self._data["Case or WalkIn 6 Name"] = None
-        self._data["Case or WalkIn 7 Name"] = None
-        self._data["Case or WalkIn 8 Name"] = None
-        self._data["Case or WalkIn 9 Name"] = None
-        self._data["Case or WalkIn 10 Name"] = None
-        self._data["Case or WalkIn 11 Name"] = None
-        self._data["Case or WalkIn 12 Name"] = None
-        self._data["Case or WalkIn 13 Name"] = None
-        self._data["Case or WalkIn 14 Name"] = None
-        self._data["Case or WalkIn 15 Name"] = None
-        self._data["Case or WalkIn 16 Name"] = None
-        self._data["Case or WalkIn 17 Name"] = None
-        self._data["Case or WalkIn 18 Name"] = None
-        self._data["Case or WalkIn 19 Name"] = None
-        self._data["Case or WalkIn 20 Name"] = None
-        self._data["Case or WalkIn 21 Name"] = None
-        self._data["Case or WalkIn 22 Name"] = None
-        self._data["Case or WalkIn 23 Name"] = None
-        self._data["Case or WalkIn 24 Name"] = None
-        self._data["Case or WalkIn 25 Name"] = None
-        self._data["Case or WalkIn 26 Name"] = None
-        self._data["Case or WalkIn 27 Name"] = None
-        self._data["Case or WalkIn 28 Name"] = None
-        self._data["Case or WalkIn 29 Name"] = None
-        self._data["Case or WalkIn 30 Name"] = None
-        self._data["Case or WalkIn 31 Name"] = None
-        self._data["Case or WalkIn 32 Name"] = None
-        self._data["Case or WalkIn 33 Name"] = None
-        self._data["Case or WalkIn 34 Name"] = None
-        self._data["Case or WalkIn 35 Name"] = None
-        self._data["Case or WalkIn 36 Name"] = None
-        self._data["Case or WalkIn 37 Name"] = None
-        self._data["Case or WalkIn 38 Name"] = None
-        self._data["Case or WalkIn 39 Name"] = None
-        self._data["Case or WalkIn 40 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3183,286 +3245,14 @@ class RefrigerationCaseAndWalkInList(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_1_name = None
-        else:
-            self.case_or_walkin_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_2_name = None
-        else:
-            self.case_or_walkin_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_3_name = None
-        else:
-            self.case_or_walkin_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_4_name = None
-        else:
-            self.case_or_walkin_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_5_name = None
-        else:
-            self.case_or_walkin_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_6_name = None
-        else:
-            self.case_or_walkin_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_7_name = None
-        else:
-            self.case_or_walkin_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_8_name = None
-        else:
-            self.case_or_walkin_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_9_name = None
-        else:
-            self.case_or_walkin_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_10_name = None
-        else:
-            self.case_or_walkin_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_11_name = None
-        else:
-            self.case_or_walkin_11_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_12_name = None
-        else:
-            self.case_or_walkin_12_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_13_name = None
-        else:
-            self.case_or_walkin_13_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_14_name = None
-        else:
-            self.case_or_walkin_14_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_15_name = None
-        else:
-            self.case_or_walkin_15_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_16_name = None
-        else:
-            self.case_or_walkin_16_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_17_name = None
-        else:
-            self.case_or_walkin_17_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_18_name = None
-        else:
-            self.case_or_walkin_18_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_19_name = None
-        else:
-            self.case_or_walkin_19_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_20_name = None
-        else:
-            self.case_or_walkin_20_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_21_name = None
-        else:
-            self.case_or_walkin_21_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_22_name = None
-        else:
-            self.case_or_walkin_22_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_23_name = None
-        else:
-            self.case_or_walkin_23_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_24_name = None
-        else:
-            self.case_or_walkin_24_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_25_name = None
-        else:
-            self.case_or_walkin_25_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_26_name = None
-        else:
-            self.case_or_walkin_26_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_27_name = None
-        else:
-            self.case_or_walkin_27_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_28_name = None
-        else:
-            self.case_or_walkin_28_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_29_name = None
-        else:
-            self.case_or_walkin_29_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_30_name = None
-        else:
-            self.case_or_walkin_30_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_31_name = None
-        else:
-            self.case_or_walkin_31_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_32_name = None
-        else:
-            self.case_or_walkin_32_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_33_name = None
-        else:
-            self.case_or_walkin_33_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_34_name = None
-        else:
-            self.case_or_walkin_34_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_35_name = None
-        else:
-            self.case_or_walkin_35_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_36_name = None
-        else:
-            self.case_or_walkin_36_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_37_name = None
-        else:
-            self.case_or_walkin_37_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_38_name = None
-        else:
-            self.case_or_walkin_38_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_39_name = None
-        else:
-            self.case_or_walkin_39_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.case_or_walkin_40_name = None
-        else:
-            self.case_or_walkin_40_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -3491,1463 +3281,84 @@ class RefrigerationCaseAndWalkInList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCaseAndWalkInList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCaseAndWalkInList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCaseAndWalkInList.name`')
         self._data["Name"] = value
 
-    @property
-    def case_or_walkin_1_name(self):
-        """Get case_or_walkin_1_name
-
-        Returns:
-            str: the value of `case_or_walkin_1_name` or None if not set
-        """
-        return self._data["Case or WalkIn 1 Name"]
-
-    @case_or_walkin_1_name.setter
-    def case_or_walkin_1_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 1 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
+    def add_extensible(self,
+                       case_or_walkin_1_name=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Case or WalkIn 1 Name`
+
+            case_or_walkin_1_name (str): value for IDD Field `Case or WalkIn 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_case_or_walkin_1_name(case_or_walkin_1_name))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_case_or_walkin_1_name(self, value):
+        """ Validates falue of field `Case or WalkIn 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_1_name`'.format(value))
+                                 ' for field `RefrigerationCaseAndWalkInList.case_or_walkin_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_1_name`')
+                                 'for field `RefrigerationCaseAndWalkInList.case_or_walkin_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_1_name`')
-        self._data["Case or WalkIn 1 Name"] = value
+                                 'for field `RefrigerationCaseAndWalkInList.case_or_walkin_1_name`')
+        return value
 
-    @property
-    def case_or_walkin_2_name(self):
-        """Get case_or_walkin_2_name
-
-        Returns:
-            str: the value of `case_or_walkin_2_name` or None if not set
-        """
-        return self._data["Case or WalkIn 2 Name"]
-
-    @case_or_walkin_2_name.setter
-    def case_or_walkin_2_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 2 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_2_name`')
-        self._data["Case or WalkIn 2 Name"] = value
-
-    @property
-    def case_or_walkin_3_name(self):
-        """Get case_or_walkin_3_name
-
-        Returns:
-            str: the value of `case_or_walkin_3_name` or None if not set
-        """
-        return self._data["Case or WalkIn 3 Name"]
-
-    @case_or_walkin_3_name.setter
-    def case_or_walkin_3_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 3 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_3_name`')
-        self._data["Case or WalkIn 3 Name"] = value
-
-    @property
-    def case_or_walkin_4_name(self):
-        """Get case_or_walkin_4_name
-
-        Returns:
-            str: the value of `case_or_walkin_4_name` or None if not set
-        """
-        return self._data["Case or WalkIn 4 Name"]
-
-    @case_or_walkin_4_name.setter
-    def case_or_walkin_4_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 4 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_4_name`')
-        self._data["Case or WalkIn 4 Name"] = value
-
-    @property
-    def case_or_walkin_5_name(self):
-        """Get case_or_walkin_5_name
-
-        Returns:
-            str: the value of `case_or_walkin_5_name` or None if not set
-        """
-        return self._data["Case or WalkIn 5 Name"]
-
-    @case_or_walkin_5_name.setter
-    def case_or_walkin_5_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 5 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_5_name`')
-        self._data["Case or WalkIn 5 Name"] = value
-
-    @property
-    def case_or_walkin_6_name(self):
-        """Get case_or_walkin_6_name
-
-        Returns:
-            str: the value of `case_or_walkin_6_name` or None if not set
-        """
-        return self._data["Case or WalkIn 6 Name"]
-
-    @case_or_walkin_6_name.setter
-    def case_or_walkin_6_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 6 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_6_name`')
-        self._data["Case or WalkIn 6 Name"] = value
-
-    @property
-    def case_or_walkin_7_name(self):
-        """Get case_or_walkin_7_name
-
-        Returns:
-            str: the value of `case_or_walkin_7_name` or None if not set
-        """
-        return self._data["Case or WalkIn 7 Name"]
-
-    @case_or_walkin_7_name.setter
-    def case_or_walkin_7_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 7 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_7_name`')
-        self._data["Case or WalkIn 7 Name"] = value
-
-    @property
-    def case_or_walkin_8_name(self):
-        """Get case_or_walkin_8_name
-
-        Returns:
-            str: the value of `case_or_walkin_8_name` or None if not set
-        """
-        return self._data["Case or WalkIn 8 Name"]
-
-    @case_or_walkin_8_name.setter
-    def case_or_walkin_8_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 8 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_8_name`')
-        self._data["Case or WalkIn 8 Name"] = value
-
-    @property
-    def case_or_walkin_9_name(self):
-        """Get case_or_walkin_9_name
-
-        Returns:
-            str: the value of `case_or_walkin_9_name` or None if not set
-        """
-        return self._data["Case or WalkIn 9 Name"]
-
-    @case_or_walkin_9_name.setter
-    def case_or_walkin_9_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 9 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_9_name`')
-        self._data["Case or WalkIn 9 Name"] = value
-
-    @property
-    def case_or_walkin_10_name(self):
-        """Get case_or_walkin_10_name
-
-        Returns:
-            str: the value of `case_or_walkin_10_name` or None if not set
-        """
-        return self._data["Case or WalkIn 10 Name"]
-
-    @case_or_walkin_10_name.setter
-    def case_or_walkin_10_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 10 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 10 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_10_name`')
-        self._data["Case or WalkIn 10 Name"] = value
-
-    @property
-    def case_or_walkin_11_name(self):
-        """Get case_or_walkin_11_name
-
-        Returns:
-            str: the value of `case_or_walkin_11_name` or None if not set
-        """
-        return self._data["Case or WalkIn 11 Name"]
-
-    @case_or_walkin_11_name.setter
-    def case_or_walkin_11_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 11 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 11 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_11_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_11_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_11_name`')
-        self._data["Case or WalkIn 11 Name"] = value
-
-    @property
-    def case_or_walkin_12_name(self):
-        """Get case_or_walkin_12_name
-
-        Returns:
-            str: the value of `case_or_walkin_12_name` or None if not set
-        """
-        return self._data["Case or WalkIn 12 Name"]
-
-    @case_or_walkin_12_name.setter
-    def case_or_walkin_12_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 12 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 12 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_12_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_12_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_12_name`')
-        self._data["Case or WalkIn 12 Name"] = value
-
-    @property
-    def case_or_walkin_13_name(self):
-        """Get case_or_walkin_13_name
-
-        Returns:
-            str: the value of `case_or_walkin_13_name` or None if not set
-        """
-        return self._data["Case or WalkIn 13 Name"]
-
-    @case_or_walkin_13_name.setter
-    def case_or_walkin_13_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 13 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 13 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_13_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_13_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_13_name`')
-        self._data["Case or WalkIn 13 Name"] = value
-
-    @property
-    def case_or_walkin_14_name(self):
-        """Get case_or_walkin_14_name
-
-        Returns:
-            str: the value of `case_or_walkin_14_name` or None if not set
-        """
-        return self._data["Case or WalkIn 14 Name"]
-
-    @case_or_walkin_14_name.setter
-    def case_or_walkin_14_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 14 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 14 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_14_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_14_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_14_name`')
-        self._data["Case or WalkIn 14 Name"] = value
-
-    @property
-    def case_or_walkin_15_name(self):
-        """Get case_or_walkin_15_name
-
-        Returns:
-            str: the value of `case_or_walkin_15_name` or None if not set
-        """
-        return self._data["Case or WalkIn 15 Name"]
-
-    @case_or_walkin_15_name.setter
-    def case_or_walkin_15_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 15 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 15 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_15_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_15_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_15_name`')
-        self._data["Case or WalkIn 15 Name"] = value
-
-    @property
-    def case_or_walkin_16_name(self):
-        """Get case_or_walkin_16_name
-
-        Returns:
-            str: the value of `case_or_walkin_16_name` or None if not set
-        """
-        return self._data["Case or WalkIn 16 Name"]
-
-    @case_or_walkin_16_name.setter
-    def case_or_walkin_16_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 16 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 16 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_16_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_16_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_16_name`')
-        self._data["Case or WalkIn 16 Name"] = value
-
-    @property
-    def case_or_walkin_17_name(self):
-        """Get case_or_walkin_17_name
-
-        Returns:
-            str: the value of `case_or_walkin_17_name` or None if not set
-        """
-        return self._data["Case or WalkIn 17 Name"]
-
-    @case_or_walkin_17_name.setter
-    def case_or_walkin_17_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 17 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 17 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_17_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_17_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_17_name`')
-        self._data["Case or WalkIn 17 Name"] = value
-
-    @property
-    def case_or_walkin_18_name(self):
-        """Get case_or_walkin_18_name
-
-        Returns:
-            str: the value of `case_or_walkin_18_name` or None if not set
-        """
-        return self._data["Case or WalkIn 18 Name"]
-
-    @case_or_walkin_18_name.setter
-    def case_or_walkin_18_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 18 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 18 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_18_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_18_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_18_name`')
-        self._data["Case or WalkIn 18 Name"] = value
-
-    @property
-    def case_or_walkin_19_name(self):
-        """Get case_or_walkin_19_name
-
-        Returns:
-            str: the value of `case_or_walkin_19_name` or None if not set
-        """
-        return self._data["Case or WalkIn 19 Name"]
-
-    @case_or_walkin_19_name.setter
-    def case_or_walkin_19_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 19 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 19 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_19_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_19_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_19_name`')
-        self._data["Case or WalkIn 19 Name"] = value
-
-    @property
-    def case_or_walkin_20_name(self):
-        """Get case_or_walkin_20_name
-
-        Returns:
-            str: the value of `case_or_walkin_20_name` or None if not set
-        """
-        return self._data["Case or WalkIn 20 Name"]
-
-    @case_or_walkin_20_name.setter
-    def case_or_walkin_20_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 20 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 20 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_20_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_20_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_20_name`')
-        self._data["Case or WalkIn 20 Name"] = value
-
-    @property
-    def case_or_walkin_21_name(self):
-        """Get case_or_walkin_21_name
-
-        Returns:
-            str: the value of `case_or_walkin_21_name` or None if not set
-        """
-        return self._data["Case or WalkIn 21 Name"]
-
-    @case_or_walkin_21_name.setter
-    def case_or_walkin_21_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 21 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 21 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_21_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_21_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_21_name`')
-        self._data["Case or WalkIn 21 Name"] = value
-
-    @property
-    def case_or_walkin_22_name(self):
-        """Get case_or_walkin_22_name
-
-        Returns:
-            str: the value of `case_or_walkin_22_name` or None if not set
-        """
-        return self._data["Case or WalkIn 22 Name"]
-
-    @case_or_walkin_22_name.setter
-    def case_or_walkin_22_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 22 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 22 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_22_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_22_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_22_name`')
-        self._data["Case or WalkIn 22 Name"] = value
-
-    @property
-    def case_or_walkin_23_name(self):
-        """Get case_or_walkin_23_name
-
-        Returns:
-            str: the value of `case_or_walkin_23_name` or None if not set
-        """
-        return self._data["Case or WalkIn 23 Name"]
-
-    @case_or_walkin_23_name.setter
-    def case_or_walkin_23_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 23 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 23 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_23_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_23_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_23_name`')
-        self._data["Case or WalkIn 23 Name"] = value
-
-    @property
-    def case_or_walkin_24_name(self):
-        """Get case_or_walkin_24_name
-
-        Returns:
-            str: the value of `case_or_walkin_24_name` or None if not set
-        """
-        return self._data["Case or WalkIn 24 Name"]
-
-    @case_or_walkin_24_name.setter
-    def case_or_walkin_24_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 24 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 24 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_24_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_24_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_24_name`')
-        self._data["Case or WalkIn 24 Name"] = value
-
-    @property
-    def case_or_walkin_25_name(self):
-        """Get case_or_walkin_25_name
-
-        Returns:
-            str: the value of `case_or_walkin_25_name` or None if not set
-        """
-        return self._data["Case or WalkIn 25 Name"]
-
-    @case_or_walkin_25_name.setter
-    def case_or_walkin_25_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 25 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 25 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_25_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_25_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_25_name`')
-        self._data["Case or WalkIn 25 Name"] = value
-
-    @property
-    def case_or_walkin_26_name(self):
-        """Get case_or_walkin_26_name
-
-        Returns:
-            str: the value of `case_or_walkin_26_name` or None if not set
-        """
-        return self._data["Case or WalkIn 26 Name"]
-
-    @case_or_walkin_26_name.setter
-    def case_or_walkin_26_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 26 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 26 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_26_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_26_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_26_name`')
-        self._data["Case or WalkIn 26 Name"] = value
-
-    @property
-    def case_or_walkin_27_name(self):
-        """Get case_or_walkin_27_name
-
-        Returns:
-            str: the value of `case_or_walkin_27_name` or None if not set
-        """
-        return self._data["Case or WalkIn 27 Name"]
-
-    @case_or_walkin_27_name.setter
-    def case_or_walkin_27_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 27 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 27 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_27_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_27_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_27_name`')
-        self._data["Case or WalkIn 27 Name"] = value
-
-    @property
-    def case_or_walkin_28_name(self):
-        """Get case_or_walkin_28_name
-
-        Returns:
-            str: the value of `case_or_walkin_28_name` or None if not set
-        """
-        return self._data["Case or WalkIn 28 Name"]
-
-    @case_or_walkin_28_name.setter
-    def case_or_walkin_28_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 28 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 28 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_28_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_28_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_28_name`')
-        self._data["Case or WalkIn 28 Name"] = value
-
-    @property
-    def case_or_walkin_29_name(self):
-        """Get case_or_walkin_29_name
-
-        Returns:
-            str: the value of `case_or_walkin_29_name` or None if not set
-        """
-        return self._data["Case or WalkIn 29 Name"]
-
-    @case_or_walkin_29_name.setter
-    def case_or_walkin_29_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 29 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 29 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_29_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_29_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_29_name`')
-        self._data["Case or WalkIn 29 Name"] = value
-
-    @property
-    def case_or_walkin_30_name(self):
-        """Get case_or_walkin_30_name
-
-        Returns:
-            str: the value of `case_or_walkin_30_name` or None if not set
-        """
-        return self._data["Case or WalkIn 30 Name"]
-
-    @case_or_walkin_30_name.setter
-    def case_or_walkin_30_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 30 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 30 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_30_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_30_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_30_name`')
-        self._data["Case or WalkIn 30 Name"] = value
-
-    @property
-    def case_or_walkin_31_name(self):
-        """Get case_or_walkin_31_name
-
-        Returns:
-            str: the value of `case_or_walkin_31_name` or None if not set
-        """
-        return self._data["Case or WalkIn 31 Name"]
-
-    @case_or_walkin_31_name.setter
-    def case_or_walkin_31_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 31 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 31 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_31_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_31_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_31_name`')
-        self._data["Case or WalkIn 31 Name"] = value
-
-    @property
-    def case_or_walkin_32_name(self):
-        """Get case_or_walkin_32_name
-
-        Returns:
-            str: the value of `case_or_walkin_32_name` or None if not set
-        """
-        return self._data["Case or WalkIn 32 Name"]
-
-    @case_or_walkin_32_name.setter
-    def case_or_walkin_32_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 32 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 32 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_32_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_32_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_32_name`')
-        self._data["Case or WalkIn 32 Name"] = value
-
-    @property
-    def case_or_walkin_33_name(self):
-        """Get case_or_walkin_33_name
-
-        Returns:
-            str: the value of `case_or_walkin_33_name` or None if not set
-        """
-        return self._data["Case or WalkIn 33 Name"]
-
-    @case_or_walkin_33_name.setter
-    def case_or_walkin_33_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 33 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 33 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_33_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_33_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_33_name`')
-        self._data["Case or WalkIn 33 Name"] = value
-
-    @property
-    def case_or_walkin_34_name(self):
-        """Get case_or_walkin_34_name
-
-        Returns:
-            str: the value of `case_or_walkin_34_name` or None if not set
-        """
-        return self._data["Case or WalkIn 34 Name"]
-
-    @case_or_walkin_34_name.setter
-    def case_or_walkin_34_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 34 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 34 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_34_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_34_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_34_name`')
-        self._data["Case or WalkIn 34 Name"] = value
-
-    @property
-    def case_or_walkin_35_name(self):
-        """Get case_or_walkin_35_name
-
-        Returns:
-            str: the value of `case_or_walkin_35_name` or None if not set
-        """
-        return self._data["Case or WalkIn 35 Name"]
-
-    @case_or_walkin_35_name.setter
-    def case_or_walkin_35_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 35 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 35 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_35_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_35_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_35_name`')
-        self._data["Case or WalkIn 35 Name"] = value
-
-    @property
-    def case_or_walkin_36_name(self):
-        """Get case_or_walkin_36_name
-
-        Returns:
-            str: the value of `case_or_walkin_36_name` or None if not set
-        """
-        return self._data["Case or WalkIn 36 Name"]
-
-    @case_or_walkin_36_name.setter
-    def case_or_walkin_36_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 36 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 36 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_36_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_36_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_36_name`')
-        self._data["Case or WalkIn 36 Name"] = value
-
-    @property
-    def case_or_walkin_37_name(self):
-        """Get case_or_walkin_37_name
-
-        Returns:
-            str: the value of `case_or_walkin_37_name` or None if not set
-        """
-        return self._data["Case or WalkIn 37 Name"]
-
-    @case_or_walkin_37_name.setter
-    def case_or_walkin_37_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 37 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 37 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_37_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_37_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_37_name`')
-        self._data["Case or WalkIn 37 Name"] = value
-
-    @property
-    def case_or_walkin_38_name(self):
-        """Get case_or_walkin_38_name
-
-        Returns:
-            str: the value of `case_or_walkin_38_name` or None if not set
-        """
-        return self._data["Case or WalkIn 38 Name"]
-
-    @case_or_walkin_38_name.setter
-    def case_or_walkin_38_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 38 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 38 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_38_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_38_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_38_name`')
-        self._data["Case or WalkIn 38 Name"] = value
-
-    @property
-    def case_or_walkin_39_name(self):
-        """Get case_or_walkin_39_name
-
-        Returns:
-            str: the value of `case_or_walkin_39_name` or None if not set
-        """
-        return self._data["Case or WalkIn 39 Name"]
-
-    @case_or_walkin_39_name.setter
-    def case_or_walkin_39_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 39 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 39 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_39_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_39_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_39_name`')
-        self._data["Case or WalkIn 39 Name"] = value
-
-    @property
-    def case_or_walkin_40_name(self):
-        """Get case_or_walkin_40_name
-
-        Returns:
-            str: the value of `case_or_walkin_40_name` or None if not set
-        """
-        return self._data["Case or WalkIn 40 Name"]
-
-    @case_or_walkin_40_name.setter
-    def case_or_walkin_40_name(self, value=None):
-        """  Corresponds to IDD Field `Case or WalkIn 40 Name`
-        Enter the name of a Refrigeration:Case or Refrigeration:WalkIn object.
-
-        Args:
-            value (str): value for IDD Field `Case or WalkIn 40 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `case_or_walkin_40_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `case_or_walkin_40_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `case_or_walkin_40_name`')
-        self._data["Case or WalkIn 40 Name"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCaseAndWalkInList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCaseAndWalkInList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCaseAndWalkInList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCaseAndWalkInList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4965,8 +3376,27 @@ class RefrigerationCaseAndWalkInList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4981,6 +3411,10 @@ class RefrigerationCondenserAirCooled(object):
     internal_name = "Refrigeration:Condenser:AirCooled"
     field_count = 11
     required_fields = ["Name", "Rated Fan Power"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Condenser:AirCooled`
@@ -4997,6 +3431,7 @@ class RefrigerationCondenserAirCooled(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5113,13 +3548,13 @@ class RefrigerationCondenserAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserAirCooled.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserAirCooled.name`')
         self._data["Name"] = value
 
     @property
@@ -5153,13 +3588,13 @@ class RefrigerationCondenserAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `rated_effective_total_heat_rejection_rate_curve_name`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.rated_effective_total_heat_rejection_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `rated_effective_total_heat_rejection_rate_curve_name`')
+                                 'for field `RefrigerationCondenserAirCooled.rated_effective_total_heat_rejection_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `rated_effective_total_heat_rejection_rate_curve_name`')
+                                 'for field `RefrigerationCondenserAirCooled.rated_effective_total_heat_rejection_rate_curve_name`')
         self._data["Rated Effective Total Heat Rejection Rate Curve Name"] = value
 
     @property
@@ -5192,10 +3627,10 @@ class RefrigerationCondenserAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_subcooling_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.rated_subcooling_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_subcooling_temperature_difference`')
+                                 'for field `RefrigerationCondenserAirCooled.rated_subcooling_temperature_difference`')
         self._data["Rated Subcooling Temperature Difference"] = value
 
     @property
@@ -5230,13 +3665,13 @@ class RefrigerationCondenserAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_fan_speed_control_type`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.condenser_fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_fan_speed_control_type`')
+                                 'for field `RefrigerationCondenserAirCooled.condenser_fan_speed_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_fan_speed_control_type`')
+                                 'for field `RefrigerationCondenserAirCooled.condenser_fan_speed_control_type`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["fixedlinear"] = "FixedLinear"
@@ -5261,10 +3696,10 @@ class RefrigerationCondenserAirCooled(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `condenser_fan_speed_control_type`'.format(value))
+                                     'field `RefrigerationCondenserAirCooled.condenser_fan_speed_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `condenser_fan_speed_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCondenserAirCooled.condenser_fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Fan Speed Control Type"] = value
 
@@ -5298,10 +3733,10 @@ class RefrigerationCondenserAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_fan_power`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_fan_power`')
+                                 'for field `RefrigerationCondenserAirCooled.rated_fan_power`')
         self._data["Rated Fan Power"] = value
 
     @property
@@ -5334,10 +3769,10 @@ class RefrigerationCondenserAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_fan_air_flow_ratio`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_fan_air_flow_ratio`')
+                                 'for field `RefrigerationCondenserAirCooled.minimum_fan_air_flow_ratio`')
         self._data["Minimum Fan Air Flow Ratio"] = value
 
     @property
@@ -5371,13 +3806,13 @@ class RefrigerationCondenserAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name_or_zone_name`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.air_inlet_node_name_or_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name_or_zone_name`')
+                                 'for field `RefrigerationCondenserAirCooled.air_inlet_node_name_or_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name_or_zone_name`')
+                                 'for field `RefrigerationCondenserAirCooled.air_inlet_node_name_or_zone_name`')
         self._data["Air Inlet Node Name or Zone Name"] = value
 
     @property
@@ -5407,13 +3842,13 @@ class RefrigerationCondenserAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCondenserAirCooled.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCondenserAirCooled.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -5445,7 +3880,7 @@ class RefrigerationCondenserAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
     @property
@@ -5477,7 +3912,7 @@ class RefrigerationCondenserAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_receiver_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
     @property
@@ -5509,17 +3944,40 @@ class RefrigerationCondenserAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_piping_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserAirCooled.condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCondenserAirCooled:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCondenserAirCooled:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCondenserAirCooled: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCondenserAirCooled: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5537,8 +3995,27 @@ class RefrigerationCondenserAirCooled(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5553,6 +4030,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
     internal_name = "Refrigeration:Condenser:EvaporativeCooled"
     field_count = 23
     required_fields = ["Name", "Rated Effective Total Heat Rejection Rate", "Rated Fan Power"]
+    extensible_fields = 0
+    format = None
+    min_fields = 10
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Condenser:EvaporativeCooled`
@@ -5581,6 +4062,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5781,13 +4263,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.name`')
         self._data["Name"] = value
 
     @property
@@ -5820,10 +4302,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_effective_total_heat_rejection_rate`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.rated_effective_total_heat_rejection_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_effective_total_heat_rejection_rate`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.rated_effective_total_heat_rejection_rate`')
         self._data["Rated Effective Total Heat Rejection Rate"] = value
 
     @property
@@ -5856,10 +4338,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_subcooling_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.rated_subcooling_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_subcooling_temperature_difference`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.rated_subcooling_temperature_difference`')
         self._data["Rated Subcooling Temperature Difference"] = value
 
     @property
@@ -5894,13 +4376,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_speed_control_type`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_speed_control_type`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.fan_speed_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_speed_control_type`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.fan_speed_control_type`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["fixedlinear"] = "FixedLinear"
@@ -5925,10 +4407,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fan_speed_control_type`'.format(value))
+                                     'field `RefrigerationCondenserEvaporativeCooled.fan_speed_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fan_speed_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCondenserEvaporativeCooled.fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Speed Control Type"] = value
 
@@ -5961,10 +4443,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_fan_power`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_fan_power`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.rated_fan_power`')
         self._data["Rated Fan Power"] = value
 
     @property
@@ -5997,10 +4479,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_fan_air_flow_ratio`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_fan_air_flow_ratio`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.minimum_fan_air_flow_ratio`')
         self._data["Minimum Fan Air Flow Ratio"] = value
 
     @property
@@ -6034,13 +4516,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `approach_temperature_constant_term`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_constant_term`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `approach_temperature_constant_term`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_constant_term`')
             if value > 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `approach_temperature_constant_term`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_constant_term`')
         self._data["Approach Temperature Constant Term"] = value
 
     @property
@@ -6074,13 +4556,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `approach_temperature_coefficient_2`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `approach_temperature_coefficient_2`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_2`')
             if value > 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `approach_temperature_coefficient_2`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_2`')
         self._data["Approach Temperature Coefficient 2"] = value
 
     @property
@@ -6114,13 +4596,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `approach_temperature_coefficient_3`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `approach_temperature_coefficient_3`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_3`')
             if value > 30.0:
                 raise ValueError('value need to be smaller 30.0 '
-                                 'for field `approach_temperature_coefficient_3`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_3`')
         self._data["Approach Temperature Coefficient 3"] = value
 
     @property
@@ -6154,13 +4636,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `approach_temperature_coefficient_4`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_4`'.format(value))
             if value < -20.0:
                 raise ValueError('value need to be greater or equal -20.0 '
-                                 'for field `approach_temperature_coefficient_4`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_4`')
             if value > 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `approach_temperature_coefficient_4`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.approach_temperature_coefficient_4`')
         self._data["Approach Temperature Coefficient 4"] = value
 
     @property
@@ -6192,7 +4674,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_capacity_factor`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.minimum_capacity_factor`'.format(value))
         self._data["Minimum Capacity Factor"] = value
 
     @property
@@ -6224,7 +4706,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_capacity_factor`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.maximum_capacity_factor`'.format(value))
         self._data["Maximum Capacity Factor"] = value
 
     @property
@@ -6257,13 +4739,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -6297,8 +4779,8 @@ class RefrigerationCondenserEvaporativeCooled(object):
                     self._data["Rated Air Flow Rate"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `rated_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RefrigerationCondenserEvaporativeCooled.rated_air_flow_rate`'.format(value))
                     self._data["Rated Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
@@ -6307,7 +4789,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `rated_air_flow_rate`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.rated_air_flow_rate`'.format(value))
         self._data["Rated Air Flow Rate"] = value
 
     @property
@@ -6344,10 +4826,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `basin_heater_capacity`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `basin_heater_capacity`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.basin_heater_capacity`')
         self._data["Basin Heater Capacity"] = value
 
     @property
@@ -6380,10 +4862,10 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `basin_heater_setpoint_temperature`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
-                                 'for field `basin_heater_setpoint_temperature`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.basin_heater_setpoint_temperature`')
         self._data["Basin Heater Setpoint Temperature"] = value
 
     @property
@@ -6417,8 +4899,8 @@ class RefrigerationCondenserEvaporativeCooled(object):
                     self._data["Rated Water Pump Power"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `rated_water_pump_power`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RefrigerationCondenserEvaporativeCooled.rated_water_pump_power`'.format(value))
                     self._data["Rated Water Pump Power"] = "Autocalculate"
                     return
             except ValueError:
@@ -6427,7 +4909,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `rated_water_pump_power`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.rated_water_pump_power`'.format(value))
         self._data["Rated Water Pump Power"] = value
 
     @property
@@ -6457,13 +4939,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `evaporative_water_supply_tank_name`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.evaporative_water_supply_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `evaporative_water_supply_tank_name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.evaporative_water_supply_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `evaporative_water_supply_tank_name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.evaporative_water_supply_tank_name`')
         self._data["Evaporative Water Supply Tank Name"] = value
 
     @property
@@ -6496,13 +4978,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `evaporative_condenser_availability_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.evaporative_condenser_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `evaporative_condenser_availability_schedule_name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.evaporative_condenser_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `evaporative_condenser_availability_schedule_name`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.evaporative_condenser_availability_schedule_name`')
         self._data["Evaporative Condenser Availability Schedule Name"] = value
 
     @property
@@ -6532,13 +5014,13 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCondenserEvaporativeCooled.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -6570,7 +5052,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
     @property
@@ -6602,7 +5084,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_receiver_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
     @property
@@ -6634,17 +5116,40 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_piping_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserEvaporativeCooled.condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCondenserEvaporativeCooled:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCondenserEvaporativeCooled:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCondenserEvaporativeCooled: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCondenserEvaporativeCooled: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6662,8 +5167,27 @@ class RefrigerationCondenserEvaporativeCooled(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6678,6 +5202,10 @@ class RefrigerationCondenserWaterCooled(object):
     internal_name = "Refrigeration:Condenser:WaterCooled"
     field_count = 17
     required_fields = ["Name", "Rated Condensing Temperature", "Rated Water Inlet Temperature"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Condenser:WaterCooled`
@@ -6700,6 +5228,7 @@ class RefrigerationCondenserWaterCooled(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6858,13 +5387,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserWaterCooled.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserWaterCooled.name`')
         self._data["Name"] = value
 
     @property
@@ -6898,10 +5427,10 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_effective_total_heat_rejection_rate`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.rated_effective_total_heat_rejection_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_effective_total_heat_rejection_rate`')
+                                 'for field `RefrigerationCondenserWaterCooled.rated_effective_total_heat_rejection_rate`')
         self._data["Rated Effective Total Heat Rejection Rate"] = value
 
     @property
@@ -6933,10 +5462,10 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_condensing_temperature`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.rated_condensing_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_condensing_temperature`')
+                                 'for field `RefrigerationCondenserWaterCooled.rated_condensing_temperature`')
         self._data["Rated Condensing Temperature"] = value
 
     @property
@@ -6969,10 +5498,10 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_subcooling_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.rated_subcooling_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_subcooling_temperature_difference`')
+                                 'for field `RefrigerationCondenserWaterCooled.rated_subcooling_temperature_difference`')
         self._data["Rated Subcooling Temperature Difference"] = value
 
     @property
@@ -7004,10 +5533,10 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_water_inlet_temperature`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.rated_water_inlet_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_water_inlet_temperature`')
+                                 'for field `RefrigerationCondenserWaterCooled.rated_water_inlet_temperature`')
         self._data["Rated Water Inlet Temperature"] = value
 
     @property
@@ -7036,13 +5565,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_inlet_node_name`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_inlet_node_name`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_inlet_node_name`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_inlet_node_name`')
         self._data["Water Inlet Node Name"] = value
 
     @property
@@ -7071,13 +5600,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_outlet_node_name`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_outlet_node_name`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_outlet_node_name`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_outlet_node_name`')
         self._data["Water Outlet Node Name"] = value
 
     @property
@@ -7110,13 +5639,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `watercooled_loop_flow_type`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.watercooled_loop_flow_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `watercooled_loop_flow_type`')
+                                 'for field `RefrigerationCondenserWaterCooled.watercooled_loop_flow_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `watercooled_loop_flow_type`')
+                                 'for field `RefrigerationCondenserWaterCooled.watercooled_loop_flow_type`')
             vals = {}
             vals["variableflow"] = "VariableFlow"
             vals["constantflow"] = "ConstantFlow"
@@ -7139,10 +5668,10 @@ class RefrigerationCondenserWaterCooled(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `watercooled_loop_flow_type`'.format(value))
+                                     'field `RefrigerationCondenserWaterCooled.watercooled_loop_flow_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `watercooled_loop_flow_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCondenserWaterCooled.watercooled_loop_flow_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water-Cooled Loop Flow Type"] = value
 
@@ -7173,13 +5702,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_outlet_temperature_schedule_name`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_outlet_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_outlet_temperature_schedule_name`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_outlet_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_outlet_temperature_schedule_name`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_outlet_temperature_schedule_name`')
         self._data["Water Outlet Temperature Schedule Name"] = value
 
     @property
@@ -7212,10 +5741,10 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_design_flow_rate`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `water_design_flow_rate`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_design_flow_rate`')
         self._data["Water Design Flow Rate"] = value
 
     @property
@@ -7246,10 +5775,10 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_maximum_flow_rate`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `water_maximum_flow_rate`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_maximum_flow_rate`')
         self._data["Water Maximum Flow Rate"] = value
 
     @property
@@ -7282,13 +5811,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_maximum_water_outlet_temperature`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_maximum_water_outlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
-                                 'for field `water_maximum_water_outlet_temperature`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_maximum_water_outlet_temperature`')
             if value > 60.0:
                 raise ValueError('value need to be smaller 60.0 '
-                                 'for field `water_maximum_water_outlet_temperature`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_maximum_water_outlet_temperature`')
         self._data["Water Maximum Water Outlet Temperature"] = value
 
     @property
@@ -7322,13 +5851,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_minimum_water_inlet_temperature`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.water_minimum_water_inlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
-                                 'for field `water_minimum_water_inlet_temperature`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_minimum_water_inlet_temperature`')
             if value > 30.0:
                 raise ValueError('value need to be smaller 30.0 '
-                                 'for field `water_minimum_water_inlet_temperature`')
+                                 'for field `RefrigerationCondenserWaterCooled.water_minimum_water_inlet_temperature`')
         self._data["Water Minimum Water Inlet Temperature"] = value
 
     @property
@@ -7358,13 +5887,13 @@ class RefrigerationCondenserWaterCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCondenserWaterCooled.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCondenserWaterCooled.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -7395,7 +5924,7 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
     @property
@@ -7426,7 +5955,7 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_receiver_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
     @property
@@ -7457,17 +5986,40 @@ class RefrigerationCondenserWaterCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_piping_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserWaterCooled.condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCondenserWaterCooled:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCondenserWaterCooled:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCondenserWaterCooled: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCondenserWaterCooled: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7485,8 +6037,27 @@ class RefrigerationCondenserWaterCooled(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7505,6 +6076,10 @@ class RefrigerationCondenserCascade(object):
     internal_name = "Refrigeration:Condenser:Cascade"
     field_count = 8
     required_fields = ["Name", "Rated Condensing Temperature", "Rated Effective Total Heat Rejection Rate"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Condenser:Cascade`
@@ -7518,6 +6093,7 @@ class RefrigerationCondenserCascade(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7613,13 +6189,13 @@ class RefrigerationCondenserCascade(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserCascade.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCondenserCascade.name`')
         self._data["Name"] = value
 
     @property
@@ -7650,7 +6226,7 @@ class RefrigerationCondenserCascade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_condensing_temperature`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.rated_condensing_temperature`'.format(value))
         self._data["Rated Condensing Temperature"] = value
 
     @property
@@ -7683,10 +6259,10 @@ class RefrigerationCondenserCascade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_approach_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.rated_approach_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_approach_temperature_difference`')
+                                 'for field `RefrigerationCondenserCascade.rated_approach_temperature_difference`')
         self._data["Rated Approach Temperature Difference"] = value
 
     @property
@@ -7718,10 +6294,10 @@ class RefrigerationCondenserCascade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_effective_total_heat_rejection_rate`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.rated_effective_total_heat_rejection_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_effective_total_heat_rejection_rate`')
+                                 'for field `RefrigerationCondenserCascade.rated_effective_total_heat_rejection_rate`')
         self._data["Rated Effective Total Heat Rejection Rate"] = value
 
     @property
@@ -7757,13 +6333,13 @@ class RefrigerationCondenserCascade(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condensing_temperature_control_type`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.condensing_temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condensing_temperature_control_type`')
+                                 'for field `RefrigerationCondenserCascade.condensing_temperature_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condensing_temperature_control_type`')
+                                 'for field `RefrigerationCondenserCascade.condensing_temperature_control_type`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["float"] = "Float"
@@ -7786,10 +6362,10 @@ class RefrigerationCondenserCascade(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `condensing_temperature_control_type`'.format(value))
+                                     'field `RefrigerationCondenserCascade.condensing_temperature_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `condensing_temperature_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCondenserCascade.condensing_temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condensing Temperature Control Type"] = value
 
@@ -7821,7 +6397,7 @@ class RefrigerationCondenserCascade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
     @property
@@ -7852,7 +6428,7 @@ class RefrigerationCondenserCascade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_receiver_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
     @property
@@ -7883,17 +6459,40 @@ class RefrigerationCondenserCascade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `condensate_piping_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationCondenserCascade.condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCondenserCascade:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCondenserCascade:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCondenserCascade: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCondenserCascade: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7911,8 +6510,27 @@ class RefrigerationCondenserCascade(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7928,6 +6546,10 @@ class RefrigerationGasCoolerAirCooled(object):
     internal_name = "Refrigeration:GasCooler:AirCooled"
     field_count = 14
     required_fields = ["Name", "Rated Total Heat Rejection Rate Curve Name", "Rated Fan Power"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:GasCooler:AirCooled`
@@ -7947,6 +6569,7 @@ class RefrigerationGasCoolerAirCooled(object):
         self._data["Gas Cooler Refrigerant Operating Charge Inventory"] = None
         self._data["Gas Cooler Receiver Refrigerant Inventory"] = None
         self._data["Gas Cooler Outlet Piping Refrigerant Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8084,13 +6707,13 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationGasCoolerAirCooled.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationGasCoolerAirCooled.name`')
         self._data["Name"] = value
 
     @property
@@ -8123,13 +6746,13 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `rated_total_heat_rejection_rate_curve_name`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.rated_total_heat_rejection_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `rated_total_heat_rejection_rate_curve_name`')
+                                 'for field `RefrigerationGasCoolerAirCooled.rated_total_heat_rejection_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `rated_total_heat_rejection_rate_curve_name`')
+                                 'for field `RefrigerationGasCoolerAirCooled.rated_total_heat_rejection_rate_curve_name`')
         self._data["Rated Total Heat Rejection Rate Curve Name"] = value
 
     @property
@@ -8164,13 +6787,13 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_cooler_fan_speed_control_type`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.gas_cooler_fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_cooler_fan_speed_control_type`')
+                                 'for field `RefrigerationGasCoolerAirCooled.gas_cooler_fan_speed_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_cooler_fan_speed_control_type`')
+                                 'for field `RefrigerationGasCoolerAirCooled.gas_cooler_fan_speed_control_type`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["fixedlinear"] = "FixedLinear"
@@ -8195,10 +6818,10 @@ class RefrigerationGasCoolerAirCooled(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_cooler_fan_speed_control_type`'.format(value))
+                                     'field `RefrigerationGasCoolerAirCooled.gas_cooler_fan_speed_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_cooler_fan_speed_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationGasCoolerAirCooled.gas_cooler_fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas Cooler Fan Speed Control Type"] = value
 
@@ -8232,10 +6855,10 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_fan_power`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_fan_power`')
+                                 'for field `RefrigerationGasCoolerAirCooled.rated_fan_power`')
         self._data["Rated Fan Power"] = value
 
     @property
@@ -8268,10 +6891,10 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_fan_air_flow_ratio`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_fan_air_flow_ratio`')
+                                 'for field `RefrigerationGasCoolerAirCooled.minimum_fan_air_flow_ratio`')
         self._data["Minimum Fan Air Flow Ratio"] = value
 
     @property
@@ -8303,7 +6926,7 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `transition_temperature`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.transition_temperature`'.format(value))
         self._data["Transition Temperature"] = value
 
     @property
@@ -8336,7 +6959,7 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `transcritical_approach_temperature`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.transcritical_approach_temperature`'.format(value))
         self._data["Transcritical Approach Temperature"] = value
 
     @property
@@ -8369,7 +6992,7 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `subcritical_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.subcritical_temperature_difference`'.format(value))
         self._data["Subcritical Temperature Difference"] = value
 
     @property
@@ -8401,7 +7024,7 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_condensing_temperature`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.minimum_condensing_temperature`'.format(value))
         self._data["Minimum Condensing Temperature"] = value
 
     @property
@@ -8434,13 +7057,13 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `RefrigerationGasCoolerAirCooled.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `RefrigerationGasCoolerAirCooled.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -8470,13 +7093,13 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationGasCoolerAirCooled.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationGasCoolerAirCooled.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -8508,7 +7131,7 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_cooler_refrigerant_operating_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.gas_cooler_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Gas Cooler Refrigerant Operating Charge Inventory"] = value
 
     @property
@@ -8540,7 +7163,7 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_cooler_receiver_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.gas_cooler_receiver_refrigerant_inventory`'.format(value))
         self._data["Gas Cooler Receiver Refrigerant Inventory"] = value
 
     @property
@@ -8572,17 +7195,40 @@ class RefrigerationGasCoolerAirCooled(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_cooler_outlet_piping_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationGasCoolerAirCooled.gas_cooler_outlet_piping_refrigerant_inventory`'.format(value))
         self._data["Gas Cooler Outlet Piping Refrigerant Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationGasCoolerAirCooled:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationGasCoolerAirCooled:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationGasCoolerAirCooled: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationGasCoolerAirCooled: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8600,8 +7246,27 @@ class RefrigerationGasCoolerAirCooled(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8618,23 +7283,19 @@ class RefrigerationTransferLoadList(object):
         in the Refrigeration:System object).
     """
     internal_name = "Refrigeration:TransferLoadList"
-    field_count = 10
-    required_fields = ["Name", "Cascade Condenser Name or Secondary System 1 Name"]
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 0
+    extensible_keys = ["Cascade Condenser Name or Secondary System 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:TransferLoadList`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 1 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 2 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 3 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 4 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 5 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 6 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 7 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 8 Name"] = None
-        self._data["Cascade Condenser Name or Secondary System 9 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8653,69 +7314,14 @@ class RefrigerationTransferLoadList(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_1_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_2_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_3_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_4_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_5_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_6_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_7_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_8_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cascade_condenser_name_or_secondary_system_9_name = None
-        else:
-            self.cascade_condenser_name_or_secondary_system_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -8744,356 +7350,84 @@ class RefrigerationTransferLoadList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationTransferLoadList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationTransferLoadList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationTransferLoadList.name`')
         self._data["Name"] = value
 
-    @property
-    def cascade_condenser_name_or_secondary_system_1_name(self):
-        """Get cascade_condenser_name_or_secondary_system_1_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_1_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 1 Name"]
-
-    @cascade_condenser_name_or_secondary_system_1_name.setter
-    def cascade_condenser_name_or_secondary_system_1_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 1 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
+    def add_extensible(self,
+                       cascade_condenser_name_or_secondary_system_1_name=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 1 Name`
+
+            cascade_condenser_name_or_secondary_system_1_name (str): value for IDD Field `Cascade Condenser Name or Secondary System 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_cascade_condenser_name_or_secondary_system_1_name(cascade_condenser_name_or_secondary_system_1_name))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_cascade_condenser_name_or_secondary_system_1_name(self, value):
+        """ Validates falue of field `Cascade Condenser Name or Secondary System 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_1_name`'.format(value))
+                                 ' for field `RefrigerationTransferLoadList.cascade_condenser_name_or_secondary_system_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_1_name`')
+                                 'for field `RefrigerationTransferLoadList.cascade_condenser_name_or_secondary_system_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_1_name`')
-        self._data["Cascade Condenser Name or Secondary System 1 Name"] = value
+                                 'for field `RefrigerationTransferLoadList.cascade_condenser_name_or_secondary_system_1_name`')
+        return value
 
-    @property
-    def cascade_condenser_name_or_secondary_system_2_name(self):
-        """Get cascade_condenser_name_or_secondary_system_2_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_2_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 2 Name"]
-
-    @cascade_condenser_name_or_secondary_system_2_name.setter
-    def cascade_condenser_name_or_secondary_system_2_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 2 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_2_name`')
-        self._data["Cascade Condenser Name or Secondary System 2 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_3_name(self):
-        """Get cascade_condenser_name_or_secondary_system_3_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_3_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 3 Name"]
-
-    @cascade_condenser_name_or_secondary_system_3_name.setter
-    def cascade_condenser_name_or_secondary_system_3_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 3 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_3_name`')
-        self._data["Cascade Condenser Name or Secondary System 3 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_4_name(self):
-        """Get cascade_condenser_name_or_secondary_system_4_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_4_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 4 Name"]
-
-    @cascade_condenser_name_or_secondary_system_4_name.setter
-    def cascade_condenser_name_or_secondary_system_4_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 4 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_4_name`')
-        self._data["Cascade Condenser Name or Secondary System 4 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_5_name(self):
-        """Get cascade_condenser_name_or_secondary_system_5_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_5_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 5 Name"]
-
-    @cascade_condenser_name_or_secondary_system_5_name.setter
-    def cascade_condenser_name_or_secondary_system_5_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 5 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_5_name`')
-        self._data["Cascade Condenser Name or Secondary System 5 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_6_name(self):
-        """Get cascade_condenser_name_or_secondary_system_6_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_6_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 6 Name"]
-
-    @cascade_condenser_name_or_secondary_system_6_name.setter
-    def cascade_condenser_name_or_secondary_system_6_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 6 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_6_name`')
-        self._data["Cascade Condenser Name or Secondary System 6 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_7_name(self):
-        """Get cascade_condenser_name_or_secondary_system_7_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_7_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 7 Name"]
-
-    @cascade_condenser_name_or_secondary_system_7_name.setter
-    def cascade_condenser_name_or_secondary_system_7_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 7 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_7_name`')
-        self._data["Cascade Condenser Name or Secondary System 7 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_8_name(self):
-        """Get cascade_condenser_name_or_secondary_system_8_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_8_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 8 Name"]
-
-    @cascade_condenser_name_or_secondary_system_8_name.setter
-    def cascade_condenser_name_or_secondary_system_8_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 8 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_8_name`')
-        self._data["Cascade Condenser Name or Secondary System 8 Name"] = value
-
-    @property
-    def cascade_condenser_name_or_secondary_system_9_name(self):
-        """Get cascade_condenser_name_or_secondary_system_9_name
-
-        Returns:
-            str: the value of `cascade_condenser_name_or_secondary_system_9_name` or None if not set
-        """
-        return self._data["Cascade Condenser Name or Secondary System 9 Name"]
-
-    @cascade_condenser_name_or_secondary_system_9_name.setter
-    def cascade_condenser_name_or_secondary_system_9_name(self, value=None):
-        """  Corresponds to IDD Field `Cascade Condenser Name or Secondary System 9 Name`
-        Enter the name of a Refrigeration:Condenser:Cascade object OR
-        the name of a Refrigeration:SecondarySystem object.
-
-        Args:
-            value (str): value for IDD Field `Cascade Condenser Name or Secondary System 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `cascade_condenser_name_or_secondary_system_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `cascade_condenser_name_or_secondary_system_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `cascade_condenser_name_or_secondary_system_9_name`')
-        self._data["Cascade Condenser Name or Secondary System 9 Name"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationTransferLoadList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationTransferLoadList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationTransferLoadList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationTransferLoadList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9111,8 +7445,27 @@ class RefrigerationTransferLoadList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9131,6 +7484,10 @@ class RefrigerationSubcooler(object):
     internal_name = "Refrigeration:Subcooler"
     field_count = 7
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Subcooler`
@@ -9143,6 +7500,7 @@ class RefrigerationSubcooler(object):
         self._data["Design Vapor Inlet Temperature"] = None
         self._data["Capacity-Providing System"] = None
         self._data["Outlet Control Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9231,13 +7589,13 @@ class RefrigerationSubcooler(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationSubcooler.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationSubcooler.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationSubcooler.name`')
         self._data["Name"] = value
 
     @property
@@ -9271,13 +7629,13 @@ class RefrigerationSubcooler(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `subcooler_type`'.format(value))
+                                 ' for field `RefrigerationSubcooler.subcooler_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `subcooler_type`')
+                                 'for field `RefrigerationSubcooler.subcooler_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `subcooler_type`')
+                                 'for field `RefrigerationSubcooler.subcooler_type`')
             vals = {}
             vals["mechanical"] = "Mechanical"
             vals["liquidsuction"] = "LiquidSuction"
@@ -9300,10 +7658,10 @@ class RefrigerationSubcooler(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `subcooler_type`'.format(value))
+                                     'field `RefrigerationSubcooler.subcooler_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `subcooler_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationSubcooler.subcooler_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Subcooler Type"] = value
 
@@ -9336,7 +7694,7 @@ class RefrigerationSubcooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_suction_design_subcooling_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationSubcooler.liquid_suction_design_subcooling_temperature_difference`'.format(value))
         self._data["Liquid Suction Design Subcooling Temperature Difference"] = value
 
     @property
@@ -9368,7 +7726,7 @@ class RefrigerationSubcooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_liquid_inlet_temperature`'.format(value))
+                                 ' for field `RefrigerationSubcooler.design_liquid_inlet_temperature`'.format(value))
         self._data["Design Liquid Inlet Temperature"] = value
 
     @property
@@ -9402,7 +7760,7 @@ class RefrigerationSubcooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_vapor_inlet_temperature`'.format(value))
+                                 ' for field `RefrigerationSubcooler.design_vapor_inlet_temperature`'.format(value))
         self._data["Design Vapor Inlet Temperature"] = value
 
     @property
@@ -9433,13 +7791,13 @@ class RefrigerationSubcooler(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `capacityproviding_system`'.format(value))
+                                 ' for field `RefrigerationSubcooler.capacityproviding_system`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `capacityproviding_system`')
+                                 'for field `RefrigerationSubcooler.capacityproviding_system`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `capacityproviding_system`')
+                                 'for field `RefrigerationSubcooler.capacityproviding_system`')
         self._data["Capacity-Providing System"] = value
 
     @property
@@ -9471,17 +7829,40 @@ class RefrigerationSubcooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `outlet_control_temperature`'.format(value))
+                                 ' for field `RefrigerationSubcooler.outlet_control_temperature`'.format(value))
         self._data["Outlet Control Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationSubcooler:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationSubcooler:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationSubcooler: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationSubcooler: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9499,8 +7880,27 @@ class RefrigerationSubcooler(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9516,6 +7916,10 @@ class RefrigerationCompressor(object):
     internal_name = "Refrigeration:Compressor"
     field_count = 11
     required_fields = ["Name", "Refrigeration Compressor Power Curve Name", "Refrigeration Compressor Capacity Curve Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:Compressor`
@@ -9532,6 +7936,7 @@ class RefrigerationCompressor(object):
         self._data["Mode of Operation"] = None
         self._data["Transcritical Compressor Power Curve Name"] = None
         self._data["Transcritical Compressor Capacity Curve Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9648,13 +8053,13 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCompressor.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCompressor.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCompressor.name`')
         self._data["Name"] = value
 
     @property
@@ -9693,13 +8098,13 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_power_curve_name`'.format(value))
+                                 ' for field `RefrigerationCompressor.refrigeration_compressor_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_power_curve_name`')
+                                 'for field `RefrigerationCompressor.refrigeration_compressor_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_power_curve_name`')
+                                 'for field `RefrigerationCompressor.refrigeration_compressor_power_curve_name`')
         self._data["Refrigeration Compressor Power Curve Name"] = value
 
     @property
@@ -9738,13 +8143,13 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_capacity_curve_name`'.format(value))
+                                 ' for field `RefrigerationCompressor.refrigeration_compressor_capacity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_capacity_curve_name`')
+                                 'for field `RefrigerationCompressor.refrigeration_compressor_capacity_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_capacity_curve_name`')
+                                 'for field `RefrigerationCompressor.refrigeration_compressor_capacity_curve_name`')
         self._data["Refrigeration Compressor Capacity Curve Name"] = value
 
     @property
@@ -9777,7 +8182,7 @@ class RefrigerationCompressor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_superheat`'.format(value))
+                                 ' for field `RefrigerationCompressor.rated_superheat`'.format(value))
         self._data["Rated Superheat"] = value
 
     @property
@@ -9810,7 +8215,7 @@ class RefrigerationCompressor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_return_gas_temperature`'.format(value))
+                                 ' for field `RefrigerationCompressor.rated_return_gas_temperature`'.format(value))
         self._data["Rated Return Gas Temperature"] = value
 
     @property
@@ -9843,7 +8248,7 @@ class RefrigerationCompressor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_liquid_temperature`'.format(value))
+                                 ' for field `RefrigerationCompressor.rated_liquid_temperature`'.format(value))
         self._data["Rated Liquid Temperature"] = value
 
     @property
@@ -9876,7 +8281,7 @@ class RefrigerationCompressor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_subcooling`'.format(value))
+                                 ' for field `RefrigerationCompressor.rated_subcooling`'.format(value))
         self._data["Rated Subcooling"] = value
 
     @property
@@ -9906,13 +8311,13 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationCompressor.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCompressor.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationCompressor.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -9945,13 +8350,13 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `mode_of_operation`'.format(value))
+                                 ' for field `RefrigerationCompressor.mode_of_operation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `mode_of_operation`')
+                                 'for field `RefrigerationCompressor.mode_of_operation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `mode_of_operation`')
+                                 'for field `RefrigerationCompressor.mode_of_operation`')
             vals = {}
             vals["subcritical"] = "Subcritical"
             vals["transcritical"] = "Transcritical"
@@ -9974,10 +8379,10 @@ class RefrigerationCompressor(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `mode_of_operation`'.format(value))
+                                     'field `RefrigerationCompressor.mode_of_operation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `mode_of_operation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationCompressor.mode_of_operation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mode of Operation"] = value
 
@@ -10007,13 +8412,13 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `transcritical_compressor_power_curve_name`'.format(value))
+                                 ' for field `RefrigerationCompressor.transcritical_compressor_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `transcritical_compressor_power_curve_name`')
+                                 'for field `RefrigerationCompressor.transcritical_compressor_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `transcritical_compressor_power_curve_name`')
+                                 'for field `RefrigerationCompressor.transcritical_compressor_power_curve_name`')
         self._data["Transcritical Compressor Power Curve Name"] = value
 
     @property
@@ -10042,23 +8447,46 @@ class RefrigerationCompressor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `transcritical_compressor_capacity_curve_name`'.format(value))
+                                 ' for field `RefrigerationCompressor.transcritical_compressor_capacity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `transcritical_compressor_capacity_curve_name`')
+                                 'for field `RefrigerationCompressor.transcritical_compressor_capacity_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `transcritical_compressor_capacity_curve_name`')
+                                 'for field `RefrigerationCompressor.transcritical_compressor_capacity_curve_name`')
         self._data["Transcritical Compressor Capacity Curve Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCompressor:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCompressor:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCompressor: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCompressor: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10076,8 +8504,27 @@ class RefrigerationCompressor(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10095,54 +8542,19 @@ class RefrigerationCompressorList(object):
         Data is available for many compressors in the RefrigerationCompressor.idf dataset
     """
     internal_name = "Refrigeration:CompressorList"
-    field_count = 41
-    required_fields = ["Name", "Refrigeration Compressor 1 Name"]
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 2
+    extensible_keys = ["Refrigeration Compressor 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:CompressorList`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self._data["Refrigeration Compressor 1 Name"] = None
-        self._data["Refrigeration Compressor 2 Name"] = None
-        self._data["Refrigeration Compressor 3 Name"] = None
-        self._data["Refrigeration Compressor 4 Name"] = None
-        self._data["Refrigeration Compressor 5 Name"] = None
-        self._data["Refrigeration Compressor 6 Name"] = None
-        self._data["Refrigeration Compressor 7 Name"] = None
-        self._data["Refrigeration Compressor 8 Name"] = None
-        self._data["Refrigeration Compressor 9 Name"] = None
-        self._data["Refrigeration Compressor 10 Name"] = None
-        self._data["Refrigeration Compressor 11 Name"] = None
-        self._data["Refrigeration Compressor 12  Name"] = None
-        self._data["Refrigeration Compressor 13 Name"] = None
-        self._data["Refrigeration Compressor 14 Name"] = None
-        self._data["Refrigeration Compressor 15 Name"] = None
-        self._data["Refrigeration Compressor 16 Name"] = None
-        self._data["Refrigeration Compressor 17 Name"] = None
-        self._data["Refrigeration Compressor 18 Name"] = None
-        self._data["Refrigeration Compressor 19 Name"] = None
-        self._data["Refrigeration Compressor 20 Name"] = None
-        self._data["Refrigeration Compressor 21 Name"] = None
-        self._data["Refrigeration Compressor 22 Name"] = None
-        self._data["Refrigeration Compressor 23 Name"] = None
-        self._data["Refrigeration Compressor 24 Name"] = None
-        self._data["Refrigeration Compressor 25 Name"] = None
-        self._data["Refrigeration Compressor 26 Name"] = None
-        self._data["Refrigeration Compressor 27 Name"] = None
-        self._data["Refrigeration Compressor 28 Name"] = None
-        self._data["Refrigeration Compressor 29 Name"] = None
-        self._data["Refrigeration Compressor 30 Name"] = None
-        self._data["Refrigeration Compressor 31 Name"] = None
-        self._data["Refrigeration Compressor 32 Name"] = None
-        self._data["Refrigeration Compressor 33 Name"] = None
-        self._data["Refrigeration Compressor 34 Name"] = None
-        self._data["Refrigeration Compressor 35 Name"] = None
-        self._data["Refrigeration Compressor 36 Name"] = None
-        self._data["Refrigeration Compressor 37 Name"] = None
-        self._data["Refrigeration Compressor 38 Name"] = None
-        self._data["Refrigeration Compressor 39 Name"] = None
-        self._data["Refrigeration Compressor 40 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10161,286 +8573,14 @@ class RefrigerationCompressorList(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_1_name = None
-        else:
-            self.refrigeration_compressor_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_2_name = None
-        else:
-            self.refrigeration_compressor_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_3_name = None
-        else:
-            self.refrigeration_compressor_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_4_name = None
-        else:
-            self.refrigeration_compressor_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_5_name = None
-        else:
-            self.refrigeration_compressor_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_6_name = None
-        else:
-            self.refrigeration_compressor_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_7_name = None
-        else:
-            self.refrigeration_compressor_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_8_name = None
-        else:
-            self.refrigeration_compressor_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_9_name = None
-        else:
-            self.refrigeration_compressor_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_10_name = None
-        else:
-            self.refrigeration_compressor_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_11_name = None
-        else:
-            self.refrigeration_compressor_11_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_12_name = None
-        else:
-            self.refrigeration_compressor_12_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_13_name = None
-        else:
-            self.refrigeration_compressor_13_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_14_name = None
-        else:
-            self.refrigeration_compressor_14_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_15_name = None
-        else:
-            self.refrigeration_compressor_15_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_16_name = None
-        else:
-            self.refrigeration_compressor_16_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_17_name = None
-        else:
-            self.refrigeration_compressor_17_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_18_name = None
-        else:
-            self.refrigeration_compressor_18_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_19_name = None
-        else:
-            self.refrigeration_compressor_19_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_20_name = None
-        else:
-            self.refrigeration_compressor_20_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_21_name = None
-        else:
-            self.refrigeration_compressor_21_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_22_name = None
-        else:
-            self.refrigeration_compressor_22_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_23_name = None
-        else:
-            self.refrigeration_compressor_23_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_24_name = None
-        else:
-            self.refrigeration_compressor_24_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_25_name = None
-        else:
-            self.refrigeration_compressor_25_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_26_name = None
-        else:
-            self.refrigeration_compressor_26_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_27_name = None
-        else:
-            self.refrigeration_compressor_27_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_28_name = None
-        else:
-            self.refrigeration_compressor_28_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_29_name = None
-        else:
-            self.refrigeration_compressor_29_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_30_name = None
-        else:
-            self.refrigeration_compressor_30_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_31_name = None
-        else:
-            self.refrigeration_compressor_31_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_32_name = None
-        else:
-            self.refrigeration_compressor_32_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_33_name = None
-        else:
-            self.refrigeration_compressor_33_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_34_name = None
-        else:
-            self.refrigeration_compressor_34_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_35_name = None
-        else:
-            self.refrigeration_compressor_35_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_36_name = None
-        else:
-            self.refrigeration_compressor_36_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_37_name = None
-        else:
-            self.refrigeration_compressor_37_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_38_name = None
-        else:
-            self.refrigeration_compressor_38_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_39_name = None
-        else:
-            self.refrigeration_compressor_39_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refrigeration_compressor_40_name = None
-        else:
-            self.refrigeration_compressor_40_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -10469,1463 +8609,84 @@ class RefrigerationCompressorList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationCompressorList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationCompressorList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationCompressorList.name`')
         self._data["Name"] = value
 
-    @property
-    def refrigeration_compressor_1_name(self):
-        """Get refrigeration_compressor_1_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_1_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 1 Name"]
-
-    @refrigeration_compressor_1_name.setter
-    def refrigeration_compressor_1_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 1 Name`
-        Enter the name of a Refrigeration:Compressor object.
+    def add_extensible(self,
+                       refrigeration_compressor_1_name=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Refrigeration Compressor 1 Name`
+
+            refrigeration_compressor_1_name (str): value for IDD Field `Refrigeration Compressor 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_refrigeration_compressor_1_name(refrigeration_compressor_1_name))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_refrigeration_compressor_1_name(self, value):
+        """ Validates falue of field `Refrigeration Compressor 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_1_name`'.format(value))
+                                 ' for field `RefrigerationCompressorList.refrigeration_compressor_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_1_name`')
+                                 'for field `RefrigerationCompressorList.refrigeration_compressor_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_1_name`')
-        self._data["Refrigeration Compressor 1 Name"] = value
+                                 'for field `RefrigerationCompressorList.refrigeration_compressor_1_name`')
+        return value
 
-    @property
-    def refrigeration_compressor_2_name(self):
-        """Get refrigeration_compressor_2_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_2_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 2 Name"]
-
-    @refrigeration_compressor_2_name.setter
-    def refrigeration_compressor_2_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 2 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_2_name`')
-        self._data["Refrigeration Compressor 2 Name"] = value
-
-    @property
-    def refrigeration_compressor_3_name(self):
-        """Get refrigeration_compressor_3_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_3_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 3 Name"]
-
-    @refrigeration_compressor_3_name.setter
-    def refrigeration_compressor_3_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 3 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_3_name`')
-        self._data["Refrigeration Compressor 3 Name"] = value
-
-    @property
-    def refrigeration_compressor_4_name(self):
-        """Get refrigeration_compressor_4_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_4_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 4 Name"]
-
-    @refrigeration_compressor_4_name.setter
-    def refrigeration_compressor_4_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 4 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_4_name`')
-        self._data["Refrigeration Compressor 4 Name"] = value
-
-    @property
-    def refrigeration_compressor_5_name(self):
-        """Get refrigeration_compressor_5_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_5_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 5 Name"]
-
-    @refrigeration_compressor_5_name.setter
-    def refrigeration_compressor_5_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 5 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_5_name`')
-        self._data["Refrigeration Compressor 5 Name"] = value
-
-    @property
-    def refrigeration_compressor_6_name(self):
-        """Get refrigeration_compressor_6_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_6_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 6 Name"]
-
-    @refrigeration_compressor_6_name.setter
-    def refrigeration_compressor_6_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 6 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_6_name`')
-        self._data["Refrigeration Compressor 6 Name"] = value
-
-    @property
-    def refrigeration_compressor_7_name(self):
-        """Get refrigeration_compressor_7_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_7_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 7 Name"]
-
-    @refrigeration_compressor_7_name.setter
-    def refrigeration_compressor_7_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 7 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_7_name`')
-        self._data["Refrigeration Compressor 7 Name"] = value
-
-    @property
-    def refrigeration_compressor_8_name(self):
-        """Get refrigeration_compressor_8_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_8_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 8 Name"]
-
-    @refrigeration_compressor_8_name.setter
-    def refrigeration_compressor_8_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 8 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_8_name`')
-        self._data["Refrigeration Compressor 8 Name"] = value
-
-    @property
-    def refrigeration_compressor_9_name(self):
-        """Get refrigeration_compressor_9_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_9_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 9 Name"]
-
-    @refrigeration_compressor_9_name.setter
-    def refrigeration_compressor_9_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 9 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_9_name`')
-        self._data["Refrigeration Compressor 9 Name"] = value
-
-    @property
-    def refrigeration_compressor_10_name(self):
-        """Get refrigeration_compressor_10_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_10_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 10 Name"]
-
-    @refrigeration_compressor_10_name.setter
-    def refrigeration_compressor_10_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 10 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 10 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_10_name`')
-        self._data["Refrigeration Compressor 10 Name"] = value
-
-    @property
-    def refrigeration_compressor_11_name(self):
-        """Get refrigeration_compressor_11_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_11_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 11 Name"]
-
-    @refrigeration_compressor_11_name.setter
-    def refrigeration_compressor_11_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 11 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 11 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_11_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_11_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_11_name`')
-        self._data["Refrigeration Compressor 11 Name"] = value
-
-    @property
-    def refrigeration_compressor_12_name(self):
-        """Get refrigeration_compressor_12_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_12_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 12  Name"]
-
-    @refrigeration_compressor_12_name.setter
-    def refrigeration_compressor_12_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 12  Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 12  Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_12_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_12_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_12_name`')
-        self._data["Refrigeration Compressor 12  Name"] = value
-
-    @property
-    def refrigeration_compressor_13_name(self):
-        """Get refrigeration_compressor_13_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_13_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 13 Name"]
-
-    @refrigeration_compressor_13_name.setter
-    def refrigeration_compressor_13_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 13 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 13 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_13_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_13_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_13_name`')
-        self._data["Refrigeration Compressor 13 Name"] = value
-
-    @property
-    def refrigeration_compressor_14_name(self):
-        """Get refrigeration_compressor_14_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_14_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 14 Name"]
-
-    @refrigeration_compressor_14_name.setter
-    def refrigeration_compressor_14_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 14 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 14 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_14_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_14_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_14_name`')
-        self._data["Refrigeration Compressor 14 Name"] = value
-
-    @property
-    def refrigeration_compressor_15_name(self):
-        """Get refrigeration_compressor_15_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_15_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 15 Name"]
-
-    @refrigeration_compressor_15_name.setter
-    def refrigeration_compressor_15_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 15 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 15 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_15_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_15_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_15_name`')
-        self._data["Refrigeration Compressor 15 Name"] = value
-
-    @property
-    def refrigeration_compressor_16_name(self):
-        """Get refrigeration_compressor_16_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_16_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 16 Name"]
-
-    @refrigeration_compressor_16_name.setter
-    def refrigeration_compressor_16_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 16 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 16 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_16_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_16_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_16_name`')
-        self._data["Refrigeration Compressor 16 Name"] = value
-
-    @property
-    def refrigeration_compressor_17_name(self):
-        """Get refrigeration_compressor_17_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_17_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 17 Name"]
-
-    @refrigeration_compressor_17_name.setter
-    def refrigeration_compressor_17_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 17 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 17 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_17_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_17_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_17_name`')
-        self._data["Refrigeration Compressor 17 Name"] = value
-
-    @property
-    def refrigeration_compressor_18_name(self):
-        """Get refrigeration_compressor_18_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_18_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 18 Name"]
-
-    @refrigeration_compressor_18_name.setter
-    def refrigeration_compressor_18_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 18 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 18 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_18_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_18_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_18_name`')
-        self._data["Refrigeration Compressor 18 Name"] = value
-
-    @property
-    def refrigeration_compressor_19_name(self):
-        """Get refrigeration_compressor_19_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_19_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 19 Name"]
-
-    @refrigeration_compressor_19_name.setter
-    def refrigeration_compressor_19_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 19 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 19 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_19_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_19_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_19_name`')
-        self._data["Refrigeration Compressor 19 Name"] = value
-
-    @property
-    def refrigeration_compressor_20_name(self):
-        """Get refrigeration_compressor_20_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_20_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 20 Name"]
-
-    @refrigeration_compressor_20_name.setter
-    def refrigeration_compressor_20_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 20 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 20 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_20_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_20_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_20_name`')
-        self._data["Refrigeration Compressor 20 Name"] = value
-
-    @property
-    def refrigeration_compressor_21_name(self):
-        """Get refrigeration_compressor_21_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_21_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 21 Name"]
-
-    @refrigeration_compressor_21_name.setter
-    def refrigeration_compressor_21_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 21 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 21 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_21_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_21_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_21_name`')
-        self._data["Refrigeration Compressor 21 Name"] = value
-
-    @property
-    def refrigeration_compressor_22_name(self):
-        """Get refrigeration_compressor_22_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_22_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 22 Name"]
-
-    @refrigeration_compressor_22_name.setter
-    def refrigeration_compressor_22_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 22 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 22 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_22_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_22_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_22_name`')
-        self._data["Refrigeration Compressor 22 Name"] = value
-
-    @property
-    def refrigeration_compressor_23_name(self):
-        """Get refrigeration_compressor_23_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_23_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 23 Name"]
-
-    @refrigeration_compressor_23_name.setter
-    def refrigeration_compressor_23_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 23 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 23 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_23_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_23_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_23_name`')
-        self._data["Refrigeration Compressor 23 Name"] = value
-
-    @property
-    def refrigeration_compressor_24_name(self):
-        """Get refrigeration_compressor_24_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_24_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 24 Name"]
-
-    @refrigeration_compressor_24_name.setter
-    def refrigeration_compressor_24_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 24 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 24 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_24_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_24_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_24_name`')
-        self._data["Refrigeration Compressor 24 Name"] = value
-
-    @property
-    def refrigeration_compressor_25_name(self):
-        """Get refrigeration_compressor_25_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_25_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 25 Name"]
-
-    @refrigeration_compressor_25_name.setter
-    def refrigeration_compressor_25_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 25 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 25 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_25_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_25_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_25_name`')
-        self._data["Refrigeration Compressor 25 Name"] = value
-
-    @property
-    def refrigeration_compressor_26_name(self):
-        """Get refrigeration_compressor_26_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_26_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 26 Name"]
-
-    @refrigeration_compressor_26_name.setter
-    def refrigeration_compressor_26_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 26 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 26 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_26_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_26_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_26_name`')
-        self._data["Refrigeration Compressor 26 Name"] = value
-
-    @property
-    def refrigeration_compressor_27_name(self):
-        """Get refrigeration_compressor_27_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_27_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 27 Name"]
-
-    @refrigeration_compressor_27_name.setter
-    def refrigeration_compressor_27_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 27 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 27 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_27_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_27_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_27_name`')
-        self._data["Refrigeration Compressor 27 Name"] = value
-
-    @property
-    def refrigeration_compressor_28_name(self):
-        """Get refrigeration_compressor_28_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_28_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 28 Name"]
-
-    @refrigeration_compressor_28_name.setter
-    def refrigeration_compressor_28_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 28 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 28 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_28_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_28_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_28_name`')
-        self._data["Refrigeration Compressor 28 Name"] = value
-
-    @property
-    def refrigeration_compressor_29_name(self):
-        """Get refrigeration_compressor_29_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_29_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 29 Name"]
-
-    @refrigeration_compressor_29_name.setter
-    def refrigeration_compressor_29_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 29 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 29 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_29_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_29_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_29_name`')
-        self._data["Refrigeration Compressor 29 Name"] = value
-
-    @property
-    def refrigeration_compressor_30_name(self):
-        """Get refrigeration_compressor_30_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_30_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 30 Name"]
-
-    @refrigeration_compressor_30_name.setter
-    def refrigeration_compressor_30_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 30 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 30 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_30_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_30_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_30_name`')
-        self._data["Refrigeration Compressor 30 Name"] = value
-
-    @property
-    def refrigeration_compressor_31_name(self):
-        """Get refrigeration_compressor_31_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_31_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 31 Name"]
-
-    @refrigeration_compressor_31_name.setter
-    def refrigeration_compressor_31_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 31 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 31 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_31_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_31_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_31_name`')
-        self._data["Refrigeration Compressor 31 Name"] = value
-
-    @property
-    def refrigeration_compressor_32_name(self):
-        """Get refrigeration_compressor_32_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_32_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 32 Name"]
-
-    @refrigeration_compressor_32_name.setter
-    def refrigeration_compressor_32_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 32 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 32 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_32_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_32_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_32_name`')
-        self._data["Refrigeration Compressor 32 Name"] = value
-
-    @property
-    def refrigeration_compressor_33_name(self):
-        """Get refrigeration_compressor_33_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_33_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 33 Name"]
-
-    @refrigeration_compressor_33_name.setter
-    def refrigeration_compressor_33_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 33 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 33 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_33_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_33_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_33_name`')
-        self._data["Refrigeration Compressor 33 Name"] = value
-
-    @property
-    def refrigeration_compressor_34_name(self):
-        """Get refrigeration_compressor_34_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_34_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 34 Name"]
-
-    @refrigeration_compressor_34_name.setter
-    def refrigeration_compressor_34_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 34 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 34 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_34_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_34_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_34_name`')
-        self._data["Refrigeration Compressor 34 Name"] = value
-
-    @property
-    def refrigeration_compressor_35_name(self):
-        """Get refrigeration_compressor_35_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_35_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 35 Name"]
-
-    @refrigeration_compressor_35_name.setter
-    def refrigeration_compressor_35_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 35 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 35 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_35_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_35_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_35_name`')
-        self._data["Refrigeration Compressor 35 Name"] = value
-
-    @property
-    def refrigeration_compressor_36_name(self):
-        """Get refrigeration_compressor_36_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_36_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 36 Name"]
-
-    @refrigeration_compressor_36_name.setter
-    def refrigeration_compressor_36_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 36 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 36 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_36_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_36_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_36_name`')
-        self._data["Refrigeration Compressor 36 Name"] = value
-
-    @property
-    def refrigeration_compressor_37_name(self):
-        """Get refrigeration_compressor_37_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_37_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 37 Name"]
-
-    @refrigeration_compressor_37_name.setter
-    def refrigeration_compressor_37_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 37 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 37 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_37_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_37_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_37_name`')
-        self._data["Refrigeration Compressor 37 Name"] = value
-
-    @property
-    def refrigeration_compressor_38_name(self):
-        """Get refrigeration_compressor_38_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_38_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 38 Name"]
-
-    @refrigeration_compressor_38_name.setter
-    def refrigeration_compressor_38_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 38 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 38 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_38_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_38_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_38_name`')
-        self._data["Refrigeration Compressor 38 Name"] = value
-
-    @property
-    def refrigeration_compressor_39_name(self):
-        """Get refrigeration_compressor_39_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_39_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 39 Name"]
-
-    @refrigeration_compressor_39_name.setter
-    def refrigeration_compressor_39_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 39 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 39 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_39_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_39_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_39_name`')
-        self._data["Refrigeration Compressor 39 Name"] = value
-
-    @property
-    def refrigeration_compressor_40_name(self):
-        """Get refrigeration_compressor_40_name
-
-        Returns:
-            str: the value of `refrigeration_compressor_40_name` or None if not set
-        """
-        return self._data["Refrigeration Compressor 40 Name"]
-
-    @refrigeration_compressor_40_name.setter
-    def refrigeration_compressor_40_name(self, value=None):
-        """  Corresponds to IDD Field `Refrigeration Compressor 40 Name`
-        Enter the name of a Refrigeration:Compressor object.
-
-        Args:
-            value (str): value for IDD Field `Refrigeration Compressor 40 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_compressor_40_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_compressor_40_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_compressor_40_name`')
-        self._data["Refrigeration Compressor 40 Name"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationCompressorList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationCompressorList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationCompressorList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationCompressorList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11943,8 +8704,27 @@ class RefrigerationCompressorList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -11961,6 +8741,10 @@ class RefrigerationSystem(object):
     internal_name = "Refrigeration:System"
     field_count = 17
     required_fields = ["Name", "Refrigeration Condenser Name", "Compressor or CompressorList Name", "Minimum Condensing Temperature", "Refrigeration System Working Fluid Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 7
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:System`
@@ -11983,6 +8767,7 @@ class RefrigerationSystem(object):
         self._data["Intercooler Type"] = None
         self._data["Shell-and-Coil Intercooler Effectiveness"] = None
         self._data["High-Stage Compressor or CompressorList Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -12141,13 +8926,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationSystem.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationSystem.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationSystem.name`')
         self._data["Name"] = value
 
     @property
@@ -12181,13 +8966,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
+                                 ' for field `RefrigerationSystem.refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationSystem.refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationSystem.refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
         self._data["Refrigerated Case or Walkin or CaseAndWalkInList Name"] = value
 
     @property
@@ -12222,13 +9007,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_transfer_load_or_transferload_list_name`'.format(value))
+                                 ' for field `RefrigerationSystem.refrigeration_transfer_load_or_transferload_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_transfer_load_or_transferload_list_name`')
+                                 'for field `RefrigerationSystem.refrigeration_transfer_load_or_transferload_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_transfer_load_or_transferload_list_name`')
+                                 'for field `RefrigerationSystem.refrigeration_transfer_load_or_transferload_list_name`')
         self._data["Refrigeration Transfer Load or TransferLoad List Name"] = value
 
     @property
@@ -12257,13 +9042,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_condenser_name`'.format(value))
+                                 ' for field `RefrigerationSystem.refrigeration_condenser_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_condenser_name`')
+                                 'for field `RefrigerationSystem.refrigeration_condenser_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_condenser_name`')
+                                 'for field `RefrigerationSystem.refrigeration_condenser_name`')
         self._data["Refrigeration Condenser Name"] = value
 
     @property
@@ -12292,13 +9077,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `compressor_or_compressorlist_name`'.format(value))
+                                 ' for field `RefrigerationSystem.compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationSystem.compressor_or_compressorlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationSystem.compressor_or_compressorlist_name`')
         self._data["Compressor or CompressorList Name"] = value
 
     @property
@@ -12330,7 +9115,7 @@ class RefrigerationSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_condensing_temperature`'.format(value))
+                                 ' for field `RefrigerationSystem.minimum_condensing_temperature`'.format(value))
         self._data["Minimum Condensing Temperature"] = value
 
     @property
@@ -12364,13 +9149,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_system_working_fluid_type`'.format(value))
+                                 ' for field `RefrigerationSystem.refrigeration_system_working_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_system_working_fluid_type`')
+                                 'for field `RefrigerationSystem.refrigeration_system_working_fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_system_working_fluid_type`')
+                                 'for field `RefrigerationSystem.refrigeration_system_working_fluid_type`')
         self._data["Refrigeration System Working Fluid Type"] = value
 
     @property
@@ -12403,13 +9188,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `suction_temperature_control_type`'.format(value))
+                                 ' for field `RefrigerationSystem.suction_temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `suction_temperature_control_type`')
+                                 'for field `RefrigerationSystem.suction_temperature_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `suction_temperature_control_type`')
+                                 'for field `RefrigerationSystem.suction_temperature_control_type`')
             vals = {}
             vals["floatsuctiontemperature"] = "FloatSuctionTemperature"
             vals["constantsuctiontemperature"] = "ConstantSuctionTemperature"
@@ -12432,10 +9217,10 @@ class RefrigerationSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `suction_temperature_control_type`'.format(value))
+                                     'field `RefrigerationSystem.suction_temperature_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `suction_temperature_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationSystem.suction_temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Suction Temperature Control Type"] = value
 
@@ -12468,13 +9253,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `mechanical_subcooler_name`'.format(value))
+                                 ' for field `RefrigerationSystem.mechanical_subcooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `mechanical_subcooler_name`')
+                                 'for field `RefrigerationSystem.mechanical_subcooler_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `mechanical_subcooler_name`')
+                                 'for field `RefrigerationSystem.mechanical_subcooler_name`')
         self._data["Mechanical Subcooler Name"] = value
 
     @property
@@ -12505,13 +9290,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `liquid_suction_heat_exchanger_subcooler_name`'.format(value))
+                                 ' for field `RefrigerationSystem.liquid_suction_heat_exchanger_subcooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `liquid_suction_heat_exchanger_subcooler_name`')
+                                 'for field `RefrigerationSystem.liquid_suction_heat_exchanger_subcooler_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `liquid_suction_heat_exchanger_subcooler_name`')
+                                 'for field `RefrigerationSystem.liquid_suction_heat_exchanger_subcooler_name`')
         self._data["Liquid Suction Heat Exchanger Subcooler Name"] = value
 
     @property
@@ -12543,7 +9328,7 @@ class RefrigerationSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sum_ua_suction_piping`'.format(value))
+                                 ' for field `RefrigerationSystem.sum_ua_suction_piping`'.format(value))
         self._data["Sum UA Suction Piping"] = value
 
     @property
@@ -12575,13 +9360,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `suction_piping_zone_name`'.format(value))
+                                 ' for field `RefrigerationSystem.suction_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `suction_piping_zone_name`')
+                                 'for field `RefrigerationSystem.suction_piping_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `suction_piping_zone_name`')
+                                 'for field `RefrigerationSystem.suction_piping_zone_name`')
         self._data["Suction Piping Zone Name"] = value
 
     @property
@@ -12611,13 +9396,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationSystem.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationSystem.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationSystem.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -12650,13 +9435,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `number_of_compressor_stages`'.format(value))
+                                 ' for field `RefrigerationSystem.number_of_compressor_stages`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `number_of_compressor_stages`')
+                                 'for field `RefrigerationSystem.number_of_compressor_stages`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `number_of_compressor_stages`')
+                                 'for field `RefrigerationSystem.number_of_compressor_stages`')
             vals = {}
             vals["1"] = "1"
             vals["2"] = "2"
@@ -12679,10 +9464,10 @@ class RefrigerationSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `number_of_compressor_stages`'.format(value))
+                                     'field `RefrigerationSystem.number_of_compressor_stages`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `number_of_compressor_stages`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationSystem.number_of_compressor_stages`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Number of Compressor Stages"] = value
 
@@ -12717,13 +9502,13 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `intercooler_type`'.format(value))
+                                 ' for field `RefrigerationSystem.intercooler_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `intercooler_type`')
+                                 'for field `RefrigerationSystem.intercooler_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `intercooler_type`')
+                                 'for field `RefrigerationSystem.intercooler_type`')
             vals = {}
             vals["none"] = "None"
             vals["flash intercooler"] = "Flash Intercooler"
@@ -12747,10 +9532,10 @@ class RefrigerationSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `intercooler_type`'.format(value))
+                                     'field `RefrigerationSystem.intercooler_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `intercooler_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationSystem.intercooler_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Intercooler Type"] = value
 
@@ -12781,7 +9566,7 @@ class RefrigerationSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shellandcoil_intercooler_effectiveness`'.format(value))
+                                 ' for field `RefrigerationSystem.shellandcoil_intercooler_effectiveness`'.format(value))
         self._data["Shell-and-Coil Intercooler Effectiveness"] = value
 
     @property
@@ -12810,23 +9595,46 @@ class RefrigerationSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `highstage_compressor_or_compressorlist_name`'.format(value))
+                                 ' for field `RefrigerationSystem.highstage_compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `highstage_compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationSystem.highstage_compressor_or_compressorlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `highstage_compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationSystem.highstage_compressor_or_compressorlist_name`')
         self._data["High-Stage Compressor or CompressorList Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationSystem:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationSystem:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationSystem: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationSystem: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -12844,8 +9652,27 @@ class RefrigerationSystem(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -12863,6 +9690,10 @@ class RefrigerationTranscriticalSystem(object):
     internal_name = "Refrigeration:TranscriticalSystem"
     field_count = 15
     required_fields = ["Name", "System Type", "Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name", "Refrigeration Gas Cooler Name", "High Pressure Compressor or CompressorList Name", "Refrigeration System Working Fluid Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:TranscriticalSystem`
@@ -12883,6 +9714,7 @@ class RefrigerationTranscriticalSystem(object):
         self._data["Sum UA Suction Piping for Low Temperature Loads"] = None
         self._data["Low Temperature Suction Piping Zone Name"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13027,13 +9859,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationTranscriticalSystem.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationTranscriticalSystem.name`')
         self._data["Name"] = value
 
     @property
@@ -13065,13 +9897,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `system_type`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.system_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `system_type`')
+                                 'for field `RefrigerationTranscriticalSystem.system_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `system_type`')
+                                 'for field `RefrigerationTranscriticalSystem.system_type`')
             vals = {}
             vals["singlestage"] = "SingleStage"
             vals["twostage"] = "TwoStage"
@@ -13094,10 +9926,10 @@ class RefrigerationTranscriticalSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `system_type`'.format(value))
+                                     'field `RefrigerationTranscriticalSystem.system_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `system_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationTranscriticalSystem.system_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Type"] = value
 
@@ -13132,13 +9964,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
         self._data["Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"] = value
 
     @property
@@ -13172,13 +10004,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
         self._data["Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"] = value
 
     @property
@@ -13207,13 +10039,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_gas_cooler_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.refrigeration_gas_cooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_gas_cooler_name`')
+                                 'for field `RefrigerationTranscriticalSystem.refrigeration_gas_cooler_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_gas_cooler_name`')
+                                 'for field `RefrigerationTranscriticalSystem.refrigeration_gas_cooler_name`')
         self._data["Refrigeration Gas Cooler Name"] = value
 
     @property
@@ -13242,13 +10074,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `high_pressure_compressor_or_compressorlist_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.high_pressure_compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `high_pressure_compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.high_pressure_compressor_or_compressorlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `high_pressure_compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.high_pressure_compressor_or_compressorlist_name`')
         self._data["High Pressure Compressor or CompressorList Name"] = value
 
     @property
@@ -13277,13 +10109,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `low_pressure_compressor_or_compressorlist_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.low_pressure_compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `low_pressure_compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.low_pressure_compressor_or_compressorlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `low_pressure_compressor_or_compressorlist_name`')
+                                 'for field `RefrigerationTranscriticalSystem.low_pressure_compressor_or_compressorlist_name`')
         self._data["Low Pressure Compressor or CompressorList Name"] = value
 
     @property
@@ -13314,7 +10146,7 @@ class RefrigerationTranscriticalSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `receiver_pressure`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.receiver_pressure`'.format(value))
         self._data["Receiver Pressure"] = value
 
     @property
@@ -13344,7 +10176,7 @@ class RefrigerationTranscriticalSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `subcooler_effectiveness`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.subcooler_effectiveness`'.format(value))
         self._data["Subcooler Effectiveness"] = value
 
     @property
@@ -13378,13 +10210,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigeration_system_working_fluid_type`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.refrigeration_system_working_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigeration_system_working_fluid_type`')
+                                 'for field `RefrigerationTranscriticalSystem.refrigeration_system_working_fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigeration_system_working_fluid_type`')
+                                 'for field `RefrigerationTranscriticalSystem.refrigeration_system_working_fluid_type`')
         self._data["Refrigeration System Working Fluid Type"] = value
 
     @property
@@ -13416,7 +10248,7 @@ class RefrigerationTranscriticalSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sum_ua_suction_piping_for_medium_temperature_loads`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.sum_ua_suction_piping_for_medium_temperature_loads`'.format(value))
         self._data["Sum UA Suction Piping for Medium Temperature Loads"] = value
 
     @property
@@ -13448,13 +10280,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `medium_temperature_suction_piping_zone_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.medium_temperature_suction_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `medium_temperature_suction_piping_zone_name`')
+                                 'for field `RefrigerationTranscriticalSystem.medium_temperature_suction_piping_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `medium_temperature_suction_piping_zone_name`')
+                                 'for field `RefrigerationTranscriticalSystem.medium_temperature_suction_piping_zone_name`')
         self._data["Medium Temperature Suction Piping Zone Name"] = value
 
     @property
@@ -13486,7 +10318,7 @@ class RefrigerationTranscriticalSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sum_ua_suction_piping_for_low_temperature_loads`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.sum_ua_suction_piping_for_low_temperature_loads`'.format(value))
         self._data["Sum UA Suction Piping for Low Temperature Loads"] = value
 
     @property
@@ -13518,13 +10350,13 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `low_temperature_suction_piping_zone_name`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.low_temperature_suction_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `low_temperature_suction_piping_zone_name`')
+                                 'for field `RefrigerationTranscriticalSystem.low_temperature_suction_piping_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `low_temperature_suction_piping_zone_name`')
+                                 'for field `RefrigerationTranscriticalSystem.low_temperature_suction_piping_zone_name`')
         self._data["Low Temperature Suction Piping Zone Name"] = value
 
     @property
@@ -13554,23 +10386,46 @@ class RefrigerationTranscriticalSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationTranscriticalSystem.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationTranscriticalSystem.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationTranscriticalSystem.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationTranscriticalSystem:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationTranscriticalSystem:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationTranscriticalSystem: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationTranscriticalSystem: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -13588,8 +10443,27 @@ class RefrigerationTranscriticalSystem(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -13608,6 +10482,10 @@ class RefrigerationSecondarySystem(object):
     internal_name = "Refrigeration:SecondarySystem"
     field_count = 23
     required_fields = ["Name", "Refrigerated Case or Walkin or CaseAndWalkInList Name", "Circulating Fluid Type", "Circulating Fluid Name", "Evaporator Evaporating Temperature", "Evaporator Approach Temperature Difference"]
+    extensible_fields = 0
+    format = None
+    min_fields = 14
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:SecondarySystem`
@@ -13636,6 +10514,7 @@ class RefrigerationSecondarySystem(object):
         self._data["Receiver/Separator Zone Name"] = None
         self._data["Evaporator Refrigerant Inventory"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13836,13 +10715,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationSecondarySystem.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationSecondarySystem.name`')
         self._data["Name"] = value
 
     @property
@@ -13874,13 +10753,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationSecondarySystem.refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
+                                 'for field `RefrigerationSecondarySystem.refrigerated_case_or_walkin_or_caseandwalkinlist_name`')
         self._data["Refrigerated Case or Walkin or CaseAndWalkInList Name"] = value
 
     @property
@@ -13922,13 +10801,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `circulating_fluid_type`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.circulating_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `circulating_fluid_type`')
+                                 'for field `RefrigerationSecondarySystem.circulating_fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `circulating_fluid_type`')
+                                 'for field `RefrigerationSecondarySystem.circulating_fluid_type`')
             vals = {}
             vals["fluidalwaysliquid"] = "FluidAlwaysLiquid"
             vals["fluidphasechange"] = "FluidPhaseChange"
@@ -13951,10 +10830,10 @@ class RefrigerationSecondarySystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `circulating_fluid_type`'.format(value))
+                                     'field `RefrigerationSecondarySystem.circulating_fluid_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `circulating_fluid_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationSecondarySystem.circulating_fluid_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Circulating Fluid Type"] = value
 
@@ -13985,13 +10864,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `circulating_fluid_name`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.circulating_fluid_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `circulating_fluid_name`')
+                                 'for field `RefrigerationSecondarySystem.circulating_fluid_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `circulating_fluid_name`')
+                                 'for field `RefrigerationSecondarySystem.circulating_fluid_name`')
         self._data["Circulating Fluid Name"] = value
 
     @property
@@ -14026,10 +10905,10 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporator_capacity`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.evaporator_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `evaporator_capacity`')
+                                 'for field `RefrigerationSecondarySystem.evaporator_capacity`')
         self._data["Evaporator Capacity"] = value
 
     @property
@@ -14064,10 +10943,10 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporator_flow_rate_for_secondary_fluid`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.evaporator_flow_rate_for_secondary_fluid`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `evaporator_flow_rate_for_secondary_fluid`')
+                                 'for field `RefrigerationSecondarySystem.evaporator_flow_rate_for_secondary_fluid`')
         self._data["Evaporator Flow Rate for Secondary Fluid"] = value
 
     @property
@@ -14101,7 +10980,7 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporator_evaporating_temperature`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.evaporator_evaporating_temperature`'.format(value))
         self._data["Evaporator Evaporating Temperature"] = value
 
     @property
@@ -14136,7 +11015,7 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporator_approach_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.evaporator_approach_temperature_difference`'.format(value))
         self._data["Evaporator Approach Temperature Difference"] = value
 
     @property
@@ -14170,7 +11049,7 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporator_range_temperature_difference`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.evaporator_range_temperature_difference`'.format(value))
         self._data["Evaporator Range Temperature Difference"] = value
 
     @property
@@ -14202,12 +11081,12 @@ class RefrigerationSecondarySystem(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_pumps_in_loop`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `RefrigerationSecondarySystem.number_of_pumps_in_loop`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_pumps_in_loop`'.format(value))
+                                         'for field `RefrigerationSecondarySystem.number_of_pumps_in_loop`'.format(value))
         self._data["Number of Pumps in Loop"] = value
 
     @property
@@ -14242,10 +11121,10 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `total_pump_flow_rate`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.total_pump_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `total_pump_flow_rate`')
+                                 'for field `RefrigerationSecondarySystem.total_pump_flow_rate`')
         self._data["Total Pump Flow Rate"] = value
 
     @property
@@ -14277,10 +11156,10 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `total_pump_power`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.total_pump_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `total_pump_power`')
+                                 'for field `RefrigerationSecondarySystem.total_pump_power`')
         self._data["Total Pump Power"] = value
 
     @property
@@ -14312,10 +11191,10 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `total_pump_head`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.total_pump_head`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `total_pump_head`')
+                                 'for field `RefrigerationSecondarySystem.total_pump_head`')
         self._data["Total Pump Head"] = value
 
     @property
@@ -14349,10 +11228,10 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `phasechange_circulating_rate`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.phasechange_circulating_rate`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `phasechange_circulating_rate`')
+                                 'for field `RefrigerationSecondarySystem.phasechange_circulating_rate`')
         self._data["PhaseChange Circulating Rate"] = value
 
     @property
@@ -14385,13 +11264,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_drive_type`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.pump_drive_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_drive_type`')
+                                 'for field `RefrigerationSecondarySystem.pump_drive_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_drive_type`')
+                                 'for field `RefrigerationSecondarySystem.pump_drive_type`')
             vals = {}
             vals["constant"] = "Constant"
             vals["variable"] = "Variable"
@@ -14414,10 +11293,10 @@ class RefrigerationSecondarySystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_drive_type`'.format(value))
+                                     'field `RefrigerationSecondarySystem.pump_drive_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pump_drive_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationSecondarySystem.pump_drive_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pump Drive Type"] = value
 
@@ -14449,13 +11328,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `variable_speed_pump_cubic_curve_name`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.variable_speed_pump_cubic_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `variable_speed_pump_cubic_curve_name`')
+                                 'for field `RefrigerationSecondarySystem.variable_speed_pump_cubic_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `variable_speed_pump_cubic_curve_name`')
+                                 'for field `RefrigerationSecondarySystem.variable_speed_pump_cubic_curve_name`')
         self._data["Variable Speed Pump Cubic Curve Name"] = value
 
     @property
@@ -14491,13 +11370,13 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pump_motor_heat_to_fluid`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.pump_motor_heat_to_fluid`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `pump_motor_heat_to_fluid`')
+                                 'for field `RefrigerationSecondarySystem.pump_motor_heat_to_fluid`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `pump_motor_heat_to_fluid`')
+                                 'for field `RefrigerationSecondarySystem.pump_motor_heat_to_fluid`')
         self._data["Pump Motor Heat to Fluid"] = value
 
     @property
@@ -14529,7 +11408,7 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sum_ua_distribution_piping`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.sum_ua_distribution_piping`'.format(value))
         self._data["Sum UA Distribution Piping"] = value
 
     @property
@@ -14561,13 +11440,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `distribution_piping_zone_name`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.distribution_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `distribution_piping_zone_name`')
+                                 'for field `RefrigerationSecondarySystem.distribution_piping_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `distribution_piping_zone_name`')
+                                 'for field `RefrigerationSecondarySystem.distribution_piping_zone_name`')
         self._data["Distribution Piping Zone Name"] = value
 
     @property
@@ -14599,7 +11478,7 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sum_ua_receiver_or_separator_shell`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.sum_ua_receiver_or_separator_shell`'.format(value))
         self._data["Sum UA Receiver/Separator Shell"] = value
 
     @property
@@ -14631,13 +11510,13 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `receiver_or_separator_zone_name`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.receiver_or_separator_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `receiver_or_separator_zone_name`')
+                                 'for field `RefrigerationSecondarySystem.receiver_or_separator_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `receiver_or_separator_zone_name`')
+                                 'for field `RefrigerationSecondarySystem.receiver_or_separator_zone_name`')
         self._data["Receiver/Separator Zone Name"] = value
 
     @property
@@ -14671,7 +11550,7 @@ class RefrigerationSecondarySystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evaporator_refrigerant_inventory`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.evaporator_refrigerant_inventory`'.format(value))
         self._data["Evaporator Refrigerant Inventory"] = value
 
     @property
@@ -14701,23 +11580,46 @@ class RefrigerationSecondarySystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `RefrigerationSecondarySystem.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationSecondarySystem.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `RefrigerationSecondarySystem.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationSecondarySystem:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationSecondarySystem:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationSecondarySystem: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationSecondarySystem: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -14735,8 +11637,27 @@ class RefrigerationSecondarySystem(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -14753,8 +11674,12 @@ class RefrigerationWalkIn(object):
         performance.
     """
     internal_name = "Refrigeration:WalkIn"
-    field_count = 57
-    required_fields = ["Name", "Rated Coil Cooling Capacity", "Operating Temperature", "Rated Cooling Source Temperature", "Rated Total Heating Power", "Rated Total Lighting Power", "Defrost Schedule Name", "Insulated Floor Surface Area", "Zone 1 Name", "Total Insulated Surface Area Facing Zone 1"]
+    field_count = 21
+    required_fields = ["Name", "Rated Coil Cooling Capacity", "Operating Temperature", "Rated Cooling Source Temperature", "Rated Total Heating Power", "Rated Total Lighting Power", "Defrost Schedule Name", "Insulated Floor Surface Area"]
+    extensible_fields = 12
+    format = None
+    min_fields = 28
+    extensible_keys = ["Zone 1 Name", "Total Insulated Surface Area Facing Zone 1", "Insulated Surface U-Value Facing Zone 1", "Area of Glass Reach In Doors Facing Zone 1", "Height of Glass Reach In Doors Facing Zone 1", "Glass Reach In Door U Value Facing Zone 1", "Glass Reach In Door Opening Schedule Name Facing Zone 1", "Area of Stocking Doors Facing Zone 1", "Height of Stocking Doors Facing Zone 1", "Stocking Door U Value Facing Zone 1", "Stocking Door Opening Schedule Name Facing Zone 1", "Stocking Door Opening Protection Type Facing Zone 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:WalkIn`
@@ -14781,42 +11706,7 @@ class RefrigerationWalkIn(object):
         self._data["Average Refrigerant Charge Inventory"] = None
         self._data["Insulated Floor Surface Area"] = None
         self._data["Insulated Floor U-Value"] = None
-        self._data["Zone 1 Name"] = None
-        self._data["Total Insulated Surface Area Facing Zone 1"] = None
-        self._data["Insulated Surface U-Value Facing Zone 1"] = None
-        self._data["Area of Glass Reach In Doors Facing Zone 1"] = None
-        self._data["Height of Glass Reach In Doors Facing Zone 1"] = None
-        self._data["Glass Reach In Door U Value Facing Zone 1"] = None
-        self._data["Glass Reach In Door Opening Schedule Name Facing Zone 1"] = None
-        self._data["Area of Stocking Doors Facing Zone 1"] = None
-        self._data["Height of Stocking Doors Facing Zone 1"] = None
-        self._data["Stocking Door U Value Facing Zone 1"] = None
-        self._data["Stocking Door Opening Schedule Name Facing Zone 1"] = None
-        self._data["Stocking Door Opening Protection Type Facing Zone 1"] = None
-        self._data["Zone 2 Name"] = None
-        self._data["Total Insulated Surface Area Facing Zone 2"] = None
-        self._data["Insulated Surface U-Value Facing Zone 2"] = None
-        self._data["Area of Glass Reach In Doors Facing Zone 2"] = None
-        self._data["Height of Glass Reach In Doors Facing Zone 2"] = None
-        self._data["Glass Reach In Door U Value Facing Zone 2"] = None
-        self._data["Glass Reach In Door Opening Schedule Name Facing Zone 2"] = None
-        self._data["Area of Stocking Doors Facing Zone 2"] = None
-        self._data["Height of Stocking Doors Facing Zone 2"] = None
-        self._data["Stocking Door U Value Facing Zone 2"] = None
-        self._data["Stocking Door Opening Schedule Name Facing Zone 2"] = None
-        self._data["Stocking Door Opening Protection Type Facing Zone 2"] = None
-        self._data["Zone 3 Name"] = None
-        self._data["Total Insulated Surface Area Facing Zone 3"] = None
-        self._data["Insulated Surface U-Value Facing Zone 3"] = None
-        self._data["Area of Glass Reach In Doors Facing Zone 3"] = None
-        self._data["Height of Glass Reach In Doors Facing Zone 3"] = None
-        self._data["Glass Reach In Door U Value Facing Zone 3"] = None
-        self._data["Glass Reach In Door Opening Schedule Name Facing Zone 3"] = None
-        self._data["Area of Stocking Doors Facing Zone 3"] = None
-        self._data["Height of Stocking Doors Facing Zone 3"] = None
-        self._data["Stocking Door U Value Facing Zone 3"] = None
-        self._data["Stocking Door Opening Schedule Name Facing Zone 3"] = None
-        self._data["Stocking Door Opening Protection Type Facing Zone 3"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -14975,258 +11865,14 @@ class RefrigerationWalkIn(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.zone_1_name = None
-        else:
-            self.zone_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_insulated_surface_area_facing_zone_1 = None
-        else:
-            self.total_insulated_surface_area_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.insulated_surface_uvalue_facing_zone_1 = None
-        else:
-            self.insulated_surface_uvalue_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_glass_reach_in_doors_facing_zone_1 = None
-        else:
-            self.area_of_glass_reach_in_doors_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_glass_reach_in_doors_facing_zone_1 = None
-        else:
-            self.height_of_glass_reach_in_doors_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glass_reach_in_door_u_value_facing_zone_1 = None
-        else:
-            self.glass_reach_in_door_u_value_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glass_reach_in_door_opening_schedule_name_facing_zone_1 = None
-        else:
-            self.glass_reach_in_door_opening_schedule_name_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_stocking_doors_facing_zone_1 = None
-        else:
-            self.area_of_stocking_doors_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_stocking_doors_facing_zone_1 = None
-        else:
-            self.height_of_stocking_doors_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_u_value_facing_zone_1 = None
-        else:
-            self.stocking_door_u_value_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_opening_schedule_name_facing_zone_1 = None
-        else:
-            self.stocking_door_opening_schedule_name_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_opening_protection_type_facing_zone_1 = None
-        else:
-            self.stocking_door_opening_protection_type_facing_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_2_name = None
-        else:
-            self.zone_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_insulated_surface_area_facing_zone_2 = None
-        else:
-            self.total_insulated_surface_area_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.insulated_surface_uvalue_facing_zone_2 = None
-        else:
-            self.insulated_surface_uvalue_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_glass_reach_in_doors_facing_zone_2 = None
-        else:
-            self.area_of_glass_reach_in_doors_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_glass_reach_in_doors_facing_zone_2 = None
-        else:
-            self.height_of_glass_reach_in_doors_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glass_reach_in_door_u_value_facing_zone_2 = None
-        else:
-            self.glass_reach_in_door_u_value_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glass_reach_in_door_opening_schedule_name_facing_zone_2 = None
-        else:
-            self.glass_reach_in_door_opening_schedule_name_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_stocking_doors_facing_zone_2 = None
-        else:
-            self.area_of_stocking_doors_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_stocking_doors_facing_zone_2 = None
-        else:
-            self.height_of_stocking_doors_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_u_value_facing_zone_2 = None
-        else:
-            self.stocking_door_u_value_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_opening_schedule_name_facing_zone_2 = None
-        else:
-            self.stocking_door_opening_schedule_name_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_opening_protection_type_facing_zone_2 = None
-        else:
-            self.stocking_door_opening_protection_type_facing_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_3_name = None
-        else:
-            self.zone_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_insulated_surface_area_facing_zone_3 = None
-        else:
-            self.total_insulated_surface_area_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.insulated_surface_uvalue_facing_zone_3 = None
-        else:
-            self.insulated_surface_uvalue_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_glass_reach_in_doors_facing_zone_3 = None
-        else:
-            self.area_of_glass_reach_in_doors_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_glass_reach_in_doors_facing_zone_3 = None
-        else:
-            self.height_of_glass_reach_in_doors_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glass_reach_in_door_u_value_facing_zone_3 = None
-        else:
-            self.glass_reach_in_door_u_value_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glass_reach_in_door_opening_schedule_name_facing_zone_3 = None
-        else:
-            self.glass_reach_in_door_opening_schedule_name_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_stocking_doors_facing_zone_3 = None
-        else:
-            self.area_of_stocking_doors_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_stocking_doors_facing_zone_3 = None
-        else:
-            self.height_of_stocking_doors_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_u_value_facing_zone_3 = None
-        else:
-            self.stocking_door_u_value_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_opening_schedule_name_facing_zone_3 = None
-        else:
-            self.stocking_door_opening_schedule_name_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stocking_door_opening_protection_type_facing_zone_3 = None
-        else:
-            self.stocking_door_opening_protection_type_facing_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -15255,13 +11901,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationWalkIn.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationWalkIn.name`')
         self._data["Name"] = value
 
     @property
@@ -15292,13 +11938,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RefrigerationWalkIn.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RefrigerationWalkIn.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -15328,7 +11974,7 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_coil_cooling_capacity`'.format(value))
+                                 ' for field `RefrigerationWalkIn.rated_coil_cooling_capacity`'.format(value))
         self._data["Rated Coil Cooling Capacity"] = value
 
     @property
@@ -15359,10 +12005,10 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `operating_temperature`'.format(value))
+                                 ' for field `RefrigerationWalkIn.operating_temperature`'.format(value))
             if value >= 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `operating_temperature`')
+                                 'for field `RefrigerationWalkIn.operating_temperature`')
         self._data["Operating Temperature"] = value
 
     @property
@@ -15398,13 +12044,13 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_cooling_source_temperature`'.format(value))
+                                 ' for field `RefrigerationWalkIn.rated_cooling_source_temperature`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `rated_cooling_source_temperature`')
+                                 'for field `RefrigerationWalkIn.rated_cooling_source_temperature`')
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
-                                 'for field `rated_cooling_source_temperature`')
+                                 'for field `RefrigerationWalkIn.rated_cooling_source_temperature`')
         self._data["Rated Cooling Source Temperature"] = value
 
     @property
@@ -15436,7 +12082,7 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_total_heating_power`'.format(value))
+                                 ' for field `RefrigerationWalkIn.rated_total_heating_power`'.format(value))
         self._data["Rated Total Heating Power"] = value
 
     @property
@@ -15470,13 +12116,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_power_schedule_name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.heating_power_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_power_schedule_name`')
+                                 'for field `RefrigerationWalkIn.heating_power_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_power_schedule_name`')
+                                 'for field `RefrigerationWalkIn.heating_power_schedule_name`')
         self._data["Heating Power Schedule Name"] = value
 
     @property
@@ -15508,10 +12154,10 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_cooling_coil_fan_power`'.format(value))
+                                 ' for field `RefrigerationWalkIn.rated_cooling_coil_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_cooling_coil_fan_power`')
+                                 'for field `RefrigerationWalkIn.rated_cooling_coil_fan_power`')
         self._data["Rated Cooling Coil Fan Power"] = value
 
     @property
@@ -15543,10 +12189,10 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_circulation_fan_power`'.format(value))
+                                 ' for field `RefrigerationWalkIn.rated_circulation_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_circulation_fan_power`')
+                                 'for field `RefrigerationWalkIn.rated_circulation_fan_power`')
         self._data["Rated Circulation Fan Power"] = value
 
     @property
@@ -15577,7 +12223,7 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_total_lighting_power`'.format(value))
+                                 ' for field `RefrigerationWalkIn.rated_total_lighting_power`'.format(value))
         self._data["Rated Total Lighting Power"] = value
 
     @property
@@ -15608,13 +12254,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `lighting_schedule_name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.lighting_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `lighting_schedule_name`')
+                                 'for field `RefrigerationWalkIn.lighting_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `lighting_schedule_name`')
+                                 'for field `RefrigerationWalkIn.lighting_schedule_name`')
         self._data["Lighting Schedule Name"] = value
 
     @property
@@ -15651,13 +12297,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_type`'.format(value))
+                                 ' for field `RefrigerationWalkIn.defrost_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_type`')
+                                 'for field `RefrigerationWalkIn.defrost_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_type`')
+                                 'for field `RefrigerationWalkIn.defrost_type`')
             vals = {}
             vals["hotfluid"] = "HotFluid"
             vals["electric"] = "Electric"
@@ -15682,10 +12328,10 @@ class RefrigerationWalkIn(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `defrost_type`'.format(value))
+                                     'field `RefrigerationWalkIn.defrost_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `defrost_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationWalkIn.defrost_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Type"] = value
 
@@ -15719,13 +12365,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_control_type`'.format(value))
+                                 ' for field `RefrigerationWalkIn.defrost_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_control_type`')
+                                 'for field `RefrigerationWalkIn.defrost_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_control_type`')
+                                 'for field `RefrigerationWalkIn.defrost_control_type`')
             vals = {}
             vals["timeschedule"] = "TimeSchedule"
             vals["temperaturetermination"] = "TemperatureTermination"
@@ -15748,10 +12394,10 @@ class RefrigerationWalkIn(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `defrost_control_type`'.format(value))
+                                     'field `RefrigerationWalkIn.defrost_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `defrost_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationWalkIn.defrost_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control Type"] = value
 
@@ -15782,13 +12428,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_schedule_name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.defrost_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_schedule_name`')
+                                 'for field `RefrigerationWalkIn.defrost_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_schedule_name`')
+                                 'for field `RefrigerationWalkIn.defrost_schedule_name`')
         self._data["Defrost Schedule Name"] = value
 
     @property
@@ -15823,13 +12469,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_dripdown_schedule_name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.defrost_dripdown_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_dripdown_schedule_name`')
+                                 'for field `RefrigerationWalkIn.defrost_dripdown_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_dripdown_schedule_name`')
+                                 'for field `RefrigerationWalkIn.defrost_dripdown_schedule_name`')
         self._data["Defrost Drip-Down Schedule Name"] = value
 
     @property
@@ -15861,10 +12507,10 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `defrost_power`'.format(value))
+                                 ' for field `RefrigerationWalkIn.defrost_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `defrost_power`')
+                                 'for field `RefrigerationWalkIn.defrost_power`')
         self._data["Defrost Power"] = value
 
     @property
@@ -15899,13 +12545,13 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_termination_defrost_fraction_to_ice`'.format(value))
+                                 ' for field `RefrigerationWalkIn.temperature_termination_defrost_fraction_to_ice`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `temperature_termination_defrost_fraction_to_ice`')
+                                 'for field `RefrigerationWalkIn.temperature_termination_defrost_fraction_to_ice`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `temperature_termination_defrost_fraction_to_ice`')
+                                 'for field `RefrigerationWalkIn.temperature_termination_defrost_fraction_to_ice`')
         self._data["Temperature Termination Defrost Fraction to Ice"] = value
 
     @property
@@ -15936,13 +12582,13 @@ class RefrigerationWalkIn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `restocking_schedule_name`'.format(value))
+                                 ' for field `RefrigerationWalkIn.restocking_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `restocking_schedule_name`')
+                                 'for field `RefrigerationWalkIn.restocking_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `restocking_schedule_name`')
+                                 'for field `RefrigerationWalkIn.restocking_schedule_name`')
         self._data["Restocking Schedule Name"] = value
 
     @property
@@ -15974,7 +12620,7 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `average_refrigerant_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationWalkIn.average_refrigerant_charge_inventory`'.format(value))
         self._data["Average Refrigerant Charge Inventory"] = value
 
     @property
@@ -16006,10 +12652,10 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `insulated_floor_surface_area`'.format(value))
+                                 ' for field `RefrigerationWalkIn.insulated_floor_surface_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `insulated_floor_surface_area`')
+                                 'for field `RefrigerationWalkIn.insulated_floor_surface_area`')
         self._data["Insulated Floor Surface Area"] = value
 
     @property
@@ -16046,422 +12692,94 @@ class RefrigerationWalkIn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `insulated_floor_uvalue`'.format(value))
+                                 ' for field `RefrigerationWalkIn.insulated_floor_uvalue`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `insulated_floor_uvalue`')
+                                 'for field `RefrigerationWalkIn.insulated_floor_uvalue`')
         self._data["Insulated Floor U-Value"] = value
 
-    @property
-    def zone_1_name(self):
-        """Get zone_1_name
-
-        Returns:
-            str: the value of `zone_1_name` or None if not set
-        """
-        return self._data["Zone 1 Name"]
-
-    @zone_1_name.setter
-    def zone_1_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 1 Name`
-        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
-        The walkin cooler can face multiple zones.  The heat exchange with each zone
-        must be input separately
+    def add_extensible(self,
+                       zone_1_name=None,
+                       total_insulated_surface_area_facing_zone_1=None,
+                       insulated_surface_uvalue_facing_zone_1=0.3154,
+                       area_of_glass_reach_in_doors_facing_zone_1=0.0,
+                       height_of_glass_reach_in_doors_facing_zone_1=1.5,
+                       glass_reach_in_door_u_value_facing_zone_1=1.136,
+                       glass_reach_in_door_opening_schedule_name_facing_zone_1=None,
+                       area_of_stocking_doors_facing_zone_1=0.0,
+                       height_of_stocking_doors_facing_zone_1=3.0,
+                       stocking_door_u_value_facing_zone_1=0.3785,
+                       stocking_door_opening_schedule_name_facing_zone_1=None,
+                       stocking_door_opening_protection_type_facing_zone_1="AirCurtain",
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Zone 1 Name`
+
+            zone_1_name (str): value for IDD Field `Zone 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_1_name`')
-        self._data["Zone 1 Name"] = value
-
-    @property
-    def total_insulated_surface_area_facing_zone_1(self):
-        """Get total_insulated_surface_area_facing_zone_1
-
-        Returns:
-            float: the value of `total_insulated_surface_area_facing_zone_1` or None if not set
-        """
-        return self._data["Total Insulated Surface Area Facing Zone 1"]
-
-    @total_insulated_surface_area_facing_zone_1.setter
-    def total_insulated_surface_area_facing_zone_1(self, value=None):
-        """  Corresponds to IDD Field `Total Insulated Surface Area Facing Zone 1`
-        Area should include walls and ceilings, but not doors
-
-        Args:
-            value (float): value for IDD Field `Total Insulated Surface Area Facing Zone 1`
+            total_insulated_surface_area_facing_zone_1 (float): value for IDD Field `Total Insulated Surface Area Facing Zone 1`
                 Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `total_insulated_surface_area_facing_zone_1`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `total_insulated_surface_area_facing_zone_1`')
-        self._data["Total Insulated Surface Area Facing Zone 1"] = value
-
-    @property
-    def insulated_surface_uvalue_facing_zone_1(self):
-        """Get insulated_surface_uvalue_facing_zone_1
-
-        Returns:
-            float: the value of `insulated_surface_uvalue_facing_zone_1` or None if not set
-        """
-        return self._data["Insulated Surface U-Value Facing Zone 1"]
-
-    @insulated_surface_uvalue_facing_zone_1.setter
-    def insulated_surface_uvalue_facing_zone_1(self, value=0.3154):
-        """  Corresponds to IDD Field `Insulated Surface U-Value Facing Zone 1`
-        The default value corresponds to R18
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R15 is U 0.3785 W/m2-K
-        R5 is U 1.136 W/m2-K
-
-        Args:
-            value (float): value for IDD Field `Insulated Surface U-Value Facing Zone 1`
+            insulated_surface_uvalue_facing_zone_1 (float): value for IDD Field `Insulated Surface U-Value Facing Zone 1`
                 Units: W/m2-K
                 Default value: 0.3154
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `insulated_surface_uvalue_facing_zone_1`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `insulated_surface_uvalue_facing_zone_1`')
-        self._data["Insulated Surface U-Value Facing Zone 1"] = value
-
-    @property
-    def area_of_glass_reach_in_doors_facing_zone_1(self):
-        """Get area_of_glass_reach_in_doors_facing_zone_1
-
-        Returns:
-            float: the value of `area_of_glass_reach_in_doors_facing_zone_1` or None if not set
-        """
-        return self._data["Area of Glass Reach In Doors Facing Zone 1"]
-
-    @area_of_glass_reach_in_doors_facing_zone_1.setter
-    def area_of_glass_reach_in_doors_facing_zone_1(self, value=0.0):
-        """  Corresponds to IDD Field `Area of Glass Reach In Doors Facing Zone 1`
-
-        Args:
-            value (float): value for IDD Field `Area of Glass Reach In Doors Facing Zone 1`
+            area_of_glass_reach_in_doors_facing_zone_1 (float): value for IDD Field `Area of Glass Reach In Doors Facing Zone 1`
                 Units: m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `area_of_glass_reach_in_doors_facing_zone_1`'.format(value))
-        self._data["Area of Glass Reach In Doors Facing Zone 1"] = value
-
-    @property
-    def height_of_glass_reach_in_doors_facing_zone_1(self):
-        """Get height_of_glass_reach_in_doors_facing_zone_1
-
-        Returns:
-            float: the value of `height_of_glass_reach_in_doors_facing_zone_1` or None if not set
-        """
-        return self._data["Height of Glass Reach In Doors Facing Zone 1"]
-
-    @height_of_glass_reach_in_doors_facing_zone_1.setter
-    def height_of_glass_reach_in_doors_facing_zone_1(self, value=1.5):
-        """  Corresponds to IDD Field `Height of Glass Reach In Doors Facing Zone 1`
-
-        Args:
-            value (float): value for IDD Field `Height of Glass Reach In Doors Facing Zone 1`
+            height_of_glass_reach_in_doors_facing_zone_1 (float): value for IDD Field `Height of Glass Reach In Doors Facing Zone 1`
                 Units: m
                 Default value: 1.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_glass_reach_in_doors_facing_zone_1`'.format(value))
-        self._data["Height of Glass Reach In Doors Facing Zone 1"] = value
-
-    @property
-    def glass_reach_in_door_u_value_facing_zone_1(self):
-        """Get glass_reach_in_door_u_value_facing_zone_1
-
-        Returns:
-            float: the value of `glass_reach_in_door_u_value_facing_zone_1` or None if not set
-        """
-        return self._data["Glass Reach In Door U Value Facing Zone 1"]
-
-    @glass_reach_in_door_u_value_facing_zone_1.setter
-    def glass_reach_in_door_u_value_facing_zone_1(self, value=1.136):
-        """  Corresponds to IDD Field `Glass Reach In Door U Value Facing Zone 1`
-        The default value corresponds to R5
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-
-        Args:
-            value (float): value for IDD Field `Glass Reach In Door U Value Facing Zone 1`
+            glass_reach_in_door_u_value_facing_zone_1 (float): value for IDD Field `Glass Reach In Door U Value Facing Zone 1`
                 Units: W/m2-K
                 Default value: 1.136
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `glass_reach_in_door_u_value_facing_zone_1`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `glass_reach_in_door_u_value_facing_zone_1`')
-        self._data["Glass Reach In Door U Value Facing Zone 1"] = value
-
-    @property
-    def glass_reach_in_door_opening_schedule_name_facing_zone_1(self):
-        """Get glass_reach_in_door_opening_schedule_name_facing_zone_1
-
-        Returns:
-            str: the value of `glass_reach_in_door_opening_schedule_name_facing_zone_1` or None if not set
-        """
-        return self._data["Glass Reach In Door Opening Schedule Name Facing Zone 1"]
-
-    @glass_reach_in_door_opening_schedule_name_facing_zone_1.setter
-    def glass_reach_in_door_opening_schedule_name_facing_zone_1(self, value=None):
-        """  Corresponds to IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 1`
-        Schedule values should all be between 0.0 and 1.0.
-        For example, if the door is open 30% of the time during working hours,
-        then the schedule would hold the value 0.3 during working hours
-        and 0 during other hours
-        If no schedule name is entered, default is 5% open time during all hours
-
-        Args:
-            value (str): value for IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 1`
+            glass_reach_in_door_opening_schedule_name_facing_zone_1 (str): value for IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_1`')
-        self._data["Glass Reach In Door Opening Schedule Name Facing Zone 1"] = value
-
-    @property
-    def area_of_stocking_doors_facing_zone_1(self):
-        """Get area_of_stocking_doors_facing_zone_1
-
-        Returns:
-            float: the value of `area_of_stocking_doors_facing_zone_1` or None if not set
-        """
-        return self._data["Area of Stocking Doors Facing Zone 1"]
-
-    @area_of_stocking_doors_facing_zone_1.setter
-    def area_of_stocking_doors_facing_zone_1(self, value=0.0):
-        """  Corresponds to IDD Field `Area of Stocking Doors Facing Zone 1`
-
-        Args:
-            value (float): value for IDD Field `Area of Stocking Doors Facing Zone 1`
+            area_of_stocking_doors_facing_zone_1 (float): value for IDD Field `Area of Stocking Doors Facing Zone 1`
                 Units: m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `area_of_stocking_doors_facing_zone_1`'.format(value))
-        self._data["Area of Stocking Doors Facing Zone 1"] = value
-
-    @property
-    def height_of_stocking_doors_facing_zone_1(self):
-        """Get height_of_stocking_doors_facing_zone_1
-
-        Returns:
-            float: the value of `height_of_stocking_doors_facing_zone_1` or None if not set
-        """
-        return self._data["Height of Stocking Doors Facing Zone 1"]
-
-    @height_of_stocking_doors_facing_zone_1.setter
-    def height_of_stocking_doors_facing_zone_1(self, value=3.0):
-        """  Corresponds to IDD Field `Height of Stocking Doors Facing Zone 1`
-
-        Args:
-            value (float): value for IDD Field `Height of Stocking Doors Facing Zone 1`
+            height_of_stocking_doors_facing_zone_1 (float): value for IDD Field `Height of Stocking Doors Facing Zone 1`
                 Units: m
                 Default value: 3.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_stocking_doors_facing_zone_1`'.format(value))
-        self._data["Height of Stocking Doors Facing Zone 1"] = value
-
-    @property
-    def stocking_door_u_value_facing_zone_1(self):
-        """Get stocking_door_u_value_facing_zone_1
-
-        Returns:
-            float: the value of `stocking_door_u_value_facing_zone_1` or None if not set
-        """
-        return self._data["Stocking Door U Value Facing Zone 1"]
-
-    @stocking_door_u_value_facing_zone_1.setter
-    def stocking_door_u_value_facing_zone_1(self, value=0.3785):
-        """  Corresponds to IDD Field `Stocking Door U Value Facing Zone 1`
-        The default value corresponds to R15
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R5 is U 1.136 W/m2-K
-        R18 is U 0.3154 W/m2-K
-
-        Args:
-            value (float): value for IDD Field `Stocking Door U Value Facing Zone 1`
+            stocking_door_u_value_facing_zone_1 (float): value for IDD Field `Stocking Door U Value Facing Zone 1`
                 Units: W/m2-K
                 Default value: 0.3785
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `stocking_door_u_value_facing_zone_1`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `stocking_door_u_value_facing_zone_1`')
-        self._data["Stocking Door U Value Facing Zone 1"] = value
-
-    @property
-    def stocking_door_opening_schedule_name_facing_zone_1(self):
-        """Get stocking_door_opening_schedule_name_facing_zone_1
-
-        Returns:
-            str: the value of `stocking_door_opening_schedule_name_facing_zone_1` or None if not set
-        """
-        return self._data["Stocking Door Opening Schedule Name Facing Zone 1"]
-
-    @stocking_door_opening_schedule_name_facing_zone_1.setter
-    def stocking_door_opening_schedule_name_facing_zone_1(self, value=None):
-        """  Corresponds to IDD Field `Stocking Door Opening Schedule Name Facing Zone 1`
-        Schedule values should all be between 0.0 and 1.0.
-        For example, if the door is open 30% of the time during working hours,
-        then the schedule would hold the value 0.3 during working hours
-        and 0 during other hours
-        If no schedule name is entered, default is 5% open time during all hours
-
-        Args:
-            value (str): value for IDD Field `Stocking Door Opening Schedule Name Facing Zone 1`
+            stocking_door_opening_schedule_name_facing_zone_1 (str): value for IDD Field `Stocking Door Opening Schedule Name Facing Zone 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_1`')
-        self._data["Stocking Door Opening Schedule Name Facing Zone 1"] = value
-
-    @property
-    def stocking_door_opening_protection_type_facing_zone_1(self):
-        """Get stocking_door_opening_protection_type_facing_zone_1
-
-        Returns:
-            str: the value of `stocking_door_opening_protection_type_facing_zone_1` or None if not set
-        """
-        return self._data["Stocking Door Opening Protection Type Facing Zone 1"]
-
-    @stocking_door_opening_protection_type_facing_zone_1.setter
-    def stocking_door_opening_protection_type_facing_zone_1(self, value="AirCurtain"):
-        """  Corresponds to IDD Field `Stocking Door Opening Protection Type Facing Zone 1`
-        Use StripCurtain for hanging strips or airlock vestibules
-
-        Args:
-            value (str): value for IDD Field `Stocking Door Opening Protection Type Facing Zone 1`
+            stocking_door_opening_protection_type_facing_zone_1 (str): value for IDD Field `Stocking Door Opening Protection Type Facing Zone 1`
                 Accepted values are:
                       - None
                       - AirCurtain
@@ -16469,22 +12787,194 @@ class RefrigerationWalkIn(object):
                 Default value: AirCurtain
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_zone_1_name(zone_1_name))
+        vals.append(self._check_total_insulated_surface_area_facing_zone_1(total_insulated_surface_area_facing_zone_1))
+        vals.append(self._check_insulated_surface_uvalue_facing_zone_1(insulated_surface_uvalue_facing_zone_1))
+        vals.append(self._check_area_of_glass_reach_in_doors_facing_zone_1(area_of_glass_reach_in_doors_facing_zone_1))
+        vals.append(self._check_height_of_glass_reach_in_doors_facing_zone_1(height_of_glass_reach_in_doors_facing_zone_1))
+        vals.append(self._check_glass_reach_in_door_u_value_facing_zone_1(glass_reach_in_door_u_value_facing_zone_1))
+        vals.append(self._check_glass_reach_in_door_opening_schedule_name_facing_zone_1(glass_reach_in_door_opening_schedule_name_facing_zone_1))
+        vals.append(self._check_area_of_stocking_doors_facing_zone_1(area_of_stocking_doors_facing_zone_1))
+        vals.append(self._check_height_of_stocking_doors_facing_zone_1(height_of_stocking_doors_facing_zone_1))
+        vals.append(self._check_stocking_door_u_value_facing_zone_1(stocking_door_u_value_facing_zone_1))
+        vals.append(self._check_stocking_door_opening_schedule_name_facing_zone_1(stocking_door_opening_schedule_name_facing_zone_1))
+        vals.append(self._check_stocking_door_opening_protection_type_facing_zone_1(stocking_door_opening_protection_type_facing_zone_1))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_zone_1_name(self, value):
+        """ Validates falue of field `Zone 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `stocking_door_opening_protection_type_facing_zone_1`'.format(value))
+                                 ' for field `RefrigerationWalkIn.zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `stocking_door_opening_protection_type_facing_zone_1`')
+                                 'for field `RefrigerationWalkIn.zone_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `stocking_door_opening_protection_type_facing_zone_1`')
+                                 'for field `RefrigerationWalkIn.zone_1_name`')
+        return value
+
+    def _check_total_insulated_surface_area_facing_zone_1(self, value):
+        """ Validates falue of field `Total Insulated Surface Area Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.total_insulated_surface_area_facing_zone_1`'.format(value))
+            if value <= 0.0:
+                raise ValueError('value need to be greater 0.0 '
+                                 'for field `RefrigerationWalkIn.total_insulated_surface_area_facing_zone_1`')
+        return value
+
+    def _check_insulated_surface_uvalue_facing_zone_1(self, value):
+        """ Validates falue of field `Insulated Surface U-Value Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.insulated_surface_uvalue_facing_zone_1`'.format(value))
+            if value <= 0.0:
+                raise ValueError('value need to be greater 0.0 '
+                                 'for field `RefrigerationWalkIn.insulated_surface_uvalue_facing_zone_1`')
+        return value
+
+    def _check_area_of_glass_reach_in_doors_facing_zone_1(self, value):
+        """ Validates falue of field `Area of Glass Reach In Doors Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.area_of_glass_reach_in_doors_facing_zone_1`'.format(value))
+        return value
+
+    def _check_height_of_glass_reach_in_doors_facing_zone_1(self, value):
+        """ Validates falue of field `Height of Glass Reach In Doors Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.height_of_glass_reach_in_doors_facing_zone_1`'.format(value))
+        return value
+
+    def _check_glass_reach_in_door_u_value_facing_zone_1(self, value):
+        """ Validates falue of field `Glass Reach In Door U Value Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.glass_reach_in_door_u_value_facing_zone_1`'.format(value))
+            if value <= 0.0:
+                raise ValueError('value need to be greater 0.0 '
+                                 'for field `RefrigerationWalkIn.glass_reach_in_door_u_value_facing_zone_1`')
+        return value
+
+    def _check_glass_reach_in_door_opening_schedule_name_facing_zone_1(self, value):
+        """ Validates falue of field `Glass Reach In Door Opening Schedule Name Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `RefrigerationWalkIn.glass_reach_in_door_opening_schedule_name_facing_zone_1`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `RefrigerationWalkIn.glass_reach_in_door_opening_schedule_name_facing_zone_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `RefrigerationWalkIn.glass_reach_in_door_opening_schedule_name_facing_zone_1`')
+        return value
+
+    def _check_area_of_stocking_doors_facing_zone_1(self, value):
+        """ Validates falue of field `Area of Stocking Doors Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.area_of_stocking_doors_facing_zone_1`'.format(value))
+        return value
+
+    def _check_height_of_stocking_doors_facing_zone_1(self, value):
+        """ Validates falue of field `Height of Stocking Doors Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.height_of_stocking_doors_facing_zone_1`'.format(value))
+        return value
+
+    def _check_stocking_door_u_value_facing_zone_1(self, value):
+        """ Validates falue of field `Stocking Door U Value Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RefrigerationWalkIn.stocking_door_u_value_facing_zone_1`'.format(value))
+            if value <= 0.0:
+                raise ValueError('value need to be greater 0.0 '
+                                 'for field `RefrigerationWalkIn.stocking_door_u_value_facing_zone_1`')
+        return value
+
+    def _check_stocking_door_opening_schedule_name_facing_zone_1(self, value):
+        """ Validates falue of field `Stocking Door Opening Schedule Name Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `RefrigerationWalkIn.stocking_door_opening_schedule_name_facing_zone_1`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `RefrigerationWalkIn.stocking_door_opening_schedule_name_facing_zone_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `RefrigerationWalkIn.stocking_door_opening_schedule_name_facing_zone_1`')
+        return value
+
+    def _check_stocking_door_opening_protection_type_facing_zone_1(self, value):
+        """ Validates falue of field `Stocking Door Opening Protection Type Facing Zone 1`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `RefrigerationWalkIn.stocking_door_opening_protection_type_facing_zone_1`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `RefrigerationWalkIn.stocking_door_opening_protection_type_facing_zone_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `RefrigerationWalkIn.stocking_door_opening_protection_type_facing_zone_1`')
             vals = {}
             vals["none"] = "None"
             vals["aircurtain"] = "AirCurtain"
@@ -16508,950 +12998,44 @@ class RefrigerationWalkIn(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `stocking_door_opening_protection_type_facing_zone_1`'.format(value))
+                                     'field `RefrigerationWalkIn.stocking_door_opening_protection_type_facing_zone_1`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `stocking_door_opening_protection_type_facing_zone_1`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationWalkIn.stocking_door_opening_protection_type_facing_zone_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
-        self._data["Stocking Door Opening Protection Type Facing Zone 1"] = value
+        return value
 
-    @property
-    def zone_2_name(self):
-        """Get zone_2_name
-
-        Returns:
-            str: the value of `zone_2_name` or None if not set
-        """
-        return self._data["Zone 2 Name"]
-
-    @zone_2_name.setter
-    def zone_2_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 2 Name`
-        required if more than one zone
-        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
-
-        Args:
-            value (str): value for IDD Field `Zone 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_2_name`')
-        self._data["Zone 2 Name"] = value
-
-    @property
-    def total_insulated_surface_area_facing_zone_2(self):
-        """Get total_insulated_surface_area_facing_zone_2
-
-        Returns:
-            float: the value of `total_insulated_surface_area_facing_zone_2` or None if not set
-        """
-        return self._data["Total Insulated Surface Area Facing Zone 2"]
-
-    @total_insulated_surface_area_facing_zone_2.setter
-    def total_insulated_surface_area_facing_zone_2(self, value=None):
-        """  Corresponds to IDD Field `Total Insulated Surface Area Facing Zone 2`
-        Area should include walls and ceilings, but not doors
-        required if more than one zone
-
-        Args:
-            value (float): value for IDD Field `Total Insulated Surface Area Facing Zone 2`
-                Units: m2
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `total_insulated_surface_area_facing_zone_2`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `total_insulated_surface_area_facing_zone_2`')
-        self._data["Total Insulated Surface Area Facing Zone 2"] = value
-
-    @property
-    def insulated_surface_uvalue_facing_zone_2(self):
-        """Get insulated_surface_uvalue_facing_zone_2
-
-        Returns:
-            float: the value of `insulated_surface_uvalue_facing_zone_2` or None if not set
-        """
-        return self._data["Insulated Surface U-Value Facing Zone 2"]
-
-    @insulated_surface_uvalue_facing_zone_2.setter
-    def insulated_surface_uvalue_facing_zone_2(self, value=0.3154):
-        """  Corresponds to IDD Field `Insulated Surface U-Value Facing Zone 2`
-        The default value corresponds to R18
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R15 is U 0.3785 W/m2-K
-        R5 is U 1.136 W/m2-K
-
-        Args:
-            value (float): value for IDD Field `Insulated Surface U-Value Facing Zone 2`
-                Units: W/m2-K
-                Default value: 0.3154
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `insulated_surface_uvalue_facing_zone_2`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `insulated_surface_uvalue_facing_zone_2`')
-        self._data["Insulated Surface U-Value Facing Zone 2"] = value
-
-    @property
-    def area_of_glass_reach_in_doors_facing_zone_2(self):
-        """Get area_of_glass_reach_in_doors_facing_zone_2
-
-        Returns:
-            float: the value of `area_of_glass_reach_in_doors_facing_zone_2` or None if not set
-        """
-        return self._data["Area of Glass Reach In Doors Facing Zone 2"]
-
-    @area_of_glass_reach_in_doors_facing_zone_2.setter
-    def area_of_glass_reach_in_doors_facing_zone_2(self, value=0.0):
-        """  Corresponds to IDD Field `Area of Glass Reach In Doors Facing Zone 2`
-
-        Args:
-            value (float): value for IDD Field `Area of Glass Reach In Doors Facing Zone 2`
-                Units: m2
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `area_of_glass_reach_in_doors_facing_zone_2`'.format(value))
-        self._data["Area of Glass Reach In Doors Facing Zone 2"] = value
-
-    @property
-    def height_of_glass_reach_in_doors_facing_zone_2(self):
-        """Get height_of_glass_reach_in_doors_facing_zone_2
-
-        Returns:
-            float: the value of `height_of_glass_reach_in_doors_facing_zone_2` or None if not set
-        """
-        return self._data["Height of Glass Reach In Doors Facing Zone 2"]
-
-    @height_of_glass_reach_in_doors_facing_zone_2.setter
-    def height_of_glass_reach_in_doors_facing_zone_2(self, value=1.5):
-        """  Corresponds to IDD Field `Height of Glass Reach In Doors Facing Zone 2`
-
-        Args:
-            value (float): value for IDD Field `Height of Glass Reach In Doors Facing Zone 2`
-                Units: m
-                Default value: 1.5
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_glass_reach_in_doors_facing_zone_2`'.format(value))
-        self._data["Height of Glass Reach In Doors Facing Zone 2"] = value
-
-    @property
-    def glass_reach_in_door_u_value_facing_zone_2(self):
-        """Get glass_reach_in_door_u_value_facing_zone_2
-
-        Returns:
-            float: the value of `glass_reach_in_door_u_value_facing_zone_2` or None if not set
-        """
-        return self._data["Glass Reach In Door U Value Facing Zone 2"]
-
-    @glass_reach_in_door_u_value_facing_zone_2.setter
-    def glass_reach_in_door_u_value_facing_zone_2(self, value=1.136):
-        """  Corresponds to IDD Field `Glass Reach In Door U Value Facing Zone 2`
-        The default value corresponds to R5
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-
-        Args:
-            value (float): value for IDD Field `Glass Reach In Door U Value Facing Zone 2`
-                Units: W/m2-K
-                Default value: 1.136
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `glass_reach_in_door_u_value_facing_zone_2`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `glass_reach_in_door_u_value_facing_zone_2`')
-        self._data["Glass Reach In Door U Value Facing Zone 2"] = value
-
-    @property
-    def glass_reach_in_door_opening_schedule_name_facing_zone_2(self):
-        """Get glass_reach_in_door_opening_schedule_name_facing_zone_2
-
-        Returns:
-            str: the value of `glass_reach_in_door_opening_schedule_name_facing_zone_2` or None if not set
-        """
-        return self._data["Glass Reach In Door Opening Schedule Name Facing Zone 2"]
-
-    @glass_reach_in_door_opening_schedule_name_facing_zone_2.setter
-    def glass_reach_in_door_opening_schedule_name_facing_zone_2(self, value=None):
-        """  Corresponds to IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 2`
-        Schedule values should all be between 0.0 and 1.0.
-        For example, if the door is open 30% of the time during working hours,
-        then the schedule would hold the value 0.3 during working hours
-        and 0 during other hours
-        If no schedule name is entered, default is 5% open time during all hours
-
-        Args:
-            value (str): value for IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_2`')
-        self._data["Glass Reach In Door Opening Schedule Name Facing Zone 2"] = value
-
-    @property
-    def area_of_stocking_doors_facing_zone_2(self):
-        """Get area_of_stocking_doors_facing_zone_2
-
-        Returns:
-            float: the value of `area_of_stocking_doors_facing_zone_2` or None if not set
-        """
-        return self._data["Area of Stocking Doors Facing Zone 2"]
-
-    @area_of_stocking_doors_facing_zone_2.setter
-    def area_of_stocking_doors_facing_zone_2(self, value=0.0):
-        """  Corresponds to IDD Field `Area of Stocking Doors Facing Zone 2`
-
-        Args:
-            value (float): value for IDD Field `Area of Stocking Doors Facing Zone 2`
-                Units: m2
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `area_of_stocking_doors_facing_zone_2`'.format(value))
-        self._data["Area of Stocking Doors Facing Zone 2"] = value
-
-    @property
-    def height_of_stocking_doors_facing_zone_2(self):
-        """Get height_of_stocking_doors_facing_zone_2
-
-        Returns:
-            float: the value of `height_of_stocking_doors_facing_zone_2` or None if not set
-        """
-        return self._data["Height of Stocking Doors Facing Zone 2"]
-
-    @height_of_stocking_doors_facing_zone_2.setter
-    def height_of_stocking_doors_facing_zone_2(self, value=3.0):
-        """  Corresponds to IDD Field `Height of Stocking Doors Facing Zone 2`
-
-        Args:
-            value (float): value for IDD Field `Height of Stocking Doors Facing Zone 2`
-                Units: m
-                Default value: 3.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_stocking_doors_facing_zone_2`'.format(value))
-        self._data["Height of Stocking Doors Facing Zone 2"] = value
-
-    @property
-    def stocking_door_u_value_facing_zone_2(self):
-        """Get stocking_door_u_value_facing_zone_2
-
-        Returns:
-            float: the value of `stocking_door_u_value_facing_zone_2` or None if not set
-        """
-        return self._data["Stocking Door U Value Facing Zone 2"]
-
-    @stocking_door_u_value_facing_zone_2.setter
-    def stocking_door_u_value_facing_zone_2(self, value=0.3785):
-        """  Corresponds to IDD Field `Stocking Door U Value Facing Zone 2`
-        The default value corresponds to R15
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R5 is U 1.136 W/m2-K
-        R18 is U 0.3154 W/m2-K
-
-        Args:
-            value (float): value for IDD Field `Stocking Door U Value Facing Zone 2`
-                Units: W/m2-K
-                Default value: 0.3785
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `stocking_door_u_value_facing_zone_2`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `stocking_door_u_value_facing_zone_2`')
-        self._data["Stocking Door U Value Facing Zone 2"] = value
-
-    @property
-    def stocking_door_opening_schedule_name_facing_zone_2(self):
-        """Get stocking_door_opening_schedule_name_facing_zone_2
-
-        Returns:
-            str: the value of `stocking_door_opening_schedule_name_facing_zone_2` or None if not set
-        """
-        return self._data["Stocking Door Opening Schedule Name Facing Zone 2"]
-
-    @stocking_door_opening_schedule_name_facing_zone_2.setter
-    def stocking_door_opening_schedule_name_facing_zone_2(self, value=None):
-        """  Corresponds to IDD Field `Stocking Door Opening Schedule Name Facing Zone 2`
-        Schedule values should all be between 0.0 and 1.0.
-        For example, if the door is open 30% of the time during working hours,
-        then the schedule would hold the value 0.3 during working hours
-        and 0 during other hours
-        If no schedule name is entered, default is 5% open time during all hours
-
-        Args:
-            value (str): value for IDD Field `Stocking Door Opening Schedule Name Facing Zone 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_2`')
-        self._data["Stocking Door Opening Schedule Name Facing Zone 2"] = value
-
-    @property
-    def stocking_door_opening_protection_type_facing_zone_2(self):
-        """Get stocking_door_opening_protection_type_facing_zone_2
-
-        Returns:
-            str: the value of `stocking_door_opening_protection_type_facing_zone_2` or None if not set
-        """
-        return self._data["Stocking Door Opening Protection Type Facing Zone 2"]
-
-    @stocking_door_opening_protection_type_facing_zone_2.setter
-    def stocking_door_opening_protection_type_facing_zone_2(self, value="AirCurtain"):
-        """  Corresponds to IDD Field `Stocking Door Opening Protection Type Facing Zone 2`
-        Use StripCurtain for hanging strips or airlock vestibules
-        last extensible set begins here
-        dup remaining 12 lines as many times as there are zones exchanging heat with walkin
-        Move the ending semicolon and increment the field numbers.
-
-        Args:
-            value (str): value for IDD Field `Stocking Door Opening Protection Type Facing Zone 2`
-                Accepted values are:
-                      - None
-                      - AirCurtain
-                      - StripCurtain
-                Default value: AirCurtain
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `stocking_door_opening_protection_type_facing_zone_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `stocking_door_opening_protection_type_facing_zone_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `stocking_door_opening_protection_type_facing_zone_2`')
-            vals = {}
-            vals["none"] = "None"
-            vals["aircurtain"] = "AirCurtain"
-            vals["stripcurtain"] = "StripCurtain"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `stocking_door_opening_protection_type_facing_zone_2`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `stocking_door_opening_protection_type_facing_zone_2`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Stocking Door Opening Protection Type Facing Zone 2"] = value
-
-    @property
-    def zone_3_name(self):
-        """Get zone_3_name
-
-        Returns:
-            str: the value of `zone_3_name` or None if not set
-        """
-        return self._data["Zone 3 Name"]
-
-    @zone_3_name.setter
-    def zone_3_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 3 Name`
-        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
-        required if more than two zones
-
-        Args:
-            value (str): value for IDD Field `Zone 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_3_name`')
-        self._data["Zone 3 Name"] = value
-
-    @property
-    def total_insulated_surface_area_facing_zone_3(self):
-        """Get total_insulated_surface_area_facing_zone_3
-
-        Returns:
-            float: the value of `total_insulated_surface_area_facing_zone_3` or None if not set
-        """
-        return self._data["Total Insulated Surface Area Facing Zone 3"]
-
-    @total_insulated_surface_area_facing_zone_3.setter
-    def total_insulated_surface_area_facing_zone_3(self, value=None):
-        """  Corresponds to IDD Field `Total Insulated Surface Area Facing Zone 3`
-        required if more than two zones
-        Area should include walls and ceilings, but not doors
-
-        Args:
-            value (float): value for IDD Field `Total Insulated Surface Area Facing Zone 3`
-                Units: m2
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `total_insulated_surface_area_facing_zone_3`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `total_insulated_surface_area_facing_zone_3`')
-        self._data["Total Insulated Surface Area Facing Zone 3"] = value
-
-    @property
-    def insulated_surface_uvalue_facing_zone_3(self):
-        """Get insulated_surface_uvalue_facing_zone_3
-
-        Returns:
-            float: the value of `insulated_surface_uvalue_facing_zone_3` or None if not set
-        """
-        return self._data["Insulated Surface U-Value Facing Zone 3"]
-
-    @insulated_surface_uvalue_facing_zone_3.setter
-    def insulated_surface_uvalue_facing_zone_3(self, value=0.3154):
-        """  Corresponds to IDD Field `Insulated Surface U-Value Facing Zone 3`
-        The default value corresponds to R18
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R15 is U 0.3785 W/m2-K
-        R5 is U 1.136 W/m2-K
-
-        Args:
-            value (float): value for IDD Field `Insulated Surface U-Value Facing Zone 3`
-                Units: W/m2-K
-                Default value: 0.3154
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `insulated_surface_uvalue_facing_zone_3`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `insulated_surface_uvalue_facing_zone_3`')
-        self._data["Insulated Surface U-Value Facing Zone 3"] = value
-
-    @property
-    def area_of_glass_reach_in_doors_facing_zone_3(self):
-        """Get area_of_glass_reach_in_doors_facing_zone_3
-
-        Returns:
-            float: the value of `area_of_glass_reach_in_doors_facing_zone_3` or None if not set
-        """
-        return self._data["Area of Glass Reach In Doors Facing Zone 3"]
-
-    @area_of_glass_reach_in_doors_facing_zone_3.setter
-    def area_of_glass_reach_in_doors_facing_zone_3(self, value=0.0):
-        """  Corresponds to IDD Field `Area of Glass Reach In Doors Facing Zone 3`
-
-        Args:
-            value (float): value for IDD Field `Area of Glass Reach In Doors Facing Zone 3`
-                Units: m2
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `area_of_glass_reach_in_doors_facing_zone_3`'.format(value))
-        self._data["Area of Glass Reach In Doors Facing Zone 3"] = value
-
-    @property
-    def height_of_glass_reach_in_doors_facing_zone_3(self):
-        """Get height_of_glass_reach_in_doors_facing_zone_3
-
-        Returns:
-            float: the value of `height_of_glass_reach_in_doors_facing_zone_3` or None if not set
-        """
-        return self._data["Height of Glass Reach In Doors Facing Zone 3"]
-
-    @height_of_glass_reach_in_doors_facing_zone_3.setter
-    def height_of_glass_reach_in_doors_facing_zone_3(self, value=1.5):
-        """  Corresponds to IDD Field `Height of Glass Reach In Doors Facing Zone 3`
-
-        Args:
-            value (float): value for IDD Field `Height of Glass Reach In Doors Facing Zone 3`
-                Units: m
-                Default value: 1.5
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_glass_reach_in_doors_facing_zone_3`'.format(value))
-        self._data["Height of Glass Reach In Doors Facing Zone 3"] = value
-
-    @property
-    def glass_reach_in_door_u_value_facing_zone_3(self):
-        """Get glass_reach_in_door_u_value_facing_zone_3
-
-        Returns:
-            float: the value of `glass_reach_in_door_u_value_facing_zone_3` or None if not set
-        """
-        return self._data["Glass Reach In Door U Value Facing Zone 3"]
-
-    @glass_reach_in_door_u_value_facing_zone_3.setter
-    def glass_reach_in_door_u_value_facing_zone_3(self, value=1.136):
-        """  Corresponds to IDD Field `Glass Reach In Door U Value Facing Zone 3`
-        The default value corresponds to R5
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-
-        Args:
-            value (float): value for IDD Field `Glass Reach In Door U Value Facing Zone 3`
-                Units: W/m2-K
-                Default value: 1.136
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `glass_reach_in_door_u_value_facing_zone_3`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `glass_reach_in_door_u_value_facing_zone_3`')
-        self._data["Glass Reach In Door U Value Facing Zone 3"] = value
-
-    @property
-    def glass_reach_in_door_opening_schedule_name_facing_zone_3(self):
-        """Get glass_reach_in_door_opening_schedule_name_facing_zone_3
-
-        Returns:
-            str: the value of `glass_reach_in_door_opening_schedule_name_facing_zone_3` or None if not set
-        """
-        return self._data["Glass Reach In Door Opening Schedule Name Facing Zone 3"]
-
-    @glass_reach_in_door_opening_schedule_name_facing_zone_3.setter
-    def glass_reach_in_door_opening_schedule_name_facing_zone_3(self, value=None):
-        """  Corresponds to IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 3`
-        Schedule values should all be between 0.0 and 1.0.
-        For example, if the door is open 30% of the time during working hours,
-        then the schedule would hold the value 0.3 during working hours
-        and 0 during other hours
-        If no schedule name is entered, default is 5% open time during all hours
-
-        Args:
-            value (str): value for IDD Field `Glass Reach In Door Opening Schedule Name Facing Zone 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `glass_reach_in_door_opening_schedule_name_facing_zone_3`')
-        self._data["Glass Reach In Door Opening Schedule Name Facing Zone 3"] = value
-
-    @property
-    def area_of_stocking_doors_facing_zone_3(self):
-        """Get area_of_stocking_doors_facing_zone_3
-
-        Returns:
-            float: the value of `area_of_stocking_doors_facing_zone_3` or None if not set
-        """
-        return self._data["Area of Stocking Doors Facing Zone 3"]
-
-    @area_of_stocking_doors_facing_zone_3.setter
-    def area_of_stocking_doors_facing_zone_3(self, value=0.0):
-        """  Corresponds to IDD Field `Area of Stocking Doors Facing Zone 3`
-
-        Args:
-            value (float): value for IDD Field `Area of Stocking Doors Facing Zone 3`
-                Units: m2
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `area_of_stocking_doors_facing_zone_3`'.format(value))
-        self._data["Area of Stocking Doors Facing Zone 3"] = value
-
-    @property
-    def height_of_stocking_doors_facing_zone_3(self):
-        """Get height_of_stocking_doors_facing_zone_3
-
-        Returns:
-            float: the value of `height_of_stocking_doors_facing_zone_3` or None if not set
-        """
-        return self._data["Height of Stocking Doors Facing Zone 3"]
-
-    @height_of_stocking_doors_facing_zone_3.setter
-    def height_of_stocking_doors_facing_zone_3(self, value=3.0):
-        """  Corresponds to IDD Field `Height of Stocking Doors Facing Zone 3`
-
-        Args:
-            value (float): value for IDD Field `Height of Stocking Doors Facing Zone 3`
-                Units: m
-                Default value: 3.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_stocking_doors_facing_zone_3`'.format(value))
-        self._data["Height of Stocking Doors Facing Zone 3"] = value
-
-    @property
-    def stocking_door_u_value_facing_zone_3(self):
-        """Get stocking_door_u_value_facing_zone_3
-
-        Returns:
-            float: the value of `stocking_door_u_value_facing_zone_3` or None if not set
-        """
-        return self._data["Stocking Door U Value Facing Zone 3"]
-
-    @stocking_door_u_value_facing_zone_3.setter
-    def stocking_door_u_value_facing_zone_3(self, value=0.3785):
-        """  Corresponds to IDD Field `Stocking Door U Value Facing Zone 3`
-        The default value corresponds to R15
-        To convert other Archaic American R-values to U, divide 5.678 by the R-value
-        Some examples:
-        R5 is U 1.136 W/m2-K
-        R18 is U 0.3154 W/m2-K
-
-        Args:
-            value (float): value for IDD Field `Stocking Door U Value Facing Zone 3`
-                Units: W/m2-K
-                Default value: 0.3785
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `stocking_door_u_value_facing_zone_3`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `stocking_door_u_value_facing_zone_3`')
-        self._data["Stocking Door U Value Facing Zone 3"] = value
-
-    @property
-    def stocking_door_opening_schedule_name_facing_zone_3(self):
-        """Get stocking_door_opening_schedule_name_facing_zone_3
-
-        Returns:
-            str: the value of `stocking_door_opening_schedule_name_facing_zone_3` or None if not set
-        """
-        return self._data["Stocking Door Opening Schedule Name Facing Zone 3"]
-
-    @stocking_door_opening_schedule_name_facing_zone_3.setter
-    def stocking_door_opening_schedule_name_facing_zone_3(self, value=None):
-        """  Corresponds to IDD Field `Stocking Door Opening Schedule Name Facing Zone 3`
-        Schedule values should all be between 0.0 and 1.0.
-        For example, if the door is open 30% of the time during working hours,
-        then the schedule would hold the value 0.3 during working hours
-        and 0 during other hours
-        If no schedule name is entered, default is 5% open time during all hours
-
-        Args:
-            value (str): value for IDD Field `Stocking Door Opening Schedule Name Facing Zone 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `stocking_door_opening_schedule_name_facing_zone_3`')
-        self._data["Stocking Door Opening Schedule Name Facing Zone 3"] = value
-
-    @property
-    def stocking_door_opening_protection_type_facing_zone_3(self):
-        """Get stocking_door_opening_protection_type_facing_zone_3
-
-        Returns:
-            str: the value of `stocking_door_opening_protection_type_facing_zone_3` or None if not set
-        """
-        return self._data["Stocking Door Opening Protection Type Facing Zone 3"]
-
-    @stocking_door_opening_protection_type_facing_zone_3.setter
-    def stocking_door_opening_protection_type_facing_zone_3(self, value="AirCurtain"):
-        """  Corresponds to IDD Field `Stocking Door Opening Protection Type Facing Zone 3`
-        Use StripCurtain for hanging strips or airlock vestibules
-
-        Args:
-            value (str): value for IDD Field `Stocking Door Opening Protection Type Facing Zone 3`
-                Accepted values are:
-                      - None
-                      - AirCurtain
-                      - StripCurtain
-                Default value: AirCurtain
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `stocking_door_opening_protection_type_facing_zone_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `stocking_door_opening_protection_type_facing_zone_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `stocking_door_opening_protection_type_facing_zone_3`')
-            vals = {}
-            vals["none"] = "None"
-            vals["aircurtain"] = "AirCurtain"
-            vals["stripcurtain"] = "StripCurtain"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `stocking_door_opening_protection_type_facing_zone_3`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `stocking_door_opening_protection_type_facing_zone_3`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Stocking Door Opening Protection Type Facing Zone 3"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationWalkIn:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationWalkIn:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationWalkIn: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationWalkIn: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -17469,8 +13053,27 @@ class RefrigerationWalkIn(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -17490,6 +13093,10 @@ class RefrigerationAirChiller(object):
     internal_name = "Refrigeration:AirChiller"
     field_count = 28
     required_fields = ["Name", "Capacity Rating Type", "Rated Cooling Source Temperature", "Rated Temperature Difference DT1", "Rated Total Heating Power", "Rated Air Flow", "Defrost Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 23
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Refrigeration:AirChiller`
@@ -17523,6 +13130,7 @@ class RefrigerationAirChiller(object):
         self._data["Temperature Termination Defrost Fraction to Ice"] = None
         self._data["Vertical Location"] = None
         self._data["Average Refrigerant Charge Inventory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -17758,13 +13366,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RefrigerationAirChiller.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RefrigerationAirChiller.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RefrigerationAirChiller.name`')
         self._data["Name"] = value
 
     @property
@@ -17795,13 +13403,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `RefrigerationAirChiller.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RefrigerationAirChiller.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RefrigerationAirChiller.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -17848,13 +13456,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `capacity_rating_type`'.format(value))
+                                 ' for field `RefrigerationAirChiller.capacity_rating_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `capacity_rating_type`')
+                                 'for field `RefrigerationAirChiller.capacity_rating_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `capacity_rating_type`')
+                                 'for field `RefrigerationAirChiller.capacity_rating_type`')
             vals = {}
             vals["unitloadfactorsensibleonly"] = "UnitLoadFactorSensibleOnly"
             vals["capacitytotalspecificconditions"] = "CapacityTotalSpecificConditions"
@@ -17888,10 +13496,10 @@ class RefrigerationAirChiller(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `capacity_rating_type`'.format(value))
+                                     'field `RefrigerationAirChiller.capacity_rating_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `capacity_rating_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationAirChiller.capacity_rating_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Capacity Rating Type"] = value
 
@@ -17928,7 +13536,7 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_unit_load_factor`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_unit_load_factor`'.format(value))
         self._data["Rated Unit Load Factor"] = value
 
     @property
@@ -17964,7 +13572,7 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_capacity`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_capacity`'.format(value))
         self._data["Rated Capacity"] = value
 
     @property
@@ -17998,10 +13606,10 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_relative_humidity`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_relative_humidity`'.format(value))
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `rated_relative_humidity`')
+                                 'for field `RefrigerationAirChiller.rated_relative_humidity`')
         self._data["Rated Relative Humidity"] = value
 
     @property
@@ -18037,13 +13645,13 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_cooling_source_temperature`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_cooling_source_temperature`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `rated_cooling_source_temperature`')
+                                 'for field `RefrigerationAirChiller.rated_cooling_source_temperature`')
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
-                                 'for field `rated_cooling_source_temperature`')
+                                 'for field `RefrigerationAirChiller.rated_cooling_source_temperature`')
         self._data["Rated Cooling Source Temperature"] = value
 
     @property
@@ -18077,13 +13685,13 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_temperature_difference_dt1`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_temperature_difference_dt1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_temperature_difference_dt1`')
+                                 'for field `RefrigerationAirChiller.rated_temperature_difference_dt1`')
             if value > 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `rated_temperature_difference_dt1`')
+                                 'for field `RefrigerationAirChiller.rated_temperature_difference_dt1`')
         self._data["Rated Temperature Difference DT1"] = value
 
     @property
@@ -18118,13 +13726,13 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`'.format(value))
+                                 ' for field `RefrigerationAirChiller.maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`')
+                                 'for field `RefrigerationAirChiller.maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`')
             if value > 25.0:
                 raise ValueError('value need to be smaller 25.0 '
-                                 'for field `maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`')
+                                 'for field `RefrigerationAirChiller.maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`')
         self._data["Maximum Temperature Difference Between Inlet Air and Evaporating Temperature"] = value
 
     @property
@@ -18156,7 +13764,7 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coil_material_correction_factor`'.format(value))
+                                 ' for field `RefrigerationAirChiller.coil_material_correction_factor`'.format(value))
         self._data["Coil Material Correction Factor"] = value
 
     @property
@@ -18188,7 +13796,7 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `refrigerant_correction_factor`'.format(value))
+                                 ' for field `RefrigerationAirChiller.refrigerant_correction_factor`'.format(value))
         self._data["Refrigerant Correction Factor"] = value
 
     @property
@@ -18224,13 +13832,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `capacity_correction_curve_type`'.format(value))
+                                 ' for field `RefrigerationAirChiller.capacity_correction_curve_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `capacity_correction_curve_type`')
+                                 'for field `RefrigerationAirChiller.capacity_correction_curve_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `capacity_correction_curve_type`')
+                                 'for field `RefrigerationAirChiller.capacity_correction_curve_type`')
             vals = {}
             vals["linearshr60"] = "LinearSHR60"
             vals["quadraticshr"] = "QuadraticSHR"
@@ -18255,10 +13863,10 @@ class RefrigerationAirChiller(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `capacity_correction_curve_type`'.format(value))
+                                     'field `RefrigerationAirChiller.capacity_correction_curve_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `capacity_correction_curve_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationAirChiller.capacity_correction_curve_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Capacity Correction Curve Type"] = value
 
@@ -18291,13 +13899,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `capacity_correction_curve_name`'.format(value))
+                                 ' for field `RefrigerationAirChiller.capacity_correction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `capacity_correction_curve_name`')
+                                 'for field `RefrigerationAirChiller.capacity_correction_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `capacity_correction_curve_name`')
+                                 'for field `RefrigerationAirChiller.capacity_correction_curve_name`')
         self._data["Capacity Correction Curve Name"] = value
 
     @property
@@ -18330,10 +13938,10 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shr60_correction_factor`'.format(value))
+                                 ' for field `RefrigerationAirChiller.shr60_correction_factor`'.format(value))
             if value > 1.67:
                 raise ValueError('value need to be smaller 1.67 '
-                                 'for field `shr60_correction_factor`')
+                                 'for field `RefrigerationAirChiller.shr60_correction_factor`')
         self._data["SHR60 Correction Factor"] = value
 
     @property
@@ -18365,7 +13973,7 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_total_heating_power`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_total_heating_power`'.format(value))
         self._data["Rated Total Heating Power"] = value
 
     @property
@@ -18397,13 +14005,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_power_schedule_name`'.format(value))
+                                 ' for field `RefrigerationAirChiller.heating_power_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_power_schedule_name`')
+                                 'for field `RefrigerationAirChiller.heating_power_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_power_schedule_name`')
+                                 'for field `RefrigerationAirChiller.heating_power_schedule_name`')
         self._data["Heating Power Schedule Name"] = value
 
     @property
@@ -18438,13 +14046,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_speed_control_type`'.format(value))
+                                 ' for field `RefrigerationAirChiller.fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_speed_control_type`')
+                                 'for field `RefrigerationAirChiller.fan_speed_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_speed_control_type`')
+                                 'for field `RefrigerationAirChiller.fan_speed_control_type`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["fixedlinear"] = "FixedLinear"
@@ -18469,10 +14077,10 @@ class RefrigerationAirChiller(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fan_speed_control_type`'.format(value))
+                                     'field `RefrigerationAirChiller.fan_speed_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fan_speed_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationAirChiller.fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Speed Control Type"] = value
 
@@ -18505,10 +14113,10 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_fan_power`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_fan_power`')
+                                 'for field `RefrigerationAirChiller.rated_fan_power`')
         self._data["Rated Fan Power"] = value
 
     @property
@@ -18538,7 +14146,7 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_air_flow`'.format(value))
+                                 ' for field `RefrigerationAirChiller.rated_air_flow`'.format(value))
         self._data["Rated Air Flow"] = value
 
     @property
@@ -18571,10 +14179,10 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_fan_air_flow_ratio`'.format(value))
+                                 ' for field `RefrigerationAirChiller.minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_fan_air_flow_ratio`')
+                                 'for field `RefrigerationAirChiller.minimum_fan_air_flow_ratio`')
         self._data["Minimum Fan Air Flow Ratio"] = value
 
     @property
@@ -18611,13 +14219,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_type`'.format(value))
+                                 ' for field `RefrigerationAirChiller.defrost_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_type`')
+                                 'for field `RefrigerationAirChiller.defrost_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_type`')
+                                 'for field `RefrigerationAirChiller.defrost_type`')
             vals = {}
             vals["hotfluid"] = "HotFluid"
             vals["electric"] = "Electric"
@@ -18642,10 +14250,10 @@ class RefrigerationAirChiller(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `defrost_type`'.format(value))
+                                     'field `RefrigerationAirChiller.defrost_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `defrost_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationAirChiller.defrost_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Type"] = value
 
@@ -18679,13 +14287,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_control_type`'.format(value))
+                                 ' for field `RefrigerationAirChiller.defrost_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_control_type`')
+                                 'for field `RefrigerationAirChiller.defrost_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_control_type`')
+                                 'for field `RefrigerationAirChiller.defrost_control_type`')
             vals = {}
             vals["timeschedule"] = "TimeSchedule"
             vals["temperaturetermination"] = "TemperatureTermination"
@@ -18708,10 +14316,10 @@ class RefrigerationAirChiller(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `defrost_control_type`'.format(value))
+                                     'field `RefrigerationAirChiller.defrost_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `defrost_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationAirChiller.defrost_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control Type"] = value
 
@@ -18742,13 +14350,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_schedule_name`'.format(value))
+                                 ' for field `RefrigerationAirChiller.defrost_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_schedule_name`')
+                                 'for field `RefrigerationAirChiller.defrost_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_schedule_name`')
+                                 'for field `RefrigerationAirChiller.defrost_schedule_name`')
         self._data["Defrost Schedule Name"] = value
 
     @property
@@ -18783,13 +14391,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `defrost_dripdown_schedule_name`'.format(value))
+                                 ' for field `RefrigerationAirChiller.defrost_dripdown_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `defrost_dripdown_schedule_name`')
+                                 'for field `RefrigerationAirChiller.defrost_dripdown_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `defrost_dripdown_schedule_name`')
+                                 'for field `RefrigerationAirChiller.defrost_dripdown_schedule_name`')
         self._data["Defrost Drip-Down Schedule Name"] = value
 
     @property
@@ -18821,10 +14429,10 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `defrost_power`'.format(value))
+                                 ' for field `RefrigerationAirChiller.defrost_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `defrost_power`')
+                                 'for field `RefrigerationAirChiller.defrost_power`')
         self._data["Defrost Power"] = value
 
     @property
@@ -18859,13 +14467,13 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_termination_defrost_fraction_to_ice`'.format(value))
+                                 ' for field `RefrigerationAirChiller.temperature_termination_defrost_fraction_to_ice`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `temperature_termination_defrost_fraction_to_ice`')
+                                 'for field `RefrigerationAirChiller.temperature_termination_defrost_fraction_to_ice`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `temperature_termination_defrost_fraction_to_ice`')
+                                 'for field `RefrigerationAirChiller.temperature_termination_defrost_fraction_to_ice`')
         self._data["Temperature Termination Defrost Fraction to Ice"] = value
 
     @property
@@ -18899,13 +14507,13 @@ class RefrigerationAirChiller(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `vertical_location`'.format(value))
+                                 ' for field `RefrigerationAirChiller.vertical_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `vertical_location`')
+                                 'for field `RefrigerationAirChiller.vertical_location`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `vertical_location`')
+                                 'for field `RefrigerationAirChiller.vertical_location`')
             vals = {}
             vals["ceiling"] = "Ceiling"
             vals["middle"] = "Middle"
@@ -18929,10 +14537,10 @@ class RefrigerationAirChiller(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `vertical_location`'.format(value))
+                                     'field `RefrigerationAirChiller.vertical_location`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `vertical_location`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RefrigerationAirChiller.vertical_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Vertical Location"] = value
 
@@ -18965,17 +14573,40 @@ class RefrigerationAirChiller(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `average_refrigerant_charge_inventory`'.format(value))
+                                 ' for field `RefrigerationAirChiller.average_refrigerant_charge_inventory`'.format(value))
         self._data["Average Refrigerant Charge Inventory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RefrigerationAirChiller:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RefrigerationAirChiller:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RefrigerationAirChiller: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RefrigerationAirChiller: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -18993,8 +14624,688 @@ class RefrigerationAirChiller(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class ZoneHvacRefrigerationChillerSet(object):
+    """ Corresponds to IDD object `ZoneHVAC:RefrigerationChillerSet`
+        Works in conjunction with one or multiple air chillers, compressor racks,
+        refrigeration systems, or refrigeration secondary system objects to simulate the
+        performance of a group of air chillers cooling a single zone. The chiller set
+        model passes information about the zone conditions to determine the performance of
+        individual chiller coils within the set, thus providing the sensible and latent heat
+        exchange with the zone environment.
+    """
+    internal_name = "ZoneHVAC:RefrigerationChillerSet"
+    field_count = 5
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 6
+    extensible_keys = ["Air Chiller  Name"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `ZoneHVAC:RefrigerationChillerSet`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["Availability Schedule Name"] = None
+        self._data["Zone Name"] = None
+        self._data["Air Inlet Node Name"] = None
+        self._data["Air Outlet Node Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.availability_schedule_name = None
+        else:
+            self.availability_schedule_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.zone_name = None
+        else:
+            self.zone_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.air_inlet_node_name = None
+        else:
+            self.air_inlet_node_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.air_outlet_node_name = None
+        else:
+            self.air_outlet_node_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ZoneHvacRefrigerationChillerSet.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ZoneHvacRefrigerationChillerSet.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ZoneHvacRefrigerationChillerSet.name`')
+        self._data["Name"] = value
+
+    @property
+    def availability_schedule_name(self):
+        """Get availability_schedule_name
+
+        Returns:
+            str: the value of `availability_schedule_name` or None if not set
+        """
+        return self._data["Availability Schedule Name"]
+
+    @availability_schedule_name.setter
+    def availability_schedule_name(self, value=None):
+        """  Corresponds to IDD Field `Availability Schedule Name`
+        Availability schedule name for this system. Schedule value > 0 means the system is available.
+        If this field is blank, the system is always available.
+
+        Args:
+            value (str): value for IDD Field `Availability Schedule Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ZoneHvacRefrigerationChillerSet.availability_schedule_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ZoneHvacRefrigerationChillerSet.availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ZoneHvacRefrigerationChillerSet.availability_schedule_name`')
+        self._data["Availability Schedule Name"] = value
+
+    @property
+    def zone_name(self):
+        """Get zone_name
+
+        Returns:
+            str: the value of `zone_name` or None if not set
+        """
+        return self._data["Zone Name"]
+
+    @zone_name.setter
+    def zone_name(self, value=None):
+        """  Corresponds to IDD Field `Zone Name`
+        This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
+
+        Args:
+            value (str): value for IDD Field `Zone Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ZoneHvacRefrigerationChillerSet.zone_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ZoneHvacRefrigerationChillerSet.zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ZoneHvacRefrigerationChillerSet.zone_name`')
+        self._data["Zone Name"] = value
+
+    @property
+    def air_inlet_node_name(self):
+        """Get air_inlet_node_name
+
+        Returns:
+            str: the value of `air_inlet_node_name` or None if not set
+        """
+        return self._data["Air Inlet Node Name"]
+
+    @air_inlet_node_name.setter
+    def air_inlet_node_name(self, value=None):
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        Not used - reserved for future use
+        Name of the zone exhaust node (see Node) from which the refrigeration chiller
+        draws its indoor air.
+        This should be one of the zone exhaust nodes for the zone cooled by the chiller set.
+
+        Args:
+            value (str): value for IDD Field `Air Inlet Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ZoneHvacRefrigerationChillerSet.air_inlet_node_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ZoneHvacRefrigerationChillerSet.air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ZoneHvacRefrigerationChillerSet.air_inlet_node_name`')
+        self._data["Air Inlet Node Name"] = value
+
+    @property
+    def air_outlet_node_name(self):
+        """Get air_outlet_node_name
+
+        Returns:
+            str: the value of `air_outlet_node_name` or None if not set
+        """
+        return self._data["Air Outlet Node Name"]
+
+    @air_outlet_node_name.setter
+    def air_outlet_node_name(self, value=None):
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        Not used - reserved for future use
+        The name of the node where the chiller coil sends its outlet air,
+        which must be one of the inlet air nodes for the zone which is being cooled.
+
+        Args:
+            value (str): value for IDD Field `Air Outlet Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ZoneHvacRefrigerationChillerSet.air_outlet_node_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ZoneHvacRefrigerationChillerSet.air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ZoneHvacRefrigerationChillerSet.air_outlet_node_name`')
+        self._data["Air Outlet Node Name"] = value
+
+    def add_extensible(self,
+                       air_chiller_name=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            air_chiller_name (str): value for IDD Field `Air Chiller  Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_air_chiller_name(air_chiller_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_air_chiller_name(self, value):
+        """ Validates falue of field `Air Chiller  Name`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ZoneHvacRefrigerationChillerSet.air_chiller_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ZoneHvacRefrigerationChillerSet.air_chiller_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ZoneHvacRefrigerationChillerSet.air_chiller_name`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field ZoneHvacRefrigerationChillerSet:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneHvacRefrigerationChillerSet:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneHvacRefrigerationChillerSet: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneHvacRefrigerationChillerSet: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class MatrixTwoDimension(object):
+    """ Corresponds to IDD object `Matrix:TwoDimension`
+        matrix data in row-major order
+        list each row keeping the columns in order
+        number of values must equal N1 x N2
+    """
+    internal_name = "Matrix:TwoDimension"
+    field_count = 3
+    required_fields = ["Name", "Number of Rows", "Number of Columns"]
+    extensible_fields = 1
+    format = None
+    min_fields = 0
+    extensible_keys = ["Value"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `Matrix:TwoDimension`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["Number of Rows"] = None
+        self._data["Number of Columns"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.number_of_rows = None
+        else:
+            self.number_of_rows = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.number_of_columns = None
+        else:
+            self.number_of_columns = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `MatrixTwoDimension.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `MatrixTwoDimension.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `MatrixTwoDimension.name`')
+        self._data["Name"] = value
+
+    @property
+    def number_of_rows(self):
+        """Get number_of_rows
+
+        Returns:
+            int: the value of `number_of_rows` or None if not set
+        """
+        return self._data["Number of Rows"]
+
+    @number_of_rows.setter
+    def number_of_rows(self, value=None):
+        """  Corresponds to IDD Field `Number of Rows`
+
+        Args:
+            value (int): value for IDD Field `Number of Rows`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = int(value)
+            except ValueError:
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MatrixTwoDimension.number_of_rows`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `MatrixTwoDimension.number_of_rows`'.format(value))
+        self._data["Number of Rows"] = value
+
+    @property
+    def number_of_columns(self):
+        """Get number_of_columns
+
+        Returns:
+            int: the value of `number_of_columns` or None if not set
+        """
+        return self._data["Number of Columns"]
+
+    @number_of_columns.setter
+    def number_of_columns(self, value=None):
+        """  Corresponds to IDD Field `Number of Columns`
+
+        Args:
+            value (int): value for IDD Field `Number of Columns`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = int(value)
+            except ValueError:
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MatrixTwoDimension.number_of_columns`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `MatrixTwoDimension.number_of_columns`'.format(value))
+        self._data["Number of Columns"] = value
+
+    def add_extensible(self,
+                       value=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            value (float): value for IDD Field `Value`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_value(value))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_value(self, value):
+        """ Validates falue of field `Value`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `MatrixTwoDimension.value`'.format(value))
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field MatrixTwoDimension:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MatrixTwoDimension:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MatrixTwoDimension: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MatrixTwoDimension: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

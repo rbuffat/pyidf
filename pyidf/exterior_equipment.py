@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class ExteriorLights(object):
     """ Corresponds to IDD object `Exterior:Lights`
         only used for Meter type reporting, does not affect building loads
@@ -9,6 +12,10 @@ class ExteriorLights(object):
     internal_name = "Exterior:Lights"
     field_count = 5
     required_fields = ["Name", "Schedule Name", "Design Level"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:Lights`
@@ -19,6 +26,7 @@ class ExteriorLights(object):
         self._data["Design Level"] = None
         self._data["Control Option"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -93,13 +101,13 @@ class ExteriorLights(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExteriorLights.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExteriorLights.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExteriorLights.name`')
         self._data["Name"] = value
 
     @property
@@ -129,13 +137,13 @@ class ExteriorLights(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ExteriorLights.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ExteriorLights.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ExteriorLights.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -167,10 +175,10 @@ class ExteriorLights(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_level`'.format(value))
+                                 ' for field `ExteriorLights.design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_level`')
+                                 'for field `ExteriorLights.design_level`')
         self._data["Design Level"] = value
 
     @property
@@ -203,13 +211,13 @@ class ExteriorLights(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_option`'.format(value))
+                                 ' for field `ExteriorLights.control_option`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_option`')
+                                 'for field `ExteriorLights.control_option`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_option`')
+                                 'for field `ExteriorLights.control_option`')
             vals = {}
             vals["schedulenameonly"] = "ScheduleNameOnly"
             vals["astronomicalclock"] = "AstronomicalClock"
@@ -232,10 +240,10 @@ class ExteriorLights(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_option`'.format(value))
+                                     'field `ExteriorLights.control_option`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_option`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ExteriorLights.control_option`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Option"] = value
 
@@ -266,23 +274,46 @@ class ExteriorLights(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `ExteriorLights.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `ExteriorLights.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `ExteriorLights.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExteriorLights:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExteriorLights:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExteriorLights: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExteriorLights: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -300,8 +331,27 @@ class ExteriorLights(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -316,6 +366,10 @@ class ExteriorFuelEquipment(object):
     internal_name = "Exterior:FuelEquipment"
     field_count = 5
     required_fields = ["Name", "Fuel Use Type", "Schedule Name", "Design Level"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:FuelEquipment`
@@ -326,6 +380,7 @@ class ExteriorFuelEquipment(object):
         self._data["Schedule Name"] = None
         self._data["Design Level"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -400,13 +455,13 @@ class ExteriorFuelEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExteriorFuelEquipment.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExteriorFuelEquipment.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExteriorFuelEquipment.name`')
         self._data["Name"] = value
 
     @property
@@ -449,13 +504,13 @@ class ExteriorFuelEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_use_type`'.format(value))
+                                 ' for field `ExteriorFuelEquipment.fuel_use_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_use_type`')
+                                 'for field `ExteriorFuelEquipment.fuel_use_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_use_type`')
+                                 'for field `ExteriorFuelEquipment.fuel_use_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -489,10 +544,10 @@ class ExteriorFuelEquipment(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_use_type`'.format(value))
+                                     'field `ExteriorFuelEquipment.fuel_use_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_use_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ExteriorFuelEquipment.fuel_use_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Use Type"] = value
 
@@ -523,13 +578,13 @@ class ExteriorFuelEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ExteriorFuelEquipment.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ExteriorFuelEquipment.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ExteriorFuelEquipment.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -561,10 +616,10 @@ class ExteriorFuelEquipment(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_level`'.format(value))
+                                 ' for field `ExteriorFuelEquipment.design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_level`')
+                                 'for field `ExteriorFuelEquipment.design_level`')
         self._data["Design Level"] = value
 
     @property
@@ -594,23 +649,46 @@ class ExteriorFuelEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `ExteriorFuelEquipment.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `ExteriorFuelEquipment.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `ExteriorFuelEquipment.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExteriorFuelEquipment:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExteriorFuelEquipment:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExteriorFuelEquipment: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExteriorFuelEquipment: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -628,8 +706,27 @@ class ExteriorFuelEquipment(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -644,6 +741,10 @@ class ExteriorWaterEquipment(object):
     internal_name = "Exterior:WaterEquipment"
     field_count = 5
     required_fields = ["Name", "Schedule Name", "Design Level"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:WaterEquipment`
@@ -654,6 +755,7 @@ class ExteriorWaterEquipment(object):
         self._data["Schedule Name"] = None
         self._data["Design Level"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -728,13 +830,13 @@ class ExteriorWaterEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExteriorWaterEquipment.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExteriorWaterEquipment.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExteriorWaterEquipment.name`')
         self._data["Name"] = value
 
     @property
@@ -766,13 +868,13 @@ class ExteriorWaterEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_use_type`'.format(value))
+                                 ' for field `ExteriorWaterEquipment.fuel_use_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_use_type`')
+                                 'for field `ExteriorWaterEquipment.fuel_use_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_use_type`')
+                                 'for field `ExteriorWaterEquipment.fuel_use_type`')
             vals = {}
             vals["water"] = "Water"
             value_lower = value.lower()
@@ -794,10 +896,10 @@ class ExteriorWaterEquipment(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_use_type`'.format(value))
+                                     'field `ExteriorWaterEquipment.fuel_use_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_use_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ExteriorWaterEquipment.fuel_use_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Use Type"] = value
 
@@ -828,13 +930,13 @@ class ExteriorWaterEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ExteriorWaterEquipment.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ExteriorWaterEquipment.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ExteriorWaterEquipment.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -865,10 +967,10 @@ class ExteriorWaterEquipment(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_level`'.format(value))
+                                 ' for field `ExteriorWaterEquipment.design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_level`')
+                                 'for field `ExteriorWaterEquipment.design_level`')
         self._data["Design Level"] = value
 
     @property
@@ -898,23 +1000,46 @@ class ExteriorWaterEquipment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `ExteriorWaterEquipment.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `ExteriorWaterEquipment.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `ExteriorWaterEquipment.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExteriorWaterEquipment:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExteriorWaterEquipment:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExteriorWaterEquipment: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExteriorWaterEquipment: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -932,8 +1057,27 @@ class ExteriorWaterEquipment(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

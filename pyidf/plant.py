@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class TemperingValve(object):
     """ Corresponds to IDD object `TemperingValve`
         Temperature-controlled diversion valve used to divert flow around one or more plant
@@ -11,6 +14,10 @@ class TemperingValve(object):
     internal_name = "TemperingValve"
     field_count = 6
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Stream 2 Source Node Name", "Temperature Setpoint Node Name", "Pump Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `TemperingValve`
@@ -22,6 +29,7 @@ class TemperingValve(object):
         self._data["Stream 2 Source Node Name"] = None
         self._data["Temperature Setpoint Node Name"] = None
         self._data["Pump Outlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -103,13 +111,13 @@ class TemperingValve(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `TemperingValve.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `TemperingValve.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `TemperingValve.name`')
         self._data["Name"] = value
 
     @property
@@ -139,13 +147,13 @@ class TemperingValve(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `TemperingValve.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `TemperingValve.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `TemperingValve.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -175,13 +183,13 @@ class TemperingValve(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `TemperingValve.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `TemperingValve.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `TemperingValve.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -211,13 +219,13 @@ class TemperingValve(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `stream_2_source_node_name`'.format(value))
+                                 ' for field `TemperingValve.stream_2_source_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `stream_2_source_node_name`')
+                                 'for field `TemperingValve.stream_2_source_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `stream_2_source_node_name`')
+                                 'for field `TemperingValve.stream_2_source_node_name`')
         self._data["Stream 2 Source Node Name"] = value
 
     @property
@@ -247,13 +255,13 @@ class TemperingValve(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `temperature_setpoint_node_name`'.format(value))
+                                 ' for field `TemperingValve.temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `temperature_setpoint_node_name`')
+                                 'for field `TemperingValve.temperature_setpoint_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `temperature_setpoint_node_name`')
+                                 'for field `TemperingValve.temperature_setpoint_node_name`')
         self._data["Temperature Setpoint Node Name"] = value
 
     @property
@@ -282,23 +290,46 @@ class TemperingValve(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_outlet_node_name`'.format(value))
+                                 ' for field `TemperingValve.pump_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_outlet_node_name`')
+                                 'for field `TemperingValve.pump_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_outlet_node_name`')
+                                 'for field `TemperingValve.pump_outlet_node_name`')
         self._data["Pump Outlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field TemperingValve:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field TemperingValve:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for TemperingValve: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for TemperingValve: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -316,8 +347,27 @@ class TemperingValve(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -332,6 +382,10 @@ class PlantLoop(object):
     internal_name = "PlantLoop"
     field_count = 23
     required_fields = ["Name", "Fluid Type", "Plant Equipment Operation Scheme Name", "Loop Temperature Setpoint Node Name", "Maximum Loop Temperature", "Minimum Loop Temperature", "Maximum Loop Flow Rate", "Plant Side Inlet Node Name", "Plant Side Outlet Node Name", "Plant Side Branch List Name", "Demand Side Inlet Node Name", "Demand Side Outlet Node Name", "Demand Side Branch List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantLoop`
@@ -360,6 +414,7 @@ class PlantLoop(object):
         self._data["Plant Loop Demand Calculation Scheme"] = None
         self._data["Common Pipe Simulation"] = None
         self._data["Pressure Simulation Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -560,13 +615,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantLoop.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantLoop.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantLoop.name`')
         self._data["Name"] = value
 
     @property
@@ -600,13 +655,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_type`'.format(value))
+                                 ' for field `PlantLoop.fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_type`')
+                                 'for field `PlantLoop.fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_type`')
+                                 'for field `PlantLoop.fluid_type`')
             vals = {}
             vals["water"] = "Water"
             vals["steam"] = "Steam"
@@ -630,10 +685,10 @@ class PlantLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fluid_type`'.format(value))
+                                     'field `PlantLoop.fluid_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fluid_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantLoop.fluid_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Type"] = value
 
@@ -664,13 +719,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `user_defined_fluid_type`'.format(value))
+                                 ' for field `PlantLoop.user_defined_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `user_defined_fluid_type`')
+                                 'for field `PlantLoop.user_defined_fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `user_defined_fluid_type`')
+                                 'for field `PlantLoop.user_defined_fluid_type`')
         self._data["User Defined Fluid Type"] = value
 
     @property
@@ -699,13 +754,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_equipment_operation_scheme_name`'.format(value))
+                                 ' for field `PlantLoop.plant_equipment_operation_scheme_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_equipment_operation_scheme_name`')
+                                 'for field `PlantLoop.plant_equipment_operation_scheme_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_equipment_operation_scheme_name`')
+                                 'for field `PlantLoop.plant_equipment_operation_scheme_name`')
         self._data["Plant Equipment Operation Scheme Name"] = value
 
     @property
@@ -734,13 +789,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `loop_temperature_setpoint_node_name`'.format(value))
+                                 ' for field `PlantLoop.loop_temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `loop_temperature_setpoint_node_name`')
+                                 'for field `PlantLoop.loop_temperature_setpoint_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `loop_temperature_setpoint_node_name`')
+                                 'for field `PlantLoop.loop_temperature_setpoint_node_name`')
         self._data["Loop Temperature Setpoint Node Name"] = value
 
     @property
@@ -770,7 +825,7 @@ class PlantLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_loop_temperature`'.format(value))
+                                 ' for field `PlantLoop.maximum_loop_temperature`'.format(value))
         self._data["Maximum Loop Temperature"] = value
 
     @property
@@ -800,7 +855,7 @@ class PlantLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_loop_temperature`'.format(value))
+                                 ' for field `PlantLoop.minimum_loop_temperature`'.format(value))
         self._data["Minimum Loop Temperature"] = value
 
     @property
@@ -834,8 +889,8 @@ class PlantLoop(object):
                     self._data["Maximum Loop Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_loop_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantLoop.maximum_loop_flow_rate`'.format(value))
                     self._data["Maximum Loop Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -844,10 +899,10 @@ class PlantLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_loop_flow_rate`'.format(value))
+                                 ' for field `PlantLoop.maximum_loop_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_loop_flow_rate`')
+                                 'for field `PlantLoop.maximum_loop_flow_rate`')
         self._data["Maximum Loop Flow Rate"] = value
 
     @property
@@ -879,7 +934,7 @@ class PlantLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_loop_flow_rate`'.format(value))
+                                 ' for field `PlantLoop.minimum_loop_flow_rate`'.format(value))
         self._data["Minimum Loop Flow Rate"] = value
 
     @property
@@ -914,8 +969,8 @@ class PlantLoop(object):
                     self._data["Plant Loop Volume"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `plant_loop_volume`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `PlantLoop.plant_loop_volume`'.format(value))
                     self._data["Plant Loop Volume"] = "Autocalculate"
                     return
             except ValueError:
@@ -924,10 +979,10 @@ class PlantLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `plant_loop_volume`'.format(value))
+                                 ' for field `PlantLoop.plant_loop_volume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `plant_loop_volume`')
+                                 'for field `PlantLoop.plant_loop_volume`')
         self._data["Plant Loop Volume"] = value
 
     @property
@@ -956,13 +1011,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_side_inlet_node_name`'.format(value))
+                                 ' for field `PlantLoop.plant_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_side_inlet_node_name`')
+                                 'for field `PlantLoop.plant_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_side_inlet_node_name`')
+                                 'for field `PlantLoop.plant_side_inlet_node_name`')
         self._data["Plant Side Inlet Node Name"] = value
 
     @property
@@ -991,13 +1046,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_side_outlet_node_name`'.format(value))
+                                 ' for field `PlantLoop.plant_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_side_outlet_node_name`')
+                                 'for field `PlantLoop.plant_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_side_outlet_node_name`')
+                                 'for field `PlantLoop.plant_side_outlet_node_name`')
         self._data["Plant Side Outlet Node Name"] = value
 
     @property
@@ -1026,13 +1081,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_side_branch_list_name`'.format(value))
+                                 ' for field `PlantLoop.plant_side_branch_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_side_branch_list_name`')
+                                 'for field `PlantLoop.plant_side_branch_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_side_branch_list_name`')
+                                 'for field `PlantLoop.plant_side_branch_list_name`')
         self._data["Plant Side Branch List Name"] = value
 
     @property
@@ -1061,13 +1116,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_side_connector_list_name`'.format(value))
+                                 ' for field `PlantLoop.plant_side_connector_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_side_connector_list_name`')
+                                 'for field `PlantLoop.plant_side_connector_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_side_connector_list_name`')
+                                 'for field `PlantLoop.plant_side_connector_list_name`')
         self._data["Plant Side Connector List Name"] = value
 
     @property
@@ -1096,13 +1151,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_side_inlet_node_name`'.format(value))
+                                 ' for field `PlantLoop.demand_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_side_inlet_node_name`')
+                                 'for field `PlantLoop.demand_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_side_inlet_node_name`')
+                                 'for field `PlantLoop.demand_side_inlet_node_name`')
         self._data["Demand Side Inlet Node Name"] = value
 
     @property
@@ -1131,13 +1186,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_side_outlet_node_name`'.format(value))
+                                 ' for field `PlantLoop.demand_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_side_outlet_node_name`')
+                                 'for field `PlantLoop.demand_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_side_outlet_node_name`')
+                                 'for field `PlantLoop.demand_side_outlet_node_name`')
         self._data["Demand Side Outlet Node Name"] = value
 
     @property
@@ -1166,13 +1221,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_side_branch_list_name`'.format(value))
+                                 ' for field `PlantLoop.demand_side_branch_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_side_branch_list_name`')
+                                 'for field `PlantLoop.demand_side_branch_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_side_branch_list_name`')
+                                 'for field `PlantLoop.demand_side_branch_list_name`')
         self._data["Demand Side Branch List Name"] = value
 
     @property
@@ -1201,13 +1256,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_side_connector_list_name`'.format(value))
+                                 ' for field `PlantLoop.demand_side_connector_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_side_connector_list_name`')
+                                 'for field `PlantLoop.demand_side_connector_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_side_connector_list_name`')
+                                 'for field `PlantLoop.demand_side_connector_list_name`')
         self._data["Demand Side Connector List Name"] = value
 
     @property
@@ -1243,13 +1298,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `load_distribution_scheme`'.format(value))
+                                 ' for field `PlantLoop.load_distribution_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `load_distribution_scheme`')
+                                 'for field `PlantLoop.load_distribution_scheme`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `load_distribution_scheme`')
+                                 'for field `PlantLoop.load_distribution_scheme`')
             vals = {}
             vals["optimal"] = "Optimal"
             vals["sequentialload"] = "SequentialLoad"
@@ -1275,10 +1330,10 @@ class PlantLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `load_distribution_scheme`'.format(value))
+                                     'field `PlantLoop.load_distribution_scheme`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `load_distribution_scheme`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantLoop.load_distribution_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Load Distribution Scheme"] = value
 
@@ -1308,13 +1363,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_list_name`'.format(value))
+                                 ' for field `PlantLoop.availability_manager_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_list_name`')
+                                 'for field `PlantLoop.availability_manager_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_list_name`')
+                                 'for field `PlantLoop.availability_manager_list_name`')
         self._data["Availability Manager List Name"] = value
 
     @property
@@ -1347,13 +1402,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_loop_demand_calculation_scheme`'.format(value))
+                                 ' for field `PlantLoop.plant_loop_demand_calculation_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_loop_demand_calculation_scheme`')
+                                 'for field `PlantLoop.plant_loop_demand_calculation_scheme`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_loop_demand_calculation_scheme`')
+                                 'for field `PlantLoop.plant_loop_demand_calculation_scheme`')
             vals = {}
             vals["singlesetpoint"] = "SingleSetpoint"
             vals["dualsetpointdeadband"] = "DualSetpointDeadband"
@@ -1376,10 +1431,10 @@ class PlantLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `plant_loop_demand_calculation_scheme`'.format(value))
+                                     'field `PlantLoop.plant_loop_demand_calculation_scheme`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `plant_loop_demand_calculation_scheme`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantLoop.plant_loop_demand_calculation_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plant Loop Demand Calculation Scheme"] = value
 
@@ -1422,13 +1477,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `common_pipe_simulation`'.format(value))
+                                 ' for field `PlantLoop.common_pipe_simulation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `common_pipe_simulation`')
+                                 'for field `PlantLoop.common_pipe_simulation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `common_pipe_simulation`')
+                                 'for field `PlantLoop.common_pipe_simulation`')
             vals = {}
             vals["commonpipe"] = "CommonPipe"
             vals["twowaycommonpipe"] = "TwoWayCommonPipe"
@@ -1452,10 +1507,10 @@ class PlantLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `common_pipe_simulation`'.format(value))
+                                     'field `PlantLoop.common_pipe_simulation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `common_pipe_simulation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantLoop.common_pipe_simulation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Common Pipe Simulation"] = value
 
@@ -1490,13 +1545,13 @@ class PlantLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pressure_simulation_type`'.format(value))
+                                 ' for field `PlantLoop.pressure_simulation_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pressure_simulation_type`')
+                                 'for field `PlantLoop.pressure_simulation_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pressure_simulation_type`')
+                                 'for field `PlantLoop.pressure_simulation_type`')
             vals = {}
             vals["pumppowercorrection"] = "PumpPowerCorrection"
             vals["loopflowcorrection"] = "LoopFlowCorrection"
@@ -1520,21 +1575,44 @@ class PlantLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pressure_simulation_type`'.format(value))
+                                     'field `PlantLoop.pressure_simulation_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pressure_simulation_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantLoop.pressure_simulation_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pressure Simulation Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantLoop:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantLoop:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantLoop: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantLoop: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1552,8 +1630,27 @@ class PlantLoop(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1570,6 +1667,10 @@ class CondenserLoop(object):
     internal_name = "CondenserLoop"
     field_count = 20
     required_fields = ["Name", "Fluid Type", "Condenser Equipment Operation Scheme Name", "Condenser Loop Temperature Setpoint Node Name", "Maximum Loop Temperature", "Minimum Loop Temperature", "Maximum Loop Flow Rate", "Condenser Side Inlet Node Name", "Condenser Side Outlet Node Name", "Condenser Side Branch List Name", "Condenser Side Connector List Name", "Demand Side Inlet Node Name", "Demand Side Outlet Node Name", "Condenser Demand Side Branch List Name", "Condenser Demand Side Connector List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CondenserLoop`
@@ -1595,6 +1696,7 @@ class CondenserLoop(object):
         self._data["Condenser Demand Side Connector List Name"] = None
         self._data["Load Distribution Scheme"] = None
         self._data["Pressure Simulation Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1774,13 +1876,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `CondenserLoop.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `CondenserLoop.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `CondenserLoop.name`')
         self._data["Name"] = value
 
     @property
@@ -1813,13 +1915,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_type`'.format(value))
+                                 ' for field `CondenserLoop.fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_type`')
+                                 'for field `CondenserLoop.fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_type`')
+                                 'for field `CondenserLoop.fluid_type`')
             vals = {}
             vals["water"] = "Water"
             vals["userdefinedfluidtype"] = "UserDefinedFluidType"
@@ -1842,10 +1944,10 @@ class CondenserLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fluid_type`'.format(value))
+                                     'field `CondenserLoop.fluid_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fluid_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserLoop.fluid_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Type"] = value
 
@@ -1876,13 +1978,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `user_defined_fluid_type`'.format(value))
+                                 ' for field `CondenserLoop.user_defined_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `user_defined_fluid_type`')
+                                 'for field `CondenserLoop.user_defined_fluid_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `user_defined_fluid_type`')
+                                 'for field `CondenserLoop.user_defined_fluid_type`')
         self._data["User Defined Fluid Type"] = value
 
     @property
@@ -1911,13 +2013,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_equipment_operation_scheme_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_equipment_operation_scheme_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_equipment_operation_scheme_name`')
+                                 'for field `CondenserLoop.condenser_equipment_operation_scheme_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_equipment_operation_scheme_name`')
+                                 'for field `CondenserLoop.condenser_equipment_operation_scheme_name`')
         self._data["Condenser Equipment Operation Scheme Name"] = value
 
     @property
@@ -1946,13 +2048,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_loop_temperature_setpoint_node_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_loop_temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_loop_temperature_setpoint_node_name`')
+                                 'for field `CondenserLoop.condenser_loop_temperature_setpoint_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_loop_temperature_setpoint_node_name`')
+                                 'for field `CondenserLoop.condenser_loop_temperature_setpoint_node_name`')
         self._data["Condenser Loop Temperature Setpoint Node Name"] = value
 
     @property
@@ -1982,7 +2084,7 @@ class CondenserLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_loop_temperature`'.format(value))
+                                 ' for field `CondenserLoop.maximum_loop_temperature`'.format(value))
         self._data["Maximum Loop Temperature"] = value
 
     @property
@@ -2012,7 +2114,7 @@ class CondenserLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_loop_temperature`'.format(value))
+                                 ' for field `CondenserLoop.minimum_loop_temperature`'.format(value))
         self._data["Minimum Loop Temperature"] = value
 
     @property
@@ -2046,8 +2148,8 @@ class CondenserLoop(object):
                     self._data["Maximum Loop Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_loop_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `CondenserLoop.maximum_loop_flow_rate`'.format(value))
                     self._data["Maximum Loop Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -2056,10 +2158,10 @@ class CondenserLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_loop_flow_rate`'.format(value))
+                                 ' for field `CondenserLoop.maximum_loop_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_loop_flow_rate`')
+                                 'for field `CondenserLoop.maximum_loop_flow_rate`')
         self._data["Maximum Loop Flow Rate"] = value
 
     @property
@@ -2091,7 +2193,7 @@ class CondenserLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_loop_flow_rate`'.format(value))
+                                 ' for field `CondenserLoop.minimum_loop_flow_rate`'.format(value))
         self._data["Minimum Loop Flow Rate"] = value
 
     @property
@@ -2126,8 +2228,8 @@ class CondenserLoop(object):
                     self._data["Condenser Loop Volume"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `condenser_loop_volume`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `CondenserLoop.condenser_loop_volume`'.format(value))
                     self._data["Condenser Loop Volume"] = "Autocalculate"
                     return
             except ValueError:
@@ -2136,10 +2238,10 @@ class CondenserLoop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `condenser_loop_volume`'.format(value))
+                                 ' for field `CondenserLoop.condenser_loop_volume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `condenser_loop_volume`')
+                                 'for field `CondenserLoop.condenser_loop_volume`')
         self._data["Condenser Loop Volume"] = value
 
     @property
@@ -2168,13 +2270,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_side_inlet_node_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_side_inlet_node_name`')
+                                 'for field `CondenserLoop.condenser_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_side_inlet_node_name`')
+                                 'for field `CondenserLoop.condenser_side_inlet_node_name`')
         self._data["Condenser Side Inlet Node Name"] = value
 
     @property
@@ -2203,13 +2305,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_side_outlet_node_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_side_outlet_node_name`')
+                                 'for field `CondenserLoop.condenser_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_side_outlet_node_name`')
+                                 'for field `CondenserLoop.condenser_side_outlet_node_name`')
         self._data["Condenser Side Outlet Node Name"] = value
 
     @property
@@ -2238,13 +2340,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_side_branch_list_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_side_branch_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_side_branch_list_name`')
+                                 'for field `CondenserLoop.condenser_side_branch_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_side_branch_list_name`')
+                                 'for field `CondenserLoop.condenser_side_branch_list_name`')
         self._data["Condenser Side Branch List Name"] = value
 
     @property
@@ -2273,13 +2375,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_side_connector_list_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_side_connector_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_side_connector_list_name`')
+                                 'for field `CondenserLoop.condenser_side_connector_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_side_connector_list_name`')
+                                 'for field `CondenserLoop.condenser_side_connector_list_name`')
         self._data["Condenser Side Connector List Name"] = value
 
     @property
@@ -2308,13 +2410,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_side_inlet_node_name`'.format(value))
+                                 ' for field `CondenserLoop.demand_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_side_inlet_node_name`')
+                                 'for field `CondenserLoop.demand_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_side_inlet_node_name`')
+                                 'for field `CondenserLoop.demand_side_inlet_node_name`')
         self._data["Demand Side Inlet Node Name"] = value
 
     @property
@@ -2343,13 +2445,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_side_outlet_node_name`'.format(value))
+                                 ' for field `CondenserLoop.demand_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_side_outlet_node_name`')
+                                 'for field `CondenserLoop.demand_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_side_outlet_node_name`')
+                                 'for field `CondenserLoop.demand_side_outlet_node_name`')
         self._data["Demand Side Outlet Node Name"] = value
 
     @property
@@ -2378,13 +2480,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_demand_side_branch_list_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_demand_side_branch_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_demand_side_branch_list_name`')
+                                 'for field `CondenserLoop.condenser_demand_side_branch_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_demand_side_branch_list_name`')
+                                 'for field `CondenserLoop.condenser_demand_side_branch_list_name`')
         self._data["Condenser Demand Side Branch List Name"] = value
 
     @property
@@ -2413,13 +2515,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_demand_side_connector_list_name`'.format(value))
+                                 ' for field `CondenserLoop.condenser_demand_side_connector_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_demand_side_connector_list_name`')
+                                 'for field `CondenserLoop.condenser_demand_side_connector_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_demand_side_connector_list_name`')
+                                 'for field `CondenserLoop.condenser_demand_side_connector_list_name`')
         self._data["Condenser Demand Side Connector List Name"] = value
 
     @property
@@ -2455,13 +2557,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `load_distribution_scheme`'.format(value))
+                                 ' for field `CondenserLoop.load_distribution_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `load_distribution_scheme`')
+                                 'for field `CondenserLoop.load_distribution_scheme`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `load_distribution_scheme`')
+                                 'for field `CondenserLoop.load_distribution_scheme`')
             vals = {}
             vals["optimal"] = "Optimal"
             vals["sequentialload"] = "SequentialLoad"
@@ -2487,10 +2589,10 @@ class CondenserLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `load_distribution_scheme`'.format(value))
+                                     'field `CondenserLoop.load_distribution_scheme`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `load_distribution_scheme`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserLoop.load_distribution_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Load Distribution Scheme"] = value
 
@@ -2525,13 +2627,13 @@ class CondenserLoop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pressure_simulation_type`'.format(value))
+                                 ' for field `CondenserLoop.pressure_simulation_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pressure_simulation_type`')
+                                 'for field `CondenserLoop.pressure_simulation_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pressure_simulation_type`')
+                                 'for field `CondenserLoop.pressure_simulation_type`')
             vals = {}
             vals["pumppowercorrection"] = "PumpPowerCorrection"
             vals["loopflowcorrection"] = "LoopFlowCorrection"
@@ -2555,21 +2657,44 @@ class CondenserLoop(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pressure_simulation_type`'.format(value))
+                                     'field `CondenserLoop.pressure_simulation_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pressure_simulation_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserLoop.pressure_simulation_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pressure Simulation Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field CondenserLoop:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field CondenserLoop:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for CondenserLoop: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for CondenserLoop: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2587,8 +2712,27 @@ class CondenserLoop(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2607,6 +2751,10 @@ class PlantEquipmentList(object):
     internal_name = "PlantEquipmentList"
     field_count = 21
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentList`
@@ -2633,6 +2781,7 @@ class PlantEquipmentList(object):
         self._data["Equipment 9 Name"] = None
         self._data["Equipment 10 Object Type"] = None
         self._data["Equipment 10 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2819,13 +2968,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentList.name`')
         self._data["Name"] = value
 
     @property
@@ -2854,13 +3003,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_1_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_1_object_type`')
+                                 'for field `PlantEquipmentList.equipment_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_1_object_type`')
+                                 'for field `PlantEquipmentList.equipment_1_object_type`')
         self._data["Equipment 1 Object Type"] = value
 
     @property
@@ -2889,13 +3038,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_1_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_1_name`')
+                                 'for field `PlantEquipmentList.equipment_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_1_name`')
+                                 'for field `PlantEquipmentList.equipment_1_name`')
         self._data["Equipment 1 Name"] = value
 
     @property
@@ -2924,13 +3073,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_2_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_2_object_type`')
+                                 'for field `PlantEquipmentList.equipment_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_2_object_type`')
+                                 'for field `PlantEquipmentList.equipment_2_object_type`')
         self._data["Equipment 2 Object Type"] = value
 
     @property
@@ -2959,13 +3108,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_2_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_2_name`')
+                                 'for field `PlantEquipmentList.equipment_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_2_name`')
+                                 'for field `PlantEquipmentList.equipment_2_name`')
         self._data["Equipment 2 Name"] = value
 
     @property
@@ -2994,13 +3143,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_3_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_3_object_type`')
+                                 'for field `PlantEquipmentList.equipment_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_3_object_type`')
+                                 'for field `PlantEquipmentList.equipment_3_object_type`')
         self._data["Equipment 3 Object Type"] = value
 
     @property
@@ -3029,13 +3178,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_3_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_3_name`')
+                                 'for field `PlantEquipmentList.equipment_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_3_name`')
+                                 'for field `PlantEquipmentList.equipment_3_name`')
         self._data["Equipment 3 Name"] = value
 
     @property
@@ -3064,13 +3213,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_4_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_4_object_type`')
+                                 'for field `PlantEquipmentList.equipment_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_4_object_type`')
+                                 'for field `PlantEquipmentList.equipment_4_object_type`')
         self._data["Equipment 4 Object Type"] = value
 
     @property
@@ -3099,13 +3248,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_4_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_4_name`')
+                                 'for field `PlantEquipmentList.equipment_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_4_name`')
+                                 'for field `PlantEquipmentList.equipment_4_name`')
         self._data["Equipment 4 Name"] = value
 
     @property
@@ -3134,13 +3283,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_5_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_5_object_type`')
+                                 'for field `PlantEquipmentList.equipment_5_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_5_object_type`')
+                                 'for field `PlantEquipmentList.equipment_5_object_type`')
         self._data["Equipment 5 Object Type"] = value
 
     @property
@@ -3169,13 +3318,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_5_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_5_name`')
+                                 'for field `PlantEquipmentList.equipment_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_5_name`')
+                                 'for field `PlantEquipmentList.equipment_5_name`')
         self._data["Equipment 5 Name"] = value
 
     @property
@@ -3204,13 +3353,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_6_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_6_object_type`')
+                                 'for field `PlantEquipmentList.equipment_6_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_6_object_type`')
+                                 'for field `PlantEquipmentList.equipment_6_object_type`')
         self._data["Equipment 6 Object Type"] = value
 
     @property
@@ -3239,13 +3388,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_6_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_6_name`')
+                                 'for field `PlantEquipmentList.equipment_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_6_name`')
+                                 'for field `PlantEquipmentList.equipment_6_name`')
         self._data["Equipment 6 Name"] = value
 
     @property
@@ -3274,13 +3423,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_7_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_7_object_type`')
+                                 'for field `PlantEquipmentList.equipment_7_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_7_object_type`')
+                                 'for field `PlantEquipmentList.equipment_7_object_type`')
         self._data["Equipment 7 Object Type"] = value
 
     @property
@@ -3309,13 +3458,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_7_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_7_name`')
+                                 'for field `PlantEquipmentList.equipment_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_7_name`')
+                                 'for field `PlantEquipmentList.equipment_7_name`')
         self._data["Equipment 7 Name"] = value
 
     @property
@@ -3344,13 +3493,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_8_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_8_object_type`')
+                                 'for field `PlantEquipmentList.equipment_8_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_8_object_type`')
+                                 'for field `PlantEquipmentList.equipment_8_object_type`')
         self._data["Equipment 8 Object Type"] = value
 
     @property
@@ -3379,13 +3528,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_8_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_8_name`')
+                                 'for field `PlantEquipmentList.equipment_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_8_name`')
+                                 'for field `PlantEquipmentList.equipment_8_name`')
         self._data["Equipment 8 Name"] = value
 
     @property
@@ -3414,13 +3563,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_9_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_9_object_type`')
+                                 'for field `PlantEquipmentList.equipment_9_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_9_object_type`')
+                                 'for field `PlantEquipmentList.equipment_9_object_type`')
         self._data["Equipment 9 Object Type"] = value
 
     @property
@@ -3449,13 +3598,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_9_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_9_name`')
+                                 'for field `PlantEquipmentList.equipment_9_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_9_name`')
+                                 'for field `PlantEquipmentList.equipment_9_name`')
         self._data["Equipment 9 Name"] = value
 
     @property
@@ -3484,13 +3633,13 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_10_object_type`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_10_object_type`')
+                                 'for field `PlantEquipmentList.equipment_10_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_10_object_type`')
+                                 'for field `PlantEquipmentList.equipment_10_object_type`')
         self._data["Equipment 10 Object Type"] = value
 
     @property
@@ -3519,23 +3668,46 @@ class PlantEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_10_name`'.format(value))
+                                 ' for field `PlantEquipmentList.equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_10_name`')
+                                 'for field `PlantEquipmentList.equipment_10_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_10_name`')
+                                 'for field `PlantEquipmentList.equipment_10_name`')
         self._data["Equipment 10 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3553,8 +3725,27 @@ class PlantEquipmentList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3573,6 +3764,10 @@ class CondenserEquipmentList(object):
     internal_name = "CondenserEquipmentList"
     field_count = 21
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CondenserEquipmentList`
@@ -3599,6 +3794,7 @@ class CondenserEquipmentList(object):
         self._data["Equipment 9 Name"] = None
         self._data["Equipment 10 Object Type"] = None
         self._data["Equipment 10 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3785,13 +3981,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `CondenserEquipmentList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `CondenserEquipmentList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `CondenserEquipmentList.name`')
         self._data["Name"] = value
 
     @property
@@ -3820,13 +4016,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_1_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_1_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_1_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_1_object_type`')
         self._data["Equipment 1 Object Type"] = value
 
     @property
@@ -3855,13 +4051,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_1_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_1_name`')
+                                 'for field `CondenserEquipmentList.equipment_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_1_name`')
+                                 'for field `CondenserEquipmentList.equipment_1_name`')
         self._data["Equipment 1 Name"] = value
 
     @property
@@ -3890,13 +4086,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_2_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_2_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_2_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_2_object_type`')
         self._data["Equipment 2 Object Type"] = value
 
     @property
@@ -3925,13 +4121,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_2_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_2_name`')
+                                 'for field `CondenserEquipmentList.equipment_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_2_name`')
+                                 'for field `CondenserEquipmentList.equipment_2_name`')
         self._data["Equipment 2 Name"] = value
 
     @property
@@ -3960,13 +4156,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_3_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_3_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_3_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_3_object_type`')
         self._data["Equipment 3 Object Type"] = value
 
     @property
@@ -3995,13 +4191,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_3_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_3_name`')
+                                 'for field `CondenserEquipmentList.equipment_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_3_name`')
+                                 'for field `CondenserEquipmentList.equipment_3_name`')
         self._data["Equipment 3 Name"] = value
 
     @property
@@ -4030,13 +4226,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_4_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_4_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_4_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_4_object_type`')
         self._data["Equipment 4 Object Type"] = value
 
     @property
@@ -4065,13 +4261,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_4_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_4_name`')
+                                 'for field `CondenserEquipmentList.equipment_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_4_name`')
+                                 'for field `CondenserEquipmentList.equipment_4_name`')
         self._data["Equipment 4 Name"] = value
 
     @property
@@ -4100,13 +4296,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_5_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_5_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_5_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_5_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_5_object_type`')
         self._data["Equipment 5 Object Type"] = value
 
     @property
@@ -4135,13 +4331,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_5_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_5_name`')
+                                 'for field `CondenserEquipmentList.equipment_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_5_name`')
+                                 'for field `CondenserEquipmentList.equipment_5_name`')
         self._data["Equipment 5 Name"] = value
 
     @property
@@ -4170,13 +4366,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_6_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_6_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_6_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_6_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_6_object_type`')
         self._data["Equipment 6 Object Type"] = value
 
     @property
@@ -4205,13 +4401,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_6_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_6_name`')
+                                 'for field `CondenserEquipmentList.equipment_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_6_name`')
+                                 'for field `CondenserEquipmentList.equipment_6_name`')
         self._data["Equipment 6 Name"] = value
 
     @property
@@ -4240,13 +4436,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_7_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_7_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_7_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_7_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_7_object_type`')
         self._data["Equipment 7 Object Type"] = value
 
     @property
@@ -4275,13 +4471,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_7_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_7_name`')
+                                 'for field `CondenserEquipmentList.equipment_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_7_name`')
+                                 'for field `CondenserEquipmentList.equipment_7_name`')
         self._data["Equipment 7 Name"] = value
 
     @property
@@ -4310,13 +4506,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_8_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_8_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_8_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_8_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_8_object_type`')
         self._data["Equipment 8 Object Type"] = value
 
     @property
@@ -4345,13 +4541,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_8_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_8_name`')
+                                 'for field `CondenserEquipmentList.equipment_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_8_name`')
+                                 'for field `CondenserEquipmentList.equipment_8_name`')
         self._data["Equipment 8 Name"] = value
 
     @property
@@ -4380,13 +4576,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_9_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_9_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_9_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_9_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_9_object_type`')
         self._data["Equipment 9 Object Type"] = value
 
     @property
@@ -4415,13 +4611,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_9_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_9_name`')
+                                 'for field `CondenserEquipmentList.equipment_9_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_9_name`')
+                                 'for field `CondenserEquipmentList.equipment_9_name`')
         self._data["Equipment 9 Name"] = value
 
     @property
@@ -4450,13 +4646,13 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_10_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_10_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_10_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_10_object_type`')
+                                 'for field `CondenserEquipmentList.equipment_10_object_type`')
         self._data["Equipment 10 Object Type"] = value
 
     @property
@@ -4485,23 +4681,46 @@ class CondenserEquipmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_10_name`'.format(value))
+                                 ' for field `CondenserEquipmentList.equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_10_name`')
+                                 'for field `CondenserEquipmentList.equipment_10_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_10_name`')
+                                 'for field `CondenserEquipmentList.equipment_10_name`')
         self._data["Equipment 10 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field CondenserEquipmentList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field CondenserEquipmentList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for CondenserEquipmentList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for CondenserEquipmentList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4519,8 +4738,27 @@ class CondenserEquipmentList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4537,6 +4775,10 @@ class PlantEquipmentOperationUncontrolled(object):
     internal_name = "PlantEquipmentOperation:Uncontrolled"
     field_count = 2
     required_fields = ["Name", "Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:Uncontrolled`
@@ -4544,6 +4786,7 @@ class PlantEquipmentOperationUncontrolled(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4597,13 +4840,13 @@ class PlantEquipmentOperationUncontrolled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationUncontrolled.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationUncontrolled.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationUncontrolled.name`')
         self._data["Name"] = value
 
     @property
@@ -4632,23 +4875,46 @@ class PlantEquipmentOperationUncontrolled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationUncontrolled.equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_list_name`')
+                                 'for field `PlantEquipmentOperationUncontrolled.equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_list_name`')
+                                 'for field `PlantEquipmentOperationUncontrolled.equipment_list_name`')
         self._data["Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationUncontrolled:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationUncontrolled:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationUncontrolled: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationUncontrolled: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4666,8 +4932,27 @@ class PlantEquipmentOperationUncontrolled(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4684,6 +4969,10 @@ class PlantEquipmentOperationCoolingLoad(object):
     internal_name = "PlantEquipmentOperation:CoolingLoad"
     field_count = 31
     required_fields = ["Name", "Load Range 1 Lower Limit", "Load Range 1 Upper Limit"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:CoolingLoad`
@@ -4720,6 +5009,7 @@ class PlantEquipmentOperationCoolingLoad(object):
         self._data["Load Range 10 Lower Limit"] = None
         self._data["Load Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4976,13 +5266,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.name`')
         self._data["Name"] = value
 
     @property
@@ -5013,10 +5303,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_1_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_1_lower_limit`')
         self._data["Load Range 1 Lower Limit"] = value
 
     @property
@@ -5047,10 +5337,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_1_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_1_upper_limit`')
         self._data["Load Range 1 Upper Limit"] = value
 
     @property
@@ -5079,13 +5369,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -5116,10 +5406,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_2_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_2_lower_limit`')
         self._data["Load Range 2 Lower Limit"] = value
 
     @property
@@ -5149,7 +5439,7 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_2_upper_limit`'.format(value))
         self._data["Load Range 2 Upper Limit"] = value
 
     @property
@@ -5178,13 +5468,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -5215,10 +5505,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_3_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_3_lower_limit`')
         self._data["Load Range 3 Lower Limit"] = value
 
     @property
@@ -5249,10 +5539,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_3_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_3_upper_limit`')
         self._data["Load Range 3 Upper Limit"] = value
 
     @property
@@ -5281,13 +5571,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -5318,10 +5608,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_4_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_4_lower_limit`')
         self._data["Load Range 4 Lower Limit"] = value
 
     @property
@@ -5352,10 +5642,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_4_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_4_upper_limit`')
         self._data["Load Range 4 Upper Limit"] = value
 
     @property
@@ -5384,13 +5674,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -5421,10 +5711,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_5_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_5_lower_limit`')
         self._data["Load Range 5 Lower Limit"] = value
 
     @property
@@ -5455,10 +5745,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_5_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_5_upper_limit`')
         self._data["Load Range 5 Upper Limit"] = value
 
     @property
@@ -5487,13 +5777,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -5524,10 +5814,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_6_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_6_lower_limit`')
         self._data["Load Range 6 Lower Limit"] = value
 
     @property
@@ -5558,10 +5848,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_6_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_6_upper_limit`')
         self._data["Load Range 6 Upper Limit"] = value
 
     @property
@@ -5590,13 +5880,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -5627,10 +5917,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_7_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_7_lower_limit`')
         self._data["Load Range 7 Lower Limit"] = value
 
     @property
@@ -5661,10 +5951,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_7_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_7_upper_limit`')
         self._data["Load Range 7 Upper Limit"] = value
 
     @property
@@ -5693,13 +5983,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -5730,10 +6020,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_8_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_8_lower_limit`')
         self._data["Load Range 8 Lower Limit"] = value
 
     @property
@@ -5764,10 +6054,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_8_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_8_upper_limit`')
         self._data["Load Range 8 Upper Limit"] = value
 
     @property
@@ -5796,13 +6086,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -5833,10 +6123,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_9_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_9_lower_limit`')
         self._data["Load Range 9 Lower Limit"] = value
 
     @property
@@ -5867,10 +6157,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_9_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_9_upper_limit`')
         self._data["Load Range 9 Upper Limit"] = value
 
     @property
@@ -5899,13 +6189,13 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -5936,10 +6226,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_10_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_10_lower_limit`')
         self._data["Load Range 10 Lower Limit"] = value
 
     @property
@@ -5970,10 +6260,10 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.load_range_10_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.load_range_10_upper_limit`')
         self._data["Load Range 10 Upper Limit"] = value
 
     @property
@@ -6002,23 +6292,46 @@ class PlantEquipmentOperationCoolingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationCoolingLoad.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationCoolingLoad.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationCoolingLoad:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationCoolingLoad:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationCoolingLoad: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationCoolingLoad: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6036,8 +6349,27 @@ class PlantEquipmentOperationCoolingLoad(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6054,6 +6386,10 @@ class PlantEquipmentOperationHeatingLoad(object):
     internal_name = "PlantEquipmentOperation:HeatingLoad"
     field_count = 31
     required_fields = ["Name", "Load Range 1 Lower Limit", "Load Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:HeatingLoad`
@@ -6090,6 +6426,7 @@ class PlantEquipmentOperationHeatingLoad(object):
         self._data["Load Range 10 Lower Limit"] = None
         self._data["Load Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6346,13 +6683,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.name`')
         self._data["Name"] = value
 
     @property
@@ -6383,10 +6720,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_1_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_1_lower_limit`')
         self._data["Load Range 1 Lower Limit"] = value
 
     @property
@@ -6417,10 +6754,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_1_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_1_upper_limit`')
         self._data["Load Range 1 Upper Limit"] = value
 
     @property
@@ -6449,13 +6786,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -6486,10 +6823,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_2_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_2_lower_limit`')
         self._data["Load Range 2 Lower Limit"] = value
 
     @property
@@ -6520,10 +6857,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_2_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_2_upper_limit`')
         self._data["Load Range 2 Upper Limit"] = value
 
     @property
@@ -6552,13 +6889,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -6589,10 +6926,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_3_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_3_lower_limit`')
         self._data["Load Range 3 Lower Limit"] = value
 
     @property
@@ -6623,10 +6960,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_3_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_3_upper_limit`')
         self._data["Load Range 3 Upper Limit"] = value
 
     @property
@@ -6655,13 +6992,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -6692,10 +7029,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_4_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_4_lower_limit`')
         self._data["Load Range 4 Lower Limit"] = value
 
     @property
@@ -6726,10 +7063,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_4_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_4_upper_limit`')
         self._data["Load Range 4 Upper Limit"] = value
 
     @property
@@ -6758,13 +7095,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -6795,10 +7132,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_5_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_5_lower_limit`')
         self._data["Load Range 5 Lower Limit"] = value
 
     @property
@@ -6829,10 +7166,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_5_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_5_upper_limit`')
         self._data["Load Range 5 Upper Limit"] = value
 
     @property
@@ -6861,13 +7198,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -6898,10 +7235,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_6_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_6_lower_limit`')
         self._data["Load Range 6 Lower Limit"] = value
 
     @property
@@ -6932,10 +7269,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_6_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_6_upper_limit`')
         self._data["Load Range 6 Upper Limit"] = value
 
     @property
@@ -6964,13 +7301,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -7001,10 +7338,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_7_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_7_lower_limit`')
         self._data["Load Range 7 Lower Limit"] = value
 
     @property
@@ -7035,10 +7372,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_7_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_7_upper_limit`')
         self._data["Load Range 7 Upper Limit"] = value
 
     @property
@@ -7067,13 +7404,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -7104,10 +7441,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_8_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_8_lower_limit`')
         self._data["Load Range 8 Lower Limit"] = value
 
     @property
@@ -7138,10 +7475,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_8_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_8_upper_limit`')
         self._data["Load Range 8 Upper Limit"] = value
 
     @property
@@ -7170,13 +7507,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -7207,10 +7544,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_9_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_9_lower_limit`')
         self._data["Load Range 9 Lower Limit"] = value
 
     @property
@@ -7241,10 +7578,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_9_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_9_upper_limit`')
         self._data["Load Range 9 Upper Limit"] = value
 
     @property
@@ -7273,13 +7610,13 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -7310,10 +7647,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_10_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_10_lower_limit`')
         self._data["Load Range 10 Lower Limit"] = value
 
     @property
@@ -7344,10 +7681,10 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `load_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.load_range_10_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `load_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.load_range_10_upper_limit`')
         self._data["Load Range 10 Upper Limit"] = value
 
     @property
@@ -7376,23 +7713,46 @@ class PlantEquipmentOperationHeatingLoad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationHeatingLoad.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationHeatingLoad.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationHeatingLoad:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationHeatingLoad:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationHeatingLoad: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationHeatingLoad: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7410,8 +7770,27 @@ class PlantEquipmentOperationHeatingLoad(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7428,6 +7807,10 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
     internal_name = "PlantEquipmentOperation:OutdoorDryBulb"
     field_count = 31
     required_fields = ["Name", "Dry-Bulb Temperature Range 1 Lower Limit", "Dry-Bulb Temperature Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDryBulb`
@@ -7464,6 +7847,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
         self._data["Dry-Bulb Temperature Range 10 Lower Limit"] = None
         self._data["Dry-Bulb Temperature Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7720,13 +8104,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.name`')
         self._data["Name"] = value
 
     @property
@@ -7758,13 +8142,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_1_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_1_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_1_lower_limit`')
         self._data["Dry-Bulb Temperature Range 1 Lower Limit"] = value
 
     @property
@@ -7796,13 +8180,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_1_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_1_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_1_upper_limit`')
         self._data["Dry-Bulb Temperature Range 1 Upper Limit"] = value
 
     @property
@@ -7831,13 +8215,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -7869,13 +8253,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_2_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_2_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_2_lower_limit`')
         self._data["Dry-Bulb Temperature Range 2 Lower Limit"] = value
 
     @property
@@ -7907,13 +8291,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_2_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_2_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_2_upper_limit`')
         self._data["Dry-Bulb Temperature Range 2 Upper Limit"] = value
 
     @property
@@ -7942,13 +8326,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -7980,13 +8364,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_3_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_3_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_3_lower_limit`')
         self._data["Dry-Bulb Temperature Range 3 Lower Limit"] = value
 
     @property
@@ -8018,13 +8402,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_3_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_3_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_3_upper_limit`')
         self._data["Dry-Bulb Temperature Range 3 Upper Limit"] = value
 
     @property
@@ -8053,13 +8437,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -8091,13 +8475,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_4_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_4_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_4_lower_limit`')
         self._data["Dry-Bulb Temperature Range 4 Lower Limit"] = value
 
     @property
@@ -8129,13 +8513,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_4_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_4_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_4_upper_limit`')
         self._data["Dry-Bulb Temperature Range 4 Upper Limit"] = value
 
     @property
@@ -8164,13 +8548,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -8202,13 +8586,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_5_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_5_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_5_lower_limit`')
         self._data["Dry-Bulb Temperature Range 5 Lower Limit"] = value
 
     @property
@@ -8240,13 +8624,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_5_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_5_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_5_upper_limit`')
         self._data["Dry-Bulb Temperature Range 5 Upper Limit"] = value
 
     @property
@@ -8275,13 +8659,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -8313,13 +8697,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_6_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_6_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_6_lower_limit`')
         self._data["Dry-Bulb Temperature Range 6 Lower Limit"] = value
 
     @property
@@ -8351,13 +8735,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_6_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_6_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_6_upper_limit`')
         self._data["Dry-Bulb Temperature Range 6 Upper Limit"] = value
 
     @property
@@ -8386,13 +8770,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -8424,13 +8808,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_7_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_7_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_7_lower_limit`')
         self._data["Dry-Bulb Temperature Range 7 Lower Limit"] = value
 
     @property
@@ -8462,13 +8846,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_7_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_7_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_7_upper_limit`')
         self._data["Dry-Bulb Temperature Range 7 Upper Limit"] = value
 
     @property
@@ -8497,13 +8881,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -8535,13 +8919,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_8_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_8_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_8_lower_limit`')
         self._data["Dry-Bulb Temperature Range 8 Lower Limit"] = value
 
     @property
@@ -8573,13 +8957,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_8_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_8_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_8_upper_limit`')
         self._data["Dry-Bulb Temperature Range 8 Upper Limit"] = value
 
     @property
@@ -8608,13 +8992,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -8646,13 +9030,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_9_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_9_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_9_lower_limit`')
         self._data["Dry-Bulb Temperature Range 9 Lower Limit"] = value
 
     @property
@@ -8684,13 +9068,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_9_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_9_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_9_upper_limit`')
         self._data["Dry-Bulb Temperature Range 9 Upper Limit"] = value
 
     @property
@@ -8719,13 +9103,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -8757,13 +9141,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_10_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_10_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_10_lower_limit`')
         self._data["Dry-Bulb Temperature Range 10 Lower Limit"] = value
 
     @property
@@ -8795,13 +9179,13 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_10_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `drybulb_temperature_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_10_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `drybulb_temperature_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.drybulb_temperature_range_10_upper_limit`')
         self._data["Dry-Bulb Temperature Range 10 Upper Limit"] = value
 
     @property
@@ -8830,23 +9214,46 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulb.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulb.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorDryBulb:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorDryBulb:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorDryBulb: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorDryBulb: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8864,8 +9271,27 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8882,6 +9308,10 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
     internal_name = "PlantEquipmentOperation:OutdoorWetBulb"
     field_count = 31
     required_fields = ["Name", "Wet-Bulb Temperature Range 1 Lower Limit", "Wet-Bulb Temperature Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorWetBulb`
@@ -8918,6 +9348,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
         self._data["Wet-Bulb Temperature Range 10 Lower Limit"] = None
         self._data["Wet-Bulb Temperature Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9174,13 +9605,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.name`')
         self._data["Name"] = value
 
     @property
@@ -9212,13 +9643,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_1_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_1_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_1_lower_limit`')
         self._data["Wet-Bulb Temperature Range 1 Lower Limit"] = value
 
     @property
@@ -9250,13 +9681,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_1_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_1_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_1_upper_limit`')
         self._data["Wet-Bulb Temperature Range 1 Upper Limit"] = value
 
     @property
@@ -9285,13 +9716,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -9323,13 +9754,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_2_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_2_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_2_lower_limit`')
         self._data["Wet-Bulb Temperature Range 2 Lower Limit"] = value
 
     @property
@@ -9361,13 +9792,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_2_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_2_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_2_upper_limit`')
         self._data["Wet-Bulb Temperature Range 2 Upper Limit"] = value
 
     @property
@@ -9396,13 +9827,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -9434,13 +9865,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_3_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_3_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_3_lower_limit`')
         self._data["Wet-Bulb Temperature Range 3 Lower Limit"] = value
 
     @property
@@ -9472,13 +9903,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_3_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_3_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_3_upper_limit`')
         self._data["Wet-Bulb Temperature Range 3 Upper Limit"] = value
 
     @property
@@ -9507,13 +9938,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -9545,13 +9976,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_4_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_4_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_4_lower_limit`')
         self._data["Wet-Bulb Temperature Range 4 Lower Limit"] = value
 
     @property
@@ -9583,13 +10014,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_4_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_4_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_4_upper_limit`')
         self._data["Wet-Bulb Temperature Range 4 Upper Limit"] = value
 
     @property
@@ -9618,13 +10049,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -9656,13 +10087,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_5_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_5_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_5_lower_limit`')
         self._data["Wet-Bulb Temperature Range 5 Lower Limit"] = value
 
     @property
@@ -9694,13 +10125,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_5_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_5_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_5_upper_limit`')
         self._data["Wet-Bulb Temperature Range 5 Upper Limit"] = value
 
     @property
@@ -9729,13 +10160,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -9767,13 +10198,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_6_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_6_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_6_lower_limit`')
         self._data["Wet-Bulb Temperature Range 6 Lower Limit"] = value
 
     @property
@@ -9805,13 +10236,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_6_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_6_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_6_upper_limit`')
         self._data["Wet-Bulb Temperature Range 6 Upper Limit"] = value
 
     @property
@@ -9840,13 +10271,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -9878,13 +10309,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_7_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_7_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_7_lower_limit`')
         self._data["Wet-Bulb Temperature Range 7 Lower Limit"] = value
 
     @property
@@ -9916,13 +10347,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_7_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_7_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_7_upper_limit`')
         self._data["Wet-Bulb Temperature Range 7 Upper Limit"] = value
 
     @property
@@ -9951,13 +10382,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -9989,13 +10420,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_8_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_8_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_8_lower_limit`')
         self._data["Wet-Bulb Temperature Range 8 Lower Limit"] = value
 
     @property
@@ -10027,13 +10458,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_8_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_8_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_8_upper_limit`')
         self._data["Wet-Bulb Temperature Range 8 Upper Limit"] = value
 
     @property
@@ -10062,13 +10493,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -10100,13 +10531,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_9_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_9_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_9_lower_limit`')
         self._data["Wet-Bulb Temperature Range 9 Lower Limit"] = value
 
     @property
@@ -10138,13 +10569,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_9_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_9_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_9_upper_limit`')
         self._data["Wet-Bulb Temperature Range 9 Upper Limit"] = value
 
     @property
@@ -10173,13 +10604,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -10211,13 +10642,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_10_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_10_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_10_lower_limit`')
         self._data["Wet-Bulb Temperature Range 10 Lower Limit"] = value
 
     @property
@@ -10249,13 +10680,13 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_10_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `wetbulb_temperature_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_10_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `wetbulb_temperature_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.wetbulb_temperature_range_10_upper_limit`')
         self._data["Wet-Bulb Temperature Range 10 Upper Limit"] = value
 
     @property
@@ -10284,23 +10715,46 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulb.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulb.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorWetBulb:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorWetBulb:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorWetBulb: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorWetBulb: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10318,8 +10772,27 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10336,6 +10809,10 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
     internal_name = "PlantEquipmentOperation:OutdoorRelativeHumidity"
     field_count = 31
     required_fields = ["Name", "Relative Humidity Range 1 Lower Limit", "Relative Humidity Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorRelativeHumidity`
@@ -10372,6 +10849,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
         self._data["Relative Humidity Range 10 Lower Limit"] = None
         self._data["Relative Humidity Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10628,13 +11106,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.name`')
         self._data["Name"] = value
 
     @property
@@ -10666,13 +11144,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_1_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_1_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_1_lower_limit`')
         self._data["Relative Humidity Range 1 Lower Limit"] = value
 
     @property
@@ -10704,13 +11182,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_1_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_1_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_1_upper_limit`')
         self._data["Relative Humidity Range 1 Upper Limit"] = value
 
     @property
@@ -10739,13 +11217,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -10777,13 +11255,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_2_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_2_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_2_lower_limit`')
         self._data["Relative Humidity Range 2 Lower Limit"] = value
 
     @property
@@ -10815,13 +11293,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_2_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_2_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_2_upper_limit`')
         self._data["Relative Humidity Range 2 Upper Limit"] = value
 
     @property
@@ -10850,13 +11328,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -10888,13 +11366,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_3_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_3_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_3_lower_limit`')
         self._data["Relative Humidity Range 3 Lower Limit"] = value
 
     @property
@@ -10926,13 +11404,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_3_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_3_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_3_upper_limit`')
         self._data["Relative Humidity Range 3 Upper Limit"] = value
 
     @property
@@ -10961,13 +11439,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -10999,13 +11477,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_4_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_4_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_4_lower_limit`')
         self._data["Relative Humidity Range 4 Lower Limit"] = value
 
     @property
@@ -11037,13 +11515,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_4_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_4_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_4_upper_limit`')
         self._data["Relative Humidity Range 4 Upper Limit"] = value
 
     @property
@@ -11072,13 +11550,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -11110,13 +11588,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_5_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_5_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_5_lower_limit`')
         self._data["Relative Humidity Range 5 Lower Limit"] = value
 
     @property
@@ -11148,13 +11626,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_5_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_5_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_5_upper_limit`')
         self._data["Relative Humidity Range 5 Upper Limit"] = value
 
     @property
@@ -11183,13 +11661,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -11221,13 +11699,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_6_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_6_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_6_lower_limit`')
         self._data["Relative Humidity Range 6 Lower Limit"] = value
 
     @property
@@ -11259,13 +11737,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_6_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_6_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_6_upper_limit`')
         self._data["Relative Humidity Range 6 Upper Limit"] = value
 
     @property
@@ -11294,13 +11772,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -11332,13 +11810,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_7_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_7_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_7_lower_limit`')
         self._data["Relative Humidity Range 7 Lower Limit"] = value
 
     @property
@@ -11370,13 +11848,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_7_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_7_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_7_upper_limit`')
         self._data["Relative Humidity Range 7 Upper Limit"] = value
 
     @property
@@ -11405,13 +11883,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -11443,13 +11921,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_8_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_8_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_8_lower_limit`')
         self._data["Relative Humidity Range 8 Lower Limit"] = value
 
     @property
@@ -11481,13 +11959,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_8_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_8_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_8_upper_limit`')
         self._data["Relative Humidity Range 8 Upper Limit"] = value
 
     @property
@@ -11516,13 +11994,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -11554,13 +12032,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_9_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_9_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_9_lower_limit`')
         self._data["Relative Humidity Range 9 Lower Limit"] = value
 
     @property
@@ -11592,13 +12070,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_9_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_9_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_9_upper_limit`')
         self._data["Relative Humidity Range 9 Upper Limit"] = value
 
     @property
@@ -11627,13 +12105,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -11665,13 +12143,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_10_lower_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_10_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_10_lower_limit`')
         self._data["Relative Humidity Range 10 Lower Limit"] = value
 
     @property
@@ -11703,13 +12181,13 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_10_upper_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_10_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `relative_humidity_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.relative_humidity_range_10_upper_limit`')
         self._data["Relative Humidity Range 10 Upper Limit"] = value
 
     @property
@@ -11738,23 +12216,46 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorRelativeHumidity.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorRelativeHumidity:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorRelativeHumidity:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorRelativeHumidity: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorRelativeHumidity: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11772,8 +12273,27 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -11790,6 +12310,10 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
     internal_name = "PlantEquipmentOperation:OutdoorDewpoint"
     field_count = 31
     required_fields = ["Name", "Dewpoint Temperature Range 1 Lower Limit", "Dewpoint Temperature Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDewpoint`
@@ -11826,6 +12350,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
         self._data["Dewpoint Temperature Range 10 Lower Limit"] = None
         self._data["Dewpoint Temperature Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -12082,13 +12607,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.name`')
         self._data["Name"] = value
 
     @property
@@ -12120,13 +12645,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_1_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_1_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_1_lower_limit`')
         self._data["Dewpoint Temperature Range 1 Lower Limit"] = value
 
     @property
@@ -12158,13 +12683,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_1_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_1_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_1_upper_limit`')
         self._data["Dewpoint Temperature Range 1 Upper Limit"] = value
 
     @property
@@ -12193,13 +12718,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -12231,13 +12756,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_2_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_2_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_2_lower_limit`')
         self._data["Dewpoint Temperature Range 2 Lower Limit"] = value
 
     @property
@@ -12269,13 +12794,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_2_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_2_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_2_upper_limit`')
         self._data["Dewpoint Temperature Range 2 Upper Limit"] = value
 
     @property
@@ -12304,13 +12829,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -12342,13 +12867,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_3_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_3_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_3_lower_limit`')
         self._data["Dewpoint Temperature Range 3 Lower Limit"] = value
 
     @property
@@ -12380,13 +12905,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_3_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_3_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_3_upper_limit`')
         self._data["Dewpoint Temperature Range 3 Upper Limit"] = value
 
     @property
@@ -12415,13 +12940,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -12453,13 +12978,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_4_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_4_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_4_lower_limit`')
         self._data["Dewpoint Temperature Range 4 Lower Limit"] = value
 
     @property
@@ -12491,13 +13016,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_4_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_4_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_4_upper_limit`')
         self._data["Dewpoint Temperature Range 4 Upper Limit"] = value
 
     @property
@@ -12526,13 +13051,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -12564,13 +13089,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_5_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_5_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_5_lower_limit`')
         self._data["Dewpoint Temperature Range 5 Lower Limit"] = value
 
     @property
@@ -12602,13 +13127,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_5_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_5_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_5_upper_limit`')
         self._data["Dewpoint Temperature Range 5 Upper Limit"] = value
 
     @property
@@ -12637,13 +13162,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -12675,13 +13200,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_6_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_6_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_6_lower_limit`')
         self._data["Dewpoint Temperature Range 6 Lower Limit"] = value
 
     @property
@@ -12713,13 +13238,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_6_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_6_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_6_upper_limit`')
         self._data["Dewpoint Temperature Range 6 Upper Limit"] = value
 
     @property
@@ -12748,13 +13273,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -12786,13 +13311,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_7_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_7_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_7_lower_limit`')
         self._data["Dewpoint Temperature Range 7 Lower Limit"] = value
 
     @property
@@ -12824,13 +13349,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_7_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_7_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_7_upper_limit`')
         self._data["Dewpoint Temperature Range 7 Upper Limit"] = value
 
     @property
@@ -12859,13 +13384,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -12897,13 +13422,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_8_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_8_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_8_lower_limit`')
         self._data["Dewpoint Temperature Range 8 Lower Limit"] = value
 
     @property
@@ -12935,13 +13460,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_8_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_8_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_8_upper_limit`')
         self._data["Dewpoint Temperature Range 8 Upper Limit"] = value
 
     @property
@@ -12970,13 +13495,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -13008,13 +13533,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_9_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_9_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_9_lower_limit`')
         self._data["Dewpoint Temperature Range 9 Lower Limit"] = value
 
     @property
@@ -13046,13 +13571,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_9_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_9_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_9_upper_limit`')
         self._data["Dewpoint Temperature Range 9 Upper Limit"] = value
 
     @property
@@ -13081,13 +13606,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -13119,13 +13644,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_10_lower_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_10_lower_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_10_lower_limit`')
         self._data["Dewpoint Temperature Range 10 Lower Limit"] = value
 
     @property
@@ -13157,13 +13682,13 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_10_upper_limit`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
-                                 'for field `dewpoint_temperature_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_10_upper_limit`')
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
-                                 'for field `dewpoint_temperature_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.dewpoint_temperature_range_10_upper_limit`')
         self._data["Dewpoint Temperature Range 10 Upper Limit"] = value
 
     @property
@@ -13192,23 +13717,46 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpoint.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpoint.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorDewpoint:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorDewpoint:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorDewpoint: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorDewpoint: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -13226,8 +13774,27 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -13244,6 +13811,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
     internal_name = "PlantEquipmentOperation:ComponentSetpoint"
     field_count = 61
     required_fields = ["Name", "Equipment 1 Object Type", "Equipment 1 Name", "Demand Calculation 1 Node Name", "Setpoint 1 Node Name", "Component 1 Flow Rate", "Operation 1 Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 7
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:ComponentSetpoint`
@@ -13310,6 +13881,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
         self._data["Setpoint 10 Node Name"] = None
         self._data["Component 10 Flow Rate"] = None
         self._data["Operation 10 Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13776,13 +14348,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.name`')
         self._data["Name"] = value
 
     @property
@@ -13811,13 +14383,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_1_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_1_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_1_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_1_object_type`')
         self._data["Equipment 1 Object Type"] = value
 
     @property
@@ -13846,13 +14418,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_1_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_1_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_1_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_1_name`')
         self._data["Equipment 1 Name"] = value
 
     @property
@@ -13881,13 +14453,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_1_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_1_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_1_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_1_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_1_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_1_node_name`')
         self._data["Demand Calculation 1 Node Name"] = value
 
     @property
@@ -13916,13 +14488,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_1_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_1_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_1_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_1_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_1_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_1_node_name`')
         self._data["Setpoint 1 Node Name"] = value
 
     @property
@@ -13954,8 +14526,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 1 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_1_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_1_flow_rate`'.format(value))
                     self._data["Component 1 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -13964,7 +14536,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_1_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_1_flow_rate`'.format(value))
         self._data["Component 1 Flow Rate"] = value
 
     @property
@@ -13997,13 +14569,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_1_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_1_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_1_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_1_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_1_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -14027,10 +14599,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_1_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_1_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_1_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 1 Type"] = value
 
@@ -14060,13 +14632,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_2_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_2_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_2_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_2_object_type`')
         self._data["Equipment 2 Object Type"] = value
 
     @property
@@ -14095,13 +14667,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_2_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_2_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_2_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_2_name`')
         self._data["Equipment 2 Name"] = value
 
     @property
@@ -14130,13 +14702,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_2_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_2_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_2_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_2_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_2_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_2_node_name`')
         self._data["Demand Calculation 2 Node Name"] = value
 
     @property
@@ -14165,13 +14737,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_2_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_2_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_2_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_2_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_2_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_2_node_name`')
         self._data["Setpoint 2 Node Name"] = value
 
     @property
@@ -14203,8 +14775,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 2 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_2_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_2_flow_rate`'.format(value))
                     self._data["Component 2 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -14213,7 +14785,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_2_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_2_flow_rate`'.format(value))
         self._data["Component 2 Flow Rate"] = value
 
     @property
@@ -14246,13 +14818,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_2_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_2_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_2_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_2_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_2_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -14276,10 +14848,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_2_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_2_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_2_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 2 Type"] = value
 
@@ -14309,13 +14881,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_3_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_3_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_3_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_3_object_type`')
         self._data["Equipment 3 Object Type"] = value
 
     @property
@@ -14344,13 +14916,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_3_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_3_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_3_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_3_name`')
         self._data["Equipment 3 Name"] = value
 
     @property
@@ -14379,13 +14951,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_3_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_3_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_3_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_3_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_3_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_3_node_name`')
         self._data["Demand Calculation 3 Node Name"] = value
 
     @property
@@ -14414,13 +14986,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_3_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_3_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_3_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_3_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_3_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_3_node_name`')
         self._data["Setpoint 3 Node Name"] = value
 
     @property
@@ -14452,8 +15024,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 3 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_3_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_3_flow_rate`'.format(value))
                     self._data["Component 3 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -14462,7 +15034,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_3_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_3_flow_rate`'.format(value))
         self._data["Component 3 Flow Rate"] = value
 
     @property
@@ -14495,13 +15067,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_3_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_3_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_3_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_3_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_3_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_3_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -14525,10 +15097,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_3_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_3_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_3_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_3_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 3 Type"] = value
 
@@ -14558,13 +15130,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_4_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_4_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_4_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_4_object_type`')
         self._data["Equipment 4 Object Type"] = value
 
     @property
@@ -14593,13 +15165,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_4_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_4_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_4_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_4_name`')
         self._data["Equipment 4 Name"] = value
 
     @property
@@ -14628,13 +15200,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_4_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_4_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_4_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_4_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_4_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_4_node_name`')
         self._data["Demand Calculation 4 Node Name"] = value
 
     @property
@@ -14663,13 +15235,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_4_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_4_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_4_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_4_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_4_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_4_node_name`')
         self._data["Setpoint 4 Node Name"] = value
 
     @property
@@ -14701,8 +15273,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 4 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_4_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_4_flow_rate`'.format(value))
                     self._data["Component 4 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -14711,7 +15283,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_4_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_4_flow_rate`'.format(value))
         self._data["Component 4 Flow Rate"] = value
 
     @property
@@ -14744,13 +15316,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_4_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_4_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_4_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_4_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_4_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_4_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -14774,10 +15346,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_4_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_4_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_4_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_4_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 4 Type"] = value
 
@@ -14807,13 +15379,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_5_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_5_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_5_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_5_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_5_object_type`')
         self._data["Equipment 5 Object Type"] = value
 
     @property
@@ -14842,13 +15414,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_5_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_5_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_5_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_5_name`')
         self._data["Equipment 5 Name"] = value
 
     @property
@@ -14877,13 +15449,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_5_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_5_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_5_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_5_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_5_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_5_node_name`')
         self._data["Demand Calculation 5 Node Name"] = value
 
     @property
@@ -14912,13 +15484,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_5_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_5_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_5_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_5_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_5_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_5_node_name`')
         self._data["Setpoint 5 Node Name"] = value
 
     @property
@@ -14950,8 +15522,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 5 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_5_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_5_flow_rate`'.format(value))
                     self._data["Component 5 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -14960,7 +15532,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_5_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_5_flow_rate`'.format(value))
         self._data["Component 5 Flow Rate"] = value
 
     @property
@@ -14993,13 +15565,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_5_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_5_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_5_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_5_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_5_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_5_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -15023,10 +15595,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_5_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_5_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_5_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_5_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 5 Type"] = value
 
@@ -15056,13 +15628,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_6_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_6_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_6_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_6_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_6_object_type`')
         self._data["Equipment 6 Object Type"] = value
 
     @property
@@ -15091,13 +15663,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_6_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_6_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_6_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_6_name`')
         self._data["Equipment 6 Name"] = value
 
     @property
@@ -15126,13 +15698,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_6_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_6_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_6_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_6_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_6_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_6_node_name`')
         self._data["Demand Calculation 6 Node Name"] = value
 
     @property
@@ -15161,13 +15733,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_6_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_6_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_6_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_6_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_6_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_6_node_name`')
         self._data["Setpoint 6 Node Name"] = value
 
     @property
@@ -15199,8 +15771,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 6 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_6_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_6_flow_rate`'.format(value))
                     self._data["Component 6 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -15209,7 +15781,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_6_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_6_flow_rate`'.format(value))
         self._data["Component 6 Flow Rate"] = value
 
     @property
@@ -15242,13 +15814,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_6_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_6_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_6_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_6_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_6_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_6_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -15272,10 +15844,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_6_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_6_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_6_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_6_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 6 Type"] = value
 
@@ -15305,13 +15877,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_7_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_7_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_7_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_7_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_7_object_type`')
         self._data["Equipment 7 Object Type"] = value
 
     @property
@@ -15340,13 +15912,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_7_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_7_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_7_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_7_name`')
         self._data["Equipment 7 Name"] = value
 
     @property
@@ -15375,13 +15947,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_7_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_7_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_7_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_7_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_7_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_7_node_name`')
         self._data["Demand Calculation 7 Node Name"] = value
 
     @property
@@ -15410,13 +15982,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_7_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_7_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_7_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_7_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_7_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_7_node_name`')
         self._data["Setpoint 7 Node Name"] = value
 
     @property
@@ -15448,8 +16020,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 7 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_7_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_7_flow_rate`'.format(value))
                     self._data["Component 7 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -15458,7 +16030,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_7_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_7_flow_rate`'.format(value))
         self._data["Component 7 Flow Rate"] = value
 
     @property
@@ -15491,13 +16063,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_7_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_7_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_7_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_7_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_7_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_7_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -15521,10 +16093,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_7_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_7_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_7_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_7_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 7 Type"] = value
 
@@ -15554,13 +16126,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_8_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_8_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_8_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_8_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_8_object_type`')
         self._data["Equipment 8 Object Type"] = value
 
     @property
@@ -15589,13 +16161,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_8_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_8_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_8_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_8_name`')
         self._data["Equipment 8 Name"] = value
 
     @property
@@ -15624,13 +16196,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_8_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_8_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_8_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_8_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_8_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_8_node_name`')
         self._data["Demand Calculation 8 Node Name"] = value
 
     @property
@@ -15659,13 +16231,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_8_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_8_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_8_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_8_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_8_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_8_node_name`')
         self._data["Setpoint 8 Node Name"] = value
 
     @property
@@ -15697,8 +16269,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 8 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_8_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_8_flow_rate`'.format(value))
                     self._data["Component 8 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -15707,7 +16279,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_8_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_8_flow_rate`'.format(value))
         self._data["Component 8 Flow Rate"] = value
 
     @property
@@ -15740,13 +16312,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_8_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_8_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_8_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_8_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_8_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_8_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -15770,10 +16342,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_8_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_8_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_8_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_8_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 8 Type"] = value
 
@@ -15803,13 +16375,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_9_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_9_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_9_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_9_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_9_object_type`')
         self._data["Equipment 9 Object Type"] = value
 
     @property
@@ -15838,13 +16410,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_9_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_9_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_9_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_9_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_9_name`')
         self._data["Equipment 9 Name"] = value
 
     @property
@@ -15873,13 +16445,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_9_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_9_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_9_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_9_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_9_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_9_node_name`')
         self._data["Demand Calculation 9 Node Name"] = value
 
     @property
@@ -15908,13 +16480,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_9_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_9_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_9_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_9_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_9_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_9_node_name`')
         self._data["Setpoint 9 Node Name"] = value
 
     @property
@@ -15946,8 +16518,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 9 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_9_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_9_flow_rate`'.format(value))
                     self._data["Component 9 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -15956,7 +16528,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_9_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_9_flow_rate`'.format(value))
         self._data["Component 9 Flow Rate"] = value
 
     @property
@@ -15989,13 +16561,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_9_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_9_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_9_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_9_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_9_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_9_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -16019,10 +16591,10 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_9_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_9_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_9_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_9_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 9 Type"] = value
 
@@ -16052,13 +16624,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_10_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_10_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_10_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_10_object_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_10_object_type`')
         self._data["Equipment 10 Object Type"] = value
 
     @property
@@ -16087,13 +16659,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `equipment_10_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `equipment_10_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_10_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `equipment_10_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.equipment_10_name`')
         self._data["Equipment 10 Name"] = value
 
     @property
@@ -16122,13 +16694,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_calculation_10_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_10_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_calculation_10_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_10_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_calculation_10_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.demand_calculation_10_node_name`')
         self._data["Demand Calculation 10 Node Name"] = value
 
     @property
@@ -16157,13 +16729,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_10_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.setpoint_10_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_10_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_10_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_10_node_name`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.setpoint_10_node_name`')
         self._data["Setpoint 10 Node Name"] = value
 
     @property
@@ -16195,8 +16767,8 @@ class PlantEquipmentOperationComponentSetpoint(object):
                     self._data["Component 10 Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `component_10_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PlantEquipmentOperationComponentSetpoint.component_10_flow_rate`'.format(value))
                     self._data["Component 10 Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -16205,7 +16777,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `component_10_flow_rate`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.component_10_flow_rate`'.format(value))
         self._data["Component 10 Flow Rate"] = value
 
     @property
@@ -16238,13 +16810,13 @@ class PlantEquipmentOperationComponentSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `operation_10_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationComponentSetpoint.operation_10_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `operation_10_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_10_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `operation_10_type`')
+                                 'for field `PlantEquipmentOperationComponentSetpoint.operation_10_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -16268,21 +16840,44 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `operation_10_type`'.format(value))
+                                     'field `PlantEquipmentOperationComponentSetpoint.operation_10_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `operation_10_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationComponentSetpoint.operation_10_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operation 10 Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationComponentSetpoint:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationComponentSetpoint:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationComponentSetpoint: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationComponentSetpoint: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -16300,8 +16895,27 @@ class PlantEquipmentOperationComponentSetpoint(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -16319,6 +16933,10 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
     internal_name = "PlantEquipmentOperation:OutdoorDryBulbDifference"
     field_count = 32
     required_fields = ["Name", "Reference Temperature Node Name", "Dry-Bulb Temperature Difference Range 1 Lower Limit", "Dry-Bulb Temperature Difference Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDryBulbDifference`
@@ -16356,6 +16974,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
         self._data["Dry-Bulb Temperature Difference Range 10 Lower Limit"] = None
         self._data["Dry-Bulb Temperature Difference Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -16619,13 +17238,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.name`')
         self._data["Name"] = value
 
     @property
@@ -16654,13 +17273,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reference_temperature_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.reference_temperature_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reference_temperature_node_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.reference_temperature_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reference_temperature_node_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.reference_temperature_node_name`')
         self._data["Reference Temperature Node Name"] = value
 
     @property
@@ -16692,13 +17311,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_1_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_1_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_1_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 1 Lower Limit"] = value
 
     @property
@@ -16730,13 +17349,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_1_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_1_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_1_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 1 Upper Limit"] = value
 
     @property
@@ -16765,13 +17384,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -16803,13 +17422,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_2_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_2_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_2_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 2 Lower Limit"] = value
 
     @property
@@ -16841,13 +17460,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_2_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_2_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_2_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 2 Upper Limit"] = value
 
     @property
@@ -16876,13 +17495,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -16914,13 +17533,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_3_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_3_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_3_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 3 Lower Limit"] = value
 
     @property
@@ -16952,13 +17571,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_3_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_3_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_3_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 3 Upper Limit"] = value
 
     @property
@@ -16987,13 +17606,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -17025,13 +17644,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_4_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_4_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_4_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 4 Lower Limit"] = value
 
     @property
@@ -17063,13 +17682,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_4_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_4_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_4_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 4 Upper Limit"] = value
 
     @property
@@ -17098,13 +17717,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -17136,13 +17755,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_5_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_5_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_5_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 5 Lower Limit"] = value
 
     @property
@@ -17174,13 +17793,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_5_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_5_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_5_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 5 Upper Limit"] = value
 
     @property
@@ -17209,13 +17828,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -17247,13 +17866,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_6_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_6_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_6_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 6 Lower Limit"] = value
 
     @property
@@ -17285,13 +17904,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_6_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_6_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_6_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 6 Upper Limit"] = value
 
     @property
@@ -17320,13 +17939,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -17358,13 +17977,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_7_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_7_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_7_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 7 Lower Limit"] = value
 
     @property
@@ -17396,13 +18015,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_7_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_7_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_7_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 7 Upper Limit"] = value
 
     @property
@@ -17431,13 +18050,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -17469,13 +18088,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_8_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_8_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_8_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 8 Lower Limit"] = value
 
     @property
@@ -17507,13 +18126,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_8_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_8_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_8_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 8 Upper Limit"] = value
 
     @property
@@ -17542,13 +18161,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -17580,13 +18199,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_9_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_9_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_9_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 9 Lower Limit"] = value
 
     @property
@@ -17618,13 +18237,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_9_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_9_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_9_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 9 Upper Limit"] = value
 
     @property
@@ -17653,13 +18272,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -17691,13 +18310,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_10_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_10_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_10_lower_limit`')
         self._data["Dry-Bulb Temperature Difference Range 10 Lower Limit"] = value
 
     @property
@@ -17729,13 +18348,13 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drybulb_temperature_difference_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_10_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `drybulb_temperature_difference_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_10_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `drybulb_temperature_difference_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.drybulb_temperature_difference_range_10_upper_limit`')
         self._data["Dry-Bulb Temperature Difference Range 10 Upper Limit"] = value
 
     @property
@@ -17764,23 +18383,46 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDryBulbDifference.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorDryBulbDifference:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorDryBulbDifference:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorDryBulbDifference: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorDryBulbDifference: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -17798,8 +18440,27 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -17817,6 +18478,10 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
     internal_name = "PlantEquipmentOperation:OutdoorWetBulbDifference"
     field_count = 32
     required_fields = ["Name", "Reference Temperature Node Name", "Wet-Bulb Temperature Difference Range 1 Lower Limit", "Wet-Bulb Temperature Difference Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorWetBulbDifference`
@@ -17854,6 +18519,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
         self._data["Wet-Bulb Temperature Difference Range 10 Lower Limit"] = None
         self._data["Wet-Bulb Temperature Difference Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -18117,13 +18783,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.name`')
         self._data["Name"] = value
 
     @property
@@ -18152,13 +18818,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reference_temperature_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.reference_temperature_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reference_temperature_node_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.reference_temperature_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reference_temperature_node_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.reference_temperature_node_name`')
         self._data["Reference Temperature Node Name"] = value
 
     @property
@@ -18190,13 +18856,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_1_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_1_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_1_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 1 Lower Limit"] = value
 
     @property
@@ -18228,13 +18894,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_1_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_1_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_1_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 1 Upper Limit"] = value
 
     @property
@@ -18263,13 +18929,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -18301,13 +18967,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_2_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_2_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_2_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 2 Lower Limit"] = value
 
     @property
@@ -18339,13 +19005,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_2_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_2_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_2_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 2 Upper Limit"] = value
 
     @property
@@ -18374,13 +19040,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -18412,13 +19078,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_3_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_3_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_3_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 3 Lower Limit"] = value
 
     @property
@@ -18450,13 +19116,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_3_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_3_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_3_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 3 Upper Limit"] = value
 
     @property
@@ -18485,13 +19151,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -18523,13 +19189,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_4_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_4_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_4_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 4 Lower Limit"] = value
 
     @property
@@ -18561,13 +19227,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_4_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_4_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_4_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 4 Upper Limit"] = value
 
     @property
@@ -18596,13 +19262,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -18634,13 +19300,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_5_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_5_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_5_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 5 Lower Limit"] = value
 
     @property
@@ -18672,13 +19338,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_5_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_5_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_5_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 5 Upper Limit"] = value
 
     @property
@@ -18707,13 +19373,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -18745,13 +19411,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_6_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_6_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_6_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 6 Lower Limit"] = value
 
     @property
@@ -18783,13 +19449,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_6_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_6_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_6_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 6 Upper Limit"] = value
 
     @property
@@ -18818,13 +19484,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -18856,13 +19522,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_7_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_7_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_7_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 7 Lower Limit"] = value
 
     @property
@@ -18894,13 +19560,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_7_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_7_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_7_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 7 Upper Limit"] = value
 
     @property
@@ -18929,13 +19595,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -18967,13 +19633,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_8_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_8_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_8_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 8 Lower Limit"] = value
 
     @property
@@ -19005,13 +19671,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_8_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_8_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_8_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 8 Upper Limit"] = value
 
     @property
@@ -19040,13 +19706,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -19078,13 +19744,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_9_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_9_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_9_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 9 Lower Limit"] = value
 
     @property
@@ -19116,13 +19782,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_9_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_9_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_9_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 9 Upper Limit"] = value
 
     @property
@@ -19151,13 +19817,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -19189,13 +19855,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_10_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_10_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_10_lower_limit`')
         self._data["Wet-Bulb Temperature Difference Range 10 Lower Limit"] = value
 
     @property
@@ -19227,13 +19893,13 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wetbulb_temperature_difference_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_10_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `wetbulb_temperature_difference_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_10_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `wetbulb_temperature_difference_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.wetbulb_temperature_difference_range_10_upper_limit`')
         self._data["Wet-Bulb Temperature Difference Range 10 Upper Limit"] = value
 
     @property
@@ -19262,23 +19928,46 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorWetBulbDifference.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorWetBulbDifference:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorWetBulbDifference:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorWetBulbDifference: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorWetBulbDifference: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -19296,8 +19985,27 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -19315,6 +20023,10 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
     internal_name = "PlantEquipmentOperation:OutdoorDewpointDifference"
     field_count = 32
     required_fields = ["Name", "Reference Temperature Node Name", "Dewpoint Temperature Difference Range 1 Lower Limit", "Dewpoint Temperature Difference Range 1 Upper Limit", "Range 1 Equipment List Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDewpointDifference`
@@ -19352,6 +20064,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
         self._data["Dewpoint Temperature Difference Range 10 Lower Limit"] = None
         self._data["Dewpoint Temperature Difference Range 10 Upper Limit"] = None
         self._data["Range 10 Equipment List Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -19615,13 +20328,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.name`')
         self._data["Name"] = value
 
     @property
@@ -19650,13 +20363,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reference_temperature_node_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.reference_temperature_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reference_temperature_node_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.reference_temperature_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reference_temperature_node_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.reference_temperature_node_name`')
         self._data["Reference Temperature Node Name"] = value
 
     @property
@@ -19688,13 +20401,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_1_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_1_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_1_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_1_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_1_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 1 Lower Limit"] = value
 
     @property
@@ -19726,13 +20439,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_1_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_1_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_1_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_1_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_1_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 1 Upper Limit"] = value
 
     @property
@@ -19761,13 +20474,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_1_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_1_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_1_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_1_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_1_equipment_list_name`')
         self._data["Range 1 Equipment List Name"] = value
 
     @property
@@ -19799,13 +20512,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_2_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_2_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_2_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_2_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_2_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 2 Lower Limit"] = value
 
     @property
@@ -19837,13 +20550,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_2_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_2_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_2_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_2_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_2_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 2 Upper Limit"] = value
 
     @property
@@ -19872,13 +20585,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_2_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_2_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_2_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_2_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_2_equipment_list_name`')
         self._data["Range 2 Equipment List Name"] = value
 
     @property
@@ -19910,13 +20623,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_3_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_3_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_3_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_3_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_3_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 3 Lower Limit"] = value
 
     @property
@@ -19948,13 +20661,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_3_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_3_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_3_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_3_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_3_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 3 Upper Limit"] = value
 
     @property
@@ -19983,13 +20696,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_3_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_3_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_3_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_3_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_3_equipment_list_name`')
         self._data["Range 3 Equipment List Name"] = value
 
     @property
@@ -20021,13 +20734,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_4_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_4_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_4_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_4_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_4_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 4 Lower Limit"] = value
 
     @property
@@ -20059,13 +20772,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_4_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_4_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_4_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_4_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_4_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 4 Upper Limit"] = value
 
     @property
@@ -20094,13 +20807,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_4_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_4_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_4_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_4_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_4_equipment_list_name`')
         self._data["Range 4 Equipment List Name"] = value
 
     @property
@@ -20132,13 +20845,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_5_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_5_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_5_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_5_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_5_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 5 Lower Limit"] = value
 
     @property
@@ -20170,13 +20883,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_5_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_5_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_5_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_5_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_5_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 5 Upper Limit"] = value
 
     @property
@@ -20205,13 +20918,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_5_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_5_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_5_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_5_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_5_equipment_list_name`')
         self._data["Range 5 Equipment List Name"] = value
 
     @property
@@ -20243,13 +20956,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_6_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_6_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_6_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_6_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_6_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 6 Lower Limit"] = value
 
     @property
@@ -20281,13 +20994,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_6_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_6_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_6_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_6_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_6_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 6 Upper Limit"] = value
 
     @property
@@ -20316,13 +21029,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_6_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_6_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_6_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_6_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_6_equipment_list_name`')
         self._data["Range 6 Equipment List Name"] = value
 
     @property
@@ -20354,13 +21067,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_7_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_7_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_7_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_7_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_7_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 7 Lower Limit"] = value
 
     @property
@@ -20392,13 +21105,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_7_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_7_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_7_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_7_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_7_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 7 Upper Limit"] = value
 
     @property
@@ -20427,13 +21140,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_7_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_7_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_7_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_7_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_7_equipment_list_name`')
         self._data["Range 7 Equipment List Name"] = value
 
     @property
@@ -20465,13 +21178,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_8_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_8_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_8_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_8_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_8_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 8 Lower Limit"] = value
 
     @property
@@ -20503,13 +21216,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_8_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_8_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_8_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_8_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_8_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 8 Upper Limit"] = value
 
     @property
@@ -20538,13 +21251,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_8_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_8_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_8_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_8_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_8_equipment_list_name`')
         self._data["Range 8 Equipment List Name"] = value
 
     @property
@@ -20576,13 +21289,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_9_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_9_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_9_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_9_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_9_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 9 Lower Limit"] = value
 
     @property
@@ -20614,13 +21327,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_9_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_9_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_9_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_9_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_9_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 9 Upper Limit"] = value
 
     @property
@@ -20649,13 +21362,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_9_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_9_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_9_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_9_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_9_equipment_list_name`')
         self._data["Range 9 Equipment List Name"] = value
 
     @property
@@ -20687,13 +21400,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_10_lower_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_10_lower_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_10_lower_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_10_lower_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_10_lower_limit`')
         self._data["Dewpoint Temperature Difference Range 10 Lower Limit"] = value
 
     @property
@@ -20725,13 +21438,13 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_temperature_difference_range_10_upper_limit`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_10_upper_limit`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
-                                 'for field `dewpoint_temperature_difference_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_10_upper_limit`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `dewpoint_temperature_difference_range_10_upper_limit`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.dewpoint_temperature_difference_range_10_upper_limit`')
         self._data["Dewpoint Temperature Difference Range 10 Upper Limit"] = value
 
     @property
@@ -20760,23 +21473,46 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `range_10_equipment_list_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationOutdoorDewpointDifference.range_10_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_10_equipment_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `range_10_equipment_list_name`')
+                                 'for field `PlantEquipmentOperationOutdoorDewpointDifference.range_10_equipment_list_name`')
         self._data["Range 10 Equipment List Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationOutdoorDewpointDifference:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationOutdoorDewpointDifference:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationOutdoorDewpointDifference: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationOutdoorDewpointDifference: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -20794,8 +21530,27 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -20815,6 +21570,10 @@ class PlantEquipmentOperationSchemes(object):
     internal_name = "PlantEquipmentOperationSchemes"
     field_count = 25
     required_fields = ["Name", "Control Scheme 1 Object Type", "Control Scheme 1 Name", "Control Scheme 1 Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperationSchemes`
@@ -20845,6 +21604,7 @@ class PlantEquipmentOperationSchemes(object):
         self._data["Control Scheme 8 Object Type"] = None
         self._data["Control Scheme 8 Name"] = None
         self._data["Control Scheme 8 Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -21059,13 +21819,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationSchemes.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PlantEquipmentOperationSchemes.name`')
         self._data["Name"] = value
 
     @property
@@ -21100,13 +21860,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_1_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_1_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_1_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_1_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21132,10 +21892,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_1_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 1 Object Type"] = value
 
@@ -21165,13 +21925,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_1_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_1_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_1_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_1_name`')
         self._data["Control Scheme 1 Name"] = value
 
     @property
@@ -21200,13 +21960,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_1_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_1_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_1_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_1_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_1_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_1_schedule_name`')
         self._data["Control Scheme 1 Schedule Name"] = value
 
     @property
@@ -21241,13 +22001,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_2_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_2_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_2_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_2_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21273,10 +22033,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_2_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_2_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_2_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 2 Object Type"] = value
 
@@ -21306,13 +22066,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_2_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_2_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_2_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_2_name`')
         self._data["Control Scheme 2 Name"] = value
 
     @property
@@ -21341,13 +22101,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_2_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_2_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_2_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_2_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_2_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_2_schedule_name`')
         self._data["Control Scheme 2 Schedule Name"] = value
 
     @property
@@ -21382,13 +22142,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_3_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_3_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_3_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_3_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21414,10 +22174,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_3_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_3_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_3_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 3 Object Type"] = value
 
@@ -21447,13 +22207,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_3_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_3_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_3_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_3_name`')
         self._data["Control Scheme 3 Name"] = value
 
     @property
@@ -21482,13 +22242,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_3_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_3_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_3_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_3_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_3_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_3_schedule_name`')
         self._data["Control Scheme 3 Schedule Name"] = value
 
     @property
@@ -21523,13 +22283,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_4_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_4_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_4_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_4_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21555,10 +22315,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_4_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_4_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_4_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 4 Object Type"] = value
 
@@ -21588,13 +22348,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_4_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_4_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_4_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_4_name`')
         self._data["Control Scheme 4 Name"] = value
 
     @property
@@ -21623,13 +22383,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_4_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_4_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_4_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_4_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_4_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_4_schedule_name`')
         self._data["Control Scheme 4 Schedule Name"] = value
 
     @property
@@ -21664,13 +22424,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_5_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_5_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_5_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_5_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_5_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21696,10 +22456,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_5_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_5_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_5_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 5 Object Type"] = value
 
@@ -21729,13 +22489,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_5_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_5_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_5_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_5_name`')
         self._data["Control Scheme 5 Name"] = value
 
     @property
@@ -21764,13 +22524,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_5_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_5_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_5_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_5_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_5_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_5_schedule_name`')
         self._data["Control Scheme 5 Schedule Name"] = value
 
     @property
@@ -21805,13 +22565,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_6_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_6_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_6_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_6_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_6_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21837,10 +22597,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_6_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_6_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_6_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 6 Object Type"] = value
 
@@ -21870,13 +22630,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_6_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_6_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_6_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_6_name`')
         self._data["Control Scheme 6 Name"] = value
 
     @property
@@ -21905,13 +22665,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_6_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_6_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_6_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_6_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_6_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_6_schedule_name`')
         self._data["Control Scheme 6 Schedule Name"] = value
 
     @property
@@ -21946,13 +22706,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_7_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_7_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_7_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_7_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_7_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -21978,10 +22738,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_7_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_7_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_7_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 7 Object Type"] = value
 
@@ -22011,13 +22771,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_7_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_7_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_7_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_7_name`')
         self._data["Control Scheme 7 Name"] = value
 
     @property
@@ -22046,13 +22806,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_7_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_7_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_7_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_7_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_7_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_7_schedule_name`')
         self._data["Control Scheme 7 Schedule Name"] = value
 
     @property
@@ -22087,13 +22847,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_8_object_type`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_8_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_8_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_8_object_type`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_8_object_type`')
             vals = {}
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
             vals["plantequipmentoperation:heatingload"] = "PlantEquipmentOperation:HeatingLoad"
@@ -22119,10 +22879,10 @@ class PlantEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_8_object_type`'.format(value))
+                                     'field `PlantEquipmentOperationSchemes.control_scheme_8_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_8_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PlantEquipmentOperationSchemes.control_scheme_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 8 Object Type"] = value
 
@@ -22152,13 +22912,13 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_8_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_8_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_8_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_8_name`')
         self._data["Control Scheme 8 Name"] = value
 
     @property
@@ -22187,23 +22947,46 @@ class PlantEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_8_schedule_name`'.format(value))
+                                 ' for field `PlantEquipmentOperationSchemes.control_scheme_8_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_8_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_8_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_8_schedule_name`')
+                                 'for field `PlantEquipmentOperationSchemes.control_scheme_8_schedule_name`')
         self._data["Control Scheme 8 Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PlantEquipmentOperationSchemes:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PlantEquipmentOperationSchemes:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PlantEquipmentOperationSchemes: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PlantEquipmentOperationSchemes: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -22221,8 +23004,27 @@ class PlantEquipmentOperationSchemes(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -22242,6 +23044,10 @@ class CondenserEquipmentOperationSchemes(object):
     internal_name = "CondenserEquipmentOperationSchemes"
     field_count = 25
     required_fields = ["Name", "Control Scheme 1 Object Type", "Control Scheme 1 Name", "Control Scheme 1 Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CondenserEquipmentOperationSchemes`
@@ -22272,6 +23078,7 @@ class CondenserEquipmentOperationSchemes(object):
         self._data["Control Scheme 8 Object Type"] = None
         self._data["Control Scheme 8 Name"] = None
         self._data["Control Scheme 8 Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -22486,13 +23293,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `CondenserEquipmentOperationSchemes.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `CondenserEquipmentOperationSchemes.name`')
         self._data["Name"] = value
 
     @property
@@ -22533,13 +23340,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_1_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_1_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_1_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_1_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -22571,10 +23378,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_1_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 1 Object Type"] = value
 
@@ -22604,13 +23411,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_1_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_1_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_1_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_1_name`')
         self._data["Control Scheme 1 Name"] = value
 
     @property
@@ -22639,13 +23446,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_1_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_1_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_1_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_1_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_1_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_1_schedule_name`')
         self._data["Control Scheme 1 Schedule Name"] = value
 
     @property
@@ -22686,13 +23493,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_2_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_2_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_2_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_2_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -22724,10 +23531,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_2_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_2_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_2_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 2 Object Type"] = value
 
@@ -22757,13 +23564,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_2_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_2_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_2_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_2_name`')
         self._data["Control Scheme 2 Name"] = value
 
     @property
@@ -22792,13 +23599,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_2_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_2_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_2_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_2_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_2_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_2_schedule_name`')
         self._data["Control Scheme 2 Schedule Name"] = value
 
     @property
@@ -22839,13 +23646,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_3_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_3_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_3_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_3_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -22877,10 +23684,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_3_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_3_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_3_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 3 Object Type"] = value
 
@@ -22910,13 +23717,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_3_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_3_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_3_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_3_name`')
         self._data["Control Scheme 3 Name"] = value
 
     @property
@@ -22945,13 +23752,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_3_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_3_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_3_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_3_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_3_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_3_schedule_name`')
         self._data["Control Scheme 3 Schedule Name"] = value
 
     @property
@@ -22992,13 +23799,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_4_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_4_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_4_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_4_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -23030,10 +23837,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_4_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_4_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_4_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 4 Object Type"] = value
 
@@ -23063,13 +23870,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_4_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_4_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_4_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_4_name`')
         self._data["Control Scheme 4 Name"] = value
 
     @property
@@ -23098,13 +23905,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_4_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_4_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_4_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_4_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_4_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_4_schedule_name`')
         self._data["Control Scheme 4 Schedule Name"] = value
 
     @property
@@ -23145,13 +23952,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_5_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_5_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_5_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_5_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_5_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -23183,10 +23990,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_5_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_5_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_5_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 5 Object Type"] = value
 
@@ -23216,13 +24023,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_5_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_5_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_5_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_5_name`')
         self._data["Control Scheme 5 Name"] = value
 
     @property
@@ -23251,13 +24058,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_5_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_5_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_5_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_5_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_5_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_5_schedule_name`')
         self._data["Control Scheme 5 Schedule Name"] = value
 
     @property
@@ -23298,13 +24105,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_6_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_6_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_6_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_6_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_6_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -23336,10 +24143,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_6_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_6_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_6_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 6 Object Type"] = value
 
@@ -23369,13 +24176,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_6_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_6_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_6_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_6_name`')
         self._data["Control Scheme 6 Name"] = value
 
     @property
@@ -23404,13 +24211,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_6_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_6_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_6_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_6_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_6_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_6_schedule_name`')
         self._data["Control Scheme 6 Schedule Name"] = value
 
     @property
@@ -23451,13 +24258,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_7_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_7_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_7_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_7_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_7_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -23489,10 +24296,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_7_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_7_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_7_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 7 Object Type"] = value
 
@@ -23522,13 +24329,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_7_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_7_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_7_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_7_name`')
         self._data["Control Scheme 7 Name"] = value
 
     @property
@@ -23557,13 +24364,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_7_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_7_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_7_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_7_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_7_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_7_schedule_name`')
         self._data["Control Scheme 7 Schedule Name"] = value
 
     @property
@@ -23604,13 +24411,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_8_object_type`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_8_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_8_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_8_object_type`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_8_object_type`')
             vals = {}
             vals["plantequipmentoperation:uncontrolled"] = "PlantEquipmentOperation:Uncontrolled"
             vals["plantequipmentoperation:coolingload"] = "PlantEquipmentOperation:CoolingLoad"
@@ -23642,10 +24449,10 @@ class CondenserEquipmentOperationSchemes(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_scheme_8_object_type`'.format(value))
+                                     'field `CondenserEquipmentOperationSchemes.control_scheme_8_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_scheme_8_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `CondenserEquipmentOperationSchemes.control_scheme_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Scheme 8 Object Type"] = value
 
@@ -23675,13 +24482,13 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_8_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_8_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_8_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_8_name`')
         self._data["Control Scheme 8 Name"] = value
 
     @property
@@ -23710,23 +24517,46 @@ class CondenserEquipmentOperationSchemes(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_scheme_8_schedule_name`'.format(value))
+                                 ' for field `CondenserEquipmentOperationSchemes.control_scheme_8_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_scheme_8_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_8_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_scheme_8_schedule_name`')
+                                 'for field `CondenserEquipmentOperationSchemes.control_scheme_8_schedule_name`')
         self._data["Control Scheme 8 Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field CondenserEquipmentOperationSchemes:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field CondenserEquipmentOperationSchemes:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for CondenserEquipmentOperationSchemes: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for CondenserEquipmentOperationSchemes: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -23744,8 +24574,27 @@ class CondenserEquipmentOperationSchemes(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

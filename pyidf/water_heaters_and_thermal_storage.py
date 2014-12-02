@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class WaterHeaterMixed(object):
     """ Corresponds to IDD object `WaterHeater:Mixed`
         Water heater with well-mixed, single-node water tank. May be used to model a tankless
@@ -11,6 +14,10 @@ class WaterHeaterMixed(object):
     internal_name = "WaterHeater:Mixed"
     field_count = 41
     required_fields = ["Name", "Setpoint Temperature Schedule Name", "Heater Fuel Type", "Heater Thermal Efficiency", "Ambient Temperature Indicator"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:Mixed`
@@ -57,6 +64,7 @@ class WaterHeaterMixed(object):
         self._data["Indirect Water Heating Recovery Time"] = None
         self._data["Source Side Flow Control Mode"] = None
         self._data["Indirect Alternate Setpoint Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -383,13 +391,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WaterHeaterMixed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WaterHeaterMixed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WaterHeaterMixed.name`')
         self._data["Name"] = value
 
     @property
@@ -424,8 +432,8 @@ class WaterHeaterMixed(object):
                     self._data["Tank Volume"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `tank_volume`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterMixed.tank_volume`'.format(value))
                     self._data["Tank Volume"] = "Autosize"
                     return
             except ValueError:
@@ -434,10 +442,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `tank_volume`'.format(value))
+                                 ' for field `WaterHeaterMixed.tank_volume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `tank_volume`')
+                                 'for field `WaterHeaterMixed.tank_volume`')
         self._data["Tank Volume"] = value
 
     @property
@@ -466,13 +474,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.setpoint_temperature_schedule_name`')
         self._data["Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -504,10 +512,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `deadband_temperature_difference`'.format(value))
+                                 ' for field `WaterHeaterMixed.deadband_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `deadband_temperature_difference`')
+                                 'for field `WaterHeaterMixed.deadband_temperature_difference`')
         self._data["Deadband Temperature Difference"] = value
 
     @property
@@ -537,7 +545,7 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_temperature_limit`'.format(value))
+                                 ' for field `WaterHeaterMixed.maximum_temperature_limit`'.format(value))
         self._data["Maximum Temperature Limit"] = value
 
     @property
@@ -570,13 +578,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heater_control_type`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heater_control_type`')
+                                 'for field `WaterHeaterMixed.heater_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heater_control_type`')
+                                 'for field `WaterHeaterMixed.heater_control_type`')
             vals = {}
             vals["cycle"] = "Cycle"
             vals["modulate"] = "Modulate"
@@ -599,10 +607,10 @@ class WaterHeaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heater_control_type`'.format(value))
+                                     'field `WaterHeaterMixed.heater_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heater_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterMixed.heater_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heater Control Type"] = value
 
@@ -636,8 +644,8 @@ class WaterHeaterMixed(object):
                     self._data["Heater Maximum Capacity"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `heater_maximum_capacity`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterMixed.heater_maximum_capacity`'.format(value))
                     self._data["Heater Maximum Capacity"] = "Autosize"
                     return
             except ValueError:
@@ -646,10 +654,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `heater_maximum_capacity`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_maximum_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_maximum_capacity`')
+                                 'for field `WaterHeaterMixed.heater_maximum_capacity`')
         self._data["Heater Maximum Capacity"] = value
 
     @property
@@ -681,10 +689,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_minimum_capacity`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_minimum_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_minimum_capacity`')
+                                 'for field `WaterHeaterMixed.heater_minimum_capacity`')
         self._data["Heater Minimum Capacity"] = value
 
     @property
@@ -717,10 +725,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_ignition_minimum_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_ignition_minimum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_ignition_minimum_flow_rate`')
+                                 'for field `WaterHeaterMixed.heater_ignition_minimum_flow_rate`')
         self._data["Heater Ignition Minimum Flow Rate"] = value
 
     @property
@@ -753,10 +761,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_ignition_delay`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_ignition_delay`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_ignition_delay`')
+                                 'for field `WaterHeaterMixed.heater_ignition_delay`')
         self._data["Heater Ignition Delay"] = value
 
     @property
@@ -798,13 +806,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heater_fuel_type`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heater_fuel_type`')
+                                 'for field `WaterHeaterMixed.heater_fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heater_fuel_type`')
+                                 'for field `WaterHeaterMixed.heater_fuel_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -837,10 +845,10 @@ class WaterHeaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heater_fuel_type`'.format(value))
+                                     'field `WaterHeaterMixed.heater_fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heater_fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterMixed.heater_fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heater Fuel Type"] = value
 
@@ -872,13 +880,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_thermal_efficiency`'.format(value))
+                                 ' for field `WaterHeaterMixed.heater_thermal_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `heater_thermal_efficiency`')
+                                 'for field `WaterHeaterMixed.heater_thermal_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `heater_thermal_efficiency`')
+                                 'for field `WaterHeaterMixed.heater_thermal_efficiency`')
         self._data["Heater Thermal Efficiency"] = value
 
     @property
@@ -908,13 +916,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `part_load_factor_curve_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.part_load_factor_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `part_load_factor_curve_name`')
+                                 'for field `WaterHeaterMixed.part_load_factor_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `part_load_factor_curve_name`')
+                                 'for field `WaterHeaterMixed.part_load_factor_curve_name`')
         self._data["Part Load Factor Curve Name"] = value
 
     @property
@@ -946,10 +954,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_parasitic_fuel_consumption_rate`'.format(value))
+                                 ' for field `WaterHeaterMixed.off_cycle_parasitic_fuel_consumption_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_parasitic_fuel_consumption_rate`')
+                                 'for field `WaterHeaterMixed.off_cycle_parasitic_fuel_consumption_rate`')
         self._data["Off Cycle Parasitic Fuel Consumption Rate"] = value
 
     @property
@@ -991,13 +999,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `off_cycle_parasitic_fuel_type`'.format(value))
+                                 ' for field `WaterHeaterMixed.off_cycle_parasitic_fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `off_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterMixed.off_cycle_parasitic_fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `off_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterMixed.off_cycle_parasitic_fuel_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -1030,10 +1038,10 @@ class WaterHeaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `off_cycle_parasitic_fuel_type`'.format(value))
+                                     'field `WaterHeaterMixed.off_cycle_parasitic_fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `off_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterMixed.off_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Off Cycle Parasitic Fuel Type"] = value
 
@@ -1066,13 +1074,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_parasitic_heat_fraction_to_tank`'.format(value))
+                                 ' for field `WaterHeaterMixed.off_cycle_parasitic_heat_fraction_to_tank`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterMixed.off_cycle_parasitic_heat_fraction_to_tank`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `off_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterMixed.off_cycle_parasitic_heat_fraction_to_tank`')
         self._data["Off Cycle Parasitic Heat Fraction to Tank"] = value
 
     @property
@@ -1104,10 +1112,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_parasitic_fuel_consumption_rate`'.format(value))
+                                 ' for field `WaterHeaterMixed.on_cycle_parasitic_fuel_consumption_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_parasitic_fuel_consumption_rate`')
+                                 'for field `WaterHeaterMixed.on_cycle_parasitic_fuel_consumption_rate`')
         self._data["On Cycle Parasitic Fuel Consumption Rate"] = value
 
     @property
@@ -1149,13 +1157,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `on_cycle_parasitic_fuel_type`'.format(value))
+                                 ' for field `WaterHeaterMixed.on_cycle_parasitic_fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `on_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterMixed.on_cycle_parasitic_fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `on_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterMixed.on_cycle_parasitic_fuel_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -1188,10 +1196,10 @@ class WaterHeaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `on_cycle_parasitic_fuel_type`'.format(value))
+                                     'field `WaterHeaterMixed.on_cycle_parasitic_fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `on_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterMixed.on_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["On Cycle Parasitic Fuel Type"] = value
 
@@ -1224,13 +1232,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_parasitic_heat_fraction_to_tank`'.format(value))
+                                 ' for field `WaterHeaterMixed.on_cycle_parasitic_heat_fraction_to_tank`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterMixed.on_cycle_parasitic_heat_fraction_to_tank`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `on_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterMixed.on_cycle_parasitic_heat_fraction_to_tank`')
         self._data["On Cycle Parasitic Heat Fraction to Tank"] = value
 
     @property
@@ -1263,13 +1271,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_indicator`'.format(value))
+                                 ' for field `WaterHeaterMixed.ambient_temperature_indicator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_indicator`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_indicator`')
             vals = {}
             vals["schedule"] = "Schedule"
             vals["zone"] = "Zone"
@@ -1293,10 +1301,10 @@ class WaterHeaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ambient_temperature_indicator`'.format(value))
+                                     'field `WaterHeaterMixed.ambient_temperature_indicator`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ambient_temperature_indicator`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterMixed.ambient_temperature_indicator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ambient Temperature Indicator"] = value
 
@@ -1326,13 +1334,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_schedule_name`')
         self._data["Ambient Temperature Schedule Name"] = value
 
     @property
@@ -1361,13 +1369,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_zone_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_zone_name`')
         self._data["Ambient Temperature Zone Name"] = value
 
     @property
@@ -1397,13 +1405,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_outdoor_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `WaterHeaterMixed.ambient_temperature_outdoor_air_node_name`')
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
 
     @property
@@ -1434,10 +1442,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_loss_coefficient_to_ambient_temperature`'.format(value))
+                                 ' for field `WaterHeaterMixed.off_cycle_loss_coefficient_to_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_loss_coefficient_to_ambient_temperature`')
+                                 'for field `WaterHeaterMixed.off_cycle_loss_coefficient_to_ambient_temperature`')
         self._data["Off Cycle Loss Coefficient to Ambient Temperature"] = value
 
     @property
@@ -1469,13 +1477,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_loss_fraction_to_zone`'.format(value))
+                                 ' for field `WaterHeaterMixed.off_cycle_loss_fraction_to_zone`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterMixed.off_cycle_loss_fraction_to_zone`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `off_cycle_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterMixed.off_cycle_loss_fraction_to_zone`')
         self._data["Off Cycle Loss Fraction to Zone"] = value
 
     @property
@@ -1506,10 +1514,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_loss_coefficient_to_ambient_temperature`'.format(value))
+                                 ' for field `WaterHeaterMixed.on_cycle_loss_coefficient_to_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_loss_coefficient_to_ambient_temperature`')
+                                 'for field `WaterHeaterMixed.on_cycle_loss_coefficient_to_ambient_temperature`')
         self._data["On Cycle Loss Coefficient to Ambient Temperature"] = value
 
     @property
@@ -1541,13 +1549,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_loss_fraction_to_zone`'.format(value))
+                                 ' for field `WaterHeaterMixed.on_cycle_loss_fraction_to_zone`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterMixed.on_cycle_loss_fraction_to_zone`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `on_cycle_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterMixed.on_cycle_loss_fraction_to_zone`')
         self._data["On Cycle Loss Fraction to Zone"] = value
 
     @property
@@ -1580,10 +1588,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `peak_use_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterMixed.peak_use_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `peak_use_flow_rate`')
+                                 'for field `WaterHeaterMixed.peak_use_flow_rate`')
         self._data["Peak Use Flow Rate"] = value
 
     @property
@@ -1613,13 +1621,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_flow_rate_fraction_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.use_flow_rate_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_flow_rate_fraction_schedule_name`')
+                                 'for field `WaterHeaterMixed.use_flow_rate_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_flow_rate_fraction_schedule_name`')
+                                 'for field `WaterHeaterMixed.use_flow_rate_fraction_schedule_name`')
         self._data["Use Flow Rate Fraction Schedule Name"] = value
 
     @property
@@ -1650,13 +1658,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cold_water_supply_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.cold_water_supply_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cold_water_supply_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.cold_water_supply_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cold_water_supply_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.cold_water_supply_temperature_schedule_name`')
         self._data["Cold Water Supply Temperature Schedule Name"] = value
 
     @property
@@ -1685,13 +1693,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.use_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `WaterHeaterMixed.use_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `WaterHeaterMixed.use_side_inlet_node_name`')
         self._data["Use Side Inlet Node Name"] = value
 
     @property
@@ -1720,13 +1728,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.use_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `WaterHeaterMixed.use_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `WaterHeaterMixed.use_side_outlet_node_name`')
         self._data["Use Side Outlet Node Name"] = value
 
     @property
@@ -1758,13 +1766,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `use_side_effectiveness`'.format(value))
+                                 ' for field `WaterHeaterMixed.use_side_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_effectiveness`')
+                                 'for field `WaterHeaterMixed.use_side_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `use_side_effectiveness`')
+                                 'for field `WaterHeaterMixed.use_side_effectiveness`')
         self._data["Use Side Effectiveness"] = value
 
     @property
@@ -1793,13 +1801,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.source_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `WaterHeaterMixed.source_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `WaterHeaterMixed.source_side_inlet_node_name`')
         self._data["Source Side Inlet Node Name"] = value
 
     @property
@@ -1828,13 +1836,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.source_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `WaterHeaterMixed.source_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `WaterHeaterMixed.source_side_outlet_node_name`')
         self._data["Source Side Outlet Node Name"] = value
 
     @property
@@ -1866,13 +1874,13 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `source_side_effectiveness`'.format(value))
+                                 ' for field `WaterHeaterMixed.source_side_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_effectiveness`')
+                                 'for field `WaterHeaterMixed.source_side_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `source_side_effectiveness`')
+                                 'for field `WaterHeaterMixed.source_side_effectiveness`')
         self._data["Source Side Effectiveness"] = value
 
     @property
@@ -1907,8 +1915,8 @@ class WaterHeaterMixed(object):
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterMixed.use_side_design_flow_rate`'.format(value))
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -1917,10 +1925,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterMixed.use_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_design_flow_rate`')
+                                 'for field `WaterHeaterMixed.use_side_design_flow_rate`')
         self._data["Use Side Design Flow Rate"] = value
 
     @property
@@ -1955,8 +1963,8 @@ class WaterHeaterMixed(object):
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterMixed.source_side_design_flow_rate`'.format(value))
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -1965,10 +1973,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterMixed.source_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_design_flow_rate`')
+                                 'for field `WaterHeaterMixed.source_side_design_flow_rate`')
         self._data["Source Side Design Flow Rate"] = value
 
     @property
@@ -2002,10 +2010,10 @@ class WaterHeaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indirect_water_heating_recovery_time`'.format(value))
+                                 ' for field `WaterHeaterMixed.indirect_water_heating_recovery_time`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `indirect_water_heating_recovery_time`')
+                                 'for field `WaterHeaterMixed.indirect_water_heating_recovery_time`')
         self._data["Indirect Water Heating Recovery Time"] = value
 
     @property
@@ -2042,13 +2050,13 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_flow_control_mode`'.format(value))
+                                 ' for field `WaterHeaterMixed.source_side_flow_control_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_flow_control_mode`')
+                                 'for field `WaterHeaterMixed.source_side_flow_control_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_flow_control_mode`')
+                                 'for field `WaterHeaterMixed.source_side_flow_control_mode`')
             vals = {}
             vals["storagetank"] = "StorageTank"
             vals["indirectheatprimarysetpoint"] = "IndirectHeatPrimarySetpoint"
@@ -2072,10 +2080,10 @@ class WaterHeaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `source_side_flow_control_mode`'.format(value))
+                                     'field `WaterHeaterMixed.source_side_flow_control_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `source_side_flow_control_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterMixed.source_side_flow_control_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Source Side Flow Control Mode"] = value
 
@@ -2106,23 +2114,46 @@ class WaterHeaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `indirect_alternate_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterMixed.indirect_alternate_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `indirect_alternate_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.indirect_alternate_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `indirect_alternate_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterMixed.indirect_alternate_setpoint_temperature_schedule_name`')
         self._data["Indirect Alternate Setpoint Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WaterHeaterMixed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WaterHeaterMixed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WaterHeaterMixed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WaterHeaterMixed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2140,8 +2171,27 @@ class WaterHeaterMixed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2158,6 +2208,10 @@ class WaterHeaterStratified(object):
     internal_name = "WaterHeater:Stratified"
     field_count = 65
     required_fields = ["Name", "Tank Volume", "Tank Height", "Heater 1 Setpoint Temperature Schedule Name", "Heater 2 Setpoint Temperature Schedule Name", "Heater Fuel Type", "Heater Thermal Efficiency", "Ambient Temperature Indicator"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:Stratified`
@@ -2228,6 +2282,7 @@ class WaterHeaterStratified(object):
         self._data["Node 10 Additional Loss Coefficient"] = None
         self._data["Source Side Flow Control Mode"] = None
         self._data["Indirect Alternate Setpoint Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2722,13 +2777,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WaterHeaterStratified.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WaterHeaterStratified.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WaterHeaterStratified.name`')
         self._data["Name"] = value
 
     @property
@@ -2758,13 +2813,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `WaterHeaterStratified.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `WaterHeaterStratified.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `WaterHeaterStratified.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -2798,8 +2853,8 @@ class WaterHeaterStratified(object):
                     self._data["Tank Volume"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `tank_volume`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterStratified.tank_volume`'.format(value))
                     self._data["Tank Volume"] = "Autosize"
                     return
             except ValueError:
@@ -2808,10 +2863,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `tank_volume`'.format(value))
+                                 ' for field `WaterHeaterStratified.tank_volume`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_volume`')
+                                 'for field `WaterHeaterStratified.tank_volume`')
         self._data["Tank Volume"] = value
 
     @property
@@ -2845,8 +2900,8 @@ class WaterHeaterStratified(object):
                     self._data["Tank Height"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `tank_height`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterStratified.tank_height`'.format(value))
                     self._data["Tank Height"] = "Autosize"
                     return
             except ValueError:
@@ -2855,10 +2910,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `tank_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.tank_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_height`')
+                                 'for field `WaterHeaterStratified.tank_height`')
         self._data["Tank Height"] = value
 
     @property
@@ -2892,13 +2947,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `tank_shape`'.format(value))
+                                 ' for field `WaterHeaterStratified.tank_shape`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `tank_shape`')
+                                 'for field `WaterHeaterStratified.tank_shape`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `tank_shape`')
+                                 'for field `WaterHeaterStratified.tank_shape`')
             vals = {}
             vals["verticalcylinder"] = "VerticalCylinder"
             vals["horizontalcylinder"] = "HorizontalCylinder"
@@ -2922,10 +2977,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `tank_shape`'.format(value))
+                                     'field `WaterHeaterStratified.tank_shape`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `tank_shape`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.tank_shape`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Tank Shape"] = value
 
@@ -2958,10 +3013,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_perimeter`'.format(value))
+                                 ' for field `WaterHeaterStratified.tank_perimeter`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `tank_perimeter`')
+                                 'for field `WaterHeaterStratified.tank_perimeter`')
         self._data["Tank Perimeter"] = value
 
     @property
@@ -2991,7 +3046,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_temperature_limit`'.format(value))
+                                 ' for field `WaterHeaterStratified.maximum_temperature_limit`'.format(value))
         self._data["Maximum Temperature Limit"] = value
 
     @property
@@ -3024,13 +3079,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heater_priority_control`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_priority_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heater_priority_control`')
+                                 'for field `WaterHeaterStratified.heater_priority_control`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heater_priority_control`')
+                                 'for field `WaterHeaterStratified.heater_priority_control`')
             vals = {}
             vals["masterslave"] = "MasterSlave"
             vals["simultaneous"] = "Simultaneous"
@@ -3053,10 +3108,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heater_priority_control`'.format(value))
+                                     'field `WaterHeaterStratified.heater_priority_control`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heater_priority_control`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.heater_priority_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heater Priority Control"] = value
 
@@ -3086,13 +3141,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heater_1_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_1_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heater_1_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.heater_1_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heater_1_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.heater_1_setpoint_temperature_schedule_name`')
         self._data["Heater 1 Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -3124,10 +3179,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_1_deadband_temperature_difference`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_1_deadband_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_1_deadband_temperature_difference`')
+                                 'for field `WaterHeaterStratified.heater_1_deadband_temperature_difference`')
         self._data["Heater 1 Deadband Temperature Difference"] = value
 
     @property
@@ -3160,8 +3215,8 @@ class WaterHeaterStratified(object):
                     self._data["Heater 1 Capacity"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `heater_1_capacity`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterStratified.heater_1_capacity`'.format(value))
                     self._data["Heater 1 Capacity"] = "Autosize"
                     return
             except ValueError:
@@ -3170,10 +3225,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `heater_1_capacity`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_1_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_1_capacity`')
+                                 'for field `WaterHeaterStratified.heater_1_capacity`')
         self._data["Heater 1 Capacity"] = value
 
     @property
@@ -3204,10 +3259,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_1_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_1_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_1_height`')
+                                 'for field `WaterHeaterStratified.heater_1_height`')
         self._data["Heater 1 Height"] = value
 
     @property
@@ -3236,13 +3291,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heater_2_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_2_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heater_2_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.heater_2_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heater_2_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.heater_2_setpoint_temperature_schedule_name`')
         self._data["Heater 2 Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -3274,10 +3329,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_2_deadband_temperature_difference`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_2_deadband_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_2_deadband_temperature_difference`')
+                                 'for field `WaterHeaterStratified.heater_2_deadband_temperature_difference`')
         self._data["Heater 2 Deadband Temperature Difference"] = value
 
     @property
@@ -3308,10 +3363,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_2_capacity`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_2_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_2_capacity`')
+                                 'for field `WaterHeaterStratified.heater_2_capacity`')
         self._data["Heater 2 Capacity"] = value
 
     @property
@@ -3342,10 +3397,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_2_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_2_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heater_2_height`')
+                                 'for field `WaterHeaterStratified.heater_2_height`')
         self._data["Heater 2 Height"] = value
 
     @property
@@ -3387,13 +3442,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heater_fuel_type`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heater_fuel_type`')
+                                 'for field `WaterHeaterStratified.heater_fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heater_fuel_type`')
+                                 'for field `WaterHeaterStratified.heater_fuel_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -3426,10 +3481,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heater_fuel_type`'.format(value))
+                                     'field `WaterHeaterStratified.heater_fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heater_fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.heater_fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heater Fuel Type"] = value
 
@@ -3461,13 +3516,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heater_thermal_efficiency`'.format(value))
+                                 ' for field `WaterHeaterStratified.heater_thermal_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `heater_thermal_efficiency`')
+                                 'for field `WaterHeaterStratified.heater_thermal_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `heater_thermal_efficiency`')
+                                 'for field `WaterHeaterStratified.heater_thermal_efficiency`')
         self._data["Heater Thermal Efficiency"] = value
 
     @property
@@ -3499,10 +3554,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_parasitic_fuel_consumption_rate`'.format(value))
+                                 ' for field `WaterHeaterStratified.off_cycle_parasitic_fuel_consumption_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_parasitic_fuel_consumption_rate`')
+                                 'for field `WaterHeaterStratified.off_cycle_parasitic_fuel_consumption_rate`')
         self._data["Off Cycle Parasitic Fuel Consumption Rate"] = value
 
     @property
@@ -3544,13 +3599,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `off_cycle_parasitic_fuel_type`'.format(value))
+                                 ' for field `WaterHeaterStratified.off_cycle_parasitic_fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `off_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterStratified.off_cycle_parasitic_fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `off_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterStratified.off_cycle_parasitic_fuel_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -3583,10 +3638,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `off_cycle_parasitic_fuel_type`'.format(value))
+                                     'field `WaterHeaterStratified.off_cycle_parasitic_fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `off_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.off_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Off Cycle Parasitic Fuel Type"] = value
 
@@ -3619,13 +3674,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_parasitic_heat_fraction_to_tank`'.format(value))
+                                 ' for field `WaterHeaterStratified.off_cycle_parasitic_heat_fraction_to_tank`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterStratified.off_cycle_parasitic_heat_fraction_to_tank`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `off_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterStratified.off_cycle_parasitic_heat_fraction_to_tank`')
         self._data["Off Cycle Parasitic Heat Fraction to Tank"] = value
 
     @property
@@ -3657,10 +3712,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_parasitic_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.off_cycle_parasitic_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_parasitic_height`')
+                                 'for field `WaterHeaterStratified.off_cycle_parasitic_height`')
         self._data["Off Cycle Parasitic Height"] = value
 
     @property
@@ -3692,10 +3747,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_parasitic_fuel_consumption_rate`'.format(value))
+                                 ' for field `WaterHeaterStratified.on_cycle_parasitic_fuel_consumption_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_parasitic_fuel_consumption_rate`')
+                                 'for field `WaterHeaterStratified.on_cycle_parasitic_fuel_consumption_rate`')
         self._data["On Cycle Parasitic Fuel Consumption Rate"] = value
 
     @property
@@ -3737,13 +3792,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `on_cycle_parasitic_fuel_type`'.format(value))
+                                 ' for field `WaterHeaterStratified.on_cycle_parasitic_fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `on_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterStratified.on_cycle_parasitic_fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `on_cycle_parasitic_fuel_type`')
+                                 'for field `WaterHeaterStratified.on_cycle_parasitic_fuel_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -3776,10 +3831,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `on_cycle_parasitic_fuel_type`'.format(value))
+                                     'field `WaterHeaterStratified.on_cycle_parasitic_fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `on_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.on_cycle_parasitic_fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["On Cycle Parasitic Fuel Type"] = value
 
@@ -3812,13 +3867,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_parasitic_heat_fraction_to_tank`'.format(value))
+                                 ' for field `WaterHeaterStratified.on_cycle_parasitic_heat_fraction_to_tank`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterStratified.on_cycle_parasitic_heat_fraction_to_tank`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `on_cycle_parasitic_heat_fraction_to_tank`')
+                                 'for field `WaterHeaterStratified.on_cycle_parasitic_heat_fraction_to_tank`')
         self._data["On Cycle Parasitic Heat Fraction to Tank"] = value
 
     @property
@@ -3850,10 +3905,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_parasitic_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.on_cycle_parasitic_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_parasitic_height`')
+                                 'for field `WaterHeaterStratified.on_cycle_parasitic_height`')
         self._data["On Cycle Parasitic Height"] = value
 
     @property
@@ -3886,13 +3941,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_indicator`'.format(value))
+                                 ' for field `WaterHeaterStratified.ambient_temperature_indicator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_indicator`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_indicator`')
             vals = {}
             vals["schedule"] = "Schedule"
             vals["zone"] = "Zone"
@@ -3916,10 +3971,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ambient_temperature_indicator`'.format(value))
+                                     'field `WaterHeaterStratified.ambient_temperature_indicator`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ambient_temperature_indicator`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.ambient_temperature_indicator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ambient Temperature Indicator"] = value
 
@@ -3949,13 +4004,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_schedule_name`')
         self._data["Ambient Temperature Schedule Name"] = value
 
     @property
@@ -3984,13 +4039,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_zone_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_zone_name`')
         self._data["Ambient Temperature Zone Name"] = value
 
     @property
@@ -4020,13 +4075,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_outdoor_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `WaterHeaterStratified.ambient_temperature_outdoor_air_node_name`')
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
 
     @property
@@ -4057,10 +4112,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`'.format(value))
+                                 ' for field `WaterHeaterStratified.uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`')
+                                 'for field `WaterHeaterStratified.uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`')
         self._data["Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature"] = value
 
     @property
@@ -4092,13 +4147,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_fraction_to_zone`'.format(value))
+                                 ' for field `WaterHeaterStratified.skin_loss_fraction_to_zone`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterStratified.skin_loss_fraction_to_zone`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterStratified.skin_loss_fraction_to_zone`')
         self._data["Skin Loss Fraction to Zone"] = value
 
     @property
@@ -4129,10 +4184,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_flue_loss_coefficient_to_ambient_temperature`'.format(value))
+                                 ' for field `WaterHeaterStratified.off_cycle_flue_loss_coefficient_to_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_flue_loss_coefficient_to_ambient_temperature`')
+                                 'for field `WaterHeaterStratified.off_cycle_flue_loss_coefficient_to_ambient_temperature`')
         self._data["Off Cycle Flue Loss Coefficient to Ambient Temperature"] = value
 
     @property
@@ -4164,13 +4219,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_flue_loss_fraction_to_zone`'.format(value))
+                                 ' for field `WaterHeaterStratified.off_cycle_flue_loss_fraction_to_zone`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_flue_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterStratified.off_cycle_flue_loss_fraction_to_zone`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `off_cycle_flue_loss_fraction_to_zone`')
+                                 'for field `WaterHeaterStratified.off_cycle_flue_loss_fraction_to_zone`')
         self._data["Off Cycle Flue Loss Fraction to Zone"] = value
 
     @property
@@ -4203,10 +4258,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `peak_use_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterStratified.peak_use_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `peak_use_flow_rate`')
+                                 'for field `WaterHeaterStratified.peak_use_flow_rate`')
         self._data["Peak Use Flow Rate"] = value
 
     @property
@@ -4237,13 +4292,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_flow_rate_fraction_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_flow_rate_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_flow_rate_fraction_schedule_name`')
+                                 'for field `WaterHeaterStratified.use_flow_rate_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_flow_rate_fraction_schedule_name`')
+                                 'for field `WaterHeaterStratified.use_flow_rate_fraction_schedule_name`')
         self._data["Use Flow Rate Fraction Schedule Name"] = value
 
     @property
@@ -4274,13 +4329,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cold_water_supply_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.cold_water_supply_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cold_water_supply_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.cold_water_supply_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cold_water_supply_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.cold_water_supply_temperature_schedule_name`')
         self._data["Cold Water Supply Temperature Schedule Name"] = value
 
     @property
@@ -4309,13 +4364,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `WaterHeaterStratified.use_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `WaterHeaterStratified.use_side_inlet_node_name`')
         self._data["Use Side Inlet Node Name"] = value
 
     @property
@@ -4344,13 +4399,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `WaterHeaterStratified.use_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `WaterHeaterStratified.use_side_outlet_node_name`')
         self._data["Use Side Outlet Node Name"] = value
 
     @property
@@ -4387,13 +4442,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `use_side_effectiveness`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_side_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_effectiveness`')
+                                 'for field `WaterHeaterStratified.use_side_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `use_side_effectiveness`')
+                                 'for field `WaterHeaterStratified.use_side_effectiveness`')
         self._data["Use Side Effectiveness"] = value
 
     @property
@@ -4426,10 +4481,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `use_side_inlet_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_side_inlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_inlet_height`')
+                                 'for field `WaterHeaterStratified.use_side_inlet_height`')
         self._data["Use Side Inlet Height"] = value
 
     @property
@@ -4464,8 +4519,8 @@ class WaterHeaterStratified(object):
                     self._data["Use Side Outlet Height"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `use_side_outlet_height`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WaterHeaterStratified.use_side_outlet_height`'.format(value))
                     self._data["Use Side Outlet Height"] = "Autocalculate"
                     return
             except ValueError:
@@ -4474,10 +4529,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `use_side_outlet_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_side_outlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_outlet_height`')
+                                 'for field `WaterHeaterStratified.use_side_outlet_height`')
         self._data["Use Side Outlet Height"] = value
 
     @property
@@ -4506,13 +4561,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `WaterHeaterStratified.source_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `WaterHeaterStratified.source_side_inlet_node_name`')
         self._data["Source Side Inlet Node Name"] = value
 
     @property
@@ -4541,13 +4596,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `WaterHeaterStratified.source_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `WaterHeaterStratified.source_side_outlet_node_name`')
         self._data["Source Side Outlet Node Name"] = value
 
     @property
@@ -4584,13 +4639,13 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `source_side_effectiveness`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_effectiveness`')
+                                 'for field `WaterHeaterStratified.source_side_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `source_side_effectiveness`')
+                                 'for field `WaterHeaterStratified.source_side_effectiveness`')
         self._data["Source Side Effectiveness"] = value
 
     @property
@@ -4625,8 +4680,8 @@ class WaterHeaterStratified(object):
                     self._data["Source Side Inlet Height"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `source_side_inlet_height`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WaterHeaterStratified.source_side_inlet_height`'.format(value))
                     self._data["Source Side Inlet Height"] = "Autocalculate"
                     return
             except ValueError:
@@ -4635,10 +4690,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `source_side_inlet_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_inlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_inlet_height`')
+                                 'for field `WaterHeaterStratified.source_side_inlet_height`')
         self._data["Source Side Inlet Height"] = value
 
     @property
@@ -4671,10 +4726,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `source_side_outlet_height`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_outlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_outlet_height`')
+                                 'for field `WaterHeaterStratified.source_side_outlet_height`')
         self._data["Source Side Outlet Height"] = value
 
     @property
@@ -4707,13 +4762,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_mode`'.format(value))
+                                 ' for field `WaterHeaterStratified.inlet_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_mode`')
+                                 'for field `WaterHeaterStratified.inlet_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_mode`')
+                                 'for field `WaterHeaterStratified.inlet_mode`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["seeking"] = "Seeking"
@@ -4736,10 +4791,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `inlet_mode`'.format(value))
+                                     'field `WaterHeaterStratified.inlet_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `inlet_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.inlet_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Inlet Mode"] = value
 
@@ -4775,8 +4830,8 @@ class WaterHeaterStratified(object):
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterStratified.use_side_design_flow_rate`'.format(value))
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -4785,10 +4840,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterStratified.use_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_design_flow_rate`')
+                                 'for field `WaterHeaterStratified.use_side_design_flow_rate`')
         self._data["Use Side Design Flow Rate"] = value
 
     @property
@@ -4823,8 +4878,8 @@ class WaterHeaterStratified(object):
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `WaterHeaterStratified.source_side_design_flow_rate`'.format(value))
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -4833,10 +4888,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_design_flow_rate`')
+                                 'for field `WaterHeaterStratified.source_side_design_flow_rate`')
         self._data["Source Side Design Flow Rate"] = value
 
     @property
@@ -4870,10 +4925,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indirect_water_heating_recovery_time`'.format(value))
+                                 ' for field `WaterHeaterStratified.indirect_water_heating_recovery_time`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `indirect_water_heating_recovery_time`')
+                                 'for field `WaterHeaterStratified.indirect_water_heating_recovery_time`')
         self._data["Indirect Water Heating Recovery Time"] = value
 
     @property
@@ -4907,18 +4962,18 @@ class WaterHeaterStratified(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_nodes`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `WaterHeaterStratified.number_of_nodes`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_nodes`'.format(value))
+                                         'for field `WaterHeaterStratified.number_of_nodes`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_nodes`')
+                                 'for field `WaterHeaterStratified.number_of_nodes`')
             if value > 10:
                 raise ValueError('value need to be smaller 10 '
-                                 'for field `number_of_nodes`')
+                                 'for field `WaterHeaterStratified.number_of_nodes`')
         self._data["Number of Nodes"] = value
 
     @property
@@ -4950,10 +5005,10 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `additional_destratification_conductivity`'.format(value))
+                                 ' for field `WaterHeaterStratified.additional_destratification_conductivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `additional_destratification_conductivity`')
+                                 'for field `WaterHeaterStratified.additional_destratification_conductivity`')
         self._data["Additional Destratification Conductivity"] = value
 
     @property
@@ -4984,7 +5039,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_1_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_1_additional_loss_coefficient`'.format(value))
         self._data["Node 1 Additional Loss Coefficient"] = value
 
     @property
@@ -5015,7 +5070,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_2_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_2_additional_loss_coefficient`'.format(value))
         self._data["Node 2 Additional Loss Coefficient"] = value
 
     @property
@@ -5046,7 +5101,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_3_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_3_additional_loss_coefficient`'.format(value))
         self._data["Node 3 Additional Loss Coefficient"] = value
 
     @property
@@ -5077,7 +5132,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_4_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_4_additional_loss_coefficient`'.format(value))
         self._data["Node 4 Additional Loss Coefficient"] = value
 
     @property
@@ -5108,7 +5163,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_5_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_5_additional_loss_coefficient`'.format(value))
         self._data["Node 5 Additional Loss Coefficient"] = value
 
     @property
@@ -5139,7 +5194,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_6_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_6_additional_loss_coefficient`'.format(value))
         self._data["Node 6 Additional Loss Coefficient"] = value
 
     @property
@@ -5170,7 +5225,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_7_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_7_additional_loss_coefficient`'.format(value))
         self._data["Node 7 Additional Loss Coefficient"] = value
 
     @property
@@ -5201,7 +5256,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_8_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_8_additional_loss_coefficient`'.format(value))
         self._data["Node 8 Additional Loss Coefficient"] = value
 
     @property
@@ -5232,7 +5287,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_9_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_9_additional_loss_coefficient`'.format(value))
         self._data["Node 9 Additional Loss Coefficient"] = value
 
     @property
@@ -5263,7 +5318,7 @@ class WaterHeaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_10_additional_loss_coefficient`'.format(value))
+                                 ' for field `WaterHeaterStratified.node_10_additional_loss_coefficient`'.format(value))
         self._data["Node 10 Additional Loss Coefficient"] = value
 
     @property
@@ -5300,13 +5355,13 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_flow_control_mode`'.format(value))
+                                 ' for field `WaterHeaterStratified.source_side_flow_control_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_flow_control_mode`')
+                                 'for field `WaterHeaterStratified.source_side_flow_control_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_flow_control_mode`')
+                                 'for field `WaterHeaterStratified.source_side_flow_control_mode`')
             vals = {}
             vals["storagetank"] = "StorageTank"
             vals["indirectheatprimarysetpoint"] = "IndirectHeatPrimarySetpoint"
@@ -5330,10 +5385,10 @@ class WaterHeaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `source_side_flow_control_mode`'.format(value))
+                                     'field `WaterHeaterStratified.source_side_flow_control_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `source_side_flow_control_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterStratified.source_side_flow_control_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Source Side Flow Control Mode"] = value
 
@@ -5364,23 +5419,46 @@ class WaterHeaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `indirect_alternate_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterStratified.indirect_alternate_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `indirect_alternate_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.indirect_alternate_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `indirect_alternate_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterStratified.indirect_alternate_setpoint_temperature_schedule_name`')
         self._data["Indirect Alternate Setpoint Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WaterHeaterStratified:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WaterHeaterStratified:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WaterHeaterStratified: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WaterHeaterStratified: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5398,8 +5476,27 @@ class WaterHeaterStratified(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5416,6 +5513,10 @@ class WaterHeaterSizing(object):
     internal_name = "WaterHeater:Sizing"
     field_count = 16
     required_fields = ["WaterHeater Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:Sizing`
@@ -5437,6 +5538,7 @@ class WaterHeaterSizing(object):
         self._data["Recovery Capacity PerUnit"] = None
         self._data["Storage Capacity per Collector Area"] = None
         self._data["Height Aspect Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5588,13 +5690,13 @@ class WaterHeaterSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `waterheater_name`'.format(value))
+                                 ' for field `WaterHeaterSizing.waterheater_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `waterheater_name`')
+                                 'for field `WaterHeaterSizing.waterheater_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `waterheater_name`')
+                                 'for field `WaterHeaterSizing.waterheater_name`')
         self._data["WaterHeater Name"] = value
 
     @property
@@ -5630,13 +5732,13 @@ class WaterHeaterSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_mode`'.format(value))
+                                 ' for field `WaterHeaterSizing.design_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_mode`')
+                                 'for field `WaterHeaterSizing.design_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_mode`')
+                                 'for field `WaterHeaterSizing.design_mode`')
             vals = {}
             vals["peakdraw"] = "PeakDraw"
             vals["residentialhud-fhaminimum"] = "ResidentialHUD-FHAMinimum"
@@ -5663,10 +5765,10 @@ class WaterHeaterSizing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `design_mode`'.format(value))
+                                     'field `WaterHeaterSizing.design_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `design_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterSizing.design_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Mode"] = value
 
@@ -5699,10 +5801,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `time_storage_can_meet_peak_draw`'.format(value))
+                                 ' for field `WaterHeaterSizing.time_storage_can_meet_peak_draw`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `time_storage_can_meet_peak_draw`')
+                                 'for field `WaterHeaterSizing.time_storage_can_meet_peak_draw`')
         self._data["Time Storage Can Meet Peak Draw"] = value
 
     @property
@@ -5734,10 +5836,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `time_for_tank_recovery`'.format(value))
+                                 ' for field `WaterHeaterSizing.time_for_tank_recovery`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `time_for_tank_recovery`')
+                                 'for field `WaterHeaterSizing.time_for_tank_recovery`')
         self._data["Time for Tank Recovery"] = value
 
     @property
@@ -5769,7 +5871,7 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_tank_volume_for_autosizing_plant_connections`'.format(value))
+                                 ' for field `WaterHeaterSizing.nominal_tank_volume_for_autosizing_plant_connections`'.format(value))
         self._data["Nominal Tank Volume for Autosizing Plant Connections"] = value
 
     @property
@@ -5802,15 +5904,15 @@ class WaterHeaterSizing(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_bedrooms`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `WaterHeaterSizing.number_of_bedrooms`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_bedrooms`'.format(value))
+                                         'for field `WaterHeaterSizing.number_of_bedrooms`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_bedrooms`')
+                                 'for field `WaterHeaterSizing.number_of_bedrooms`')
         self._data["Number of Bedrooms"] = value
 
     @property
@@ -5843,15 +5945,15 @@ class WaterHeaterSizing(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_bathrooms`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `WaterHeaterSizing.number_of_bathrooms`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_bathrooms`'.format(value))
+                                         'for field `WaterHeaterSizing.number_of_bathrooms`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_bathrooms`')
+                                 'for field `WaterHeaterSizing.number_of_bathrooms`')
         self._data["Number of Bathrooms"] = value
 
     @property
@@ -5883,10 +5985,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `storage_capacity_per_person`'.format(value))
+                                 ' for field `WaterHeaterSizing.storage_capacity_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `storage_capacity_per_person`')
+                                 'for field `WaterHeaterSizing.storage_capacity_per_person`')
         self._data["Storage Capacity per Person"] = value
 
     @property
@@ -5918,10 +6020,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recovery_capacity_per_person`'.format(value))
+                                 ' for field `WaterHeaterSizing.recovery_capacity_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `recovery_capacity_per_person`')
+                                 'for field `WaterHeaterSizing.recovery_capacity_per_person`')
         self._data["Recovery Capacity per Person"] = value
 
     @property
@@ -5953,10 +6055,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `storage_capacity_per_floor_area`'.format(value))
+                                 ' for field `WaterHeaterSizing.storage_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `storage_capacity_per_floor_area`')
+                                 'for field `WaterHeaterSizing.storage_capacity_per_floor_area`')
         self._data["Storage Capacity per Floor Area"] = value
 
     @property
@@ -5988,10 +6090,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recovery_capacity_per_floor_area`'.format(value))
+                                 ' for field `WaterHeaterSizing.recovery_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `recovery_capacity_per_floor_area`')
+                                 'for field `WaterHeaterSizing.recovery_capacity_per_floor_area`')
         self._data["Recovery Capacity per Floor Area"] = value
 
     @property
@@ -6021,7 +6123,7 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_units`'.format(value))
+                                 ' for field `WaterHeaterSizing.number_of_units`'.format(value))
         self._data["Number of Units"] = value
 
     @property
@@ -6053,10 +6155,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `storage_capacity_per_unit`'.format(value))
+                                 ' for field `WaterHeaterSizing.storage_capacity_per_unit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `storage_capacity_per_unit`')
+                                 'for field `WaterHeaterSizing.storage_capacity_per_unit`')
         self._data["Storage Capacity per Unit"] = value
 
     @property
@@ -6088,10 +6190,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recovery_capacity_perunit`'.format(value))
+                                 ' for field `WaterHeaterSizing.recovery_capacity_perunit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `recovery_capacity_perunit`')
+                                 'for field `WaterHeaterSizing.recovery_capacity_perunit`')
         self._data["Recovery Capacity PerUnit"] = value
 
     @property
@@ -6123,10 +6225,10 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `storage_capacity_per_collector_area`'.format(value))
+                                 ' for field `WaterHeaterSizing.storage_capacity_per_collector_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `storage_capacity_per_collector_area`')
+                                 'for field `WaterHeaterSizing.storage_capacity_per_collector_area`')
         self._data["Storage Capacity per Collector Area"] = value
 
     @property
@@ -6157,20 +6259,43 @@ class WaterHeaterSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_aspect_ratio`'.format(value))
+                                 ' for field `WaterHeaterSizing.height_aspect_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `height_aspect_ratio`')
+                                 'for field `WaterHeaterSizing.height_aspect_ratio`')
         self._data["Height Aspect Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WaterHeaterSizing:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WaterHeaterSizing:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WaterHeaterSizing: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WaterHeaterSizing: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6188,8 +6313,27 @@ class WaterHeaterSizing(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6206,6 +6350,10 @@ class WaterHeaterHeatPump(object):
     internal_name = "WaterHeater:HeatPump"
     field_count = 35
     required_fields = ["Name", "Compressor Setpoint Temperature Schedule Name", "Condenser Water Inlet Node Name", "Condenser Water Outlet Node Name", "Inlet Air Configuration", "Tank Object Type", "Tank Name", "DX Coil Object Type", "DX Coil Name", "Compressor Location", "Fan Object Type", "Fan Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 31
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:HeatPump`
@@ -6246,6 +6394,7 @@ class WaterHeaterHeatPump(object):
         self._data["Outlet Air Splitter Node Name"] = None
         self._data["Inlet Air Mixer Schedule Name"] = None
         self._data["Control Sensor Location In Stratified Tank"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6531,13 +6680,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WaterHeaterHeatPump.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WaterHeaterHeatPump.name`')
         self._data["Name"] = value
 
     @property
@@ -6570,13 +6719,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -6608,13 +6757,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `compressor_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.compressor_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `compressor_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.compressor_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `compressor_setpoint_temperature_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.compressor_setpoint_temperature_schedule_name`')
         self._data["Compressor Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -6651,13 +6800,13 @@ class WaterHeaterHeatPump(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dead_band_temperature_difference`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.dead_band_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `dead_band_temperature_difference`')
+                                 'for field `WaterHeaterHeatPump.dead_band_temperature_difference`')
             if value > 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `dead_band_temperature_difference`')
+                                 'for field `WaterHeaterHeatPump.dead_band_temperature_difference`')
         self._data["Dead Band Temperature Difference"] = value
 
     @property
@@ -6689,13 +6838,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_water_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.condenser_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_water_inlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.condenser_water_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_water_inlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.condenser_water_inlet_node_name`')
         self._data["Condenser Water Inlet Node Name"] = value
 
     @property
@@ -6727,13 +6876,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `condenser_water_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.condenser_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `condenser_water_outlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.condenser_water_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `condenser_water_outlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.condenser_water_outlet_node_name`')
         self._data["Condenser Water Outlet Node Name"] = value
 
     @property
@@ -6769,8 +6918,8 @@ class WaterHeaterHeatPump(object):
                     self._data["Condenser Water Flow Rate"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `condenser_water_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WaterHeaterHeatPump.condenser_water_flow_rate`'.format(value))
                     self._data["Condenser Water Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
@@ -6779,10 +6928,10 @@ class WaterHeaterHeatPump(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `condenser_water_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.condenser_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `condenser_water_flow_rate`')
+                                 'for field `WaterHeaterHeatPump.condenser_water_flow_rate`')
         self._data["Condenser Water Flow Rate"] = value
 
     @property
@@ -6818,8 +6967,8 @@ class WaterHeaterHeatPump(object):
                     self._data["Evaporator Air Flow Rate"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `evaporator_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WaterHeaterHeatPump.evaporator_air_flow_rate`'.format(value))
                     self._data["Evaporator Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
@@ -6828,10 +6977,10 @@ class WaterHeaterHeatPump(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `evaporator_air_flow_rate`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.evaporator_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `evaporator_air_flow_rate`')
+                                 'for field `WaterHeaterHeatPump.evaporator_air_flow_rate`')
         self._data["Evaporator Air Flow Rate"] = value
 
     @property
@@ -6866,13 +7015,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_air_configuration`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.inlet_air_configuration`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_air_configuration`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_configuration`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_air_configuration`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_configuration`')
             vals = {}
             vals["schedule"] = "Schedule"
             vals["zoneaironly"] = "ZoneAirOnly"
@@ -6897,10 +7046,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `inlet_air_configuration`'.format(value))
+                                     'field `WaterHeaterHeatPump.inlet_air_configuration`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `inlet_air_configuration`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.inlet_air_configuration`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Inlet Air Configuration"] = value
 
@@ -6934,13 +7083,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -6973,13 +7122,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -7010,13 +7159,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outdoor_air_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outdoor_air_node_name`')
+                                 'for field `WaterHeaterHeatPump.outdoor_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outdoor_air_node_name`')
+                                 'for field `WaterHeaterHeatPump.outdoor_air_node_name`')
         self._data["Outdoor Air Node Name"] = value
 
     @property
@@ -7047,13 +7196,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_air_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.exhaust_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_air_node_name`')
+                                 'for field `WaterHeaterHeatPump.exhaust_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_air_node_name`')
+                                 'for field `WaterHeaterHeatPump.exhaust_air_node_name`')
         self._data["Exhaust Air Node Name"] = value
 
     @property
@@ -7084,13 +7233,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_air_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.inlet_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_air_temperature_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_air_temperature_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_temperature_schedule_name`')
         self._data["Inlet Air Temperature Schedule Name"] = value
 
     @property
@@ -7121,13 +7270,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_air_humidity_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.inlet_air_humidity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_air_humidity_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_humidity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_air_humidity_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_humidity_schedule_name`')
         self._data["Inlet Air Humidity Schedule Name"] = value
 
     @property
@@ -7158,13 +7307,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_air_zone_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.inlet_air_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_air_zone_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_air_zone_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_zone_name`')
         self._data["Inlet Air Zone Name"] = value
 
     @property
@@ -7198,13 +7347,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `tank_object_type`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.tank_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `tank_object_type`')
+                                 'for field `WaterHeaterHeatPump.tank_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `tank_object_type`')
+                                 'for field `WaterHeaterHeatPump.tank_object_type`')
             vals = {}
             vals["waterheater:mixed"] = "WaterHeater:Mixed"
             vals["waterheater:stratified"] = "WaterHeater:Stratified"
@@ -7227,10 +7376,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `tank_object_type`'.format(value))
+                                     'field `WaterHeaterHeatPump.tank_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `tank_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.tank_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Tank Object Type"] = value
 
@@ -7261,13 +7410,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `tank_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `tank_name`')
+                                 'for field `WaterHeaterHeatPump.tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `tank_name`')
+                                 'for field `WaterHeaterHeatPump.tank_name`')
         self._data["Tank Name"] = value
 
     @property
@@ -7299,13 +7448,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `tank_use_side_inlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.tank_use_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `tank_use_side_inlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.tank_use_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `tank_use_side_inlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.tank_use_side_inlet_node_name`')
         self._data["Tank Use Side Inlet Node Name"] = value
 
     @property
@@ -7337,13 +7486,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `tank_use_side_outlet_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.tank_use_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `tank_use_side_outlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.tank_use_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `tank_use_side_outlet_node_name`')
+                                 'for field `WaterHeaterHeatPump.tank_use_side_outlet_node_name`')
         self._data["Tank Use Side Outlet Node Name"] = value
 
     @property
@@ -7377,13 +7526,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dx_coil_object_type`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.dx_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dx_coil_object_type`')
+                                 'for field `WaterHeaterHeatPump.dx_coil_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dx_coil_object_type`')
+                                 'for field `WaterHeaterHeatPump.dx_coil_object_type`')
             vals = {}
             vals["coil:waterheating:airtowaterheatpump"] = "Coil:WaterHeating:AirToWaterHeatPump"
             value_lower = value.lower()
@@ -7405,10 +7554,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `dx_coil_object_type`'.format(value))
+                                     'field `WaterHeaterHeatPump.dx_coil_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `dx_coil_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.dx_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DX Coil Object Type"] = value
 
@@ -7439,13 +7588,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dx_coil_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.dx_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dx_coil_name`')
+                                 'for field `WaterHeaterHeatPump.dx_coil_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dx_coil_name`')
+                                 'for field `WaterHeaterHeatPump.dx_coil_name`')
         self._data["DX Coil Name"] = value
 
     @property
@@ -7479,10 +7628,10 @@ class WaterHeaterHeatPump(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_inlet_air_temperature_for_compressor_operation`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.minimum_inlet_air_temperature_for_compressor_operation`'.format(value))
             if value < 5.0:
                 raise ValueError('value need to be greater or equal 5.0 '
-                                 'for field `minimum_inlet_air_temperature_for_compressor_operation`')
+                                 'for field `WaterHeaterHeatPump.minimum_inlet_air_temperature_for_compressor_operation`')
         self._data["Minimum Inlet Air Temperature for Compressor Operation"] = value
 
     @property
@@ -7518,13 +7667,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `compressor_location`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.compressor_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `compressor_location`')
+                                 'for field `WaterHeaterHeatPump.compressor_location`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `compressor_location`')
+                                 'for field `WaterHeaterHeatPump.compressor_location`')
             vals = {}
             vals["schedule"] = "Schedule"
             vals["zone"] = "Zone"
@@ -7548,10 +7697,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `compressor_location`'.format(value))
+                                     'field `WaterHeaterHeatPump.compressor_location`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `compressor_location`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.compressor_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Compressor Location"] = value
 
@@ -7582,13 +7731,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `compressor_ambient_temperature_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.compressor_ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `compressor_ambient_temperature_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.compressor_ambient_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `compressor_ambient_temperature_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.compressor_ambient_temperature_schedule_name`')
         self._data["Compressor Ambient Temperature Schedule Name"] = value
 
     @property
@@ -7622,13 +7771,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_object_type`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_object_type`')
+                                 'for field `WaterHeaterHeatPump.fan_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_object_type`')
+                                 'for field `WaterHeaterHeatPump.fan_object_type`')
             vals = {}
             vals["fan:onoff"] = "Fan:OnOff"
             value_lower = value.lower()
@@ -7650,10 +7799,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fan_object_type`'.format(value))
+                                     'field `WaterHeaterHeatPump.fan_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fan_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Object Type"] = value
 
@@ -7684,13 +7833,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_name`')
+                                 'for field `WaterHeaterHeatPump.fan_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_name`')
+                                 'for field `WaterHeaterHeatPump.fan_name`')
         self._data["Fan Name"] = value
 
     @property
@@ -7725,13 +7874,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_placement`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_placement`')
+                                 'for field `WaterHeaterHeatPump.fan_placement`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_placement`')
+                                 'for field `WaterHeaterHeatPump.fan_placement`')
             vals = {}
             vals["blowthrough"] = "BlowThrough"
             vals["drawthrough"] = "DrawThrough"
@@ -7754,10 +7903,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fan_placement`'.format(value))
+                                     'field `WaterHeaterHeatPump.fan_placement`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fan_placement`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -7792,10 +7941,10 @@ class WaterHeaterHeatPump(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `on_cycle_parasitic_electric_load`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.on_cycle_parasitic_electric_load`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `on_cycle_parasitic_electric_load`')
+                                 'for field `WaterHeaterHeatPump.on_cycle_parasitic_electric_load`')
         self._data["On Cycle Parasitic Electric Load"] = value
 
     @property
@@ -7830,10 +7979,10 @@ class WaterHeaterHeatPump(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `off_cycle_parasitic_electric_load`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.off_cycle_parasitic_electric_load`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `off_cycle_parasitic_electric_load`')
+                                 'for field `WaterHeaterHeatPump.off_cycle_parasitic_electric_load`')
         self._data["Off Cycle Parasitic Electric Load"] = value
 
     @property
@@ -7869,13 +8018,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `parasitic_heat_rejection_location`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.parasitic_heat_rejection_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `parasitic_heat_rejection_location`')
+                                 'for field `WaterHeaterHeatPump.parasitic_heat_rejection_location`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `parasitic_heat_rejection_location`')
+                                 'for field `WaterHeaterHeatPump.parasitic_heat_rejection_location`')
             vals = {}
             vals["zone"] = "Zone"
             vals["outdoors"] = "Outdoors"
@@ -7898,10 +8047,10 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `parasitic_heat_rejection_location`'.format(value))
+                                     'field `WaterHeaterHeatPump.parasitic_heat_rejection_location`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `parasitic_heat_rejection_location`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.parasitic_heat_rejection_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Parasitic Heat Rejection Location"] = value
 
@@ -7933,13 +8082,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_air_mixer_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.inlet_air_mixer_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_air_mixer_node_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_mixer_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_air_mixer_node_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_mixer_node_name`')
         self._data["Inlet Air Mixer Node Name"] = value
 
     @property
@@ -7970,13 +8119,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_air_splitter_node_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.outlet_air_splitter_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_air_splitter_node_name`')
+                                 'for field `WaterHeaterHeatPump.outlet_air_splitter_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_air_splitter_node_name`')
+                                 'for field `WaterHeaterHeatPump.outlet_air_splitter_node_name`')
         self._data["Outlet Air Splitter Node Name"] = value
 
     @property
@@ -8012,13 +8161,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_air_mixer_schedule_name`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.inlet_air_mixer_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_air_mixer_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_mixer_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_air_mixer_schedule_name`')
+                                 'for field `WaterHeaterHeatPump.inlet_air_mixer_schedule_name`')
         self._data["Inlet Air Mixer Schedule Name"] = value
 
     @property
@@ -8056,13 +8205,13 @@ class WaterHeaterHeatPump(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_sensor_location_in_stratified_tank`'.format(value))
+                                 ' for field `WaterHeaterHeatPump.control_sensor_location_in_stratified_tank`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_sensor_location_in_stratified_tank`')
+                                 'for field `WaterHeaterHeatPump.control_sensor_location_in_stratified_tank`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_sensor_location_in_stratified_tank`')
+                                 'for field `WaterHeaterHeatPump.control_sensor_location_in_stratified_tank`')
             vals = {}
             vals["heater1"] = "Heater1"
             vals["heater2"] = "Heater2"
@@ -8089,21 +8238,44 @@ class WaterHeaterHeatPump(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_sensor_location_in_stratified_tank`'.format(value))
+                                     'field `WaterHeaterHeatPump.control_sensor_location_in_stratified_tank`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_sensor_location_in_stratified_tank`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WaterHeaterHeatPump.control_sensor_location_in_stratified_tank`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Sensor Location In Stratified Tank"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WaterHeaterHeatPump:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WaterHeaterHeatPump:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WaterHeaterHeatPump: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WaterHeaterHeatPump: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8121,8 +8293,27 @@ class WaterHeaterHeatPump(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8141,6 +8332,10 @@ class ThermalStorageIceSimple(object):
     internal_name = "ThermalStorage:Ice:Simple"
     field_count = 5
     required_fields = ["Name", "Ice Storage Type", "Capacity", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:Ice:Simple`
@@ -8151,6 +8346,7 @@ class ThermalStorageIceSimple(object):
         self._data["Capacity"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8225,13 +8421,13 @@ class ThermalStorageIceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermalStorageIceSimple.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermalStorageIceSimple.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermalStorageIceSimple.name`')
         self._data["Name"] = value
 
     @property
@@ -8265,13 +8461,13 @@ class ThermalStorageIceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ice_storage_type`'.format(value))
+                                 ' for field `ThermalStorageIceSimple.ice_storage_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ice_storage_type`')
+                                 'for field `ThermalStorageIceSimple.ice_storage_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ice_storage_type`')
+                                 'for field `ThermalStorageIceSimple.ice_storage_type`')
             vals = {}
             vals["iceoncoilinternal"] = "IceOnCoilInternal"
             vals["iceoncoilexternal"] = "IceOnCoilExternal"
@@ -8294,10 +8490,10 @@ class ThermalStorageIceSimple(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ice_storage_type`'.format(value))
+                                     'field `ThermalStorageIceSimple.ice_storage_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ice_storage_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageIceSimple.ice_storage_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ice Storage Type"] = value
 
@@ -8329,7 +8525,7 @@ class ThermalStorageIceSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `capacity`'.format(value))
+                                 ' for field `ThermalStorageIceSimple.capacity`'.format(value))
         self._data["Capacity"] = value
 
     @property
@@ -8358,13 +8554,13 @@ class ThermalStorageIceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageIceSimple.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `ThermalStorageIceSimple.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `ThermalStorageIceSimple.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -8393,23 +8589,46 @@ class ThermalStorageIceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageIceSimple.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `ThermalStorageIceSimple.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `ThermalStorageIceSimple.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermalStorageIceSimple:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermalStorageIceSimple:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermalStorageIceSimple: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermalStorageIceSimple: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8427,8 +8646,27 @@ class ThermalStorageIceSimple(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8446,6 +8684,10 @@ class ThermalStorageIceDetailed(object):
     internal_name = "ThermalStorage:Ice:Detailed"
     field_count = 15
     required_fields = ["Name", "Capacity", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 14
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:Ice:Detailed`
@@ -8466,6 +8708,7 @@ class ThermalStorageIceDetailed(object):
         self._data["Tank Loss Coefficient"] = None
         self._data["Freezing Temperature of Storage Medium"] = None
         self._data["Thaw Process Indicator"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8610,13 +8853,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermalStorageIceDetailed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermalStorageIceDetailed.name`')
         self._data["Name"] = value
 
     @property
@@ -8647,13 +8890,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ThermalStorageIceDetailed.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ThermalStorageIceDetailed.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -8684,7 +8927,7 @@ class ThermalStorageIceDetailed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `capacity`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.capacity`'.format(value))
         self._data["Capacity"] = value
 
     @property
@@ -8713,13 +8956,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `ThermalStorageIceDetailed.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `ThermalStorageIceDetailed.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -8748,13 +8991,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `ThermalStorageIceDetailed.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `ThermalStorageIceDetailed.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -8786,13 +9029,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `discharging_curve_object_type`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.discharging_curve_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `discharging_curve_object_type`')
+                                 'for field `ThermalStorageIceDetailed.discharging_curve_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `discharging_curve_object_type`')
+                                 'for field `ThermalStorageIceDetailed.discharging_curve_object_type`')
             vals = {}
             vals["curve:quadraticlinear"] = "Curve:QuadraticLinear"
             value_lower = value.lower()
@@ -8814,10 +9057,10 @@ class ThermalStorageIceDetailed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `discharging_curve_object_type`'.format(value))
+                                     'field `ThermalStorageIceDetailed.discharging_curve_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `discharging_curve_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageIceDetailed.discharging_curve_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Discharging Curve Object Type"] = value
 
@@ -8848,13 +9091,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `discharging_curve_name`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.discharging_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `discharging_curve_name`')
+                                 'for field `ThermalStorageIceDetailed.discharging_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `discharging_curve_name`')
+                                 'for field `ThermalStorageIceDetailed.discharging_curve_name`')
         self._data["Discharging Curve Name"] = value
 
     @property
@@ -8886,13 +9129,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `charging_curve_object_type`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.charging_curve_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `charging_curve_object_type`')
+                                 'for field `ThermalStorageIceDetailed.charging_curve_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `charging_curve_object_type`')
+                                 'for field `ThermalStorageIceDetailed.charging_curve_object_type`')
             vals = {}
             vals["curve:quadraticlinear"] = "Curve:QuadraticLinear"
             value_lower = value.lower()
@@ -8914,10 +9157,10 @@ class ThermalStorageIceDetailed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `charging_curve_object_type`'.format(value))
+                                     'field `ThermalStorageIceDetailed.charging_curve_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `charging_curve_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageIceDetailed.charging_curve_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Charging Curve Object Type"] = value
 
@@ -8948,13 +9191,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `charging_curve_name`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.charging_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `charging_curve_name`')
+                                 'for field `ThermalStorageIceDetailed.charging_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `charging_curve_name`')
+                                 'for field `ThermalStorageIceDetailed.charging_curve_name`')
         self._data["Charging Curve Name"] = value
 
     @property
@@ -8984,7 +9227,7 @@ class ThermalStorageIceDetailed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `timestep_of_the_curve_data`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.timestep_of_the_curve_data`'.format(value))
         self._data["Timestep of the Curve Data"] = value
 
     @property
@@ -9014,7 +9257,7 @@ class ThermalStorageIceDetailed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `parasitic_electric_load_during_discharging`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.parasitic_electric_load_during_discharging`'.format(value))
         self._data["Parasitic Electric Load During Discharging"] = value
 
     @property
@@ -9044,7 +9287,7 @@ class ThermalStorageIceDetailed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `parasitic_electric_load_during_charging`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.parasitic_electric_load_during_charging`'.format(value))
         self._data["Parasitic Electric Load During Charging"] = value
 
     @property
@@ -9076,7 +9319,7 @@ class ThermalStorageIceDetailed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.tank_loss_coefficient`'.format(value))
         self._data["Tank Loss Coefficient"] = value
 
     @property
@@ -9110,7 +9353,7 @@ class ThermalStorageIceDetailed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `freezing_temperature_of_storage_medium`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.freezing_temperature_of_storage_medium`'.format(value))
         self._data["Freezing Temperature of Storage Medium"] = value
 
     @property
@@ -9145,13 +9388,13 @@ class ThermalStorageIceDetailed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thaw_process_indicator`'.format(value))
+                                 ' for field `ThermalStorageIceDetailed.thaw_process_indicator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thaw_process_indicator`')
+                                 'for field `ThermalStorageIceDetailed.thaw_process_indicator`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thaw_process_indicator`')
+                                 'for field `ThermalStorageIceDetailed.thaw_process_indicator`')
             vals = {}
             vals["insidemelt"] = "InsideMelt"
             vals["outsidemelt"] = "OutsideMelt"
@@ -9174,21 +9417,44 @@ class ThermalStorageIceDetailed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `thaw_process_indicator`'.format(value))
+                                     'field `ThermalStorageIceDetailed.thaw_process_indicator`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `thaw_process_indicator`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageIceDetailed.thaw_process_indicator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thaw Process Indicator"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermalStorageIceDetailed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermalStorageIceDetailed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermalStorageIceDetailed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermalStorageIceDetailed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9206,8 +9472,27 @@ class ThermalStorageIceDetailed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9224,6 +9509,10 @@ class ThermalStorageChilledWaterMixed(object):
     internal_name = "ThermalStorage:ChilledWater:Mixed"
     field_count = 22
     required_fields = ["Name", "Ambient Temperature Indicator"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:ChilledWater:Mixed`
@@ -9251,6 +9540,7 @@ class ThermalStorageChilledWaterMixed(object):
         self._data["Source Side Availability Schedule Name"] = None
         self._data["Source Side Design Flow Rate"] = None
         self._data["Tank Recovery Time"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9444,13 +9734,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermalStorageChilledWaterMixed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermalStorageChilledWaterMixed.name`')
         self._data["Name"] = value
 
     @property
@@ -9483,10 +9773,10 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_volume`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.tank_volume`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_volume`')
+                                 'for field `ThermalStorageChilledWaterMixed.tank_volume`')
         self._data["Tank Volume"] = value
 
     @property
@@ -9515,13 +9805,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.setpoint_temperature_schedule_name`')
         self._data["Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -9553,10 +9843,10 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `deadband_temperature_difference`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.deadband_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `deadband_temperature_difference`')
+                                 'for field `ThermalStorageChilledWaterMixed.deadband_temperature_difference`')
         self._data["Deadband Temperature Difference"] = value
 
     @property
@@ -9586,7 +9876,7 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_temperature_limit`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.minimum_temperature_limit`'.format(value))
         self._data["Minimum Temperature Limit"] = value
 
     @property
@@ -9616,7 +9906,7 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_cooling_capacity`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.nominal_cooling_capacity`'.format(value))
         self._data["Nominal Cooling Capacity"] = value
 
     @property
@@ -9649,13 +9939,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_indicator`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.ambient_temperature_indicator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_indicator`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_indicator`')
             vals = {}
             vals["schedule"] = "Schedule"
             vals["zone"] = "Zone"
@@ -9679,10 +9969,10 @@ class ThermalStorageChilledWaterMixed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ambient_temperature_indicator`'.format(value))
+                                     'field `ThermalStorageChilledWaterMixed.ambient_temperature_indicator`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ambient_temperature_indicator`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageChilledWaterMixed.ambient_temperature_indicator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ambient Temperature Indicator"] = value
 
@@ -9712,13 +10002,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_schedule_name`')
         self._data["Ambient Temperature Schedule Name"] = value
 
     @property
@@ -9747,13 +10037,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_zone_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_zone_name`')
         self._data["Ambient Temperature Zone Name"] = value
 
     @property
@@ -9783,13 +10073,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_outdoor_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.ambient_temperature_outdoor_air_node_name`')
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
 
     @property
@@ -9820,10 +10110,10 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heat_gain_coefficient_from_ambient_temperature`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.heat_gain_coefficient_from_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heat_gain_coefficient_from_ambient_temperature`')
+                                 'for field `ThermalStorageChilledWaterMixed.heat_gain_coefficient_from_ambient_temperature`')
         self._data["Heat Gain Coefficient from Ambient Temperature"] = value
 
     @property
@@ -9852,13 +10142,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_inlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.use_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_inlet_node_name`')
         self._data["Use Side Inlet Node Name"] = value
 
     @property
@@ -9887,13 +10177,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_outlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.use_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_outlet_node_name`')
         self._data["Use Side Outlet Node Name"] = value
 
     @property
@@ -9925,13 +10215,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `use_side_heat_transfer_effectiveness`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.use_side_heat_transfer_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_heat_transfer_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `use_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_heat_transfer_effectiveness`')
         self._data["Use Side Heat Transfer Effectiveness"] = value
 
     @property
@@ -9962,13 +10252,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_availability_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.use_side_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_availability_schedule_name`')
         self._data["Use Side Availability Schedule Name"] = value
 
     @property
@@ -10003,8 +10293,8 @@ class ThermalStorageChilledWaterMixed(object):
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_design_flow_rate`'.format(value))
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -10013,10 +10303,10 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.use_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_design_flow_rate`')
+                                 'for field `ThermalStorageChilledWaterMixed.use_side_design_flow_rate`')
         self._data["Use Side Design Flow Rate"] = value
 
     @property
@@ -10045,13 +10335,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_inlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.source_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_inlet_node_name`')
         self._data["Source Side Inlet Node Name"] = value
 
     @property
@@ -10080,13 +10370,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_outlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.source_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_outlet_node_name`')
         self._data["Source Side Outlet Node Name"] = value
 
     @property
@@ -10118,13 +10408,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `source_side_heat_transfer_effectiveness`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.source_side_heat_transfer_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_heat_transfer_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `source_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_heat_transfer_effectiveness`')
         self._data["Source Side Heat Transfer Effectiveness"] = value
 
     @property
@@ -10155,13 +10445,13 @@ class ThermalStorageChilledWaterMixed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_availability_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.source_side_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_availability_schedule_name`')
         self._data["Source Side Availability Schedule Name"] = value
 
     @property
@@ -10196,8 +10486,8 @@ class ThermalStorageChilledWaterMixed(object):
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_design_flow_rate`'.format(value))
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -10206,10 +10496,10 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.source_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_design_flow_rate`')
+                                 'for field `ThermalStorageChilledWaterMixed.source_side_design_flow_rate`')
         self._data["Source Side Design Flow Rate"] = value
 
     @property
@@ -10243,20 +10533,43 @@ class ThermalStorageChilledWaterMixed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_recovery_time`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterMixed.tank_recovery_time`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_recovery_time`')
+                                 'for field `ThermalStorageChilledWaterMixed.tank_recovery_time`')
         self._data["Tank Recovery Time"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermalStorageChilledWaterMixed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermalStorageChilledWaterMixed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermalStorageChilledWaterMixed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermalStorageChilledWaterMixed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10274,8 +10587,27 @@ class ThermalStorageChilledWaterMixed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10292,6 +10624,10 @@ class ThermalStorageChilledWaterStratified(object):
     internal_name = "ThermalStorage:ChilledWater:Stratified"
     field_count = 43
     required_fields = ["Name", "Tank Volume", "Tank Height", "Ambient Temperature Indicator"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:ChilledWater:Stratified`
@@ -10340,6 +10676,7 @@ class ThermalStorageChilledWaterStratified(object):
         self._data["Node 8 Additional Loss Coefficient"] = None
         self._data["Node 9 Additional Loss Coefficient"] = None
         self._data["Node 10 Additional Loss Coefficient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10680,13 +11017,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermalStorageChilledWaterStratified.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermalStorageChilledWaterStratified.name`')
         self._data["Name"] = value
 
     @property
@@ -10718,10 +11055,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_volume`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.tank_volume`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_volume`')
+                                 'for field `ThermalStorageChilledWaterStratified.tank_volume`')
         self._data["Tank Volume"] = value
 
     @property
@@ -10753,10 +11090,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_height`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.tank_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_height`')
+                                 'for field `ThermalStorageChilledWaterStratified.tank_height`')
         self._data["Tank Height"] = value
 
     @property
@@ -10790,13 +11127,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `tank_shape`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.tank_shape`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `tank_shape`')
+                                 'for field `ThermalStorageChilledWaterStratified.tank_shape`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `tank_shape`')
+                                 'for field `ThermalStorageChilledWaterStratified.tank_shape`')
             vals = {}
             vals["verticalcylinder"] = "VerticalCylinder"
             vals["horizontalcylinder"] = "HorizontalCylinder"
@@ -10820,10 +11157,10 @@ class ThermalStorageChilledWaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `tank_shape`'.format(value))
+                                     'field `ThermalStorageChilledWaterStratified.tank_shape`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `tank_shape`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageChilledWaterStratified.tank_shape`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Tank Shape"] = value
 
@@ -10856,10 +11193,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_perimeter`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.tank_perimeter`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `tank_perimeter`')
+                                 'for field `ThermalStorageChilledWaterStratified.tank_perimeter`')
         self._data["Tank Perimeter"] = value
 
     @property
@@ -10888,13 +11225,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.setpoint_temperature_schedule_name`')
         self._data["Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -10926,10 +11263,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `deadband_temperature_difference`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.deadband_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `deadband_temperature_difference`')
+                                 'for field `ThermalStorageChilledWaterStratified.deadband_temperature_difference`')
         self._data["Deadband Temperature Difference"] = value
 
     @property
@@ -10960,10 +11297,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_sensor_height`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.temperature_sensor_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `temperature_sensor_height`')
+                                 'for field `ThermalStorageChilledWaterStratified.temperature_sensor_height`')
         self._data["Temperature Sensor Height"] = value
 
     @property
@@ -10993,7 +11330,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_temperature_limit`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.minimum_temperature_limit`'.format(value))
         self._data["Minimum Temperature Limit"] = value
 
     @property
@@ -11023,7 +11360,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_cooling_capacity`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.nominal_cooling_capacity`'.format(value))
         self._data["Nominal Cooling Capacity"] = value
 
     @property
@@ -11056,13 +11393,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_indicator`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.ambient_temperature_indicator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_indicator`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_indicator`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_indicator`')
             vals = {}
             vals["schedule"] = "Schedule"
             vals["zone"] = "Zone"
@@ -11086,10 +11423,10 @@ class ThermalStorageChilledWaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ambient_temperature_indicator`'.format(value))
+                                     'field `ThermalStorageChilledWaterStratified.ambient_temperature_indicator`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ambient_temperature_indicator`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageChilledWaterStratified.ambient_temperature_indicator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ambient Temperature Indicator"] = value
 
@@ -11119,13 +11456,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_schedule_name`')
         self._data["Ambient Temperature Schedule Name"] = value
 
     @property
@@ -11154,13 +11491,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_zone_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_zone_name`')
         self._data["Ambient Temperature Zone Name"] = value
 
     @property
@@ -11190,13 +11527,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_outdoor_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.ambient_temperature_outdoor_air_node_name`')
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
 
     @property
@@ -11227,10 +11564,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`')
+                                 'for field `ThermalStorageChilledWaterStratified.uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`')
         self._data["Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature"] = value
 
     @property
@@ -11259,13 +11596,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_inlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_inlet_node_name`')
         self._data["Use Side Inlet Node Name"] = value
 
     @property
@@ -11294,13 +11631,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_outlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_outlet_node_name`')
         self._data["Use Side Outlet Node Name"] = value
 
     @property
@@ -11337,13 +11674,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `use_side_heat_transfer_effectiveness`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_heat_transfer_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_heat_transfer_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `use_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_heat_transfer_effectiveness`')
         self._data["Use Side Heat Transfer Effectiveness"] = value
 
     @property
@@ -11374,13 +11711,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_side_availability_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_availability_schedule_name`')
         self._data["Use Side Availability Schedule Name"] = value
 
     @property
@@ -11415,8 +11752,8 @@ class ThermalStorageChilledWaterStratified(object):
                     self._data["Use Side Inlet Height"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `use_side_inlet_height`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_inlet_height`'.format(value))
                     self._data["Use Side Inlet Height"] = "Autocalculate"
                     return
             except ValueError:
@@ -11425,10 +11762,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `use_side_inlet_height`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_inlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_inlet_height`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_inlet_height`')
         self._data["Use Side Inlet Height"] = value
 
     @property
@@ -11461,10 +11798,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `use_side_outlet_height`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_outlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_outlet_height`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_outlet_height`')
         self._data["Use Side Outlet Height"] = value
 
     @property
@@ -11499,8 +11836,8 @@ class ThermalStorageChilledWaterStratified(object):
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_design_flow_rate`'.format(value))
                     self._data["Use Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -11509,10 +11846,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `use_side_design_flow_rate`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.use_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `use_side_design_flow_rate`')
+                                 'for field `ThermalStorageChilledWaterStratified.use_side_design_flow_rate`')
         self._data["Use Side Design Flow Rate"] = value
 
     @property
@@ -11541,13 +11878,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_inlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_inlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_inlet_node_name`')
         self._data["Source Side Inlet Node Name"] = value
 
     @property
@@ -11576,13 +11913,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_outlet_node_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_outlet_node_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_outlet_node_name`')
         self._data["Source Side Outlet Node Name"] = value
 
     @property
@@ -11619,13 +11956,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `source_side_heat_transfer_effectiveness`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_heat_transfer_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_heat_transfer_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `source_side_heat_transfer_effectiveness`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_heat_transfer_effectiveness`')
         self._data["Source Side Heat Transfer Effectiveness"] = value
 
     @property
@@ -11656,13 +11993,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_side_availability_schedule_name`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_side_availability_schedule_name`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_availability_schedule_name`')
         self._data["Source Side Availability Schedule Name"] = value
 
     @property
@@ -11695,10 +12032,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `source_side_inlet_height`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_inlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_inlet_height`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_inlet_height`')
         self._data["Source Side Inlet Height"] = value
 
     @property
@@ -11733,8 +12070,8 @@ class ThermalStorageChilledWaterStratified(object):
                     self._data["Source Side Outlet Height"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `source_side_outlet_height`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_outlet_height`'.format(value))
                     self._data["Source Side Outlet Height"] = "Autocalculate"
                     return
             except ValueError:
@@ -11743,10 +12080,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `source_side_outlet_height`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_outlet_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_outlet_height`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_outlet_height`')
         self._data["Source Side Outlet Height"] = value
 
     @property
@@ -11781,8 +12118,8 @@ class ThermalStorageChilledWaterStratified(object):
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_design_flow_rate`'.format(value))
                     self._data["Source Side Design Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -11791,10 +12128,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `source_side_design_flow_rate`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.source_side_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `source_side_design_flow_rate`')
+                                 'for field `ThermalStorageChilledWaterStratified.source_side_design_flow_rate`')
         self._data["Source Side Design Flow Rate"] = value
 
     @property
@@ -11828,10 +12165,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tank_recovery_time`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.tank_recovery_time`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `tank_recovery_time`')
+                                 'for field `ThermalStorageChilledWaterStratified.tank_recovery_time`')
         self._data["Tank Recovery Time"] = value
 
     @property
@@ -11864,13 +12201,13 @@ class ThermalStorageChilledWaterStratified(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_mode`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.inlet_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_mode`')
+                                 'for field `ThermalStorageChilledWaterStratified.inlet_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_mode`')
+                                 'for field `ThermalStorageChilledWaterStratified.inlet_mode`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["seeking"] = "Seeking"
@@ -11893,10 +12230,10 @@ class ThermalStorageChilledWaterStratified(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `inlet_mode`'.format(value))
+                                     'field `ThermalStorageChilledWaterStratified.inlet_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `inlet_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ThermalStorageChilledWaterStratified.inlet_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Inlet Mode"] = value
 
@@ -11931,18 +12268,18 @@ class ThermalStorageChilledWaterStratified(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_nodes`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ThermalStorageChilledWaterStratified.number_of_nodes`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_nodes`'.format(value))
+                                         'for field `ThermalStorageChilledWaterStratified.number_of_nodes`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_nodes`')
+                                 'for field `ThermalStorageChilledWaterStratified.number_of_nodes`')
             if value > 10:
                 raise ValueError('value need to be smaller 10 '
-                                 'for field `number_of_nodes`')
+                                 'for field `ThermalStorageChilledWaterStratified.number_of_nodes`')
         self._data["Number of Nodes"] = value
 
     @property
@@ -11974,10 +12311,10 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `additional_destratification_conductivity`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.additional_destratification_conductivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `additional_destratification_conductivity`')
+                                 'for field `ThermalStorageChilledWaterStratified.additional_destratification_conductivity`')
         self._data["Additional Destratification Conductivity"] = value
 
     @property
@@ -12008,7 +12345,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_1_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_1_additional_loss_coefficient`'.format(value))
         self._data["Node 1 Additional Loss Coefficient"] = value
 
     @property
@@ -12039,7 +12376,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_2_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_2_additional_loss_coefficient`'.format(value))
         self._data["Node 2 Additional Loss Coefficient"] = value
 
     @property
@@ -12070,7 +12407,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_3_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_3_additional_loss_coefficient`'.format(value))
         self._data["Node 3 Additional Loss Coefficient"] = value
 
     @property
@@ -12101,7 +12438,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_4_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_4_additional_loss_coefficient`'.format(value))
         self._data["Node 4 Additional Loss Coefficient"] = value
 
     @property
@@ -12132,7 +12469,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_5_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_5_additional_loss_coefficient`'.format(value))
         self._data["Node 5 Additional Loss Coefficient"] = value
 
     @property
@@ -12163,7 +12500,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_6_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_6_additional_loss_coefficient`'.format(value))
         self._data["Node 6 Additional Loss Coefficient"] = value
 
     @property
@@ -12194,7 +12531,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_7_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_7_additional_loss_coefficient`'.format(value))
         self._data["Node 7 Additional Loss Coefficient"] = value
 
     @property
@@ -12225,7 +12562,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_8_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_8_additional_loss_coefficient`'.format(value))
         self._data["Node 8 Additional Loss Coefficient"] = value
 
     @property
@@ -12256,7 +12593,7 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_9_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_9_additional_loss_coefficient`'.format(value))
         self._data["Node 9 Additional Loss Coefficient"] = value
 
     @property
@@ -12287,17 +12624,40 @@ class ThermalStorageChilledWaterStratified(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_10_additional_loss_coefficient`'.format(value))
+                                 ' for field `ThermalStorageChilledWaterStratified.node_10_additional_loss_coefficient`'.format(value))
         self._data["Node 10 Additional Loss Coefficient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermalStorageChilledWaterStratified:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermalStorageChilledWaterStratified:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermalStorageChilledWaterStratified: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermalStorageChilledWaterStratified: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -12315,8 +12675,27 @@ class ThermalStorageChilledWaterStratified(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

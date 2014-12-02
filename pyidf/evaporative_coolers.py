@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class EvaporativeCoolerDirectCelDekPad(object):
     """ Corresponds to IDD object `EvaporativeCooler:Direct:CelDekPad`
         Direct evaporative cooler with rigid media evaporative pad and recirculating water
@@ -10,6 +13,10 @@ class EvaporativeCoolerDirectCelDekPad(object):
     internal_name = "EvaporativeCooler:Direct:CelDekPad"
     field_count = 9
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeCooler:Direct:CelDekPad`
@@ -24,6 +31,7 @@ class EvaporativeCoolerDirectCelDekPad(object):
         self._data["Air Outlet Node Name"] = None
         self._data["Control Type"] = None
         self._data["Water Supply Storage Tank Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -126,13 +134,13 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.name`')
         self._data["Name"] = value
 
     @property
@@ -163,13 +171,13 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -200,10 +208,10 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `direct_pad_area`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.direct_pad_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `direct_pad_area`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.direct_pad_area`')
         self._data["Direct Pad Area"] = value
 
     @property
@@ -234,10 +242,10 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `direct_pad_depth`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.direct_pad_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `direct_pad_depth`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.direct_pad_depth`')
         self._data["Direct Pad Depth"] = value
 
     @property
@@ -268,7 +276,7 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recirculating_water_pump_power_consumption`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.recirculating_water_pump_power_consumption`'.format(value))
         self._data["Recirculating Water Pump Power Consumption"] = value
 
     @property
@@ -297,13 +305,13 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -332,13 +340,13 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -368,13 +376,13 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.control_type`')
         self._data["Control Type"] = value
 
     @property
@@ -403,23 +411,46 @@ class EvaporativeCoolerDirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_storage_tank_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectCelDekPad.water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.water_supply_storage_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerDirectCelDekPad.water_supply_storage_tank_name`')
         self._data["Water Supply Storage Tank Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EvaporativeCoolerDirectCelDekPad:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EvaporativeCoolerDirectCelDekPad:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EvaporativeCoolerDirectCelDekPad: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EvaporativeCoolerDirectCelDekPad: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -437,8 +468,27 @@ class EvaporativeCoolerDirectCelDekPad(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -455,6 +505,10 @@ class EvaporativeCoolerIndirectCelDekPad(object):
     internal_name = "EvaporativeCooler:Indirect:CelDekPad"
     field_count = 14
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeCooler:Indirect:CelDekPad`
@@ -474,6 +528,7 @@ class EvaporativeCoolerIndirectCelDekPad(object):
         self._data["Control Type"] = None
         self._data["Water Supply Storage Tank Name"] = None
         self._data["Secondary Air Inlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -611,13 +666,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.name`')
         self._data["Name"] = value
 
     @property
@@ -648,13 +703,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -685,10 +740,10 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `direct_pad_area`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.direct_pad_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `direct_pad_area`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.direct_pad_area`')
         self._data["Direct Pad Area"] = value
 
     @property
@@ -719,10 +774,10 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `direct_pad_depth`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.direct_pad_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `direct_pad_depth`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.direct_pad_depth`')
         self._data["Direct Pad Depth"] = value
 
     @property
@@ -753,7 +808,7 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recirculating_water_pump_power_consumption`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.recirculating_water_pump_power_consumption`'.format(value))
         self._data["Recirculating Water Pump Power Consumption"] = value
 
     @property
@@ -784,10 +839,10 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_flow_rate`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `secondary_fan_flow_rate`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_flow_rate`')
         self._data["Secondary Fan Flow Rate"] = value
 
     @property
@@ -818,13 +873,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_total_efficiency`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `secondary_fan_total_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `secondary_fan_total_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_total_efficiency`')
         self._data["Secondary Fan Total Efficiency"] = value
 
     @property
@@ -856,10 +911,10 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_delta_pressure`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_delta_pressure`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `secondary_fan_delta_pressure`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.secondary_fan_delta_pressure`')
         self._data["Secondary Fan Delta Pressure"] = value
 
     @property
@@ -889,10 +944,10 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indirect_heat_exchanger_effectiveness`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.indirect_heat_exchanger_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `indirect_heat_exchanger_effectiveness`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.indirect_heat_exchanger_effectiveness`')
         self._data["Indirect Heat Exchanger Effectiveness"] = value
 
     @property
@@ -921,13 +976,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `primary_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `primary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.primary_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `primary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.primary_air_inlet_node_name`')
         self._data["Primary Air Inlet Node Name"] = value
 
     @property
@@ -956,13 +1011,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `primary_air_outlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `primary_air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.primary_air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `primary_air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.primary_air_outlet_node_name`')
         self._data["Primary Air Outlet Node Name"] = value
 
     @property
@@ -992,13 +1047,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.control_type`')
         self._data["Control Type"] = value
 
     @property
@@ -1027,13 +1082,13 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_storage_tank_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.water_supply_storage_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.water_supply_storage_tank_name`')
         self._data["Water Supply Storage Tank Name"] = value
 
     @property
@@ -1063,23 +1118,46 @@ class EvaporativeCoolerIndirectCelDekPad(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `secondary_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectCelDekPad.secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `secondary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.secondary_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `secondary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectCelDekPad.secondary_air_inlet_node_name`')
         self._data["Secondary Air Inlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EvaporativeCoolerIndirectCelDekPad:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EvaporativeCoolerIndirectCelDekPad:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EvaporativeCoolerIndirectCelDekPad: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EvaporativeCoolerIndirectCelDekPad: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1097,8 +1175,27 @@ class EvaporativeCoolerIndirectCelDekPad(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1114,6 +1211,10 @@ class EvaporativeCoolerIndirectWetCoil(object):
     internal_name = "EvaporativeCooler:Indirect:WetCoil"
     field_count = 13
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeCooler:Indirect:WetCoil`
@@ -1132,6 +1233,7 @@ class EvaporativeCoolerIndirectWetCoil(object):
         self._data["Control Type"] = None
         self._data["Water Supply Storage Tank Name"] = None
         self._data["Secondary Air Inlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1262,13 +1364,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.name`')
         self._data["Name"] = value
 
     @property
@@ -1299,13 +1401,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1336,13 +1438,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coil_maximum_efficiency`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.coil_maximum_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `coil_maximum_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.coil_maximum_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `coil_maximum_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.coil_maximum_efficiency`')
         self._data["Coil Maximum Efficiency"] = value
 
     @property
@@ -1371,7 +1473,7 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coil_flow_ratio`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.coil_flow_ratio`'.format(value))
         self._data["Coil Flow Ratio"] = value
 
     @property
@@ -1402,7 +1504,7 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recirculating_water_pump_power_consumption`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.recirculating_water_pump_power_consumption`'.format(value))
         self._data["Recirculating Water Pump Power Consumption"] = value
 
     @property
@@ -1433,10 +1535,10 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_flow_rate`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `secondary_fan_flow_rate`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_flow_rate`')
         self._data["Secondary Fan Flow Rate"] = value
 
     @property
@@ -1467,13 +1569,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_total_efficiency`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `secondary_fan_total_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `secondary_fan_total_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_total_efficiency`')
         self._data["Secondary Fan Total Efficiency"] = value
 
     @property
@@ -1505,10 +1607,10 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_delta_pressure`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_delta_pressure`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `secondary_fan_delta_pressure`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.secondary_fan_delta_pressure`')
         self._data["Secondary Fan Delta Pressure"] = value
 
     @property
@@ -1537,13 +1639,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `primary_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `primary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.primary_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `primary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.primary_air_inlet_node_name`')
         self._data["Primary Air Inlet Node Name"] = value
 
     @property
@@ -1572,13 +1674,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `primary_air_outlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `primary_air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.primary_air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `primary_air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.primary_air_outlet_node_name`')
         self._data["Primary Air Outlet Node Name"] = value
 
     @property
@@ -1608,13 +1710,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.control_type`')
         self._data["Control Type"] = value
 
     @property
@@ -1643,13 +1745,13 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_storage_tank_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.water_supply_storage_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.water_supply_storage_tank_name`')
         self._data["Water Supply Storage Tank Name"] = value
 
     @property
@@ -1679,23 +1781,46 @@ class EvaporativeCoolerIndirectWetCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `secondary_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectWetCoil.secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `secondary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.secondary_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `secondary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectWetCoil.secondary_air_inlet_node_name`')
         self._data["Secondary Air Inlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EvaporativeCoolerIndirectWetCoil:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EvaporativeCoolerIndirectWetCoil:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EvaporativeCoolerIndirectWetCoil: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EvaporativeCoolerIndirectWetCoil: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1713,8 +1838,27 @@ class EvaporativeCoolerIndirectWetCoil(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1731,6 +1875,10 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
     internal_name = "EvaporativeCooler:Indirect:ResearchSpecial"
     field_count = 18
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeCooler:Indirect:ResearchSpecial`
@@ -1754,6 +1902,7 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
         self._data["Water Supply Storage Tank Name"] = None
         self._data["Drift Loss Fraction"] = None
         self._data["Blowdown Concentration Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1919,13 +2068,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.name`')
         self._data["Name"] = value
 
     @property
@@ -1956,13 +2105,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1993,13 +2142,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooler_maximum_effectiveness`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.cooler_maximum_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooler_maximum_effectiveness`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.cooler_maximum_effectiveness`')
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
-                                 'for field `cooler_maximum_effectiveness`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.cooler_maximum_effectiveness`')
         self._data["Cooler Maximum Effectiveness"] = value
 
     @property
@@ -2028,7 +2177,7 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooler_flow_ratio`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.cooler_flow_ratio`'.format(value))
         self._data["Cooler Flow Ratio"] = value
 
     @property
@@ -2059,7 +2208,7 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recirculating_water_pump_power_consumption`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.recirculating_water_pump_power_consumption`'.format(value))
         self._data["Recirculating Water Pump Power Consumption"] = value
 
     @property
@@ -2092,8 +2241,8 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                     self._data["Secondary Fan Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `secondary_fan_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_flow_rate`'.format(value))
                     self._data["Secondary Fan Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -2102,10 +2251,10 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `secondary_fan_flow_rate`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `secondary_fan_flow_rate`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_flow_rate`')
         self._data["Secondary Fan Flow Rate"] = value
 
     @property
@@ -2136,13 +2285,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_total_efficiency`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `secondary_fan_total_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `secondary_fan_total_efficiency`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_total_efficiency`')
         self._data["Secondary Fan Total Efficiency"] = value
 
     @property
@@ -2174,10 +2323,10 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `secondary_fan_delta_pressure`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_delta_pressure`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `secondary_fan_delta_pressure`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_fan_delta_pressure`')
         self._data["Secondary Fan Delta Pressure"] = value
 
     @property
@@ -2206,13 +2355,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `primary_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `primary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.primary_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `primary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.primary_air_inlet_node_name`')
         self._data["Primary Air Inlet Node Name"] = value
 
     @property
@@ -2241,13 +2390,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `primary_air_outlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `primary_air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.primary_air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `primary_air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.primary_air_outlet_node_name`')
         self._data["Primary Air Outlet Node Name"] = value
 
     @property
@@ -2276,13 +2425,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.control_type`')
         self._data["Control Type"] = value
 
     @property
@@ -2311,7 +2460,7 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dewpoint_effectiveness_factor`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.dewpoint_effectiveness_factor`'.format(value))
         self._data["Dewpoint Effectiveness Factor"] = value
 
     @property
@@ -2340,13 +2489,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `secondary_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `secondary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `secondary_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.secondary_air_inlet_node_name`')
         self._data["Secondary Air Inlet Node Name"] = value
 
     @property
@@ -2375,13 +2524,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2410,13 +2559,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `relief_air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.relief_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `relief_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.relief_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `relief_air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.relief_air_inlet_node_name`')
         self._data["Relief Air Inlet Node Name"] = value
 
     @property
@@ -2445,13 +2594,13 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_storage_tank_name`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.water_supply_storage_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.water_supply_storage_tank_name`')
         self._data["Water Supply Storage Tank Name"] = value
 
     @property
@@ -2482,10 +2631,10 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drift_loss_fraction`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.drift_loss_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drift_loss_fraction`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.drift_loss_fraction`')
         self._data["Drift Loss Fraction"] = value
 
     @property
@@ -2520,20 +2669,43 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blowdown_concentration_ratio`'.format(value))
+                                 ' for field `EvaporativeCoolerIndirectResearchSpecial.blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
-                                 'for field `blowdown_concentration_ratio`')
+                                 'for field `EvaporativeCoolerIndirectResearchSpecial.blowdown_concentration_ratio`')
         self._data["Blowdown Concentration Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EvaporativeCoolerIndirectResearchSpecial:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EvaporativeCoolerIndirectResearchSpecial:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EvaporativeCoolerIndirectResearchSpecial: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EvaporativeCoolerIndirectResearchSpecial: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2551,8 +2723,27 @@ class EvaporativeCoolerIndirectResearchSpecial(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2569,6 +2760,10 @@ class EvaporativeCoolerDirectResearchSpecial(object):
     internal_name = "EvaporativeCooler:Direct:ResearchSpecial"
     field_count = 10
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeCooler:Direct:ResearchSpecial`
@@ -2584,6 +2779,7 @@ class EvaporativeCoolerDirectResearchSpecial(object):
         self._data["Water Supply Storage Tank Name"] = None
         self._data["Drift Loss Fraction"] = None
         self._data["Blowdown Concentration Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2693,13 +2889,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.name`')
         self._data["Name"] = value
 
     @property
@@ -2730,13 +2926,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -2768,13 +2964,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooler_effectiveness`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.cooler_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooler_effectiveness`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.cooler_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `cooler_effectiveness`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.cooler_effectiveness`')
         self._data["Cooler Effectiveness"] = value
 
     @property
@@ -2806,10 +3002,10 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `recirculating_water_pump_power_consumption`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.recirculating_water_pump_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `recirculating_water_pump_power_consumption`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.recirculating_water_pump_power_consumption`')
         self._data["Recirculating Water Pump Power Consumption"] = value
 
     @property
@@ -2838,13 +3034,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -2873,13 +3069,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -2908,13 +3104,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2943,13 +3139,13 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_storage_tank_name`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.water_supply_storage_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.water_supply_storage_tank_name`')
         self._data["Water Supply Storage Tank Name"] = value
 
     @property
@@ -2980,10 +3176,10 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drift_loss_fraction`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.drift_loss_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drift_loss_fraction`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.drift_loss_fraction`')
         self._data["Drift Loss Fraction"] = value
 
     @property
@@ -3018,20 +3214,43 @@ class EvaporativeCoolerDirectResearchSpecial(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blowdown_concentration_ratio`'.format(value))
+                                 ' for field `EvaporativeCoolerDirectResearchSpecial.blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
-                                 'for field `blowdown_concentration_ratio`')
+                                 'for field `EvaporativeCoolerDirectResearchSpecial.blowdown_concentration_ratio`')
         self._data["Blowdown Concentration Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EvaporativeCoolerDirectResearchSpecial:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EvaporativeCoolerDirectResearchSpecial:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EvaporativeCoolerDirectResearchSpecial: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EvaporativeCoolerDirectResearchSpecial: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3049,8 +3268,27 @@ class EvaporativeCoolerDirectResearchSpecial(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

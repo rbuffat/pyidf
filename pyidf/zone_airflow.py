@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class ZoneInfiltrationDesignFlowRate(object):
     """ Corresponds to IDD object `ZoneInfiltration:DesignFlowRate`
         Infiltration is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
@@ -12,6 +15,10 @@ class ZoneInfiltrationDesignFlowRate(object):
     internal_name = "ZoneInfiltration:DesignFlowRate"
     field_count = 12
     required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Flow Rate Calculation Method", "Constant Term Coefficient", "Temperature Term Coefficient", "Velocity Term Coefficient", "Velocity Squared Term Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 12
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:DesignFlowRate`
@@ -29,6 +36,7 @@ class ZoneInfiltrationDesignFlowRate(object):
         self._data["Temperature Term Coefficient"] = None
         self._data["Velocity Term Coefficient"] = None
         self._data["Velocity Squared Term Coefficient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -152,13 +160,13 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.name`')
         self._data["Name"] = value
 
     @property
@@ -187,13 +195,13 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_or_zonelist_name`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.zone_or_zonelist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.zone_or_zonelist_name`')
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -222,13 +230,13 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -272,13 +280,13 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_flow_rate_calculation_method`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`')
             vals = {}
             vals["flow/zone"] = "Flow/Zone"
             vals["flow/area"] = "Flow/Area"
@@ -304,10 +312,10 @@ class ZoneInfiltrationDesignFlowRate(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `design_flow_rate_calculation_method`'.format(value))
+                                     'field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -340,10 +348,10 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_flow_rate`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_flow_rate`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.design_flow_rate`')
         self._data["Design Flow Rate"] = value
 
     @property
@@ -374,10 +382,10 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_per_zone_floor_area`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_per_zone_floor_area`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.flow_per_zone_floor_area`')
         self._data["Flow per Zone Floor Area"] = value
 
     @property
@@ -410,10 +418,10 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_per_exterior_surface_area`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.flow_per_exterior_surface_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_per_exterior_surface_area`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.flow_per_exterior_surface_area`')
         self._data["Flow per Exterior Surface Area"] = value
 
     @property
@@ -444,10 +452,10 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_changes_per_hour`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.air_changes_per_hour`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `air_changes_per_hour`')
+                                 'for field `ZoneInfiltrationDesignFlowRate.air_changes_per_hour`')
         self._data["Air Changes per Hour"] = value
 
     @property
@@ -478,7 +486,7 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_term_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.constant_term_coefficient`'.format(value))
         self._data["Constant Term Coefficient"] = value
 
     @property
@@ -509,7 +517,7 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_term_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.temperature_term_coefficient`'.format(value))
         self._data["Temperature Term Coefficient"] = value
 
     @property
@@ -540,7 +548,7 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `velocity_term_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.velocity_term_coefficient`'.format(value))
         self._data["Velocity Term Coefficient"] = value
 
     @property
@@ -571,17 +579,40 @@ class ZoneInfiltrationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `velocity_squared_term_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationDesignFlowRate.velocity_squared_term_coefficient`'.format(value))
         self._data["Velocity Squared Term Coefficient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneInfiltrationDesignFlowRate:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneInfiltrationDesignFlowRate:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneInfiltrationDesignFlowRate: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneInfiltrationDesignFlowRate: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -599,8 +630,27 @@ class ZoneInfiltrationDesignFlowRate(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -617,6 +667,10 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
     internal_name = "ZoneInfiltration:EffectiveLeakageArea"
     field_count = 6
     required_fields = ["Name", "Zone Name", "Schedule Name", "Effective Air Leakage Area", "Stack Coefficient", "Wind Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:EffectiveLeakageArea`
@@ -628,6 +682,7 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         self._data["Effective Air Leakage Area"] = None
         self._data["Stack Coefficient"] = None
         self._data["Wind Coefficient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -709,13 +764,13 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.name`')
         self._data["Name"] = value
 
     @property
@@ -744,13 +799,13 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -779,13 +834,13 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -818,10 +873,10 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `effective_air_leakage_area`'.format(value))
+                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.effective_air_leakage_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `effective_air_leakage_area`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.effective_air_leakage_area`')
         self._data["Effective Air Leakage Area"] = value
 
     @property
@@ -852,10 +907,10 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.stack_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `stack_coefficient`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.stack_coefficient`')
         self._data["Stack Coefficient"] = value
 
     @property
@@ -886,20 +941,43 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.wind_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `wind_coefficient`')
+                                 'for field `ZoneInfiltrationEffectiveLeakageArea.wind_coefficient`')
         self._data["Wind Coefficient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneInfiltrationEffectiveLeakageArea:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneInfiltrationEffectiveLeakageArea:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneInfiltrationEffectiveLeakageArea: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneInfiltrationEffectiveLeakageArea: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -917,8 +995,27 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -935,6 +1032,10 @@ class ZoneInfiltrationFlowCoefficient(object):
     internal_name = "ZoneInfiltration:FlowCoefficient"
     field_count = 8
     required_fields = ["Name", "Zone Name", "Schedule Name", "Flow Coefficient", "Stack Coefficient", "Pressure Exponent", "Wind Coefficient", "Shelter Factor"]
+    extensible_fields = 0
+    format = None
+    min_fields = 8
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:FlowCoefficient`
@@ -948,6 +1049,7 @@ class ZoneInfiltrationFlowCoefficient(object):
         self._data["Pressure Exponent"] = None
         self._data["Wind Coefficient"] = None
         self._data["Shelter Factor"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1043,13 +1145,13 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.name`')
         self._data["Name"] = value
 
     @property
@@ -1078,13 +1180,13 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -1113,13 +1215,13 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -1150,10 +1252,10 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.flow_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `flow_coefficient`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.flow_coefficient`')
         self._data["Flow Coefficient"] = value
 
     @property
@@ -1184,10 +1286,10 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.stack_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `stack_coefficient`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.stack_coefficient`')
         self._data["Stack Coefficient"] = value
 
     @property
@@ -1219,10 +1321,10 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_exponent`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.pressure_exponent`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pressure_exponent`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.pressure_exponent`')
         self._data["Pressure Exponent"] = value
 
     @property
@@ -1253,10 +1355,10 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_coefficient`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.wind_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `wind_coefficient`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.wind_coefficient`')
         self._data["Wind Coefficient"] = value
 
     @property
@@ -1287,20 +1389,43 @@ class ZoneInfiltrationFlowCoefficient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shelter_factor`'.format(value))
+                                 ' for field `ZoneInfiltrationFlowCoefficient.shelter_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `shelter_factor`')
+                                 'for field `ZoneInfiltrationFlowCoefficient.shelter_factor`')
         self._data["Shelter Factor"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneInfiltrationFlowCoefficient:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneInfiltrationFlowCoefficient:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneInfiltrationFlowCoefficient: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneInfiltrationFlowCoefficient: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1318,8 +1443,27 @@ class ZoneInfiltrationFlowCoefficient(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1337,6 +1481,10 @@ class ZoneVentilationDesignFlowRate(object):
     internal_name = "ZoneVentilation:DesignFlowRate"
     field_count = 26
     required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Flow Rate Calculation Method", "Ventilation Type", "Fan Pressure Rise", "Fan Total Efficiency", "Constant Term Coefficient", "Temperature Term Coefficient", "Velocity Term Coefficient", "Velocity Squared Term Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 15
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:DesignFlowRate`
@@ -1368,6 +1516,7 @@ class ZoneVentilationDesignFlowRate(object):
         self._data["Maximum Outdoor Temperature"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Wind Speed"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1589,13 +1738,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneVentilationDesignFlowRate.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneVentilationDesignFlowRate.name`')
         self._data["Name"] = value
 
     @property
@@ -1624,13 +1773,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_or_zonelist_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.zone_or_zonelist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.zone_or_zonelist_name`')
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -1659,13 +1808,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -1707,13 +1856,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_flow_rate_calculation_method`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`')
             vals = {}
             vals["flow/zone"] = "Flow/Zone"
             vals["flow/area"] = "Flow/Area"
@@ -1738,10 +1887,10 @@ class ZoneVentilationDesignFlowRate(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `design_flow_rate_calculation_method`'.format(value))
+                                     'field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -1773,10 +1922,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_flow_rate`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_flow_rate`')
+                                 'for field `ZoneVentilationDesignFlowRate.design_flow_rate`')
         self._data["Design Flow Rate"] = value
 
     @property
@@ -1807,10 +1956,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_rate_per_zone_floor_area`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.flow_rate_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_rate_per_zone_floor_area`')
+                                 'for field `ZoneVentilationDesignFlowRate.flow_rate_per_zone_floor_area`')
         self._data["Flow Rate per Zone Floor Area"] = value
 
     @property
@@ -1841,10 +1990,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_rate_per_person`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.flow_rate_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_rate_per_person`')
+                                 'for field `ZoneVentilationDesignFlowRate.flow_rate_per_person`')
         self._data["Flow Rate per Person"] = value
 
     @property
@@ -1875,10 +2024,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_changes_per_hour`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.air_changes_per_hour`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `air_changes_per_hour`')
+                                 'for field `ZoneVentilationDesignFlowRate.air_changes_per_hour`')
         self._data["Air Changes per Hour"] = value
 
     @property
@@ -1913,13 +2062,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_type`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.ventilation_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_type`')
+                                 'for field `ZoneVentilationDesignFlowRate.ventilation_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_type`')
+                                 'for field `ZoneVentilationDesignFlowRate.ventilation_type`')
             vals = {}
             vals["natural"] = "Natural"
             vals["intake"] = "Intake"
@@ -1944,10 +2093,10 @@ class ZoneVentilationDesignFlowRate(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ventilation_type`'.format(value))
+                                     'field `ZoneVentilationDesignFlowRate.ventilation_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ventilation_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneVentilationDesignFlowRate.ventilation_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ventilation Type"] = value
 
@@ -1981,10 +2130,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_pressure_rise`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.fan_pressure_rise`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fan_pressure_rise`')
+                                 'for field `ZoneVentilationDesignFlowRate.fan_pressure_rise`')
         self._data["Fan Pressure Rise"] = value
 
     @property
@@ -2015,10 +2164,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `ZoneVentilationDesignFlowRate.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -2049,7 +2198,7 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_term_coefficient`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.constant_term_coefficient`'.format(value))
         self._data["Constant Term Coefficient"] = value
 
     @property
@@ -2080,7 +2229,7 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_term_coefficient`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.temperature_term_coefficient`'.format(value))
         self._data["Temperature Term Coefficient"] = value
 
     @property
@@ -2111,7 +2260,7 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `velocity_term_coefficient`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.velocity_term_coefficient`'.format(value))
         self._data["Velocity Term Coefficient"] = value
 
     @property
@@ -2142,7 +2291,7 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `velocity_squared_term_coefficient`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.velocity_squared_term_coefficient`'.format(value))
         self._data["Velocity Squared Term Coefficient"] = value
 
     @property
@@ -2176,13 +2325,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_indoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_indoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_indoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature`')
         self._data["Minimum Indoor Temperature"] = value
 
     @property
@@ -2213,13 +2362,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_indoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name`')
         self._data["Minimum Indoor Temperature Schedule Name"] = value
 
     @property
@@ -2253,13 +2402,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_indoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_indoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_indoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature`')
         self._data["Maximum Indoor Temperature"] = value
 
     @property
@@ -2290,13 +2439,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_indoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name`')
         self._data["Maximum Indoor Temperature Schedule Name"] = value
 
     @property
@@ -2333,10 +2482,10 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `delta_temperature`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.delta_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `delta_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.delta_temperature`')
         self._data["Delta Temperature"] = value
 
     @property
@@ -2367,13 +2516,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `delta_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.delta_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.delta_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.delta_temperature_schedule_name`')
         self._data["Delta Temperature Schedule Name"] = value
 
     @property
@@ -2407,13 +2556,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_outdoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_outdoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_outdoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature`')
         self._data["Minimum Outdoor Temperature"] = value
 
     @property
@@ -2444,13 +2593,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name`')
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
@@ -2484,13 +2633,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_outdoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_outdoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_outdoor_temperature`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature`')
         self._data["Maximum Outdoor Temperature"] = value
 
     @property
@@ -2521,13 +2670,13 @@ class ZoneVentilationDesignFlowRate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name`')
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
     @property
@@ -2561,23 +2710,46 @@ class ZoneVentilationDesignFlowRate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_wind_speed`'.format(value))
+                                 ' for field `ZoneVentilationDesignFlowRate.maximum_wind_speed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_wind_speed`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_wind_speed`')
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
-                                 'for field `maximum_wind_speed`')
+                                 'for field `ZoneVentilationDesignFlowRate.maximum_wind_speed`')
         self._data["Maximum Wind Speed"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneVentilationDesignFlowRate:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneVentilationDesignFlowRate:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneVentilationDesignFlowRate: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneVentilationDesignFlowRate: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2595,8 +2767,27 @@ class ZoneVentilationDesignFlowRate(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2614,6 +2805,10 @@ class ZoneVentilationWindandStackOpenArea(object):
     internal_name = "ZoneVentilation:WindandStackOpenArea"
     field_count = 19
     required_fields = ["Name", "Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 8
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:WindandStackOpenArea`
@@ -2638,6 +2833,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         self._data["Maximum Outdoor Temperature"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Wind Speed"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2810,13 +3006,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.name`')
         self._data["Name"] = value
 
     @property
@@ -2845,13 +3041,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -2884,10 +3080,10 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `opening_area`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.opening_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `opening_area`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.opening_area`')
         self._data["Opening Area"] = value
 
     @property
@@ -2918,13 +3114,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `opening_area_fraction_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `opening_area_fraction_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `opening_area_fraction_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name`')
         self._data["Opening Area Fraction Schedule Name"] = value
 
     @property
@@ -2965,8 +3161,8 @@ class ZoneVentilationWindandStackOpenArea(object):
                     self._data["Opening Effectiveness"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `opening_effectiveness`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`'.format(value))
                     self._data["Opening Effectiveness"] = "Autocalculate"
                     return
             except ValueError:
@@ -2975,13 +3171,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `opening_effectiveness`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `opening_effectiveness`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `opening_effectiveness`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`')
         self._data["Opening Effectiveness"] = value
 
     @property
@@ -3016,13 +3212,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `effective_angle`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.effective_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `effective_angle`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.effective_angle`')
             if value >= 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `effective_angle`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.effective_angle`')
         self._data["Effective Angle"] = value
 
     @property
@@ -3057,10 +3253,10 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_difference`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.height_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `height_difference`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.height_difference`')
         self._data["Height Difference"] = value
 
     @property
@@ -3099,8 +3295,8 @@ class ZoneVentilationWindandStackOpenArea(object):
                     self._data["Discharge Coefficient for Opening"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `discharge_coefficient_for_opening`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`'.format(value))
                     self._data["Discharge Coefficient for Opening"] = "Autocalculate"
                     return
             except ValueError:
@@ -3109,13 +3305,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `discharge_coefficient_for_opening`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `discharge_coefficient_for_opening`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `discharge_coefficient_for_opening`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`')
         self._data["Discharge Coefficient for Opening"] = value
 
     @property
@@ -3149,13 +3345,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_indoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_indoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_indoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature`')
         self._data["Minimum Indoor Temperature"] = value
 
     @property
@@ -3186,13 +3382,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_indoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name`')
         self._data["Minimum Indoor Temperature Schedule Name"] = value
 
     @property
@@ -3226,13 +3422,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_indoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_indoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_indoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature`')
         self._data["Maximum Indoor Temperature"] = value
 
     @property
@@ -3263,13 +3459,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_indoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_indoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name`')
         self._data["Maximum Indoor Temperature Schedule Name"] = value
 
     @property
@@ -3303,10 +3499,10 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `delta_temperature`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.delta_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `delta_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.delta_temperature`')
         self._data["Delta Temperature"] = value
 
     @property
@@ -3337,13 +3533,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `delta_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name`')
         self._data["Delta Temperature Schedule Name"] = value
 
     @property
@@ -3377,13 +3573,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_outdoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_outdoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_outdoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature`')
         self._data["Minimum Outdoor Temperature"] = value
 
     @property
@@ -3414,13 +3610,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name`')
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
@@ -3454,13 +3650,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_outdoor_temperature`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_outdoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_outdoor_temperature`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature`')
         self._data["Maximum Outdoor Temperature"] = value
 
     @property
@@ -3491,13 +3687,13 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name`')
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
     @property
@@ -3531,23 +3727,46 @@ class ZoneVentilationWindandStackOpenArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_wind_speed`'.format(value))
+                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_wind_speed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_wind_speed`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_wind_speed`')
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
-                                 'for field `maximum_wind_speed`')
+                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_wind_speed`')
         self._data["Maximum Wind Speed"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneVentilationWindandStackOpenArea:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneVentilationWindandStackOpenArea:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneVentilationWindandStackOpenArea: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneVentilationWindandStackOpenArea: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3565,8 +3784,27 @@ class ZoneVentilationWindandStackOpenArea(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3585,6 +3823,10 @@ class ZoneAirBalanceOutdoorAir(object):
     internal_name = "ZoneAirBalance:OutdoorAir"
     field_count = 5
     required_fields = ["Name", "Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirBalance:OutdoorAir`
@@ -3595,6 +3837,7 @@ class ZoneAirBalanceOutdoorAir(object):
         self._data["Air Balance Method"] = None
         self._data["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = None
         self._data["Induced Outdoor Air Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3669,13 +3912,13 @@ class ZoneAirBalanceOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneAirBalanceOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneAirBalanceOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneAirBalanceOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -3704,13 +3947,13 @@ class ZoneAirBalanceOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneAirBalanceOutdoorAir.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneAirBalanceOutdoorAir.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneAirBalanceOutdoorAir.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -3745,13 +3988,13 @@ class ZoneAirBalanceOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_balance_method`'.format(value))
+                                 ' for field `ZoneAirBalanceOutdoorAir.air_balance_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_balance_method`')
+                                 'for field `ZoneAirBalanceOutdoorAir.air_balance_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_balance_method`')
+                                 'for field `ZoneAirBalanceOutdoorAir.air_balance_method`')
             vals = {}
             vals["quadrature"] = "Quadrature"
             vals["none"] = "None"
@@ -3774,10 +4017,10 @@ class ZoneAirBalanceOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `air_balance_method`'.format(value))
+                                     'field `ZoneAirBalanceOutdoorAir.air_balance_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `air_balance_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneAirBalanceOutdoorAir.air_balance_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Balance Method"] = value
 
@@ -3810,10 +4053,10 @@ class ZoneAirBalanceOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `induced_outdoor_air_due_to_unbalanced_duct_leakage`'.format(value))
+                                 ' for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_due_to_unbalanced_duct_leakage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `induced_outdoor_air_due_to_unbalanced_duct_leakage`')
+                                 'for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_due_to_unbalanced_duct_leakage`')
         self._data["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = value
 
     @property
@@ -3844,23 +4087,46 @@ class ZoneAirBalanceOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `induced_outdoor_air_schedule_name`'.format(value))
+                                 ' for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `induced_outdoor_air_schedule_name`')
+                                 'for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `induced_outdoor_air_schedule_name`')
+                                 'for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name`')
         self._data["Induced Outdoor Air Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneAirBalanceOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneAirBalanceOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneAirBalanceOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneAirBalanceOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3878,8 +4144,27 @@ class ZoneAirBalanceOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3898,6 +4183,10 @@ class ZoneMixing(object):
     internal_name = "ZoneMixing"
     field_count = 17
     required_fields = ["Name", "Zone Name", "Schedule Name", "Design Flow Rate Calculation Method", "Source Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneMixing`
@@ -3920,6 +4209,7 @@ class ZoneMixing(object):
         self._data["Maximum Source Zone Temperature Schedule Name"] = None
         self._data["Minimum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4078,13 +4368,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneMixing.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneMixing.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneMixing.name`')
         self._data["Name"] = value
 
     @property
@@ -4113,13 +4403,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneMixing.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneMixing.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneMixing.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -4148,13 +4438,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneMixing.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneMixing.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -4196,13 +4486,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_flow_rate_calculation_method`'.format(value))
+                                 ' for field `ZoneMixing.design_flow_rate_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneMixing.design_flow_rate_calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneMixing.design_flow_rate_calculation_method`')
             vals = {}
             vals["flow/zone"] = "Flow/Zone"
             vals["flow/area"] = "Flow/Area"
@@ -4227,10 +4517,10 @@ class ZoneMixing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `design_flow_rate_calculation_method`'.format(value))
+                                     'field `ZoneMixing.design_flow_rate_calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneMixing.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -4262,10 +4552,10 @@ class ZoneMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_flow_rate`'.format(value))
+                                 ' for field `ZoneMixing.design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_flow_rate`')
+                                 'for field `ZoneMixing.design_flow_rate`')
         self._data["Design Flow Rate"] = value
 
     @property
@@ -4296,10 +4586,10 @@ class ZoneMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_rate_per_zone_floor_area`'.format(value))
+                                 ' for field `ZoneMixing.flow_rate_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_rate_per_zone_floor_area`')
+                                 'for field `ZoneMixing.flow_rate_per_zone_floor_area`')
         self._data["Flow Rate per Zone Floor Area"] = value
 
     @property
@@ -4330,10 +4620,10 @@ class ZoneMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_rate_per_person`'.format(value))
+                                 ' for field `ZoneMixing.flow_rate_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_rate_per_person`')
+                                 'for field `ZoneMixing.flow_rate_per_person`')
         self._data["Flow Rate per Person"] = value
 
     @property
@@ -4364,10 +4654,10 @@ class ZoneMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_changes_per_hour`'.format(value))
+                                 ' for field `ZoneMixing.air_changes_per_hour`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `air_changes_per_hour`')
+                                 'for field `ZoneMixing.air_changes_per_hour`')
         self._data["Air Changes per Hour"] = value
 
     @property
@@ -4396,13 +4686,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_zone_name`'.format(value))
+                                 ' for field `ZoneMixing.source_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_zone_name`')
+                                 'for field `ZoneMixing.source_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_zone_name`')
+                                 'for field `ZoneMixing.source_zone_name`')
         self._data["Source Zone Name"] = value
 
     @property
@@ -4435,7 +4725,7 @@ class ZoneMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `delta_temperature`'.format(value))
+                                 ' for field `ZoneMixing.delta_temperature`'.format(value))
         self._data["Delta Temperature"] = value
 
     @property
@@ -4466,13 +4756,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `delta_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.delta_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneMixing.delta_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneMixing.delta_temperature_schedule_name`')
         self._data["Delta Temperature Schedule Name"] = value
 
     @property
@@ -4503,13 +4793,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.minimum_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.minimum_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.minimum_zone_temperature_schedule_name`')
         self._data["Minimum Zone Temperature Schedule Name"] = value
 
     @property
@@ -4540,13 +4830,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.maximum_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.maximum_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.maximum_zone_temperature_schedule_name`')
         self._data["Maximum Zone Temperature Schedule Name"] = value
 
     @property
@@ -4577,13 +4867,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_source_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.minimum_source_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.minimum_source_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.minimum_source_zone_temperature_schedule_name`')
         self._data["Minimum Source Zone Temperature Schedule Name"] = value
 
     @property
@@ -4614,13 +4904,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_source_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.maximum_source_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.maximum_source_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneMixing.maximum_source_zone_temperature_schedule_name`')
         self._data["Maximum Source Zone Temperature Schedule Name"] = value
 
     @property
@@ -4651,13 +4941,13 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneMixing.minimum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneMixing.minimum_outdoor_temperature_schedule_name`')
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
@@ -4688,23 +4978,46 @@ class ZoneMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneMixing.maximum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneMixing.maximum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneMixing.maximum_outdoor_temperature_schedule_name`')
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneMixing:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneMixing:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneMixing: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneMixing: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4722,8 +5035,27 @@ class ZoneMixing(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4739,6 +5071,10 @@ class ZoneCrossMixing(object):
     internal_name = "ZoneCrossMixing"
     field_count = 17
     required_fields = ["Name", "Zone Name", "Schedule Name", "Design Flow Rate Calculation Method", "Source Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCrossMixing`
@@ -4761,6 +5097,7 @@ class ZoneCrossMixing(object):
         self._data["Maximum Source Zone Temperature Schedule Name"] = None
         self._data["Minimum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4919,13 +5256,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneCrossMixing.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneCrossMixing.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneCrossMixing.name`')
         self._data["Name"] = value
 
     @property
@@ -4954,13 +5291,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneCrossMixing.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneCrossMixing.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -4989,13 +5326,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneCrossMixing.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneCrossMixing.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -5037,13 +5374,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_flow_rate_calculation_method`'.format(value))
+                                 ' for field `ZoneCrossMixing.design_flow_rate_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneCrossMixing.design_flow_rate_calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_flow_rate_calculation_method`')
+                                 'for field `ZoneCrossMixing.design_flow_rate_calculation_method`')
             vals = {}
             vals["flow/zone"] = "Flow/Zone"
             vals["flow/person"] = "Flow/Person"
@@ -5068,10 +5405,10 @@ class ZoneCrossMixing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `design_flow_rate_calculation_method`'.format(value))
+                                     'field `ZoneCrossMixing.design_flow_rate_calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneCrossMixing.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -5103,10 +5440,10 @@ class ZoneCrossMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_flow_rate`'.format(value))
+                                 ' for field `ZoneCrossMixing.design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_flow_rate`')
+                                 'for field `ZoneCrossMixing.design_flow_rate`')
         self._data["Design Flow Rate"] = value
 
     @property
@@ -5137,10 +5474,10 @@ class ZoneCrossMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_rate_per_zone_floor_area`'.format(value))
+                                 ' for field `ZoneCrossMixing.flow_rate_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_rate_per_zone_floor_area`')
+                                 'for field `ZoneCrossMixing.flow_rate_per_zone_floor_area`')
         self._data["Flow Rate per Zone Floor Area"] = value
 
     @property
@@ -5171,10 +5508,10 @@ class ZoneCrossMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `flow_rate_per_person`'.format(value))
+                                 ' for field `ZoneCrossMixing.flow_rate_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `flow_rate_per_person`')
+                                 'for field `ZoneCrossMixing.flow_rate_per_person`')
         self._data["Flow Rate per Person"] = value
 
     @property
@@ -5205,10 +5542,10 @@ class ZoneCrossMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_changes_per_hour`'.format(value))
+                                 ' for field `ZoneCrossMixing.air_changes_per_hour`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `air_changes_per_hour`')
+                                 'for field `ZoneCrossMixing.air_changes_per_hour`')
         self._data["Air Changes per Hour"] = value
 
     @property
@@ -5237,13 +5574,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `source_zone_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.source_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `source_zone_name`')
+                                 'for field `ZoneCrossMixing.source_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `source_zone_name`')
+                                 'for field `ZoneCrossMixing.source_zone_name`')
         self._data["Source Zone Name"] = value
 
     @property
@@ -5278,10 +5615,10 @@ class ZoneCrossMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `delta_temperature`'.format(value))
+                                 ' for field `ZoneCrossMixing.delta_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `delta_temperature`')
+                                 'for field `ZoneCrossMixing.delta_temperature`')
         self._data["Delta Temperature"] = value
 
     @property
@@ -5312,13 +5649,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `delta_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.delta_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.delta_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `delta_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.delta_temperature_schedule_name`')
         self._data["Delta Temperature Schedule Name"] = value
 
     @property
@@ -5349,13 +5686,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.minimum_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.minimum_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.minimum_zone_temperature_schedule_name`')
         self._data["Minimum Zone Temperature Schedule Name"] = value
 
     @property
@@ -5386,13 +5723,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.maximum_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.maximum_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.maximum_zone_temperature_schedule_name`')
         self._data["Maximum Zone Temperature Schedule Name"] = value
 
     @property
@@ -5423,13 +5760,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_source_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.minimum_source_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.minimum_source_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.minimum_source_zone_temperature_schedule_name`')
         self._data["Minimum Source Zone Temperature Schedule Name"] = value
 
     @property
@@ -5460,13 +5797,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_source_zone_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.maximum_source_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.maximum_source_zone_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_source_zone_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.maximum_source_zone_temperature_schedule_name`')
         self._data["Maximum Source Zone Temperature Schedule Name"] = value
 
     @property
@@ -5497,13 +5834,13 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.minimum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.minimum_outdoor_temperature_schedule_name`')
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
@@ -5534,23 +5871,46 @@ class ZoneCrossMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_outdoor_temperature_schedule_name`'.format(value))
+                                 ' for field `ZoneCrossMixing.maximum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.maximum_outdoor_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_outdoor_temperature_schedule_name`')
+                                 'for field `ZoneCrossMixing.maximum_outdoor_temperature_schedule_name`')
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneCrossMixing:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneCrossMixing:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneCrossMixing: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneCrossMixing: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5568,8 +5928,27 @@ class ZoneCrossMixing(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5589,6 +5968,10 @@ class ZoneRefrigerationDoorMixing(object):
     internal_name = "ZoneRefrigerationDoorMixing"
     field_count = 7
     required_fields = ["Name", "Zone 1 Name", "Zone 2 Name", "Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneRefrigerationDoorMixing`
@@ -5601,6 +5984,7 @@ class ZoneRefrigerationDoorMixing(object):
         self._data["Door Height"] = None
         self._data["Door Area"] = None
         self._data["Door Protection Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5689,13 +6073,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneRefrigerationDoorMixing.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneRefrigerationDoorMixing.name`')
         self._data["Name"] = value
 
     @property
@@ -5724,13 +6108,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_1_name`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_1_name`')
+                                 'for field `ZoneRefrigerationDoorMixing.zone_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_1_name`')
+                                 'for field `ZoneRefrigerationDoorMixing.zone_1_name`')
         self._data["Zone 1 Name"] = value
 
     @property
@@ -5759,13 +6143,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_2_name`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_2_name`')
+                                 'for field `ZoneRefrigerationDoorMixing.zone_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_2_name`')
+                                 'for field `ZoneRefrigerationDoorMixing.zone_2_name`')
         self._data["Zone 2 Name"] = value
 
     @property
@@ -5800,13 +6184,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneRefrigerationDoorMixing.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneRefrigerationDoorMixing.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -5839,13 +6223,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `door_height`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.door_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `door_height`')
+                                 'for field `ZoneRefrigerationDoorMixing.door_height`')
             if value > 50.0:
                 raise ValueError('value need to be smaller 50.0 '
-                                 'for field `door_height`')
+                                 'for field `ZoneRefrigerationDoorMixing.door_height`')
         self._data["Door Height"] = value
 
     @property
@@ -5878,13 +6262,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `door_area`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.door_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `door_area`')
+                                 'for field `ZoneRefrigerationDoorMixing.door_area`')
             if value > 400.0:
                 raise ValueError('value need to be smaller 400.0 '
-                                 'for field `door_area`')
+                                 'for field `ZoneRefrigerationDoorMixing.door_area`')
         self._data["Door Area"] = value
 
     @property
@@ -5922,13 +6306,13 @@ class ZoneRefrigerationDoorMixing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `door_protection_type`'.format(value))
+                                 ' for field `ZoneRefrigerationDoorMixing.door_protection_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `door_protection_type`')
+                                 'for field `ZoneRefrigerationDoorMixing.door_protection_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `door_protection_type`')
+                                 'for field `ZoneRefrigerationDoorMixing.door_protection_type`')
             vals = {}
             vals["none"] = "None"
             vals["aircurtain"] = "AirCurtain"
@@ -5952,21 +6336,44 @@ class ZoneRefrigerationDoorMixing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `door_protection_type`'.format(value))
+                                     'field `ZoneRefrigerationDoorMixing.door_protection_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `door_protection_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneRefrigerationDoorMixing.door_protection_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Door Protection Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneRefrigerationDoorMixing:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneRefrigerationDoorMixing:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneRefrigerationDoorMixing: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneRefrigerationDoorMixing: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5984,8 +6391,27 @@ class ZoneRefrigerationDoorMixing(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6001,6 +6427,10 @@ class ZoneEarthtube(object):
     internal_name = "ZoneEarthtube"
     field_count = 22
     required_fields = ["Zone Name", "Schedule Name", "Design Flow Rate", "Minimum Zone Temperature when Cooling", "Maximum Zone Temperature when Heating", "Delta Temperature", "Earthtube Type", "Fan Pressure Rise", "Fan Total Efficiency", "Pipe Radius", "Pipe Thickness", "Pipe Length", "Pipe Thermal Conductivity", "Pipe Depth Under Ground Surface", "Soil Condition", "Average Soil Surface Temperature", "Amplitude of Soil Surface Temperature", "Phase Constant of Soil Surface Temperature", "Constant Term Flow Coefficient", "Temperature Term Flow Coefficient", "Velocity Term Flow Coefficient", "Velocity Squared Term Flow Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 22
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneEarthtube`
@@ -6028,6 +6458,7 @@ class ZoneEarthtube(object):
         self._data["Temperature Term Flow Coefficient"] = None
         self._data["Velocity Term Flow Coefficient"] = None
         self._data["Velocity Squared Term Flow Coefficient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6221,13 +6652,13 @@ class ZoneEarthtube(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneEarthtube.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneEarthtube.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneEarthtube.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -6256,13 +6687,13 @@ class ZoneEarthtube(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ZoneEarthtube.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneEarthtube.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ZoneEarthtube.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -6294,10 +6725,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_flow_rate`'.format(value))
+                                 ' for field `ZoneEarthtube.design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_flow_rate`')
+                                 'for field `ZoneEarthtube.design_flow_rate`')
         self._data["Design Flow Rate"] = value
 
     @property
@@ -6330,13 +6761,13 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_zone_temperature_when_cooling`'.format(value))
+                                 ' for field `ZoneEarthtube.minimum_zone_temperature_when_cooling`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_zone_temperature_when_cooling`')
+                                 'for field `ZoneEarthtube.minimum_zone_temperature_when_cooling`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_zone_temperature_when_cooling`')
+                                 'for field `ZoneEarthtube.minimum_zone_temperature_when_cooling`')
         self._data["Minimum Zone Temperature when Cooling"] = value
 
     @property
@@ -6369,13 +6800,13 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_zone_temperature_when_heating`'.format(value))
+                                 ' for field `ZoneEarthtube.maximum_zone_temperature_when_heating`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_zone_temperature_when_heating`')
+                                 'for field `ZoneEarthtube.maximum_zone_temperature_when_heating`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_zone_temperature_when_heating`')
+                                 'for field `ZoneEarthtube.maximum_zone_temperature_when_heating`')
         self._data["Maximum Zone Temperature when Heating"] = value
 
     @property
@@ -6407,10 +6838,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `delta_temperature`'.format(value))
+                                 ' for field `ZoneEarthtube.delta_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `delta_temperature`')
+                                 'for field `ZoneEarthtube.delta_temperature`')
         self._data["Delta Temperature"] = value
 
     @property
@@ -6444,13 +6875,13 @@ class ZoneEarthtube(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `earthtube_type`'.format(value))
+                                 ' for field `ZoneEarthtube.earthtube_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `earthtube_type`')
+                                 'for field `ZoneEarthtube.earthtube_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `earthtube_type`')
+                                 'for field `ZoneEarthtube.earthtube_type`')
             vals = {}
             vals["natural"] = "Natural"
             vals["intake"] = "Intake"
@@ -6474,10 +6905,10 @@ class ZoneEarthtube(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `earthtube_type`'.format(value))
+                                     'field `ZoneEarthtube.earthtube_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `earthtube_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneEarthtube.earthtube_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Earthtube Type"] = value
 
@@ -6511,10 +6942,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_pressure_rise`'.format(value))
+                                 ' for field `ZoneEarthtube.fan_pressure_rise`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fan_pressure_rise`')
+                                 'for field `ZoneEarthtube.fan_pressure_rise`')
         self._data["Fan Pressure Rise"] = value
 
     @property
@@ -6545,10 +6976,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `ZoneEarthtube.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `ZoneEarthtube.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -6580,10 +7011,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_radius`'.format(value))
+                                 ' for field `ZoneEarthtube.pipe_radius`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_radius`')
+                                 'for field `ZoneEarthtube.pipe_radius`')
         self._data["Pipe Radius"] = value
 
     @property
@@ -6615,10 +7046,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_thickness`'.format(value))
+                                 ' for field `ZoneEarthtube.pipe_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_thickness`')
+                                 'for field `ZoneEarthtube.pipe_thickness`')
         self._data["Pipe Thickness"] = value
 
     @property
@@ -6650,10 +7081,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_length`'.format(value))
+                                 ' for field `ZoneEarthtube.pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_length`')
+                                 'for field `ZoneEarthtube.pipe_length`')
         self._data["Pipe Length"] = value
 
     @property
@@ -6685,10 +7116,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_thermal_conductivity`'.format(value))
+                                 ' for field `ZoneEarthtube.pipe_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_thermal_conductivity`')
+                                 'for field `ZoneEarthtube.pipe_thermal_conductivity`')
         self._data["Pipe Thermal Conductivity"] = value
 
     @property
@@ -6720,10 +7151,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_depth_under_ground_surface`'.format(value))
+                                 ' for field `ZoneEarthtube.pipe_depth_under_ground_surface`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_depth_under_ground_surface`')
+                                 'for field `ZoneEarthtube.pipe_depth_under_ground_surface`')
         self._data["Pipe Depth Under Ground Surface"] = value
 
     @property
@@ -6758,13 +7189,13 @@ class ZoneEarthtube(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `soil_condition`'.format(value))
+                                 ' for field `ZoneEarthtube.soil_condition`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `soil_condition`')
+                                 'for field `ZoneEarthtube.soil_condition`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `soil_condition`')
+                                 'for field `ZoneEarthtube.soil_condition`')
             vals = {}
             vals["heavyandsaturated"] = "HeavyAndSaturated"
             vals["heavyanddamp"] = "HeavyAndDamp"
@@ -6789,10 +7220,10 @@ class ZoneEarthtube(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `soil_condition`'.format(value))
+                                     'field `ZoneEarthtube.soil_condition`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `soil_condition`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneEarthtube.soil_condition`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Soil Condition"] = value
 
@@ -6824,7 +7255,7 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `average_soil_surface_temperature`'.format(value))
+                                 ' for field `ZoneEarthtube.average_soil_surface_temperature`'.format(value))
         self._data["Average Soil Surface Temperature"] = value
 
     @property
@@ -6856,10 +7287,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `amplitude_of_soil_surface_temperature`'.format(value))
+                                 ' for field `ZoneEarthtube.amplitude_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `amplitude_of_soil_surface_temperature`')
+                                 'for field `ZoneEarthtube.amplitude_of_soil_surface_temperature`')
         self._data["Amplitude of Soil Surface Temperature"] = value
 
     @property
@@ -6891,10 +7322,10 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `phase_constant_of_soil_surface_temperature`'.format(value))
+                                 ' for field `ZoneEarthtube.phase_constant_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `phase_constant_of_soil_surface_temperature`')
+                                 'for field `ZoneEarthtube.phase_constant_of_soil_surface_temperature`')
         self._data["Phase Constant of Soil Surface Temperature"] = value
 
     @property
@@ -6925,7 +7356,7 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_term_flow_coefficient`'.format(value))
+                                 ' for field `ZoneEarthtube.constant_term_flow_coefficient`'.format(value))
         self._data["Constant Term Flow Coefficient"] = value
 
     @property
@@ -6956,7 +7387,7 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_term_flow_coefficient`'.format(value))
+                                 ' for field `ZoneEarthtube.temperature_term_flow_coefficient`'.format(value))
         self._data["Temperature Term Flow Coefficient"] = value
 
     @property
@@ -6987,7 +7418,7 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `velocity_term_flow_coefficient`'.format(value))
+                                 ' for field `ZoneEarthtube.velocity_term_flow_coefficient`'.format(value))
         self._data["Velocity Term Flow Coefficient"] = value
 
     @property
@@ -7018,17 +7449,40 @@ class ZoneEarthtube(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `velocity_squared_term_flow_coefficient`'.format(value))
+                                 ' for field `ZoneEarthtube.velocity_squared_term_flow_coefficient`'.format(value))
         self._data["Velocity Squared Term Flow Coefficient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneEarthtube:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneEarthtube:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneEarthtube: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneEarthtube: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7046,8 +7500,27 @@ class ZoneEarthtube(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7065,6 +7538,10 @@ class ZoneCoolTowerShower(object):
     internal_name = "ZoneCoolTower:Shower"
     field_count = 14
     required_fields = ["Name", "Zone Name", "Pump Flow Rate Schedule Name", "Maximum Water Flow Rate", "Effective Tower Height", "Airflow Outlet Area", "Maximum Air Flow Rate", "Minimum Indoor Temperature", "Rated Power Consumption"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCoolTower:Shower`
@@ -7084,6 +7561,7 @@ class ZoneCoolTowerShower(object):
         self._data["Fraction of Water Loss"] = None
         self._data["Fraction of Flow Schedule"] = None
         self._data["Rated Power Consumption"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7221,13 +7699,13 @@ class ZoneCoolTowerShower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneCoolTowerShower.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneCoolTowerShower.name`')
         self._data["Name"] = value
 
     @property
@@ -7258,13 +7736,13 @@ class ZoneCoolTowerShower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ZoneCoolTowerShower.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ZoneCoolTowerShower.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -7293,13 +7771,13 @@ class ZoneCoolTowerShower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneCoolTowerShower.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneCoolTowerShower.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -7329,13 +7807,13 @@ class ZoneCoolTowerShower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_storage_tank_name`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `ZoneCoolTowerShower.water_supply_storage_tank_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_storage_tank_name`')
+                                 'for field `ZoneCoolTowerShower.water_supply_storage_tank_name`')
         self._data["Water Supply Storage Tank Name"] = value
 
     @property
@@ -7370,13 +7848,13 @@ class ZoneCoolTowerShower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `flow_control_type`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.flow_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `flow_control_type`')
+                                 'for field `ZoneCoolTowerShower.flow_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `flow_control_type`')
+                                 'for field `ZoneCoolTowerShower.flow_control_type`')
             vals = {}
             vals["waterflowschedule"] = "WaterFlowSchedule"
             vals["winddrivenflow"] = "WindDrivenFlow"
@@ -7399,10 +7877,10 @@ class ZoneCoolTowerShower(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `flow_control_type`'.format(value))
+                                     'field `ZoneCoolTowerShower.flow_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `flow_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneCoolTowerShower.flow_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Flow Control Type"] = value
 
@@ -7432,13 +7910,13 @@ class ZoneCoolTowerShower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `ZoneCoolTowerShower.pump_flow_rate_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `ZoneCoolTowerShower.pump_flow_rate_schedule_name`')
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -7468,7 +7946,7 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_water_flow_rate`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.maximum_water_flow_rate`'.format(value))
         self._data["Maximum Water Flow Rate"] = value
 
     @property
@@ -7499,7 +7977,7 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `effective_tower_height`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.effective_tower_height`'.format(value))
         self._data["Effective Tower Height"] = value
 
     @property
@@ -7531,7 +8009,7 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `airflow_outlet_area`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.airflow_outlet_area`'.format(value))
         self._data["Airflow Outlet Area"] = value
 
     @property
@@ -7562,10 +8040,10 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_air_flow_rate`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_air_flow_rate`')
+                                 'for field `ZoneCoolTowerShower.maximum_air_flow_rate`')
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -7598,13 +8076,13 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_indoor_temperature`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.minimum_indoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_indoor_temperature`')
+                                 'for field `ZoneCoolTowerShower.minimum_indoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_indoor_temperature`')
+                                 'for field `ZoneCoolTowerShower.minimum_indoor_temperature`')
         self._data["Minimum Indoor Temperature"] = value
 
     @property
@@ -7635,13 +8113,13 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_water_loss`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.fraction_of_water_loss`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_water_loss`')
+                                 'for field `ZoneCoolTowerShower.fraction_of_water_loss`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_water_loss`')
+                                 'for field `ZoneCoolTowerShower.fraction_of_water_loss`')
         self._data["Fraction of Water Loss"] = value
 
     @property
@@ -7672,13 +8150,13 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_flow_schedule`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.fraction_of_flow_schedule`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_flow_schedule`')
+                                 'for field `ZoneCoolTowerShower.fraction_of_flow_schedule`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_flow_schedule`')
+                                 'for field `ZoneCoolTowerShower.fraction_of_flow_schedule`')
         self._data["Fraction of Flow Schedule"] = value
 
     @property
@@ -7708,17 +8186,40 @@ class ZoneCoolTowerShower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_power_consumption`'.format(value))
+                                 ' for field `ZoneCoolTowerShower.rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneCoolTowerShower:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneCoolTowerShower:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneCoolTowerShower: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneCoolTowerShower: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7736,8 +8237,27 @@ class ZoneCoolTowerShower(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7754,6 +8274,10 @@ class ZoneThermalChimney(object):
     internal_name = "ZoneThermalChimney"
     field_count = 86
     required_fields = ["Name", "Zone Name", "Width of the Absorber Wall", "Cross Sectional Area of Air Channel Outlet", "Discharge Coefficient", "Zone 1 Name", "Distance from Top of Thermal Chimney to Inlet 1", "Relative Ratios of Air Flow Rates Passing through Zone 1", "Cross Sectional Areas of Air Channel Inlet 1"]
+    extensible_fields = 0
+    format = None
+    min_fields = 10
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneThermalChimney`
@@ -7845,6 +8369,7 @@ class ZoneThermalChimney(object):
         self._data["Distance from Top of Thermal Chimney to Inlet 20"] = None
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 20"] = None
         self._data["Cross Sectional Areas of Air Channel Inlet 20"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8486,13 +9011,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneThermalChimney.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneThermalChimney.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneThermalChimney.name`')
         self._data["Name"] = value
 
     @property
@@ -8522,13 +9047,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneThermalChimney.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneThermalChimney.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -8559,13 +9084,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ZoneThermalChimney.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ZoneThermalChimney.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -8596,10 +9121,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_of_the_absorber_wall`'.format(value))
+                                 ' for field `ZoneThermalChimney.width_of_the_absorber_wall`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `width_of_the_absorber_wall`')
+                                 'for field `ZoneThermalChimney.width_of_the_absorber_wall`')
         self._data["Width of the Absorber Wall"] = value
 
     @property
@@ -8630,10 +9155,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_area_of_air_channel_outlet`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_area_of_air_channel_outlet`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_area_of_air_channel_outlet`')
+                                 'for field `ZoneThermalChimney.cross_sectional_area_of_air_channel_outlet`')
         self._data["Cross Sectional Area of Air Channel Outlet"] = value
 
     @property
@@ -8665,13 +9190,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient`'.format(value))
+                                 ' for field `ZoneThermalChimney.discharge_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `discharge_coefficient`')
+                                 'for field `ZoneThermalChimney.discharge_coefficient`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `discharge_coefficient`')
+                                 'for field `ZoneThermalChimney.discharge_coefficient`')
         self._data["Discharge Coefficient"] = value
 
     @property
@@ -8700,13 +9225,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_1_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_1_name`')
+                                 'for field `ZoneThermalChimney.zone_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_1_name`')
+                                 'for field `ZoneThermalChimney.zone_1_name`')
         self._data["Zone 1 Name"] = value
 
     @property
@@ -8737,10 +9262,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_1`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_1`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_1`')
         self._data["Distance from Top of Thermal Chimney to Inlet 1"] = value
 
     @property
@@ -8772,13 +9297,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_1`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_1`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_1`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
 
     @property
@@ -8809,10 +9334,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_1`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_1`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_1`')
         self._data["Cross Sectional Areas of Air Channel Inlet 1"] = value
 
     @property
@@ -8841,13 +9366,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_2_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_2_name`')
+                                 'for field `ZoneThermalChimney.zone_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_2_name`')
+                                 'for field `ZoneThermalChimney.zone_2_name`')
         self._data["Zone 2 Name"] = value
 
     @property
@@ -8878,10 +9403,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_2`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_2`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_2`')
         self._data["Distance from Top of Thermal Chimney to Inlet 2"] = value
 
     @property
@@ -8912,13 +9437,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_2`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_2`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_2`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
 
     @property
@@ -8949,10 +9474,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_2`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_2`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_2`')
         self._data["Cross Sectional Areas of Air Channel Inlet 2"] = value
 
     @property
@@ -8981,13 +9506,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_3_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_3_name`')
+                                 'for field `ZoneThermalChimney.zone_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_3_name`')
+                                 'for field `ZoneThermalChimney.zone_3_name`')
         self._data["Zone 3 Name"] = value
 
     @property
@@ -9018,10 +9543,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_3`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_3`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_3`')
         self._data["Distance from Top of Thermal Chimney to Inlet 3"] = value
 
     @property
@@ -9052,13 +9577,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_3`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_3`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_3`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
 
     @property
@@ -9089,10 +9614,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_3`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_3`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_3`')
         self._data["Cross Sectional Areas of Air Channel Inlet 3"] = value
 
     @property
@@ -9121,13 +9646,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_4_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_4_name`')
+                                 'for field `ZoneThermalChimney.zone_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_4_name`')
+                                 'for field `ZoneThermalChimney.zone_4_name`')
         self._data["Zone 4 Name"] = value
 
     @property
@@ -9158,10 +9683,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_4`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_4`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_4`')
         self._data["Distance from Top of Thermal Chimney to Inlet 4"] = value
 
     @property
@@ -9192,13 +9717,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_4`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_4`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_4`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
 
     @property
@@ -9229,10 +9754,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_4`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_4`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_4`')
         self._data["Cross Sectional Areas of Air Channel Inlet 4"] = value
 
     @property
@@ -9261,13 +9786,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_5_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_5_name`')
+                                 'for field `ZoneThermalChimney.zone_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_5_name`')
+                                 'for field `ZoneThermalChimney.zone_5_name`')
         self._data["Zone 5 Name"] = value
 
     @property
@@ -9298,10 +9823,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_5`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_5`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_5`')
         self._data["Distance from Top of Thermal Chimney to Inlet 5"] = value
 
     @property
@@ -9332,13 +9857,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_5`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_5`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_5`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
 
     @property
@@ -9369,10 +9894,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_5`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_5`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_5`')
         self._data["Cross Sectional Areas of Air Channel Inlet 5"] = value
 
     @property
@@ -9401,13 +9926,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_6_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_6_name`')
+                                 'for field `ZoneThermalChimney.zone_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_6_name`')
+                                 'for field `ZoneThermalChimney.zone_6_name`')
         self._data["Zone 6 Name"] = value
 
     @property
@@ -9438,10 +9963,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_6`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_6`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_6`')
         self._data["Distance from Top of Thermal Chimney to Inlet 6"] = value
 
     @property
@@ -9472,13 +9997,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_6`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_6`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_6`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
 
     @property
@@ -9509,10 +10034,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_6`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_6`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_6`')
         self._data["Cross Sectional Areas of Air Channel Inlet 6"] = value
 
     @property
@@ -9541,13 +10066,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_7_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_7_name`')
+                                 'for field `ZoneThermalChimney.zone_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_7_name`')
+                                 'for field `ZoneThermalChimney.zone_7_name`')
         self._data["Zone 7 Name"] = value
 
     @property
@@ -9578,10 +10103,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_7`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_7`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_7`')
         self._data["Distance from Top of Thermal Chimney to Inlet 7"] = value
 
     @property
@@ -9612,13 +10137,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_7`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_7`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_7`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
 
     @property
@@ -9649,10 +10174,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_7`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_7`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_7`')
         self._data["Cross Sectional Areas of Air Channel Inlet 7"] = value
 
     @property
@@ -9681,13 +10206,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_8_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_8_name`')
+                                 'for field `ZoneThermalChimney.zone_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_8_name`')
+                                 'for field `ZoneThermalChimney.zone_8_name`')
         self._data["Zone 8 Name"] = value
 
     @property
@@ -9718,10 +10243,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_8`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_8`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_8`')
         self._data["Distance from Top of Thermal Chimney to Inlet 8"] = value
 
     @property
@@ -9752,13 +10277,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_8`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_8`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_8`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
 
     @property
@@ -9789,10 +10314,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_8`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_8`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_8`')
         self._data["Cross Sectional Areas of Air Channel Inlet 8"] = value
 
     @property
@@ -9821,13 +10346,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_9_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_9_name`')
+                                 'for field `ZoneThermalChimney.zone_9_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_9_name`')
+                                 'for field `ZoneThermalChimney.zone_9_name`')
         self._data["Zone 9 Name"] = value
 
     @property
@@ -9858,10 +10383,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_9`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_9`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_9`')
         self._data["Distance from Top of Thermal Chimney to Inlet 9"] = value
 
     @property
@@ -9892,13 +10417,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_9`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_9`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_9`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
 
     @property
@@ -9929,10 +10454,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_9`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_9`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_9`')
         self._data["Cross Sectional Areas of Air Channel Inlet 9"] = value
 
     @property
@@ -9961,13 +10486,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_10_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_10_name`')
+                                 'for field `ZoneThermalChimney.zone_10_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_10_name`')
+                                 'for field `ZoneThermalChimney.zone_10_name`')
         self._data["Zone 10 Name"] = value
 
     @property
@@ -9998,10 +10523,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_10`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_10`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_10`')
         self._data["Distance from Top of Thermal Chimney to Inlet 10"] = value
 
     @property
@@ -10032,13 +10557,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_10`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_10`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_10`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
 
     @property
@@ -10069,10 +10594,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_10`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_10`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_10`')
         self._data["Cross Sectional Areas of Air Channel Inlet 10"] = value
 
     @property
@@ -10101,13 +10626,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_11_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_11_name`')
+                                 'for field `ZoneThermalChimney.zone_11_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_11_name`')
+                                 'for field `ZoneThermalChimney.zone_11_name`')
         self._data["Zone 11 Name"] = value
 
     @property
@@ -10138,10 +10663,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_11`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_11`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_11`')
         self._data["Distance from Top of Thermal Chimney to Inlet 11"] = value
 
     @property
@@ -10172,13 +10697,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_11`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_11`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_11`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
 
     @property
@@ -10209,10 +10734,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_11`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_11`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_11`')
         self._data["Cross Sectional Areas of Air Channel Inlet 11"] = value
 
     @property
@@ -10241,13 +10766,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_12_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_12_name`')
+                                 'for field `ZoneThermalChimney.zone_12_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_12_name`')
+                                 'for field `ZoneThermalChimney.zone_12_name`')
         self._data["Zone 12 Name"] = value
 
     @property
@@ -10278,10 +10803,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_12`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_12`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_12`')
         self._data["Distance from Top of Thermal Chimney to Inlet 12"] = value
 
     @property
@@ -10312,13 +10837,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_12`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_12`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_12`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
 
     @property
@@ -10349,10 +10874,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_12`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_12`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_12`')
         self._data["Cross Sectional Areas of Air Channel Inlet 12"] = value
 
     @property
@@ -10381,13 +10906,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_13_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_13_name`')
+                                 'for field `ZoneThermalChimney.zone_13_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_13_name`')
+                                 'for field `ZoneThermalChimney.zone_13_name`')
         self._data["Zone 13 Name"] = value
 
     @property
@@ -10418,10 +10943,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_13`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_13`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_13`')
         self._data["Distance from Top of Thermal Chimney to Inlet 13"] = value
 
     @property
@@ -10452,13 +10977,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_13`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_13`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_13`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
 
     @property
@@ -10489,10 +11014,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_13`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_13`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_13`')
         self._data["Cross Sectional Areas of Air Channel Inlet 13"] = value
 
     @property
@@ -10521,13 +11046,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_14_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_14_name`')
+                                 'for field `ZoneThermalChimney.zone_14_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_14_name`')
+                                 'for field `ZoneThermalChimney.zone_14_name`')
         self._data["Zone 14 Name"] = value
 
     @property
@@ -10558,10 +11083,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_14`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_14`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_14`')
         self._data["Distance from Top of Thermal Chimney to Inlet 14"] = value
 
     @property
@@ -10592,13 +11117,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_14`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_14`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_14`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
 
     @property
@@ -10629,10 +11154,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_14`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_14`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_14`')
         self._data["Cross Sectional Areas of Air Channel Inlet 14"] = value
 
     @property
@@ -10661,13 +11186,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_15_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_15_name`')
+                                 'for field `ZoneThermalChimney.zone_15_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_15_name`')
+                                 'for field `ZoneThermalChimney.zone_15_name`')
         self._data["Zone 15 Name"] = value
 
     @property
@@ -10698,10 +11223,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_15`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_15`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_15`')
         self._data["Distance from Top of Thermal Chimney to Inlet 15"] = value
 
     @property
@@ -10732,13 +11257,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_15`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_15`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_15`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
 
     @property
@@ -10769,10 +11294,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_15`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_15`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_15`')
         self._data["Cross Sectional Areas of Air Channel Inlet 15"] = value
 
     @property
@@ -10801,13 +11326,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_16_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_16_name`')
+                                 'for field `ZoneThermalChimney.zone_16_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_16_name`')
+                                 'for field `ZoneThermalChimney.zone_16_name`')
         self._data["Zone 16 Name"] = value
 
     @property
@@ -10838,10 +11363,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_16`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_16`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_16`')
         self._data["Distance from Top of Thermal Chimney to Inlet 16"] = value
 
     @property
@@ -10872,13 +11397,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_16`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_16`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_16`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
 
     @property
@@ -10909,10 +11434,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_16`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_16`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_16`')
         self._data["Cross Sectional Areas of Air Channel Inlet 16"] = value
 
     @property
@@ -10941,13 +11466,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_17_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_17_name`')
+                                 'for field `ZoneThermalChimney.zone_17_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_17_name`')
+                                 'for field `ZoneThermalChimney.zone_17_name`')
         self._data["Zone 17 Name"] = value
 
     @property
@@ -10978,10 +11503,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_17`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_17`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_17`')
         self._data["Distance from Top of Thermal Chimney to Inlet 17"] = value
 
     @property
@@ -11012,13 +11537,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_17`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_17`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_17`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
 
     @property
@@ -11049,10 +11574,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_17`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_17`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_17`')
         self._data["Cross Sectional Areas of Air Channel Inlet 17"] = value
 
     @property
@@ -11081,13 +11606,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_18_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_18_name`')
+                                 'for field `ZoneThermalChimney.zone_18_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_18_name`')
+                                 'for field `ZoneThermalChimney.zone_18_name`')
         self._data["Zone 18 Name"] = value
 
     @property
@@ -11118,10 +11643,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_18`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_18`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_18`')
         self._data["Distance from Top of Thermal Chimney to Inlet 18"] = value
 
     @property
@@ -11152,13 +11677,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_18`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_18`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_18`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
 
     @property
@@ -11189,10 +11714,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_18`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_18`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_18`')
         self._data["Cross Sectional Areas of Air Channel Inlet 18"] = value
 
     @property
@@ -11221,13 +11746,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_19_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_19_name`')
+                                 'for field `ZoneThermalChimney.zone_19_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_19_name`')
+                                 'for field `ZoneThermalChimney.zone_19_name`')
         self._data["Zone 19 Name"] = value
 
     @property
@@ -11258,10 +11783,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_19`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_19`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_19`')
         self._data["Distance from Top of Thermal Chimney to Inlet 19"] = value
 
     @property
@@ -11292,13 +11817,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_19`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_19`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_19`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
 
     @property
@@ -11329,10 +11854,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_19`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_19`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_19`')
         self._data["Cross Sectional Areas of Air Channel Inlet 19"] = value
 
     @property
@@ -11361,13 +11886,13 @@ class ZoneThermalChimney(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_20_name`'.format(value))
+                                 ' for field `ZoneThermalChimney.zone_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_20_name`')
+                                 'for field `ZoneThermalChimney.zone_20_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_20_name`')
+                                 'for field `ZoneThermalChimney.zone_20_name`')
         self._data["Zone 20 Name"] = value
 
     @property
@@ -11398,10 +11923,10 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_20`'.format(value))
+                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `distance_from_top_of_thermal_chimney_to_inlet_20`')
+                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_20`')
         self._data["Distance from Top of Thermal Chimney to Inlet 20"] = value
 
     @property
@@ -11432,13 +11957,13 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_20`'.format(value))
+                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_20`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_ratios_of_air_flow_rates_passing_through_zone_20`')
+                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20`')
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
 
     @property
@@ -11469,20 +11994,43 @@ class ZoneThermalChimney(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_20`'.format(value))
+                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cross_sectional_areas_of_air_channel_inlet_20`')
+                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_20`')
         self._data["Cross Sectional Areas of Air Channel Inlet 20"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneThermalChimney:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneThermalChimney:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneThermalChimney: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneThermalChimney: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11500,8 +12048,27 @@ class ZoneThermalChimney(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

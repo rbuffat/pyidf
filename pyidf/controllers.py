@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class ControllerWaterCoil(object):
     """ Corresponds to IDD object `Controller:WaterCoil`
         Controller for a water coil which is located directly in an air loop branch or
@@ -13,6 +16,10 @@ class ControllerWaterCoil(object):
     internal_name = "Controller:WaterCoil"
     field_count = 9
     required_fields = ["Name", "Control Variable", "Actuator Variable", "Sensor Node Name", "Actuator Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:WaterCoil`
@@ -27,6 +34,7 @@ class ControllerWaterCoil(object):
         self._data["Controller Convergence Tolerance"] = None
         self._data["Maximum Actuated Flow"] = None
         self._data["Minimum Actuated Flow"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -129,13 +137,13 @@ class ControllerWaterCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ControllerWaterCoil.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ControllerWaterCoil.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ControllerWaterCoil.name`')
         self._data["Name"] = value
 
     @property
@@ -173,13 +181,13 @@ class ControllerWaterCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_variable`'.format(value))
+                                 ' for field `ControllerWaterCoil.control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_variable`')
+                                 'for field `ControllerWaterCoil.control_variable`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_variable`')
+                                 'for field `ControllerWaterCoil.control_variable`')
             vals = {}
             vals["temperature"] = "Temperature"
             vals["humidityratio"] = "HumidityRatio"
@@ -203,10 +211,10 @@ class ControllerWaterCoil(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_variable`'.format(value))
+                                     'field `ControllerWaterCoil.control_variable`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_variable`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerWaterCoil.control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -242,13 +250,13 @@ class ControllerWaterCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `action`'.format(value))
+                                 ' for field `ControllerWaterCoil.action`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `action`')
+                                 'for field `ControllerWaterCoil.action`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `action`')
+                                 'for field `ControllerWaterCoil.action`')
             vals = {}
             vals["normal"] = "Normal"
             vals["reverse"] = "Reverse"
@@ -271,10 +279,10 @@ class ControllerWaterCoil(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `action`'.format(value))
+                                     'field `ControllerWaterCoil.action`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `action`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerWaterCoil.action`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Action"] = value
 
@@ -306,13 +314,13 @@ class ControllerWaterCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuator_variable`'.format(value))
+                                 ' for field `ControllerWaterCoil.actuator_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuator_variable`')
+                                 'for field `ControllerWaterCoil.actuator_variable`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuator_variable`')
+                                 'for field `ControllerWaterCoil.actuator_variable`')
             vals = {}
             vals["flow"] = "Flow"
             value_lower = value.lower()
@@ -334,10 +342,10 @@ class ControllerWaterCoil(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `actuator_variable`'.format(value))
+                                     'field `ControllerWaterCoil.actuator_variable`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `actuator_variable`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerWaterCoil.actuator_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Actuator Variable"] = value
 
@@ -367,13 +375,13 @@ class ControllerWaterCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `ControllerWaterCoil.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `ControllerWaterCoil.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `ControllerWaterCoil.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -402,13 +410,13 @@ class ControllerWaterCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuator_node_name`'.format(value))
+                                 ' for field `ControllerWaterCoil.actuator_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuator_node_name`')
+                                 'for field `ControllerWaterCoil.actuator_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuator_node_name`')
+                                 'for field `ControllerWaterCoil.actuator_node_name`')
         self._data["Actuator Node Name"] = value
 
     @property
@@ -441,8 +449,8 @@ class ControllerWaterCoil(object):
                     self._data["Controller Convergence Tolerance"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `controller_convergence_tolerance`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ControllerWaterCoil.controller_convergence_tolerance`'.format(value))
                     self._data["Controller Convergence Tolerance"] = "Autosize"
                     return
             except ValueError:
@@ -451,7 +459,7 @@ class ControllerWaterCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `controller_convergence_tolerance`'.format(value))
+                                 ' for field `ControllerWaterCoil.controller_convergence_tolerance`'.format(value))
         self._data["Controller Convergence Tolerance"] = value
 
     @property
@@ -483,8 +491,8 @@ class ControllerWaterCoil(object):
                     self._data["Maximum Actuated Flow"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_actuated_flow`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ControllerWaterCoil.maximum_actuated_flow`'.format(value))
                     self._data["Maximum Actuated Flow"] = "Autosize"
                     return
             except ValueError:
@@ -493,7 +501,7 @@ class ControllerWaterCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_actuated_flow`'.format(value))
+                                 ' for field `ControllerWaterCoil.maximum_actuated_flow`'.format(value))
         self._data["Maximum Actuated Flow"] = value
 
     @property
@@ -524,17 +532,40 @@ class ControllerWaterCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_actuated_flow`'.format(value))
+                                 ' for field `ControllerWaterCoil.minimum_actuated_flow`'.format(value))
         self._data["Minimum Actuated Flow"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ControllerWaterCoil:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ControllerWaterCoil:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ControllerWaterCoil: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ControllerWaterCoil: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -552,8 +583,27 @@ class ControllerWaterCoil(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -569,6 +619,10 @@ class ControllerOutdoorAir(object):
     internal_name = "Controller:OutdoorAir"
     field_count = 26
     required_fields = ["Name", "Relief Air Outlet Node Name", "Return Air Node Name", "Mixed Air Node Name", "Actuator Node Name", "Minimum Outdoor Air Flow Rate", "Maximum Outdoor Air Flow Rate"]
+    extensible_fields = 0
+    format = None
+    min_fields = 16
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:OutdoorAir`
@@ -600,6 +654,7 @@ class ControllerOutdoorAir(object):
         self._data["High Humidity Outdoor Air Flow Ratio"] = None
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = None
         self._data["Heat Recovery Bypass Control Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -821,13 +876,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ControllerOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ControllerOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -856,13 +911,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `relief_air_outlet_node_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.relief_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `relief_air_outlet_node_name`')
+                                 'for field `ControllerOutdoorAir.relief_air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `relief_air_outlet_node_name`')
+                                 'for field `ControllerOutdoorAir.relief_air_outlet_node_name`')
         self._data["Relief Air Outlet Node Name"] = value
 
     @property
@@ -891,13 +946,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `return_air_node_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.return_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `return_air_node_name`')
+                                 'for field `ControllerOutdoorAir.return_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `return_air_node_name`')
+                                 'for field `ControllerOutdoorAir.return_air_node_name`')
         self._data["Return Air Node Name"] = value
 
     @property
@@ -926,13 +981,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `mixed_air_node_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.mixed_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `mixed_air_node_name`')
+                                 'for field `ControllerOutdoorAir.mixed_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `mixed_air_node_name`')
+                                 'for field `ControllerOutdoorAir.mixed_air_node_name`')
         self._data["Mixed Air Node Name"] = value
 
     @property
@@ -962,13 +1017,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuator_node_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.actuator_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuator_node_name`')
+                                 'for field `ControllerOutdoorAir.actuator_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuator_node_name`')
+                                 'for field `ControllerOutdoorAir.actuator_node_name`')
         self._data["Actuator Node Name"] = value
 
     @property
@@ -1000,8 +1055,8 @@ class ControllerOutdoorAir(object):
                     self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `minimum_outdoor_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ControllerOutdoorAir.minimum_outdoor_air_flow_rate`'.format(value))
                     self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -1010,7 +1065,7 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `minimum_outdoor_air_flow_rate`'.format(value))
+                                 ' for field `ControllerOutdoorAir.minimum_outdoor_air_flow_rate`'.format(value))
         self._data["Minimum Outdoor Air Flow Rate"] = value
 
     @property
@@ -1042,8 +1097,8 @@ class ControllerOutdoorAir(object):
                     self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_outdoor_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `ControllerOutdoorAir.maximum_outdoor_air_flow_rate`'.format(value))
                     self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -1052,7 +1107,7 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_outdoor_air_flow_rate`'.format(value))
+                                 ' for field `ControllerOutdoorAir.maximum_outdoor_air_flow_rate`'.format(value))
         self._data["Maximum Outdoor Air Flow Rate"] = value
 
     @property
@@ -1091,13 +1146,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `economizer_control_type`'.format(value))
+                                 ' for field `ControllerOutdoorAir.economizer_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `economizer_control_type`')
+                                 'for field `ControllerOutdoorAir.economizer_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `economizer_control_type`')
+                                 'for field `ControllerOutdoorAir.economizer_control_type`')
             vals = {}
             vals["fixeddrybulb"] = "FixedDryBulb"
             vals["fixedenthalpy"] = "FixedEnthalpy"
@@ -1126,10 +1181,10 @@ class ControllerOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `economizer_control_type`'.format(value))
+                                     'field `ControllerOutdoorAir.economizer_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `economizer_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerOutdoorAir.economizer_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Control Type"] = value
 
@@ -1163,13 +1218,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `economizer_control_action_type`'.format(value))
+                                 ' for field `ControllerOutdoorAir.economizer_control_action_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `economizer_control_action_type`')
+                                 'for field `ControllerOutdoorAir.economizer_control_action_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `economizer_control_action_type`')
+                                 'for field `ControllerOutdoorAir.economizer_control_action_type`')
             vals = {}
             vals["modulateflow"] = "ModulateFlow"
             vals["minimumflowwithbypass"] = "MinimumFlowWithBypass"
@@ -1192,10 +1247,10 @@ class ControllerOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `economizer_control_action_type`'.format(value))
+                                     'field `ControllerOutdoorAir.economizer_control_action_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `economizer_control_action_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerOutdoorAir.economizer_control_action_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Control Action Type"] = value
 
@@ -1229,7 +1284,7 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `economizer_maximum_limit_drybulb_temperature`'.format(value))
+                                 ' for field `ControllerOutdoorAir.economizer_maximum_limit_drybulb_temperature`'.format(value))
         self._data["Economizer Maximum Limit Dry-Bulb Temperature"] = value
 
     @property
@@ -1262,7 +1317,7 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `economizer_maximum_limit_enthalpy`'.format(value))
+                                 ' for field `ControllerOutdoorAir.economizer_maximum_limit_enthalpy`'.format(value))
         self._data["Economizer Maximum Limit Enthalpy"] = value
 
     @property
@@ -1295,7 +1350,7 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `economizer_maximum_limit_dewpoint_temperature`'.format(value))
+                                 ' for field `ControllerOutdoorAir.economizer_maximum_limit_dewpoint_temperature`'.format(value))
         self._data["Economizer Maximum Limit Dewpoint Temperature"] = value
 
     @property
@@ -1329,13 +1384,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electronic_enthalpy_limit_curve_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.electronic_enthalpy_limit_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electronic_enthalpy_limit_curve_name`')
+                                 'for field `ControllerOutdoorAir.electronic_enthalpy_limit_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electronic_enthalpy_limit_curve_name`')
+                                 'for field `ControllerOutdoorAir.electronic_enthalpy_limit_curve_name`')
         self._data["Electronic Enthalpy Limit Curve Name"] = value
 
     @property
@@ -1368,7 +1423,7 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `economizer_minimum_limit_drybulb_temperature`'.format(value))
+                                 ' for field `ControllerOutdoorAir.economizer_minimum_limit_drybulb_temperature`'.format(value))
         self._data["Economizer Minimum Limit Dry-Bulb Temperature"] = value
 
     @property
@@ -1402,13 +1457,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `lockout_type`'.format(value))
+                                 ' for field `ControllerOutdoorAir.lockout_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `lockout_type`')
+                                 'for field `ControllerOutdoorAir.lockout_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `lockout_type`')
+                                 'for field `ControllerOutdoorAir.lockout_type`')
             vals = {}
             vals["nolockout"] = "NoLockout"
             vals["lockoutwithheating"] = "LockoutWithHeating"
@@ -1432,10 +1487,10 @@ class ControllerOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `lockout_type`'.format(value))
+                                     'field `ControllerOutdoorAir.lockout_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `lockout_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerOutdoorAir.lockout_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Lockout Type"] = value
 
@@ -1469,13 +1524,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_limit_type`'.format(value))
+                                 ' for field `ControllerOutdoorAir.minimum_limit_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_limit_type`')
+                                 'for field `ControllerOutdoorAir.minimum_limit_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_limit_type`')
+                                 'for field `ControllerOutdoorAir.minimum_limit_type`')
             vals = {}
             vals["fixedminimum"] = "FixedMinimum"
             vals["proportionalminimum"] = "ProportionalMinimum"
@@ -1498,10 +1553,10 @@ class ControllerOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `minimum_limit_type`'.format(value))
+                                     'field `ControllerOutdoorAir.minimum_limit_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `minimum_limit_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerOutdoorAir.minimum_limit_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Minimum Limit Type"] = value
 
@@ -1532,13 +1587,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_outdoor_air_schedule_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.minimum_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_outdoor_air_schedule_name`')
+                                 'for field `ControllerOutdoorAir.minimum_outdoor_air_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_outdoor_air_schedule_name`')
+                                 'for field `ControllerOutdoorAir.minimum_outdoor_air_schedule_name`')
         self._data["Minimum Outdoor Air Schedule Name"] = value
 
     @property
@@ -1568,13 +1623,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_fraction_of_outdoor_air_schedule_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_fraction_of_outdoor_air_schedule_name`')
+                                 'for field `ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_fraction_of_outdoor_air_schedule_name`')
+                                 'for field `ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name`')
         self._data["Minimum Fraction of Outdoor Air Schedule Name"] = value
 
     @property
@@ -1604,13 +1659,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_fraction_of_outdoor_air_schedule_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_fraction_of_outdoor_air_schedule_name`')
+                                 'for field `ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_fraction_of_outdoor_air_schedule_name`')
+                                 'for field `ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name`')
         self._data["Maximum Fraction of Outdoor Air Schedule Name"] = value
 
     @property
@@ -1642,13 +1697,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `mechanical_ventilation_controller_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.mechanical_ventilation_controller_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `mechanical_ventilation_controller_name`')
+                                 'for field `ControllerOutdoorAir.mechanical_ventilation_controller_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `mechanical_ventilation_controller_name`')
+                                 'for field `ControllerOutdoorAir.mechanical_ventilation_controller_name`')
         self._data["Mechanical Ventilation Controller Name"] = value
 
     @property
@@ -1682,13 +1737,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `time_of_day_economizer_control_schedule_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.time_of_day_economizer_control_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `time_of_day_economizer_control_schedule_name`')
+                                 'for field `ControllerOutdoorAir.time_of_day_economizer_control_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `time_of_day_economizer_control_schedule_name`')
+                                 'for field `ControllerOutdoorAir.time_of_day_economizer_control_schedule_name`')
         self._data["Time of Day Economizer Control Schedule Name"] = value
 
     @property
@@ -1725,13 +1780,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `high_humidity_control`'.format(value))
+                                 ' for field `ControllerOutdoorAir.high_humidity_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `high_humidity_control`')
+                                 'for field `ControllerOutdoorAir.high_humidity_control`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `high_humidity_control`')
+                                 'for field `ControllerOutdoorAir.high_humidity_control`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -1754,10 +1809,10 @@ class ControllerOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `high_humidity_control`'.format(value))
+                                     'field `ControllerOutdoorAir.high_humidity_control`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `high_humidity_control`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerOutdoorAir.high_humidity_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["High Humidity Control"] = value
 
@@ -1789,13 +1844,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `humidistat_control_zone_name`'.format(value))
+                                 ' for field `ControllerOutdoorAir.humidistat_control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `humidistat_control_zone_name`')
+                                 'for field `ControllerOutdoorAir.humidistat_control_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `humidistat_control_zone_name`')
+                                 'for field `ControllerOutdoorAir.humidistat_control_zone_name`')
         self._data["Humidistat Control Zone Name"] = value
 
     @property
@@ -1830,10 +1885,10 @@ class ControllerOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `high_humidity_outdoor_air_flow_ratio`'.format(value))
+                                 ' for field `ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `high_humidity_outdoor_air_flow_ratio`')
+                                 'for field `ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio`')
         self._data["High Humidity Outdoor Air Flow Ratio"] = value
 
     @property
@@ -1871,13 +1926,13 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
+                                 ' for field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
+                                 'for field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
+                                 'for field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -1900,10 +1955,10 @@ class ControllerOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
+                                     'field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
@@ -1940,23 +1995,46 @@ class ControllerOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_bypass_control_type`'.format(value))
+                                 ' for field `ControllerOutdoorAir.heat_recovery_bypass_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_bypass_control_type`')
+                                 'for field `ControllerOutdoorAir.heat_recovery_bypass_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_bypass_control_type`')
+                                 'for field `ControllerOutdoorAir.heat_recovery_bypass_control_type`')
         self._data["Heat Recovery Bypass Control Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ControllerOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ControllerOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ControllerOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ControllerOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1974,8 +2052,27 @@ class ControllerOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1994,8 +2091,12 @@ class ControllerMechanicalVentilation(object):
         and Design Specification Zone Air Distribution Object Name to increase allowable number of entries
     """
     internal_name = "Controller:MechanicalVentilation"
-    field_count = 155
-    required_fields = ["Name", "Zone 1 Name"]
+    field_count = 5
+    required_fields = ["Name"]
+    extensible_fields = 3
+    format = None
+    min_fields = 8
+    extensible_keys = ["Zone 1 Name", "Design Specification Outdoor Air Object Name 1", "Design Specification Zone Air Distribution Object Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:MechanicalVentilation`
@@ -2006,156 +2107,7 @@ class ControllerMechanicalVentilation(object):
         self._data["Demand Controlled Ventilation"] = None
         self._data["System Outdoor Air Method"] = None
         self._data["Zone Maximum Outdoor Air Fraction"] = None
-        self._data["Zone 1 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 1"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 1"] = None
-        self._data["Zone 2 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 2"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 2"] = None
-        self._data["Zone 3 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 3"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 3"] = None
-        self._data["Zone 4 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 4"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 4"] = None
-        self._data["Zone 5 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 5"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 5"] = None
-        self._data["Zone 6 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 6"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 6"] = None
-        self._data["Zone 7 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 7"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 7"] = None
-        self._data["Zone 8 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 8"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 8"] = None
-        self._data["Zone 9 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 9"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 9"] = None
-        self._data["Zone 10 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 10"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 10"] = None
-        self._data["Zone 11 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 11"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 11"] = None
-        self._data["Zone 12 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 12"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 12"] = None
-        self._data["Zone 13 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 13"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 13"] = None
-        self._data["Zone 14 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 14"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 14"] = None
-        self._data["Zone 15 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 15"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 15"] = None
-        self._data["Zone 16 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 16"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 16"] = None
-        self._data["Zone 17 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 17"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 17"] = None
-        self._data["Zone 18 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 18"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 18"] = None
-        self._data["Zone 19 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 19"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 19"] = None
-        self._data["Zone 20 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 20"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 20"] = None
-        self._data["Zone 21 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 21"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 21"] = None
-        self._data["Zone 22 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 22"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 22"] = None
-        self._data["Zone 23 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 23"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 23"] = None
-        self._data["Zone 24 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 24"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 24"] = None
-        self._data["Zone 25 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 25"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 25"] = None
-        self._data["Zone 26 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 26"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 26"] = None
-        self._data["Zone 27 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 27"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 27"] = None
-        self._data["Zone 28 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 28"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 28"] = None
-        self._data["Zone 29 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 29"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 29"] = None
-        self._data["Zone 30 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 30"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 30"] = None
-        self._data["Zone 31 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 31"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 31"] = None
-        self._data["Zone 32 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 32"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 32"] = None
-        self._data["Zone 33 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 33"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 33"] = None
-        self._data["Zone 34 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 34"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 34"] = None
-        self._data["Zone 35 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 35"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 35"] = None
-        self._data["Zone 36 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 36"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 36"] = None
-        self._data["Zone 37 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 37"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 37"] = None
-        self._data["Zone 38 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 38"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 38"] = None
-        self._data["Zone 39 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 39"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 39"] = None
-        self._data["Zone 40 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 40"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 40"] = None
-        self._data["Zone 41 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 41"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 41"] = None
-        self._data["Zone 42 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 42"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 42"] = None
-        self._data["Zone 43 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 43"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 43"] = None
-        self._data["Zone 44 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 44"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 44"] = None
-        self._data["Zone 45 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 45"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 45"] = None
-        self._data["Zone 46 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 46"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 46"] = None
-        self._data["Zone 47 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 47"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 47"] = None
-        self._data["Zone 48 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 48"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 48"] = None
-        self._data["Zone 49 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 49"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 49"] = None
-        self._data["Zone 50 Name"] = None
-        self._data["Design Specification Outdoor Air Object Name 50"] = None
-        self._data["Design Specification Zone Air Distribution Object Name 50"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2202,1056 +2154,14 @@ class ControllerMechanicalVentilation(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.zone_1_name = None
-        else:
-            self.zone_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_1 = None
-        else:
-            self.design_specification_outdoor_air_object_name_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_1 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_2_name = None
-        else:
-            self.zone_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_2 = None
-        else:
-            self.design_specification_outdoor_air_object_name_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_2 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_3_name = None
-        else:
-            self.zone_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_3 = None
-        else:
-            self.design_specification_outdoor_air_object_name_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_3 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_4_name = None
-        else:
-            self.zone_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_4 = None
-        else:
-            self.design_specification_outdoor_air_object_name_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_4 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_5_name = None
-        else:
-            self.zone_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_5 = None
-        else:
-            self.design_specification_outdoor_air_object_name_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_5 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_6_name = None
-        else:
-            self.zone_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_6 = None
-        else:
-            self.design_specification_outdoor_air_object_name_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_6 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_7_name = None
-        else:
-            self.zone_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_7 = None
-        else:
-            self.design_specification_outdoor_air_object_name_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_7 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_8_name = None
-        else:
-            self.zone_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_8 = None
-        else:
-            self.design_specification_outdoor_air_object_name_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_8 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_9_name = None
-        else:
-            self.zone_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_9 = None
-        else:
-            self.design_specification_outdoor_air_object_name_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_9 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_10_name = None
-        else:
-            self.zone_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_10 = None
-        else:
-            self.design_specification_outdoor_air_object_name_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_10 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_11_name = None
-        else:
-            self.zone_11_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_11 = None
-        else:
-            self.design_specification_outdoor_air_object_name_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_11 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_12_name = None
-        else:
-            self.zone_12_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_12 = None
-        else:
-            self.design_specification_outdoor_air_object_name_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_12 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_13_name = None
-        else:
-            self.zone_13_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_13 = None
-        else:
-            self.design_specification_outdoor_air_object_name_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_13 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_14_name = None
-        else:
-            self.zone_14_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_14 = None
-        else:
-            self.design_specification_outdoor_air_object_name_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_14 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_15_name = None
-        else:
-            self.zone_15_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_15 = None
-        else:
-            self.design_specification_outdoor_air_object_name_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_15 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_16_name = None
-        else:
-            self.zone_16_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_16 = None
-        else:
-            self.design_specification_outdoor_air_object_name_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_16 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_17_name = None
-        else:
-            self.zone_17_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_17 = None
-        else:
-            self.design_specification_outdoor_air_object_name_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_17 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_18_name = None
-        else:
-            self.zone_18_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_18 = None
-        else:
-            self.design_specification_outdoor_air_object_name_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_18 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_19_name = None
-        else:
-            self.zone_19_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_19 = None
-        else:
-            self.design_specification_outdoor_air_object_name_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_19 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_20_name = None
-        else:
-            self.zone_20_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_20 = None
-        else:
-            self.design_specification_outdoor_air_object_name_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_20 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_21_name = None
-        else:
-            self.zone_21_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_21 = None
-        else:
-            self.design_specification_outdoor_air_object_name_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_21 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_22_name = None
-        else:
-            self.zone_22_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_22 = None
-        else:
-            self.design_specification_outdoor_air_object_name_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_22 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_23_name = None
-        else:
-            self.zone_23_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_23 = None
-        else:
-            self.design_specification_outdoor_air_object_name_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_23 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_24_name = None
-        else:
-            self.zone_24_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_24 = None
-        else:
-            self.design_specification_outdoor_air_object_name_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_24 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_25_name = None
-        else:
-            self.zone_25_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_25 = None
-        else:
-            self.design_specification_outdoor_air_object_name_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_25 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_26_name = None
-        else:
-            self.zone_26_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_26 = None
-        else:
-            self.design_specification_outdoor_air_object_name_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_26 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_27_name = None
-        else:
-            self.zone_27_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_27 = None
-        else:
-            self.design_specification_outdoor_air_object_name_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_27 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_28_name = None
-        else:
-            self.zone_28_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_28 = None
-        else:
-            self.design_specification_outdoor_air_object_name_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_28 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_29_name = None
-        else:
-            self.zone_29_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_29 = None
-        else:
-            self.design_specification_outdoor_air_object_name_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_29 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_30_name = None
-        else:
-            self.zone_30_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_30 = None
-        else:
-            self.design_specification_outdoor_air_object_name_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_30 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_31_name = None
-        else:
-            self.zone_31_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_31 = None
-        else:
-            self.design_specification_outdoor_air_object_name_31 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_31 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_31 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_32_name = None
-        else:
-            self.zone_32_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_32 = None
-        else:
-            self.design_specification_outdoor_air_object_name_32 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_32 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_32 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_33_name = None
-        else:
-            self.zone_33_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_33 = None
-        else:
-            self.design_specification_outdoor_air_object_name_33 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_33 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_33 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_34_name = None
-        else:
-            self.zone_34_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_34 = None
-        else:
-            self.design_specification_outdoor_air_object_name_34 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_34 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_34 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_35_name = None
-        else:
-            self.zone_35_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_35 = None
-        else:
-            self.design_specification_outdoor_air_object_name_35 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_35 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_35 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_36_name = None
-        else:
-            self.zone_36_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_36 = None
-        else:
-            self.design_specification_outdoor_air_object_name_36 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_36 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_36 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_37_name = None
-        else:
-            self.zone_37_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_37 = None
-        else:
-            self.design_specification_outdoor_air_object_name_37 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_37 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_37 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_38_name = None
-        else:
-            self.zone_38_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_38 = None
-        else:
-            self.design_specification_outdoor_air_object_name_38 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_38 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_38 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_39_name = None
-        else:
-            self.zone_39_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_39 = None
-        else:
-            self.design_specification_outdoor_air_object_name_39 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_39 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_39 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_40_name = None
-        else:
-            self.zone_40_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_40 = None
-        else:
-            self.design_specification_outdoor_air_object_name_40 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_40 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_40 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_41_name = None
-        else:
-            self.zone_41_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_41 = None
-        else:
-            self.design_specification_outdoor_air_object_name_41 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_41 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_41 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_42_name = None
-        else:
-            self.zone_42_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_42 = None
-        else:
-            self.design_specification_outdoor_air_object_name_42 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_42 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_42 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_43_name = None
-        else:
-            self.zone_43_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_43 = None
-        else:
-            self.design_specification_outdoor_air_object_name_43 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_43 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_43 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_44_name = None
-        else:
-            self.zone_44_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_44 = None
-        else:
-            self.design_specification_outdoor_air_object_name_44 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_44 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_44 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_45_name = None
-        else:
-            self.zone_45_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_45 = None
-        else:
-            self.design_specification_outdoor_air_object_name_45 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_45 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_45 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_46_name = None
-        else:
-            self.zone_46_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_46 = None
-        else:
-            self.design_specification_outdoor_air_object_name_46 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_46 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_46 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_47_name = None
-        else:
-            self.zone_47_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_47 = None
-        else:
-            self.design_specification_outdoor_air_object_name_47 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_47 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_47 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_48_name = None
-        else:
-            self.zone_48_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_48 = None
-        else:
-            self.design_specification_outdoor_air_object_name_48 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_48 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_48 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_49_name = None
-        else:
-            self.zone_49_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_49 = None
-        else:
-            self.design_specification_outdoor_air_object_name_49 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_49 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_49 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_50_name = None
-        else:
-            self.zone_50_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name_50 = None
-        else:
-            self.design_specification_outdoor_air_object_name_50 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zone_air_distribution_object_name_50 = None
-        else:
-            self.design_specification_zone_air_distribution_object_name_50 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -3280,13 +2190,13 @@ class ControllerMechanicalVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ControllerMechanicalVentilation.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ControllerMechanicalVentilation.name`')
         self._data["Name"] = value
 
     @property
@@ -3317,13 +2227,13 @@ class ControllerMechanicalVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ControllerMechanicalVentilation.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ControllerMechanicalVentilation.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -3356,13 +2266,13 @@ class ControllerMechanicalVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `demand_controlled_ventilation`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.demand_controlled_ventilation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `demand_controlled_ventilation`')
+                                 'for field `ControllerMechanicalVentilation.demand_controlled_ventilation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `demand_controlled_ventilation`')
+                                 'for field `ControllerMechanicalVentilation.demand_controlled_ventilation`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -3385,10 +2295,10 @@ class ControllerMechanicalVentilation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `demand_controlled_ventilation`'.format(value))
+                                     'field `ControllerMechanicalVentilation.demand_controlled_ventilation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `demand_controlled_ventilation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerMechanicalVentilation.demand_controlled_ventilation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Demand Controlled Ventilation"] = value
 
@@ -3425,13 +2335,13 @@ class ControllerMechanicalVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `system_outdoor_air_method`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.system_outdoor_air_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `system_outdoor_air_method`')
+                                 'for field `ControllerMechanicalVentilation.system_outdoor_air_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `system_outdoor_air_method`')
+                                 'for field `ControllerMechanicalVentilation.system_outdoor_air_method`')
             vals = {}
             vals["zonesum"] = "ZoneSum"
             vals["ventilationrateprocedure"] = "VentilationRateProcedure"
@@ -3457,10 +2367,10 @@ class ControllerMechanicalVentilation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `system_outdoor_air_method`'.format(value))
+                                     'field `ControllerMechanicalVentilation.system_outdoor_air_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `system_outdoor_air_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ControllerMechanicalVentilation.system_outdoor_air_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Outdoor Air Method"] = value
 
@@ -3493,5320 +2403,127 @@ class ControllerMechanicalVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_maximum_outdoor_air_fraction`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `zone_maximum_outdoor_air_fraction`')
+                                 'for field `ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction`')
         self._data["Zone Maximum Outdoor Air Fraction"] = value
 
-    @property
-    def zone_1_name(self):
-        """Get zone_1_name
-
-        Returns:
-            str: the value of `zone_1_name` or None if not set
-        """
-        return self._data["Zone 1 Name"]
-
-    @zone_1_name.setter
-    def zone_1_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 1 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_1_name`')
-        self._data["Zone 1 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_1(self):
-        """Get design_specification_outdoor_air_object_name_1
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_1` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 1"]
-
-    @design_specification_outdoor_air_object_name_1.setter
-    def design_specification_outdoor_air_object_name_1(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 1`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 1`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_1`')
-        self._data["Design Specification Outdoor Air Object Name 1"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_1(self):
-        """Get design_specification_zone_air_distribution_object_name_1
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_1` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 1"]
-
-    @design_specification_zone_air_distribution_object_name_1.setter
-    def design_specification_zone_air_distribution_object_name_1(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 1`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 1`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_1`')
-        self._data["Design Specification Zone Air Distribution Object Name 1"] = value
-
-    @property
-    def zone_2_name(self):
-        """Get zone_2_name
-
-        Returns:
-            str: the value of `zone_2_name` or None if not set
-        """
-        return self._data["Zone 2 Name"]
-
-    @zone_2_name.setter
-    def zone_2_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 2 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_2_name`')
-        self._data["Zone 2 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_2(self):
-        """Get design_specification_outdoor_air_object_name_2
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_2` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 2"]
-
-    @design_specification_outdoor_air_object_name_2.setter
-    def design_specification_outdoor_air_object_name_2(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 2`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_2`')
-        self._data["Design Specification Outdoor Air Object Name 2"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_2(self):
-        """Get design_specification_zone_air_distribution_object_name_2
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_2` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 2"]
-
-    @design_specification_zone_air_distribution_object_name_2.setter
-    def design_specification_zone_air_distribution_object_name_2(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 2`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_2`')
-        self._data["Design Specification Zone Air Distribution Object Name 2"] = value
-
-    @property
-    def zone_3_name(self):
-        """Get zone_3_name
-
-        Returns:
-            str: the value of `zone_3_name` or None if not set
-        """
-        return self._data["Zone 3 Name"]
-
-    @zone_3_name.setter
-    def zone_3_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 3 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_3_name`')
-        self._data["Zone 3 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_3(self):
-        """Get design_specification_outdoor_air_object_name_3
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_3` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 3"]
-
-    @design_specification_outdoor_air_object_name_3.setter
-    def design_specification_outdoor_air_object_name_3(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 3`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_3`')
-        self._data["Design Specification Outdoor Air Object Name 3"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_3(self):
-        """Get design_specification_zone_air_distribution_object_name_3
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_3` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 3"]
-
-    @design_specification_zone_air_distribution_object_name_3.setter
-    def design_specification_zone_air_distribution_object_name_3(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 3`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_3`')
-        self._data["Design Specification Zone Air Distribution Object Name 3"] = value
-
-    @property
-    def zone_4_name(self):
-        """Get zone_4_name
-
-        Returns:
-            str: the value of `zone_4_name` or None if not set
-        """
-        return self._data["Zone 4 Name"]
-
-    @zone_4_name.setter
-    def zone_4_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 4 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_4_name`')
-        self._data["Zone 4 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_4(self):
-        """Get design_specification_outdoor_air_object_name_4
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_4` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 4"]
-
-    @design_specification_outdoor_air_object_name_4.setter
-    def design_specification_outdoor_air_object_name_4(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 4`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_4`')
-        self._data["Design Specification Outdoor Air Object Name 4"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_4(self):
-        """Get design_specification_zone_air_distribution_object_name_4
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_4` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 4"]
-
-    @design_specification_zone_air_distribution_object_name_4.setter
-    def design_specification_zone_air_distribution_object_name_4(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 4`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_4`')
-        self._data["Design Specification Zone Air Distribution Object Name 4"] = value
-
-    @property
-    def zone_5_name(self):
-        """Get zone_5_name
-
-        Returns:
-            str: the value of `zone_5_name` or None if not set
-        """
-        return self._data["Zone 5 Name"]
-
-    @zone_5_name.setter
-    def zone_5_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 5 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_5_name`')
-        self._data["Zone 5 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_5(self):
-        """Get design_specification_outdoor_air_object_name_5
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_5` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 5"]
-
-    @design_specification_outdoor_air_object_name_5.setter
-    def design_specification_outdoor_air_object_name_5(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 5`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_5`')
-        self._data["Design Specification Outdoor Air Object Name 5"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_5(self):
-        """Get design_specification_zone_air_distribution_object_name_5
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_5` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 5"]
-
-    @design_specification_zone_air_distribution_object_name_5.setter
-    def design_specification_zone_air_distribution_object_name_5(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 5`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_5`')
-        self._data["Design Specification Zone Air Distribution Object Name 5"] = value
-
-    @property
-    def zone_6_name(self):
-        """Get zone_6_name
-
-        Returns:
-            str: the value of `zone_6_name` or None if not set
-        """
-        return self._data["Zone 6 Name"]
-
-    @zone_6_name.setter
-    def zone_6_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 6 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_6_name`')
-        self._data["Zone 6 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_6(self):
-        """Get design_specification_outdoor_air_object_name_6
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_6` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 6"]
-
-    @design_specification_outdoor_air_object_name_6.setter
-    def design_specification_outdoor_air_object_name_6(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 6`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_6`')
-        self._data["Design Specification Outdoor Air Object Name 6"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_6(self):
-        """Get design_specification_zone_air_distribution_object_name_6
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_6` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 6"]
-
-    @design_specification_zone_air_distribution_object_name_6.setter
-    def design_specification_zone_air_distribution_object_name_6(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 6`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_6`')
-        self._data["Design Specification Zone Air Distribution Object Name 6"] = value
-
-    @property
-    def zone_7_name(self):
-        """Get zone_7_name
-
-        Returns:
-            str: the value of `zone_7_name` or None if not set
-        """
-        return self._data["Zone 7 Name"]
-
-    @zone_7_name.setter
-    def zone_7_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 7 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_7_name`')
-        self._data["Zone 7 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_7(self):
-        """Get design_specification_outdoor_air_object_name_7
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_7` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 7"]
-
-    @design_specification_outdoor_air_object_name_7.setter
-    def design_specification_outdoor_air_object_name_7(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 7`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 7`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_7`')
-        self._data["Design Specification Outdoor Air Object Name 7"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_7(self):
-        """Get design_specification_zone_air_distribution_object_name_7
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_7` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 7"]
-
-    @design_specification_zone_air_distribution_object_name_7.setter
-    def design_specification_zone_air_distribution_object_name_7(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 7`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 7`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_7`')
-        self._data["Design Specification Zone Air Distribution Object Name 7"] = value
-
-    @property
-    def zone_8_name(self):
-        """Get zone_8_name
-
-        Returns:
-            str: the value of `zone_8_name` or None if not set
-        """
-        return self._data["Zone 8 Name"]
-
-    @zone_8_name.setter
-    def zone_8_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 8 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_8_name`')
-        self._data["Zone 8 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_8(self):
-        """Get design_specification_outdoor_air_object_name_8
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_8` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 8"]
-
-    @design_specification_outdoor_air_object_name_8.setter
-    def design_specification_outdoor_air_object_name_8(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 8`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 8`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_8`')
-        self._data["Design Specification Outdoor Air Object Name 8"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_8(self):
-        """Get design_specification_zone_air_distribution_object_name_8
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_8` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 8"]
-
-    @design_specification_zone_air_distribution_object_name_8.setter
-    def design_specification_zone_air_distribution_object_name_8(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 8`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 8`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_8`')
-        self._data["Design Specification Zone Air Distribution Object Name 8"] = value
-
-    @property
-    def zone_9_name(self):
-        """Get zone_9_name
-
-        Returns:
-            str: the value of `zone_9_name` or None if not set
-        """
-        return self._data["Zone 9 Name"]
-
-    @zone_9_name.setter
-    def zone_9_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 9 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_9_name`')
-        self._data["Zone 9 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_9(self):
-        """Get design_specification_outdoor_air_object_name_9
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_9` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 9"]
-
-    @design_specification_outdoor_air_object_name_9.setter
-    def design_specification_outdoor_air_object_name_9(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 9`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 9`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_9`')
-        self._data["Design Specification Outdoor Air Object Name 9"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_9(self):
-        """Get design_specification_zone_air_distribution_object_name_9
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_9` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 9"]
-
-    @design_specification_zone_air_distribution_object_name_9.setter
-    def design_specification_zone_air_distribution_object_name_9(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 9`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 9`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_9`')
-        self._data["Design Specification Zone Air Distribution Object Name 9"] = value
-
-    @property
-    def zone_10_name(self):
-        """Get zone_10_name
-
-        Returns:
-            str: the value of `zone_10_name` or None if not set
-        """
-        return self._data["Zone 10 Name"]
-
-    @zone_10_name.setter
-    def zone_10_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 10 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 10 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_10_name`')
-        self._data["Zone 10 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_10(self):
-        """Get design_specification_outdoor_air_object_name_10
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_10` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 10"]
-
-    @design_specification_outdoor_air_object_name_10.setter
-    def design_specification_outdoor_air_object_name_10(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 10`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 10`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_10`')
-        self._data["Design Specification Outdoor Air Object Name 10"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_10(self):
-        """Get design_specification_zone_air_distribution_object_name_10
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_10` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 10"]
-
-    @design_specification_zone_air_distribution_object_name_10.setter
-    def design_specification_zone_air_distribution_object_name_10(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 10`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 10`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_10`')
-        self._data["Design Specification Zone Air Distribution Object Name 10"] = value
-
-    @property
-    def zone_11_name(self):
-        """Get zone_11_name
-
-        Returns:
-            str: the value of `zone_11_name` or None if not set
-        """
-        return self._data["Zone 11 Name"]
-
-    @zone_11_name.setter
-    def zone_11_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 11 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 11 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_11_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_11_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_11_name`')
-        self._data["Zone 11 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_11(self):
-        """Get design_specification_outdoor_air_object_name_11
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_11` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 11"]
-
-    @design_specification_outdoor_air_object_name_11.setter
-    def design_specification_outdoor_air_object_name_11(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 11`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 11`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_11`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_11`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_11`')
-        self._data["Design Specification Outdoor Air Object Name 11"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_11(self):
-        """Get design_specification_zone_air_distribution_object_name_11
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_11` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 11"]
-
-    @design_specification_zone_air_distribution_object_name_11.setter
-    def design_specification_zone_air_distribution_object_name_11(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 11`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 11`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_11`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_11`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_11`')
-        self._data["Design Specification Zone Air Distribution Object Name 11"] = value
-
-    @property
-    def zone_12_name(self):
-        """Get zone_12_name
-
-        Returns:
-            str: the value of `zone_12_name` or None if not set
-        """
-        return self._data["Zone 12 Name"]
-
-    @zone_12_name.setter
-    def zone_12_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 12 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 12 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_12_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_12_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_12_name`')
-        self._data["Zone 12 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_12(self):
-        """Get design_specification_outdoor_air_object_name_12
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_12` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 12"]
-
-    @design_specification_outdoor_air_object_name_12.setter
-    def design_specification_outdoor_air_object_name_12(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 12`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 12`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_12`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_12`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_12`')
-        self._data["Design Specification Outdoor Air Object Name 12"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_12(self):
-        """Get design_specification_zone_air_distribution_object_name_12
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_12` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 12"]
-
-    @design_specification_zone_air_distribution_object_name_12.setter
-    def design_specification_zone_air_distribution_object_name_12(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 12`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 12`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_12`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_12`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_12`')
-        self._data["Design Specification Zone Air Distribution Object Name 12"] = value
-
-    @property
-    def zone_13_name(self):
-        """Get zone_13_name
-
-        Returns:
-            str: the value of `zone_13_name` or None if not set
-        """
-        return self._data["Zone 13 Name"]
-
-    @zone_13_name.setter
-    def zone_13_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 13 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 13 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_13_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_13_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_13_name`')
-        self._data["Zone 13 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_13(self):
-        """Get design_specification_outdoor_air_object_name_13
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_13` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 13"]
-
-    @design_specification_outdoor_air_object_name_13.setter
-    def design_specification_outdoor_air_object_name_13(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 13`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 13`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_13`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_13`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_13`')
-        self._data["Design Specification Outdoor Air Object Name 13"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_13(self):
-        """Get design_specification_zone_air_distribution_object_name_13
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_13` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 13"]
-
-    @design_specification_zone_air_distribution_object_name_13.setter
-    def design_specification_zone_air_distribution_object_name_13(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 13`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 13`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_13`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_13`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_13`')
-        self._data["Design Specification Zone Air Distribution Object Name 13"] = value
-
-    @property
-    def zone_14_name(self):
-        """Get zone_14_name
-
-        Returns:
-            str: the value of `zone_14_name` or None if not set
-        """
-        return self._data["Zone 14 Name"]
-
-    @zone_14_name.setter
-    def zone_14_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 14 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 14 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_14_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_14_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_14_name`')
-        self._data["Zone 14 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_14(self):
-        """Get design_specification_outdoor_air_object_name_14
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_14` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 14"]
-
-    @design_specification_outdoor_air_object_name_14.setter
-    def design_specification_outdoor_air_object_name_14(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 14`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 14`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_14`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_14`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_14`')
-        self._data["Design Specification Outdoor Air Object Name 14"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_14(self):
-        """Get design_specification_zone_air_distribution_object_name_14
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_14` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 14"]
-
-    @design_specification_zone_air_distribution_object_name_14.setter
-    def design_specification_zone_air_distribution_object_name_14(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 14`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 14`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_14`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_14`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_14`')
-        self._data["Design Specification Zone Air Distribution Object Name 14"] = value
-
-    @property
-    def zone_15_name(self):
-        """Get zone_15_name
-
-        Returns:
-            str: the value of `zone_15_name` or None if not set
-        """
-        return self._data["Zone 15 Name"]
-
-    @zone_15_name.setter
-    def zone_15_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 15 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 15 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_15_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_15_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_15_name`')
-        self._data["Zone 15 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_15(self):
-        """Get design_specification_outdoor_air_object_name_15
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_15` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 15"]
-
-    @design_specification_outdoor_air_object_name_15.setter
-    def design_specification_outdoor_air_object_name_15(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 15`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 15`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_15`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_15`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_15`')
-        self._data["Design Specification Outdoor Air Object Name 15"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_15(self):
-        """Get design_specification_zone_air_distribution_object_name_15
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_15` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 15"]
-
-    @design_specification_zone_air_distribution_object_name_15.setter
-    def design_specification_zone_air_distribution_object_name_15(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 15`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 15`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_15`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_15`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_15`')
-        self._data["Design Specification Zone Air Distribution Object Name 15"] = value
-
-    @property
-    def zone_16_name(self):
-        """Get zone_16_name
-
-        Returns:
-            str: the value of `zone_16_name` or None if not set
-        """
-        return self._data["Zone 16 Name"]
-
-    @zone_16_name.setter
-    def zone_16_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 16 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 16 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_16_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_16_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_16_name`')
-        self._data["Zone 16 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_16(self):
-        """Get design_specification_outdoor_air_object_name_16
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_16` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 16"]
-
-    @design_specification_outdoor_air_object_name_16.setter
-    def design_specification_outdoor_air_object_name_16(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 16`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 16`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_16`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_16`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_16`')
-        self._data["Design Specification Outdoor Air Object Name 16"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_16(self):
-        """Get design_specification_zone_air_distribution_object_name_16
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_16` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 16"]
-
-    @design_specification_zone_air_distribution_object_name_16.setter
-    def design_specification_zone_air_distribution_object_name_16(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 16`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 16`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_16`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_16`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_16`')
-        self._data["Design Specification Zone Air Distribution Object Name 16"] = value
-
-    @property
-    def zone_17_name(self):
-        """Get zone_17_name
-
-        Returns:
-            str: the value of `zone_17_name` or None if not set
-        """
-        return self._data["Zone 17 Name"]
-
-    @zone_17_name.setter
-    def zone_17_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 17 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 17 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_17_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_17_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_17_name`')
-        self._data["Zone 17 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_17(self):
-        """Get design_specification_outdoor_air_object_name_17
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_17` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 17"]
-
-    @design_specification_outdoor_air_object_name_17.setter
-    def design_specification_outdoor_air_object_name_17(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 17`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 17`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_17`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_17`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_17`')
-        self._data["Design Specification Outdoor Air Object Name 17"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_17(self):
-        """Get design_specification_zone_air_distribution_object_name_17
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_17` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 17"]
-
-    @design_specification_zone_air_distribution_object_name_17.setter
-    def design_specification_zone_air_distribution_object_name_17(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 17`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 17`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_17`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_17`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_17`')
-        self._data["Design Specification Zone Air Distribution Object Name 17"] = value
-
-    @property
-    def zone_18_name(self):
-        """Get zone_18_name
-
-        Returns:
-            str: the value of `zone_18_name` or None if not set
-        """
-        return self._data["Zone 18 Name"]
-
-    @zone_18_name.setter
-    def zone_18_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 18 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 18 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_18_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_18_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_18_name`')
-        self._data["Zone 18 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_18(self):
-        """Get design_specification_outdoor_air_object_name_18
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_18` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 18"]
-
-    @design_specification_outdoor_air_object_name_18.setter
-    def design_specification_outdoor_air_object_name_18(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 18`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 18`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_18`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_18`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_18`')
-        self._data["Design Specification Outdoor Air Object Name 18"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_18(self):
-        """Get design_specification_zone_air_distribution_object_name_18
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_18` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 18"]
-
-    @design_specification_zone_air_distribution_object_name_18.setter
-    def design_specification_zone_air_distribution_object_name_18(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 18`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 18`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_18`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_18`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_18`')
-        self._data["Design Specification Zone Air Distribution Object Name 18"] = value
-
-    @property
-    def zone_19_name(self):
-        """Get zone_19_name
-
-        Returns:
-            str: the value of `zone_19_name` or None if not set
-        """
-        return self._data["Zone 19 Name"]
-
-    @zone_19_name.setter
-    def zone_19_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 19 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 19 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_19_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_19_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_19_name`')
-        self._data["Zone 19 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_19(self):
-        """Get design_specification_outdoor_air_object_name_19
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_19` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 19"]
-
-    @design_specification_outdoor_air_object_name_19.setter
-    def design_specification_outdoor_air_object_name_19(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 19`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 19`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_19`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_19`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_19`')
-        self._data["Design Specification Outdoor Air Object Name 19"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_19(self):
-        """Get design_specification_zone_air_distribution_object_name_19
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_19` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 19"]
-
-    @design_specification_zone_air_distribution_object_name_19.setter
-    def design_specification_zone_air_distribution_object_name_19(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 19`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 19`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_19`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_19`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_19`')
-        self._data["Design Specification Zone Air Distribution Object Name 19"] = value
-
-    @property
-    def zone_20_name(self):
-        """Get zone_20_name
-
-        Returns:
-            str: the value of `zone_20_name` or None if not set
-        """
-        return self._data["Zone 20 Name"]
-
-    @zone_20_name.setter
-    def zone_20_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 20 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 20 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_20_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_20_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_20_name`')
-        self._data["Zone 20 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_20(self):
-        """Get design_specification_outdoor_air_object_name_20
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_20` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 20"]
-
-    @design_specification_outdoor_air_object_name_20.setter
-    def design_specification_outdoor_air_object_name_20(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 20`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 20`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_20`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_20`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_20`')
-        self._data["Design Specification Outdoor Air Object Name 20"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_20(self):
-        """Get design_specification_zone_air_distribution_object_name_20
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_20` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 20"]
-
-    @design_specification_zone_air_distribution_object_name_20.setter
-    def design_specification_zone_air_distribution_object_name_20(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 20`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 20`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_20`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_20`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_20`')
-        self._data["Design Specification Zone Air Distribution Object Name 20"] = value
-
-    @property
-    def zone_21_name(self):
-        """Get zone_21_name
-
-        Returns:
-            str: the value of `zone_21_name` or None if not set
-        """
-        return self._data["Zone 21 Name"]
-
-    @zone_21_name.setter
-    def zone_21_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 21 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 21 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_21_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_21_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_21_name`')
-        self._data["Zone 21 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_21(self):
-        """Get design_specification_outdoor_air_object_name_21
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_21` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 21"]
-
-    @design_specification_outdoor_air_object_name_21.setter
-    def design_specification_outdoor_air_object_name_21(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 21`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 21`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_21`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_21`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_21`')
-        self._data["Design Specification Outdoor Air Object Name 21"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_21(self):
-        """Get design_specification_zone_air_distribution_object_name_21
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_21` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 21"]
-
-    @design_specification_zone_air_distribution_object_name_21.setter
-    def design_specification_zone_air_distribution_object_name_21(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 21`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 21`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_21`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_21`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_21`')
-        self._data["Design Specification Zone Air Distribution Object Name 21"] = value
-
-    @property
-    def zone_22_name(self):
-        """Get zone_22_name
-
-        Returns:
-            str: the value of `zone_22_name` or None if not set
-        """
-        return self._data["Zone 22 Name"]
-
-    @zone_22_name.setter
-    def zone_22_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 22 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 22 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_22_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_22_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_22_name`')
-        self._data["Zone 22 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_22(self):
-        """Get design_specification_outdoor_air_object_name_22
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_22` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 22"]
-
-    @design_specification_outdoor_air_object_name_22.setter
-    def design_specification_outdoor_air_object_name_22(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 22`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 22`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_22`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_22`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_22`')
-        self._data["Design Specification Outdoor Air Object Name 22"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_22(self):
-        """Get design_specification_zone_air_distribution_object_name_22
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_22` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 22"]
-
-    @design_specification_zone_air_distribution_object_name_22.setter
-    def design_specification_zone_air_distribution_object_name_22(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 22`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 22`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_22`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_22`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_22`')
-        self._data["Design Specification Zone Air Distribution Object Name 22"] = value
-
-    @property
-    def zone_23_name(self):
-        """Get zone_23_name
-
-        Returns:
-            str: the value of `zone_23_name` or None if not set
-        """
-        return self._data["Zone 23 Name"]
-
-    @zone_23_name.setter
-    def zone_23_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 23 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 23 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_23_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_23_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_23_name`')
-        self._data["Zone 23 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_23(self):
-        """Get design_specification_outdoor_air_object_name_23
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_23` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 23"]
-
-    @design_specification_outdoor_air_object_name_23.setter
-    def design_specification_outdoor_air_object_name_23(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 23`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 23`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_23`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_23`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_23`')
-        self._data["Design Specification Outdoor Air Object Name 23"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_23(self):
-        """Get design_specification_zone_air_distribution_object_name_23
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_23` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 23"]
-
-    @design_specification_zone_air_distribution_object_name_23.setter
-    def design_specification_zone_air_distribution_object_name_23(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 23`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 23`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_23`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_23`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_23`')
-        self._data["Design Specification Zone Air Distribution Object Name 23"] = value
-
-    @property
-    def zone_24_name(self):
-        """Get zone_24_name
-
-        Returns:
-            str: the value of `zone_24_name` or None if not set
-        """
-        return self._data["Zone 24 Name"]
-
-    @zone_24_name.setter
-    def zone_24_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 24 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 24 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_24_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_24_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_24_name`')
-        self._data["Zone 24 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_24(self):
-        """Get design_specification_outdoor_air_object_name_24
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_24` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 24"]
-
-    @design_specification_outdoor_air_object_name_24.setter
-    def design_specification_outdoor_air_object_name_24(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 24`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 24`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_24`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_24`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_24`')
-        self._data["Design Specification Outdoor Air Object Name 24"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_24(self):
-        """Get design_specification_zone_air_distribution_object_name_24
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_24` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 24"]
-
-    @design_specification_zone_air_distribution_object_name_24.setter
-    def design_specification_zone_air_distribution_object_name_24(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 24`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 24`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_24`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_24`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_24`')
-        self._data["Design Specification Zone Air Distribution Object Name 24"] = value
-
-    @property
-    def zone_25_name(self):
-        """Get zone_25_name
-
-        Returns:
-            str: the value of `zone_25_name` or None if not set
-        """
-        return self._data["Zone 25 Name"]
-
-    @zone_25_name.setter
-    def zone_25_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 25 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 25 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_25_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_25_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_25_name`')
-        self._data["Zone 25 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_25(self):
-        """Get design_specification_outdoor_air_object_name_25
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_25` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 25"]
-
-    @design_specification_outdoor_air_object_name_25.setter
-    def design_specification_outdoor_air_object_name_25(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 25`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 25`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_25`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_25`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_25`')
-        self._data["Design Specification Outdoor Air Object Name 25"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_25(self):
-        """Get design_specification_zone_air_distribution_object_name_25
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_25` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 25"]
-
-    @design_specification_zone_air_distribution_object_name_25.setter
-    def design_specification_zone_air_distribution_object_name_25(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 25`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 25`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_25`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_25`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_25`')
-        self._data["Design Specification Zone Air Distribution Object Name 25"] = value
-
-    @property
-    def zone_26_name(self):
-        """Get zone_26_name
-
-        Returns:
-            str: the value of `zone_26_name` or None if not set
-        """
-        return self._data["Zone 26 Name"]
-
-    @zone_26_name.setter
-    def zone_26_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 26 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 26 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_26_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_26_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_26_name`')
-        self._data["Zone 26 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_26(self):
-        """Get design_specification_outdoor_air_object_name_26
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_26` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 26"]
-
-    @design_specification_outdoor_air_object_name_26.setter
-    def design_specification_outdoor_air_object_name_26(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 26`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 26`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_26`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_26`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_26`')
-        self._data["Design Specification Outdoor Air Object Name 26"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_26(self):
-        """Get design_specification_zone_air_distribution_object_name_26
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_26` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 26"]
-
-    @design_specification_zone_air_distribution_object_name_26.setter
-    def design_specification_zone_air_distribution_object_name_26(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 26`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 26`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_26`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_26`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_26`')
-        self._data["Design Specification Zone Air Distribution Object Name 26"] = value
-
-    @property
-    def zone_27_name(self):
-        """Get zone_27_name
-
-        Returns:
-            str: the value of `zone_27_name` or None if not set
-        """
-        return self._data["Zone 27 Name"]
-
-    @zone_27_name.setter
-    def zone_27_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 27 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 27 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_27_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_27_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_27_name`')
-        self._data["Zone 27 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_27(self):
-        """Get design_specification_outdoor_air_object_name_27
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_27` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 27"]
-
-    @design_specification_outdoor_air_object_name_27.setter
-    def design_specification_outdoor_air_object_name_27(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 27`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 27`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_27`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_27`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_27`')
-        self._data["Design Specification Outdoor Air Object Name 27"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_27(self):
-        """Get design_specification_zone_air_distribution_object_name_27
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_27` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 27"]
-
-    @design_specification_zone_air_distribution_object_name_27.setter
-    def design_specification_zone_air_distribution_object_name_27(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 27`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 27`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_27`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_27`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_27`')
-        self._data["Design Specification Zone Air Distribution Object Name 27"] = value
-
-    @property
-    def zone_28_name(self):
-        """Get zone_28_name
-
-        Returns:
-            str: the value of `zone_28_name` or None if not set
-        """
-        return self._data["Zone 28 Name"]
-
-    @zone_28_name.setter
-    def zone_28_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 28 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 28 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_28_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_28_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_28_name`')
-        self._data["Zone 28 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_28(self):
-        """Get design_specification_outdoor_air_object_name_28
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_28` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 28"]
-
-    @design_specification_outdoor_air_object_name_28.setter
-    def design_specification_outdoor_air_object_name_28(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 28`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 28`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_28`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_28`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_28`')
-        self._data["Design Specification Outdoor Air Object Name 28"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_28(self):
-        """Get design_specification_zone_air_distribution_object_name_28
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_28` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 28"]
-
-    @design_specification_zone_air_distribution_object_name_28.setter
-    def design_specification_zone_air_distribution_object_name_28(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 28`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 28`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_28`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_28`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_28`')
-        self._data["Design Specification Zone Air Distribution Object Name 28"] = value
-
-    @property
-    def zone_29_name(self):
-        """Get zone_29_name
-
-        Returns:
-            str: the value of `zone_29_name` or None if not set
-        """
-        return self._data["Zone 29 Name"]
-
-    @zone_29_name.setter
-    def zone_29_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 29 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 29 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_29_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_29_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_29_name`')
-        self._data["Zone 29 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_29(self):
-        """Get design_specification_outdoor_air_object_name_29
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_29` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 29"]
-
-    @design_specification_outdoor_air_object_name_29.setter
-    def design_specification_outdoor_air_object_name_29(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 29`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 29`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_29`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_29`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_29`')
-        self._data["Design Specification Outdoor Air Object Name 29"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_29(self):
-        """Get design_specification_zone_air_distribution_object_name_29
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_29` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 29"]
-
-    @design_specification_zone_air_distribution_object_name_29.setter
-    def design_specification_zone_air_distribution_object_name_29(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 29`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 29`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_29`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_29`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_29`')
-        self._data["Design Specification Zone Air Distribution Object Name 29"] = value
-
-    @property
-    def zone_30_name(self):
-        """Get zone_30_name
-
-        Returns:
-            str: the value of `zone_30_name` or None if not set
-        """
-        return self._data["Zone 30 Name"]
-
-    @zone_30_name.setter
-    def zone_30_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 30 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 30 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_30_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_30_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_30_name`')
-        self._data["Zone 30 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_30(self):
-        """Get design_specification_outdoor_air_object_name_30
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_30` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 30"]
-
-    @design_specification_outdoor_air_object_name_30.setter
-    def design_specification_outdoor_air_object_name_30(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 30`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 30`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_30`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_30`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_30`')
-        self._data["Design Specification Outdoor Air Object Name 30"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_30(self):
-        """Get design_specification_zone_air_distribution_object_name_30
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_30` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 30"]
-
-    @design_specification_zone_air_distribution_object_name_30.setter
-    def design_specification_zone_air_distribution_object_name_30(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 30`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 30`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_30`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_30`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_30`')
-        self._data["Design Specification Zone Air Distribution Object Name 30"] = value
-
-    @property
-    def zone_31_name(self):
-        """Get zone_31_name
-
-        Returns:
-            str: the value of `zone_31_name` or None if not set
-        """
-        return self._data["Zone 31 Name"]
-
-    @zone_31_name.setter
-    def zone_31_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 31 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 31 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_31_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_31_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_31_name`')
-        self._data["Zone 31 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_31(self):
-        """Get design_specification_outdoor_air_object_name_31
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_31` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 31"]
-
-    @design_specification_outdoor_air_object_name_31.setter
-    def design_specification_outdoor_air_object_name_31(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 31`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 31`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_31`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_31`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_31`')
-        self._data["Design Specification Outdoor Air Object Name 31"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_31(self):
-        """Get design_specification_zone_air_distribution_object_name_31
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_31` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 31"]
-
-    @design_specification_zone_air_distribution_object_name_31.setter
-    def design_specification_zone_air_distribution_object_name_31(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 31`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 31`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_31`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_31`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_31`')
-        self._data["Design Specification Zone Air Distribution Object Name 31"] = value
-
-    @property
-    def zone_32_name(self):
-        """Get zone_32_name
-
-        Returns:
-            str: the value of `zone_32_name` or None if not set
-        """
-        return self._data["Zone 32 Name"]
-
-    @zone_32_name.setter
-    def zone_32_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 32 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 32 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_32_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_32_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_32_name`')
-        self._data["Zone 32 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_32(self):
-        """Get design_specification_outdoor_air_object_name_32
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_32` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 32"]
-
-    @design_specification_outdoor_air_object_name_32.setter
-    def design_specification_outdoor_air_object_name_32(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 32`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 32`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_32`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_32`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_32`')
-        self._data["Design Specification Outdoor Air Object Name 32"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_32(self):
-        """Get design_specification_zone_air_distribution_object_name_32
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_32` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 32"]
-
-    @design_specification_zone_air_distribution_object_name_32.setter
-    def design_specification_zone_air_distribution_object_name_32(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 32`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 32`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_32`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_32`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_32`')
-        self._data["Design Specification Zone Air Distribution Object Name 32"] = value
-
-    @property
-    def zone_33_name(self):
-        """Get zone_33_name
-
-        Returns:
-            str: the value of `zone_33_name` or None if not set
-        """
-        return self._data["Zone 33 Name"]
-
-    @zone_33_name.setter
-    def zone_33_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 33 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 33 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_33_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_33_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_33_name`')
-        self._data["Zone 33 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_33(self):
-        """Get design_specification_outdoor_air_object_name_33
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_33` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 33"]
-
-    @design_specification_outdoor_air_object_name_33.setter
-    def design_specification_outdoor_air_object_name_33(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 33`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 33`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_33`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_33`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_33`')
-        self._data["Design Specification Outdoor Air Object Name 33"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_33(self):
-        """Get design_specification_zone_air_distribution_object_name_33
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_33` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 33"]
-
-    @design_specification_zone_air_distribution_object_name_33.setter
-    def design_specification_zone_air_distribution_object_name_33(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 33`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 33`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_33`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_33`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_33`')
-        self._data["Design Specification Zone Air Distribution Object Name 33"] = value
-
-    @property
-    def zone_34_name(self):
-        """Get zone_34_name
-
-        Returns:
-            str: the value of `zone_34_name` or None if not set
-        """
-        return self._data["Zone 34 Name"]
-
-    @zone_34_name.setter
-    def zone_34_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 34 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 34 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_34_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_34_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_34_name`')
-        self._data["Zone 34 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_34(self):
-        """Get design_specification_outdoor_air_object_name_34
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_34` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 34"]
-
-    @design_specification_outdoor_air_object_name_34.setter
-    def design_specification_outdoor_air_object_name_34(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 34`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 34`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_34`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_34`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_34`')
-        self._data["Design Specification Outdoor Air Object Name 34"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_34(self):
-        """Get design_specification_zone_air_distribution_object_name_34
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_34` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 34"]
-
-    @design_specification_zone_air_distribution_object_name_34.setter
-    def design_specification_zone_air_distribution_object_name_34(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 34`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 34`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_34`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_34`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_34`')
-        self._data["Design Specification Zone Air Distribution Object Name 34"] = value
-
-    @property
-    def zone_35_name(self):
-        """Get zone_35_name
-
-        Returns:
-            str: the value of `zone_35_name` or None if not set
-        """
-        return self._data["Zone 35 Name"]
-
-    @zone_35_name.setter
-    def zone_35_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 35 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 35 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_35_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_35_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_35_name`')
-        self._data["Zone 35 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_35(self):
-        """Get design_specification_outdoor_air_object_name_35
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_35` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 35"]
-
-    @design_specification_outdoor_air_object_name_35.setter
-    def design_specification_outdoor_air_object_name_35(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 35`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 35`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_35`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_35`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_35`')
-        self._data["Design Specification Outdoor Air Object Name 35"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_35(self):
-        """Get design_specification_zone_air_distribution_object_name_35
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_35` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 35"]
-
-    @design_specification_zone_air_distribution_object_name_35.setter
-    def design_specification_zone_air_distribution_object_name_35(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 35`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 35`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_35`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_35`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_35`')
-        self._data["Design Specification Zone Air Distribution Object Name 35"] = value
-
-    @property
-    def zone_36_name(self):
-        """Get zone_36_name
-
-        Returns:
-            str: the value of `zone_36_name` or None if not set
-        """
-        return self._data["Zone 36 Name"]
-
-    @zone_36_name.setter
-    def zone_36_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 36 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 36 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_36_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_36_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_36_name`')
-        self._data["Zone 36 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_36(self):
-        """Get design_specification_outdoor_air_object_name_36
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_36` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 36"]
-
-    @design_specification_outdoor_air_object_name_36.setter
-    def design_specification_outdoor_air_object_name_36(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 36`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 36`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_36`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_36`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_36`')
-        self._data["Design Specification Outdoor Air Object Name 36"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_36(self):
-        """Get design_specification_zone_air_distribution_object_name_36
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_36` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 36"]
-
-    @design_specification_zone_air_distribution_object_name_36.setter
-    def design_specification_zone_air_distribution_object_name_36(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 36`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 36`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_36`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_36`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_36`')
-        self._data["Design Specification Zone Air Distribution Object Name 36"] = value
-
-    @property
-    def zone_37_name(self):
-        """Get zone_37_name
-
-        Returns:
-            str: the value of `zone_37_name` or None if not set
-        """
-        return self._data["Zone 37 Name"]
-
-    @zone_37_name.setter
-    def zone_37_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 37 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 37 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_37_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_37_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_37_name`')
-        self._data["Zone 37 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_37(self):
-        """Get design_specification_outdoor_air_object_name_37
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_37` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 37"]
-
-    @design_specification_outdoor_air_object_name_37.setter
-    def design_specification_outdoor_air_object_name_37(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 37`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 37`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_37`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_37`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_37`')
-        self._data["Design Specification Outdoor Air Object Name 37"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_37(self):
-        """Get design_specification_zone_air_distribution_object_name_37
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_37` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 37"]
-
-    @design_specification_zone_air_distribution_object_name_37.setter
-    def design_specification_zone_air_distribution_object_name_37(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 37`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 37`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_37`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_37`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_37`')
-        self._data["Design Specification Zone Air Distribution Object Name 37"] = value
-
-    @property
-    def zone_38_name(self):
-        """Get zone_38_name
-
-        Returns:
-            str: the value of `zone_38_name` or None if not set
-        """
-        return self._data["Zone 38 Name"]
-
-    @zone_38_name.setter
-    def zone_38_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 38 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 38 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_38_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_38_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_38_name`')
-        self._data["Zone 38 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_38(self):
-        """Get design_specification_outdoor_air_object_name_38
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_38` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 38"]
-
-    @design_specification_outdoor_air_object_name_38.setter
-    def design_specification_outdoor_air_object_name_38(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 38`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 38`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_38`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_38`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_38`')
-        self._data["Design Specification Outdoor Air Object Name 38"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_38(self):
-        """Get design_specification_zone_air_distribution_object_name_38
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_38` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 38"]
-
-    @design_specification_zone_air_distribution_object_name_38.setter
-    def design_specification_zone_air_distribution_object_name_38(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 38`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 38`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_38`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_38`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_38`')
-        self._data["Design Specification Zone Air Distribution Object Name 38"] = value
-
-    @property
-    def zone_39_name(self):
-        """Get zone_39_name
-
-        Returns:
-            str: the value of `zone_39_name` or None if not set
-        """
-        return self._data["Zone 39 Name"]
-
-    @zone_39_name.setter
-    def zone_39_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 39 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 39 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_39_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_39_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_39_name`')
-        self._data["Zone 39 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_39(self):
-        """Get design_specification_outdoor_air_object_name_39
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_39` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 39"]
-
-    @design_specification_outdoor_air_object_name_39.setter
-    def design_specification_outdoor_air_object_name_39(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 39`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 39`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_39`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_39`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_39`')
-        self._data["Design Specification Outdoor Air Object Name 39"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_39(self):
-        """Get design_specification_zone_air_distribution_object_name_39
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_39` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 39"]
-
-    @design_specification_zone_air_distribution_object_name_39.setter
-    def design_specification_zone_air_distribution_object_name_39(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 39`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 39`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_39`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_39`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_39`')
-        self._data["Design Specification Zone Air Distribution Object Name 39"] = value
-
-    @property
-    def zone_40_name(self):
-        """Get zone_40_name
-
-        Returns:
-            str: the value of `zone_40_name` or None if not set
-        """
-        return self._data["Zone 40 Name"]
-
-    @zone_40_name.setter
-    def zone_40_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 40 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 40 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_40_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_40_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_40_name`')
-        self._data["Zone 40 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_40(self):
-        """Get design_specification_outdoor_air_object_name_40
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_40` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 40"]
-
-    @design_specification_outdoor_air_object_name_40.setter
-    def design_specification_outdoor_air_object_name_40(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 40`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 40`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_40`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_40`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_40`')
-        self._data["Design Specification Outdoor Air Object Name 40"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_40(self):
-        """Get design_specification_zone_air_distribution_object_name_40
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_40` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 40"]
-
-    @design_specification_zone_air_distribution_object_name_40.setter
-    def design_specification_zone_air_distribution_object_name_40(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 40`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 40`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_40`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_40`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_40`')
-        self._data["Design Specification Zone Air Distribution Object Name 40"] = value
-
-    @property
-    def zone_41_name(self):
-        """Get zone_41_name
-
-        Returns:
-            str: the value of `zone_41_name` or None if not set
-        """
-        return self._data["Zone 41 Name"]
-
-    @zone_41_name.setter
-    def zone_41_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 41 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 41 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_41_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_41_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_41_name`')
-        self._data["Zone 41 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_41(self):
-        """Get design_specification_outdoor_air_object_name_41
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_41` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 41"]
-
-    @design_specification_outdoor_air_object_name_41.setter
-    def design_specification_outdoor_air_object_name_41(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 41`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 41`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_41`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_41`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_41`')
-        self._data["Design Specification Outdoor Air Object Name 41"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_41(self):
-        """Get design_specification_zone_air_distribution_object_name_41
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_41` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 41"]
-
-    @design_specification_zone_air_distribution_object_name_41.setter
-    def design_specification_zone_air_distribution_object_name_41(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 41`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 41`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_41`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_41`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_41`')
-        self._data["Design Specification Zone Air Distribution Object Name 41"] = value
-
-    @property
-    def zone_42_name(self):
-        """Get zone_42_name
-
-        Returns:
-            str: the value of `zone_42_name` or None if not set
-        """
-        return self._data["Zone 42 Name"]
-
-    @zone_42_name.setter
-    def zone_42_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 42 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 42 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_42_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_42_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_42_name`')
-        self._data["Zone 42 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_42(self):
-        """Get design_specification_outdoor_air_object_name_42
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_42` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 42"]
-
-    @design_specification_outdoor_air_object_name_42.setter
-    def design_specification_outdoor_air_object_name_42(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 42`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 42`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_42`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_42`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_42`')
-        self._data["Design Specification Outdoor Air Object Name 42"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_42(self):
-        """Get design_specification_zone_air_distribution_object_name_42
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_42` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 42"]
-
-    @design_specification_zone_air_distribution_object_name_42.setter
-    def design_specification_zone_air_distribution_object_name_42(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 42`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 42`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_42`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_42`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_42`')
-        self._data["Design Specification Zone Air Distribution Object Name 42"] = value
-
-    @property
-    def zone_43_name(self):
-        """Get zone_43_name
-
-        Returns:
-            str: the value of `zone_43_name` or None if not set
-        """
-        return self._data["Zone 43 Name"]
-
-    @zone_43_name.setter
-    def zone_43_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 43 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 43 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_43_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_43_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_43_name`')
-        self._data["Zone 43 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_43(self):
-        """Get design_specification_outdoor_air_object_name_43
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_43` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 43"]
-
-    @design_specification_outdoor_air_object_name_43.setter
-    def design_specification_outdoor_air_object_name_43(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 43`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 43`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_43`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_43`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_43`')
-        self._data["Design Specification Outdoor Air Object Name 43"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_43(self):
-        """Get design_specification_zone_air_distribution_object_name_43
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_43` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 43"]
-
-    @design_specification_zone_air_distribution_object_name_43.setter
-    def design_specification_zone_air_distribution_object_name_43(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 43`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 43`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_43`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_43`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_43`')
-        self._data["Design Specification Zone Air Distribution Object Name 43"] = value
-
-    @property
-    def zone_44_name(self):
-        """Get zone_44_name
-
-        Returns:
-            str: the value of `zone_44_name` or None if not set
-        """
-        return self._data["Zone 44 Name"]
-
-    @zone_44_name.setter
-    def zone_44_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 44 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 44 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_44_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_44_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_44_name`')
-        self._data["Zone 44 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_44(self):
-        """Get design_specification_outdoor_air_object_name_44
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_44` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 44"]
-
-    @design_specification_outdoor_air_object_name_44.setter
-    def design_specification_outdoor_air_object_name_44(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 44`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 44`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_44`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_44`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_44`')
-        self._data["Design Specification Outdoor Air Object Name 44"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_44(self):
-        """Get design_specification_zone_air_distribution_object_name_44
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_44` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 44"]
-
-    @design_specification_zone_air_distribution_object_name_44.setter
-    def design_specification_zone_air_distribution_object_name_44(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 44`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 44`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_44`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_44`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_44`')
-        self._data["Design Specification Zone Air Distribution Object Name 44"] = value
-
-    @property
-    def zone_45_name(self):
-        """Get zone_45_name
-
-        Returns:
-            str: the value of `zone_45_name` or None if not set
-        """
-        return self._data["Zone 45 Name"]
-
-    @zone_45_name.setter
-    def zone_45_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 45 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 45 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_45_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_45_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_45_name`')
-        self._data["Zone 45 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_45(self):
-        """Get design_specification_outdoor_air_object_name_45
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_45` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 45"]
-
-    @design_specification_outdoor_air_object_name_45.setter
-    def design_specification_outdoor_air_object_name_45(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 45`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 45`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_45`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_45`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_45`')
-        self._data["Design Specification Outdoor Air Object Name 45"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_45(self):
-        """Get design_specification_zone_air_distribution_object_name_45
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_45` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 45"]
-
-    @design_specification_zone_air_distribution_object_name_45.setter
-    def design_specification_zone_air_distribution_object_name_45(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 45`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 45`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_45`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_45`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_45`')
-        self._data["Design Specification Zone Air Distribution Object Name 45"] = value
-
-    @property
-    def zone_46_name(self):
-        """Get zone_46_name
-
-        Returns:
-            str: the value of `zone_46_name` or None if not set
-        """
-        return self._data["Zone 46 Name"]
-
-    @zone_46_name.setter
-    def zone_46_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 46 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 46 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_46_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_46_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_46_name`')
-        self._data["Zone 46 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_46(self):
-        """Get design_specification_outdoor_air_object_name_46
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_46` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 46"]
-
-    @design_specification_outdoor_air_object_name_46.setter
-    def design_specification_outdoor_air_object_name_46(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 46`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 46`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_46`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_46`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_46`')
-        self._data["Design Specification Outdoor Air Object Name 46"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_46(self):
-        """Get design_specification_zone_air_distribution_object_name_46
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_46` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 46"]
-
-    @design_specification_zone_air_distribution_object_name_46.setter
-    def design_specification_zone_air_distribution_object_name_46(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 46`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 46`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_46`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_46`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_46`')
-        self._data["Design Specification Zone Air Distribution Object Name 46"] = value
-
-    @property
-    def zone_47_name(self):
-        """Get zone_47_name
-
-        Returns:
-            str: the value of `zone_47_name` or None if not set
-        """
-        return self._data["Zone 47 Name"]
-
-    @zone_47_name.setter
-    def zone_47_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 47 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 47 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_47_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_47_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_47_name`')
-        self._data["Zone 47 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_47(self):
-        """Get design_specification_outdoor_air_object_name_47
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_47` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 47"]
-
-    @design_specification_outdoor_air_object_name_47.setter
-    def design_specification_outdoor_air_object_name_47(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 47`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 47`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_47`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_47`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_47`')
-        self._data["Design Specification Outdoor Air Object Name 47"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_47(self):
-        """Get design_specification_zone_air_distribution_object_name_47
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_47` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 47"]
-
-    @design_specification_zone_air_distribution_object_name_47.setter
-    def design_specification_zone_air_distribution_object_name_47(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 47`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 47`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_47`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_47`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_47`')
-        self._data["Design Specification Zone Air Distribution Object Name 47"] = value
-
-    @property
-    def zone_48_name(self):
-        """Get zone_48_name
-
-        Returns:
-            str: the value of `zone_48_name` or None if not set
-        """
-        return self._data["Zone 48 Name"]
-
-    @zone_48_name.setter
-    def zone_48_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 48 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 48 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_48_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_48_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_48_name`')
-        self._data["Zone 48 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_48(self):
-        """Get design_specification_outdoor_air_object_name_48
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_48` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 48"]
-
-    @design_specification_outdoor_air_object_name_48.setter
-    def design_specification_outdoor_air_object_name_48(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 48`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 48`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_48`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_48`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_48`')
-        self._data["Design Specification Outdoor Air Object Name 48"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_48(self):
-        """Get design_specification_zone_air_distribution_object_name_48
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_48` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 48"]
-
-    @design_specification_zone_air_distribution_object_name_48.setter
-    def design_specification_zone_air_distribution_object_name_48(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 48`
+    def add_extensible(self,
+                       zone_1_name=None,
+                       design_specification_outdoor_air_object_name_1=None,
+                       design_specification_zone_air_distribution_object_name_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 48`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_48`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_48`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_48`')
-        self._data["Design Specification Zone Air Distribution Object Name 48"] = value
-
-    @property
-    def zone_49_name(self):
-        """Get zone_49_name
-
-        Returns:
-            str: the value of `zone_49_name` or None if not set
-        """
-        return self._data["Zone 49 Name"]
-
-    @zone_49_name.setter
-    def zone_49_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 49 Name`
-        A zone name or a zone list name may be used here
 
-        Args:
-            value (str): value for IDD Field `Zone 49 Name`
+            zone_1_name (str): value for IDD Field `Zone 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `zone_49_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_49_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_49_name`')
-        self._data["Zone 49 Name"] = value
 
-    @property
-    def design_specification_outdoor_air_object_name_49(self):
-        """Get design_specification_outdoor_air_object_name_49
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_49` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 49"]
-
-    @design_specification_outdoor_air_object_name_49.setter
-    def design_specification_outdoor_air_object_name_49(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 49`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 49`
+            design_specification_outdoor_air_object_name_1 (str): value for IDD Field `Design Specification Outdoor Air Object Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_49`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_49`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_49`')
-        self._data["Design Specification Outdoor Air Object Name 49"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_49(self):
-        """Get design_specification_zone_air_distribution_object_name_49
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_49` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 49"]
-
-    @design_specification_zone_air_distribution_object_name_49.setter
-    def design_specification_zone_air_distribution_object_name_49(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 49`
 
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 49`
+            design_specification_zone_air_distribution_object_name_1 (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_49`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_49`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_49`')
-        self._data["Design Specification Zone Air Distribution Object Name 49"] = value
+        vals = []
+        vals.append(self._check_zone_1_name(zone_1_name))
+        vals.append(self._check_design_specification_outdoor_air_object_name_1(design_specification_outdoor_air_object_name_1))
+        vals.append(self._check_design_specification_zone_air_distribution_object_name_1(design_specification_zone_air_distribution_object_name_1))
+        self._data["extensibles"].append(vals)
 
     @property
-    def zone_50_name(self):
-        """Get zone_50_name
-
-        Returns:
-            str: the value of `zone_50_name` or None if not set
+    def extensibles(self):
+        """ Get list of all extensibles
         """
-        return self._data["Zone 50 Name"]
-
-    @zone_50_name.setter
-    def zone_50_name(self, value=None):
-        """  Corresponds to IDD Field `Zone 50 Name`
-        A zone name or a zone list name may be used here
-
-        Args:
-            value (str): value for IDD Field `Zone 50 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
+        return self._data["extensibles"]
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_zone_1_name(self, value):
+        """ Validates falue of field `Zone 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_50_name`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_50_name`')
+                                 'for field `ControllerMechanicalVentilation.zone_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_50_name`')
-        self._data["Zone 50 Name"] = value
-
-    @property
-    def design_specification_outdoor_air_object_name_50(self):
-        """Get design_specification_outdoor_air_object_name_50
-
-        Returns:
-            str: the value of `design_specification_outdoor_air_object_name_50` or None if not set
-        """
-        return self._data["Design Specification Outdoor Air Object Name 50"]
-
-    @design_specification_outdoor_air_object_name_50.setter
-    def design_specification_outdoor_air_object_name_50(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 50`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 50`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
+                                 'for field `ControllerMechanicalVentilation.zone_1_name`')
+        return value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_design_specification_outdoor_air_object_name_1(self, value):
+        """ Validates falue of field `Design Specification Outdoor Air Object Name 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name_50`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.design_specification_outdoor_air_object_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name_50`')
+                                 'for field `ControllerMechanicalVentilation.design_specification_outdoor_air_object_name_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name_50`')
-        self._data["Design Specification Outdoor Air Object Name 50"] = value
-
-    @property
-    def design_specification_zone_air_distribution_object_name_50(self):
-        """Get design_specification_zone_air_distribution_object_name_50
-
-        Returns:
-            str: the value of `design_specification_zone_air_distribution_object_name_50` or None if not set
-        """
-        return self._data["Design Specification Zone Air Distribution Object Name 50"]
-
-    @design_specification_zone_air_distribution_object_name_50.setter
-    def design_specification_zone_air_distribution_object_name_50(self, value=None):
-        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 50`
-
-        Args:
-            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 50`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
+                                 'for field `ControllerMechanicalVentilation.design_specification_outdoor_air_object_name_1`')
+        return value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_design_specification_zone_air_distribution_object_name_1(self, value):
+        """ Validates falue of field `Design Specification Zone Air Distribution Object Name 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name_50`'.format(value))
+                                 ' for field `ControllerMechanicalVentilation.design_specification_zone_air_distribution_object_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name_50`')
+                                 'for field `ControllerMechanicalVentilation.design_specification_zone_air_distribution_object_name_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name_50`')
-        self._data["Design Specification Zone Air Distribution Object Name 50"] = value
+                                 'for field `ControllerMechanicalVentilation.design_specification_zone_air_distribution_object_name_1`')
+        return value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ControllerMechanicalVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ControllerMechanicalVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ControllerMechanicalVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ControllerMechanicalVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8824,8 +2541,27 @@ class ControllerMechanicalVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8840,6 +2576,10 @@ class AirLoopHvacControllerList(object):
     internal_name = "AirLoopHVAC:ControllerList"
     field_count = 17
     required_fields = ["Name", "Controller 1 Object Type", "Controller 1 Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ControllerList`
@@ -8862,6 +2602,7 @@ class AirLoopHvacControllerList(object):
         self._data["Controller 7 Name"] = None
         self._data["Controller 8 Object Type"] = None
         self._data["Controller 8 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9020,13 +2761,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirLoopHvacControllerList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirLoopHvacControllerList.name`')
         self._data["Name"] = value
 
     @property
@@ -9058,13 +2799,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_1_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_1_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_1_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_1_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9087,10 +2828,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_1_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 1 Object Type"] = value
 
@@ -9120,13 +2861,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_1_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_1_name`')
+                                 'for field `AirLoopHvacControllerList.controller_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_1_name`')
+                                 'for field `AirLoopHvacControllerList.controller_1_name`')
         self._data["Controller 1 Name"] = value
 
     @property
@@ -9158,13 +2899,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_2_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_2_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_2_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_2_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9187,10 +2928,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_2_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_2_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_2_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 2 Object Type"] = value
 
@@ -9220,13 +2961,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_2_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_2_name`')
+                                 'for field `AirLoopHvacControllerList.controller_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_2_name`')
+                                 'for field `AirLoopHvacControllerList.controller_2_name`')
         self._data["Controller 2 Name"] = value
 
     @property
@@ -9258,13 +2999,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_3_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_3_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_3_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_3_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9287,10 +3028,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_3_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_3_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_3_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 3 Object Type"] = value
 
@@ -9320,13 +3061,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_3_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_3_name`')
+                                 'for field `AirLoopHvacControllerList.controller_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_3_name`')
+                                 'for field `AirLoopHvacControllerList.controller_3_name`')
         self._data["Controller 3 Name"] = value
 
     @property
@@ -9358,13 +3099,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_4_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_4_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_4_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_4_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9387,10 +3128,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_4_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_4_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_4_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 4 Object Type"] = value
 
@@ -9420,13 +3161,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_4_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_4_name`')
+                                 'for field `AirLoopHvacControllerList.controller_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_4_name`')
+                                 'for field `AirLoopHvacControllerList.controller_4_name`')
         self._data["Controller 4 Name"] = value
 
     @property
@@ -9458,13 +3199,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_5_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_5_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_5_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_5_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_5_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9487,10 +3228,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_5_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_5_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_5_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 5 Object Type"] = value
 
@@ -9520,13 +3261,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_5_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_5_name`')
+                                 'for field `AirLoopHvacControllerList.controller_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_5_name`')
+                                 'for field `AirLoopHvacControllerList.controller_5_name`')
         self._data["Controller 5 Name"] = value
 
     @property
@@ -9558,13 +3299,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_6_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_6_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_6_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_6_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_6_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9587,10 +3328,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_6_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_6_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_6_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 6 Object Type"] = value
 
@@ -9620,13 +3361,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_6_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_6_name`')
+                                 'for field `AirLoopHvacControllerList.controller_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_6_name`')
+                                 'for field `AirLoopHvacControllerList.controller_6_name`')
         self._data["Controller 6 Name"] = value
 
     @property
@@ -9658,13 +3399,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_7_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_7_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_7_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_7_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_7_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9687,10 +3428,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_7_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_7_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_7_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 7 Object Type"] = value
 
@@ -9720,13 +3461,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_7_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_7_name`')
+                                 'for field `AirLoopHvacControllerList.controller_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_7_name`')
+                                 'for field `AirLoopHvacControllerList.controller_7_name`')
         self._data["Controller 7 Name"] = value
 
     @property
@@ -9758,13 +3499,13 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_8_object_type`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_8_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_8_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_8_object_type`')
+                                 'for field `AirLoopHvacControllerList.controller_8_object_type`')
             vals = {}
             vals["controller:watercoil"] = "Controller:WaterCoil"
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
@@ -9787,10 +3528,10 @@ class AirLoopHvacControllerList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_8_object_type`'.format(value))
+                                     'field `AirLoopHvacControllerList.controller_8_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_8_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirLoopHvacControllerList.controller_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 8 Object Type"] = value
 
@@ -9820,23 +3561,46 @@ class AirLoopHvacControllerList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_8_name`'.format(value))
+                                 ' for field `AirLoopHvacControllerList.controller_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_8_name`')
+                                 'for field `AirLoopHvacControllerList.controller_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_8_name`')
+                                 'for field `AirLoopHvacControllerList.controller_8_name`')
         self._data["Controller 8 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirLoopHvacControllerList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirLoopHvacControllerList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirLoopHvacControllerList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirLoopHvacControllerList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9854,8 +3618,27 @@ class AirLoopHvacControllerList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

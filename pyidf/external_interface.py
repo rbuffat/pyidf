@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class ExternalInterface(object):
     """ Corresponds to IDD object `ExternalInterface`
         This object activates the external interface of EnergyPlus. If the object
@@ -14,12 +17,17 @@ class ExternalInterface(object):
     internal_name = "ExternalInterface"
     field_count = 1
     required_fields = ["Name of External Interface"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface`
         """
         self._data = OrderedDict()
         self._data["Name of External Interface"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -72,13 +80,13 @@ class ExternalInterface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name_of_external_interface`'.format(value))
+                                 ' for field `ExternalInterface.name_of_external_interface`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name_of_external_interface`')
+                                 'for field `ExternalInterface.name_of_external_interface`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name_of_external_interface`')
+                                 'for field `ExternalInterface.name_of_external_interface`')
             vals = {}
             vals["ptolemyserver"] = "PtolemyServer"
             vals["functionalmockupunitimport"] = "FunctionalMockupUnitImport"
@@ -102,21 +110,44 @@ class ExternalInterface(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `name_of_external_interface`'.format(value))
+                                     'field `ExternalInterface.name_of_external_interface`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `name_of_external_interface`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ExternalInterface.name_of_external_interface`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Name of External Interface"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -134,8 +165,27 @@ class ExternalInterface(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -151,6 +201,10 @@ class ExternalInterfaceSchedule(object):
     internal_name = "ExternalInterface:Schedule"
     field_count = 3
     required_fields = ["Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:Schedule`
@@ -159,6 +213,7 @@ class ExternalInterfaceSchedule(object):
         self._data["Name"] = None
         self._data["Schedule Type Limits Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -219,13 +274,13 @@ class ExternalInterfaceSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceSchedule.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceSchedule.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceSchedule.name`')
         self._data["Name"] = value
 
     @property
@@ -254,13 +309,13 @@ class ExternalInterfaceSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_type_limits_name`'.format(value))
+                                 ' for field `ExternalInterfaceSchedule.schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_type_limits_name`')
+                                 'for field `ExternalInterfaceSchedule.schedule_type_limits_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_type_limits_name`')
+                                 'for field `ExternalInterfaceSchedule.schedule_type_limits_name`')
         self._data["Schedule Type Limits Name"] = value
 
     @property
@@ -290,17 +345,40 @@ class ExternalInterfaceSchedule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceSchedule.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceSchedule:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceSchedule:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceSchedule: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceSchedule: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -318,8 +396,27 @@ class ExternalInterfaceSchedule(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -338,6 +435,10 @@ class ExternalInterfaceVariable(object):
     internal_name = "ExternalInterface:Variable"
     field_count = 2
     required_fields = ["Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:Variable`
@@ -345,6 +446,7 @@ class ExternalInterfaceVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -400,13 +502,13 @@ class ExternalInterfaceVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -436,17 +538,40 @@ class ExternalInterfaceVariable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceVariable.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -464,8 +589,27 @@ class ExternalInterfaceVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -480,6 +624,10 @@ class ExternalInterfaceActuator(object):
     internal_name = "ExternalInterface:Actuator"
     field_count = 5
     required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:Actuator`
@@ -490,6 +638,7 @@ class ExternalInterfaceActuator(object):
         self._data["Actuated Component Type"] = None
         self._data["Actuated Component Control Type"] = None
         self._data["Optional Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -566,13 +715,13 @@ class ExternalInterfaceActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceActuator.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceActuator.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceActuator.name`')
         self._data["Name"] = value
 
     @property
@@ -601,13 +750,13 @@ class ExternalInterfaceActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_unique_name`'.format(value))
+                                 ' for field `ExternalInterfaceActuator.actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `ExternalInterfaceActuator.actuated_component_unique_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `ExternalInterfaceActuator.actuated_component_unique_name`')
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -636,13 +785,13 @@ class ExternalInterfaceActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_type`'.format(value))
+                                 ' for field `ExternalInterfaceActuator.actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_type`')
+                                 'for field `ExternalInterfaceActuator.actuated_component_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_type`')
+                                 'for field `ExternalInterfaceActuator.actuated_component_type`')
         self._data["Actuated Component Type"] = value
 
     @property
@@ -671,13 +820,13 @@ class ExternalInterfaceActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_control_type`'.format(value))
+                                 ' for field `ExternalInterfaceActuator.actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `ExternalInterfaceActuator.actuated_component_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `ExternalInterfaceActuator.actuated_component_control_type`')
         self._data["Actuated Component Control Type"] = value
 
     @property
@@ -709,17 +858,40 @@ class ExternalInterfaceActuator(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `optional_initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceActuator.optional_initial_value`'.format(value))
         self._data["Optional Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceActuator:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceActuator:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceActuator: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceActuator: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -737,8 +909,27 @@ class ExternalInterfaceActuator(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -753,6 +944,10 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitImport"
     field_count = 3
     required_fields = ["FMU File Name", "FMU Timeout", "FMU LoggingOn"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport`
@@ -761,6 +956,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         self._data["FMU File Name"] = None
         self._data["FMU Timeout"] = None
         self._data["FMU LoggingOn"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -821,13 +1017,13 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_file_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImport.fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImport.fmu_file_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImport.fmu_file_name`')
         self._data["FMU File Name"] = value
 
     @property
@@ -859,7 +1055,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fmu_timeout`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImport.fmu_timeout`'.format(value))
         self._data["FMU Timeout"] = value
 
     @property
@@ -891,22 +1087,45 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `fmu_loggingon`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ExternalInterfaceFunctionalMockupUnitImport.fmu_loggingon`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `fmu_loggingon`'.format(value))
+                                         'for field `ExternalInterfaceFunctionalMockupUnitImport.fmu_loggingon`'.format(value))
         self._data["FMU LoggingOn"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitImport:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitImport:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImport: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImport: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -924,8 +1143,27 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -940,6 +1178,10 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:From:Variable"
     field_count = 5
     required_fields = ["Output:Variable Index Key Name", "Output:Variable Name", "FMU File Name", "FMU Instance Name", "FMU Variable Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:From:Variable`
@@ -950,6 +1192,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         self._data["FMU File Name"] = None
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1024,13 +1267,13 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outputvariable_index_key_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outputvariable_index_key_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_index_key_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outputvariable_index_key_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_index_key_name`')
         self._data["Output:Variable Index Key Name"] = value
 
     @property
@@ -1059,13 +1302,13 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outputvariable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outputvariable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outputvariable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.outputvariable_name`')
         self._data["Output:Variable Name"] = value
 
     @property
@@ -1094,13 +1337,13 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_file_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_file_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_file_name`')
         self._data["FMU File Name"] = value
 
     @property
@@ -1129,13 +1372,13 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_instance_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_instance_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_instance_name`')
         self._data["FMU Instance Name"] = value
 
     @property
@@ -1164,23 +1407,46 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportFromVariable.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitImportFromVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitImportFromVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportFromVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportFromVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1198,8 +1464,27 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1215,6 +1500,10 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Schedule"
     field_count = 6
     required_fields = ["Name", "FMU File Name", "FMU Instance Name", "FMU Variable Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:To:Schedule`
@@ -1226,6 +1515,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1307,13 +1597,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.name`')
         self._data["Name"] = value
 
     @property
@@ -1342,13 +1632,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_type_limits_names`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.schedule_type_limits_names`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_type_limits_names`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.schedule_type_limits_names`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_type_limits_names`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.schedule_type_limits_names`')
         self._data["Schedule Type Limits Names"] = value
 
     @property
@@ -1377,13 +1667,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_file_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_file_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_file_name`')
         self._data["FMU File Name"] = value
 
     @property
@@ -1412,13 +1702,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_instance_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_instance_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_instance_name`')
         self._data["FMU Instance Name"] = value
 
     @property
@@ -1447,13 +1737,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
     @property
@@ -1483,17 +1773,40 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToSchedule.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitImportToSchedule:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitImportToSchedule:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportToSchedule: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportToSchedule: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1511,8 +1824,27 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1528,6 +1860,10 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Actuator"
     field_count = 8
     required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type", "FMU File Name", "FMU Instance Name", "FMU Variable Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 8
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:To:Actuator`
@@ -1541,6 +1877,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1638,13 +1975,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.name`')
         self._data["Name"] = value
 
     @property
@@ -1673,13 +2010,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_unique_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_unique_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_unique_name`')
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -1708,13 +2045,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_type`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_type`')
         self._data["Actuated Component Type"] = value
 
     @property
@@ -1743,13 +2080,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_control_type`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.actuated_component_control_type`')
         self._data["Actuated Component Control Type"] = value
 
     @property
@@ -1778,13 +2115,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_file_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_file_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_file_name`')
         self._data["FMU File Name"] = value
 
     @property
@@ -1813,13 +2150,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_instance_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_instance_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_instance_name`')
         self._data["FMU Instance Name"] = value
 
     @property
@@ -1848,13 +2185,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
     @property
@@ -1884,17 +2221,40 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToActuator.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitImportToActuator:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitImportToActuator:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportToActuator: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportToActuator: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1912,8 +2272,27 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1929,6 +2308,10 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Variable"
     field_count = 5
     required_fields = ["Name", "FMU File Name", "FMU Instance Name", "FMU Variable Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:To:Variable`
@@ -1939,6 +2322,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2015,13 +2399,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -2050,13 +2434,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_file_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_file_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_file_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_file_name`')
         self._data["FMU File Name"] = value
 
     @property
@@ -2085,13 +2469,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_instance_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_instance_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_instance_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_instance_name`')
         self._data["FMU Instance Name"] = value
 
     @property
@@ -2120,13 +2504,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
     @property
@@ -2156,17 +2540,40 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitImportToVariable.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitImportToVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitImportToVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportToVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitImportToVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2184,8 +2591,27 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2200,6 +2626,10 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:From:Variable"
     field_count = 3
     required_fields = ["Output:Variable Index Key Name", "Output:Variable Name", "FMU Variable Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:From:Variable`
@@ -2208,6 +2638,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
         self._data["Output:Variable Index Key Name"] = None
         self._data["Output:Variable Name"] = None
         self._data["FMU Variable Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2268,13 +2699,13 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outputvariable_index_key_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outputvariable_index_key_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_index_key_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outputvariable_index_key_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_index_key_name`')
         self._data["Output:Variable Index Key Name"] = value
 
     @property
@@ -2303,13 +2734,13 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outputvariable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outputvariable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outputvariable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.outputvariable_name`')
         self._data["Output:Variable Name"] = value
 
     @property
@@ -2338,23 +2769,46 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportFromVariable.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitExportFromVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitExportFromVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportFromVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportFromVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2372,8 +2826,27 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2389,6 +2862,10 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Schedule"
     field_count = 4
     required_fields = ["Schedule Name", "FMU Variable Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:To:Schedule`
@@ -2398,6 +2875,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         self._data["Schedule Type Limits Names"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2465,13 +2943,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_name`')
         self._data["Schedule Name"] = value
 
     @property
@@ -2500,13 +2978,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_type_limits_names`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_type_limits_names`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_type_limits_names`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_type_limits_names`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_type_limits_names`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.schedule_type_limits_names`')
         self._data["Schedule Type Limits Names"] = value
 
     @property
@@ -2535,13 +3013,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
     @property
@@ -2571,17 +3049,40 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToSchedule.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitExportToSchedule:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitExportToSchedule:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportToSchedule: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportToSchedule: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2599,8 +3100,27 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2616,6 +3136,10 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Actuator"
     field_count = 6
     required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type", "FMU Variable Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:To:Actuator`
@@ -2627,6 +3151,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         self._data["Actuated Component Control Type"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2710,13 +3235,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.name`')
         self._data["Name"] = value
 
     @property
@@ -2745,13 +3270,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_unique_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_unique_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_unique_name`')
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -2780,13 +3305,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_type`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_type`')
         self._data["Actuated Component Type"] = value
 
     @property
@@ -2815,13 +3340,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_control_type`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.actuated_component_control_type`')
         self._data["Actuated Component Control Type"] = value
 
     @property
@@ -2850,13 +3375,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
     @property
@@ -2886,17 +3411,40 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToActuator.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitExportToActuator:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitExportToActuator:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportToActuator: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportToActuator: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2914,8 +3462,27 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2931,6 +3498,10 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Variable"
     field_count = 3
     required_fields = ["Name", "FMU Variable Name", "Initial Value"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:To:Variable`
@@ -2939,6 +3510,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         self._data["Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3001,13 +3573,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -3036,13 +3608,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fmu_variable_name`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.fmu_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fmu_variable_name`')
+                                 'for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.fmu_variable_name`')
         self._data["FMU Variable Name"] = value
 
     @property
@@ -3072,17 +3644,40 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_value`'.format(value))
+                                 ' for field `ExternalInterfaceFunctionalMockupUnitExportToVariable.initial_value`'.format(value))
         self._data["Initial Value"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ExternalInterfaceFunctionalMockupUnitExportToVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ExternalInterfaceFunctionalMockupUnitExportToVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportToVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ExternalInterfaceFunctionalMockupUnitExportToVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3100,8 +3695,27 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class ZoneControlHumidistat(object):
     """ Corresponds to IDD object `ZoneControl:Humidistat`
         Specifies zone relative humidity setpoint schedules for humidifying and dehumidifying.
@@ -9,6 +12,10 @@ class ZoneControlHumidistat(object):
     internal_name = "ZoneControl:Humidistat"
     field_count = 4
     required_fields = ["Name", "Zone Name", "Humidifying Relative Humidity Setpoint Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Humidistat`
@@ -18,6 +25,7 @@ class ZoneControlHumidistat(object):
         self._data["Zone Name"] = None
         self._data["Humidifying Relative Humidity Setpoint Schedule Name"] = None
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -85,13 +93,13 @@ class ZoneControlHumidistat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneControlHumidistat.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneControlHumidistat.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneControlHumidistat.name`')
         self._data["Name"] = value
 
     @property
@@ -120,13 +128,13 @@ class ZoneControlHumidistat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ZoneControlHumidistat.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ZoneControlHumidistat.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ZoneControlHumidistat.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -156,13 +164,13 @@ class ZoneControlHumidistat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `humidifying_relative_humidity_setpoint_schedule_name`'.format(value))
+                                 ' for field `ZoneControlHumidistat.humidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `humidifying_relative_humidity_setpoint_schedule_name`')
+                                 'for field `ZoneControlHumidistat.humidifying_relative_humidity_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `humidifying_relative_humidity_setpoint_schedule_name`')
+                                 'for field `ZoneControlHumidistat.humidifying_relative_humidity_setpoint_schedule_name`')
         self._data["Humidifying Relative Humidity Setpoint Schedule Name"] = value
 
     @property
@@ -192,23 +200,46 @@ class ZoneControlHumidistat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
+                                 ' for field `ZoneControlHumidistat.dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dehumidifying_relative_humidity_setpoint_schedule_name`')
+                                 'for field `ZoneControlHumidistat.dehumidifying_relative_humidity_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dehumidifying_relative_humidity_setpoint_schedule_name`')
+                                 'for field `ZoneControlHumidistat.dehumidifying_relative_humidity_setpoint_schedule_name`')
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlHumidistat:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlHumidistat:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlHumidistat: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlHumidistat: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -226,8 +257,27 @@ class ZoneControlHumidistat(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -244,6 +294,10 @@ class ZoneControlThermostat(object):
     internal_name = "ZoneControl:Thermostat"
     field_count = 11
     required_fields = ["Name", "Zone or ZoneList Name", "Control Type Schedule Name", "Control 1 Object Type", "Control 1 Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat`
@@ -260,6 +314,7 @@ class ZoneControlThermostat(object):
         self._data["Control 3 Name"] = None
         self._data["Control 4 Object Type"] = None
         self._data["Control 4 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -376,13 +431,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneControlThermostat.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneControlThermostat.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneControlThermostat.name`')
         self._data["Name"] = value
 
     @property
@@ -411,13 +466,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_or_zonelist_name`'.format(value))
+                                 ' for field `ZoneControlThermostat.zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneControlThermostat.zone_or_zonelist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneControlThermostat.zone_or_zonelist_name`')
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -449,13 +504,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type_schedule_name`')
+                                 'for field `ZoneControlThermostat.control_type_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type_schedule_name`')
+                                 'for field `ZoneControlThermostat.control_type_schedule_name`')
         self._data["Control Type Schedule Name"] = value
 
     @property
@@ -489,13 +544,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_1_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_1_object_type`')
+                                 'for field `ZoneControlThermostat.control_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_1_object_type`')
+                                 'for field `ZoneControlThermostat.control_1_object_type`')
             vals = {}
             vals["thermostatsetpoint:singleheating"] = "ThermostatSetpoint:SingleHeating"
             vals["thermostatsetpoint:singlecooling"] = "ThermostatSetpoint:SingleCooling"
@@ -520,10 +575,10 @@ class ZoneControlThermostat(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_1_object_type`'.format(value))
+                                     'field `ZoneControlThermostat.control_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostat.control_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 1 Object Type"] = value
 
@@ -555,13 +610,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_1_name`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_1_name`')
+                                 'for field `ZoneControlThermostat.control_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_1_name`')
+                                 'for field `ZoneControlThermostat.control_1_name`')
         self._data["Control 1 Name"] = value
 
     @property
@@ -595,13 +650,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_2_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_2_object_type`')
+                                 'for field `ZoneControlThermostat.control_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_2_object_type`')
+                                 'for field `ZoneControlThermostat.control_2_object_type`')
             vals = {}
             vals["thermostatsetpoint:singleheating"] = "ThermostatSetpoint:SingleHeating"
             vals["thermostatsetpoint:singlecooling"] = "ThermostatSetpoint:SingleCooling"
@@ -626,10 +681,10 @@ class ZoneControlThermostat(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_2_object_type`'.format(value))
+                                     'field `ZoneControlThermostat.control_2_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_2_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostat.control_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 2 Object Type"] = value
 
@@ -661,13 +716,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_2_name`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_2_name`')
+                                 'for field `ZoneControlThermostat.control_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_2_name`')
+                                 'for field `ZoneControlThermostat.control_2_name`')
         self._data["Control 2 Name"] = value
 
     @property
@@ -701,13 +756,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_3_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_3_object_type`')
+                                 'for field `ZoneControlThermostat.control_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_3_object_type`')
+                                 'for field `ZoneControlThermostat.control_3_object_type`')
             vals = {}
             vals["thermostatsetpoint:singleheating"] = "ThermostatSetpoint:SingleHeating"
             vals["thermostatsetpoint:singlecooling"] = "ThermostatSetpoint:SingleCooling"
@@ -732,10 +787,10 @@ class ZoneControlThermostat(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_3_object_type`'.format(value))
+                                     'field `ZoneControlThermostat.control_3_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_3_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostat.control_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 3 Object Type"] = value
 
@@ -767,13 +822,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_3_name`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_3_name`')
+                                 'for field `ZoneControlThermostat.control_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_3_name`')
+                                 'for field `ZoneControlThermostat.control_3_name`')
         self._data["Control 3 Name"] = value
 
     @property
@@ -807,13 +862,13 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_4_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_4_object_type`')
+                                 'for field `ZoneControlThermostat.control_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_4_object_type`')
+                                 'for field `ZoneControlThermostat.control_4_object_type`')
             vals = {}
             vals["thermostatsetpoint:singleheating"] = "ThermostatSetpoint:SingleHeating"
             vals["thermostatsetpoint:singlecooling"] = "ThermostatSetpoint:SingleCooling"
@@ -838,10 +893,10 @@ class ZoneControlThermostat(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_4_object_type`'.format(value))
+                                     'field `ZoneControlThermostat.control_4_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_4_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostat.control_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 4 Object Type"] = value
 
@@ -873,23 +928,46 @@ class ZoneControlThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_4_name`'.format(value))
+                                 ' for field `ZoneControlThermostat.control_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_4_name`')
+                                 'for field `ZoneControlThermostat.control_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_4_name`')
+                                 'for field `ZoneControlThermostat.control_4_name`')
         self._data["Control 4 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlThermostat:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlThermostat:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlThermostat: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlThermostat: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -907,8 +985,27 @@ class ZoneControlThermostat(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -925,6 +1022,10 @@ class ZoneControlThermostatOperativeTemperature(object):
     internal_name = "ZoneControl:Thermostat:OperativeTemperature"
     field_count = 4
     required_fields = ["Thermostat Name", "Radiative Fraction Input Mode"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:OperativeTemperature`
@@ -934,6 +1035,7 @@ class ZoneControlThermostatOperativeTemperature(object):
         self._data["Radiative Fraction Input Mode"] = None
         self._data["Fixed Radiative Fraction"] = None
         self._data["Radiative Fraction Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1004,13 +1106,13 @@ class ZoneControlThermostatOperativeTemperature(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermostat_name`'.format(value))
+                                 ' for field `ZoneControlThermostatOperativeTemperature.thermostat_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermostat_name`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.thermostat_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermostat_name`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.thermostat_name`')
         self._data["Thermostat Name"] = value
 
     @property
@@ -1042,13 +1144,13 @@ class ZoneControlThermostatOperativeTemperature(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `radiative_fraction_input_mode`'.format(value))
+                                 ' for field `ZoneControlThermostatOperativeTemperature.radiative_fraction_input_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `radiative_fraction_input_mode`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.radiative_fraction_input_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `radiative_fraction_input_mode`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.radiative_fraction_input_mode`')
             vals = {}
             vals["constant"] = "Constant"
             vals["scheduled"] = "Scheduled"
@@ -1071,10 +1173,10 @@ class ZoneControlThermostatOperativeTemperature(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `radiative_fraction_input_mode`'.format(value))
+                                     'field `ZoneControlThermostatOperativeTemperature.radiative_fraction_input_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `radiative_fraction_input_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatOperativeTemperature.radiative_fraction_input_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Radiative Fraction Input Mode"] = value
 
@@ -1106,13 +1208,13 @@ class ZoneControlThermostatOperativeTemperature(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fixed_radiative_fraction`'.format(value))
+                                 ' for field `ZoneControlThermostatOperativeTemperature.fixed_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fixed_radiative_fraction`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.fixed_radiative_fraction`')
             if value >= 0.9:
                 raise ValueError('value need to be smaller 0.9 '
-                                 'for field `fixed_radiative_fraction`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.fixed_radiative_fraction`')
         self._data["Fixed Radiative Fraction"] = value
 
     @property
@@ -1142,23 +1244,46 @@ class ZoneControlThermostatOperativeTemperature(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `radiative_fraction_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostatOperativeTemperature.radiative_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `radiative_fraction_schedule_name`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.radiative_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `radiative_fraction_schedule_name`')
+                                 'for field `ZoneControlThermostatOperativeTemperature.radiative_fraction_schedule_name`')
         self._data["Radiative Fraction Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlThermostatOperativeTemperature:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlThermostatOperativeTemperature:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlThermostatOperativeTemperature: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlThermostatOperativeTemperature: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1176,8 +1301,27 @@ class ZoneControlThermostatOperativeTemperature(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1193,6 +1337,10 @@ class ZoneControlThermostatThermalComfort(object):
     internal_name = "ZoneControl:Thermostat:ThermalComfort"
     field_count = 15
     required_fields = ["Name", "Zone or ZoneList Name", "Minimum Dry-Bulb Temperature Setpoint", "Maximum Dry-Bulb Temperature Setpoint", "Thermal Comfort Control Type Schedule Name", "Thermal Comfort Control 1 Object Type", "Thermal Comfort Control 1 Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:ThermalComfort`
@@ -1213,6 +1361,7 @@ class ZoneControlThermostatThermalComfort(object):
         self._data["Thermal Comfort Control 3 Name"] = None
         self._data["Thermal Comfort Control 4 Object Type"] = None
         self._data["Thermal Comfort Control 4 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1357,13 +1506,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneControlThermostatThermalComfort.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneControlThermostatThermalComfort.name`')
         self._data["Name"] = value
 
     @property
@@ -1392,13 +1541,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_or_zonelist_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.zone_or_zonelist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.zone_or_zonelist_name`')
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -1434,13 +1583,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `averaging_method`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.averaging_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `averaging_method`')
+                                 'for field `ZoneControlThermostatThermalComfort.averaging_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `averaging_method`')
+                                 'for field `ZoneControlThermostatThermalComfort.averaging_method`')
             vals = {}
             vals["specificobject"] = "SpecificObject"
             vals["objectaverage"] = "ObjectAverage"
@@ -1464,10 +1613,10 @@ class ZoneControlThermostatThermalComfort(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `averaging_method`'.format(value))
+                                     'field `ZoneControlThermostatThermalComfort.averaging_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `averaging_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatThermalComfort.averaging_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Averaging Method"] = value
 
@@ -1498,13 +1647,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `specific_people_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.specific_people_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `specific_people_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.specific_people_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `specific_people_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.specific_people_name`')
         self._data["Specific People Name"] = value
 
     @property
@@ -1537,13 +1686,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_drybulb_temperature_setpoint`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.minimum_drybulb_temperature_setpoint`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_drybulb_temperature_setpoint`')
+                                 'for field `ZoneControlThermostatThermalComfort.minimum_drybulb_temperature_setpoint`')
             if value > 50.0:
                 raise ValueError('value need to be smaller 50.0 '
-                                 'for field `minimum_drybulb_temperature_setpoint`')
+                                 'for field `ZoneControlThermostatThermalComfort.minimum_drybulb_temperature_setpoint`')
         self._data["Minimum Dry-Bulb Temperature Setpoint"] = value
 
     @property
@@ -1576,13 +1725,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_drybulb_temperature_setpoint`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.maximum_drybulb_temperature_setpoint`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_drybulb_temperature_setpoint`')
+                                 'for field `ZoneControlThermostatThermalComfort.maximum_drybulb_temperature_setpoint`')
             if value > 50.0:
                 raise ValueError('value need to be smaller 50.0 '
-                                 'for field `maximum_drybulb_temperature_setpoint`')
+                                 'for field `ZoneControlThermostatThermalComfort.maximum_drybulb_temperature_setpoint`')
         self._data["Maximum Dry-Bulb Temperature Setpoint"] = value
 
     @property
@@ -1617,13 +1766,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_type_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_type_schedule_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_type_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_type_schedule_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_type_schedule_name`')
         self._data["Thermal Comfort Control Type Schedule Name"] = value
 
     @property
@@ -1657,13 +1806,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_1_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_1_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_1_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_object_type`')
             vals = {}
             vals["thermostatsetpoint:thermalcomfort:fanger:singleheating"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
             vals["thermostatsetpoint:thermalcomfort:fanger:singlecooling"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
@@ -1688,10 +1837,10 @@ class ZoneControlThermostatThermalComfort(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `thermal_comfort_control_1_object_type`'.format(value))
+                                     'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `thermal_comfort_control_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 1 Object Type"] = value
 
@@ -1723,13 +1872,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_1_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_1_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_1_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_1_name`')
         self._data["Thermal Comfort Control 1 Name"] = value
 
     @property
@@ -1763,13 +1912,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_2_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_2_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_2_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_object_type`')
             vals = {}
             vals["thermostatsetpoint:thermalcomfort:fanger:singleheating"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
             vals["thermostatsetpoint:thermalcomfort:fanger:singlecooling"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
@@ -1794,10 +1943,10 @@ class ZoneControlThermostatThermalComfort(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `thermal_comfort_control_2_object_type`'.format(value))
+                                     'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `thermal_comfort_control_2_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 2 Object Type"] = value
 
@@ -1829,13 +1978,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_2_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_2_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_2_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_2_name`')
         self._data["Thermal Comfort Control 2 Name"] = value
 
     @property
@@ -1869,13 +2018,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_3_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_3_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_3_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_object_type`')
             vals = {}
             vals["thermostatsetpoint:thermalcomfort:fanger:singleheating"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
             vals["thermostatsetpoint:thermalcomfort:fanger:singlecooling"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
@@ -1900,10 +2049,10 @@ class ZoneControlThermostatThermalComfort(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `thermal_comfort_control_3_object_type`'.format(value))
+                                     'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `thermal_comfort_control_3_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 3 Object Type"] = value
 
@@ -1935,13 +2084,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_3_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_3_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_3_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_3_name`')
         self._data["Thermal Comfort Control 3 Name"] = value
 
     @property
@@ -1975,13 +2124,13 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_4_object_type`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_4_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_4_object_type`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_object_type`')
             vals = {}
             vals["thermostatsetpoint:thermalcomfort:fanger:singleheating"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
             vals["thermostatsetpoint:thermalcomfort:fanger:singlecooling"] = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
@@ -2006,10 +2155,10 @@ class ZoneControlThermostatThermalComfort(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `thermal_comfort_control_4_object_type`'.format(value))
+                                     'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `thermal_comfort_control_4_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 4 Object Type"] = value
 
@@ -2041,23 +2190,46 @@ class ZoneControlThermostatThermalComfort(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_comfort_control_4_name`'.format(value))
+                                 ' for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_comfort_control_4_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_comfort_control_4_name`')
+                                 'for field `ZoneControlThermostatThermalComfort.thermal_comfort_control_4_name`')
         self._data["Thermal Comfort Control 4 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlThermostatThermalComfort:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlThermostatThermalComfort:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlThermostatThermalComfort: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlThermostatThermalComfort: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2075,8 +2247,27 @@ class ZoneControlThermostatThermalComfort(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2092,6 +2283,10 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
     internal_name = "ZoneControl:Thermostat:TemperatureAndHumidity"
     field_count = 7
     required_fields = ["Thermostat Name", "Dehumidifying Relative Humidity Setpoint Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:TemperatureAndHumidity`
@@ -2104,6 +2299,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         self._data["Overcool Constant Range"] = None
         self._data["Overcool Range Schedule Name"] = None
         self._data["Overcool Control Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2200,13 +2396,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermostat_name`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.thermostat_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermostat_name`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.thermostat_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermostat_name`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.thermostat_name`')
         self._data["Thermostat Name"] = value
 
     @property
@@ -2236,13 +2432,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dehumidifying_relative_humidity_setpoint_schedule_name`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.dehumidifying_relative_humidity_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dehumidifying_relative_humidity_setpoint_schedule_name`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.dehumidifying_relative_humidity_setpoint_schedule_name`')
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = value
 
     @property
@@ -2275,13 +2471,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dehumidification_control_type`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dehumidification_control_type`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.dehumidification_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dehumidification_control_type`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.dehumidification_control_type`')
             vals = {}
             vals["overcool"] = "Overcool"
             vals["none"] = "None"
@@ -2304,10 +2500,10 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `dehumidification_control_type`'.format(value))
+                                     'field `ZoneControlThermostatTemperatureAndHumidity.dehumidification_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatTemperatureAndHumidity.dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -2341,13 +2537,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `overcool_range_input_method`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `overcool_range_input_method`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_input_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `overcool_range_input_method`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_input_method`')
             vals = {}
             vals["constant"] = "Constant"
             vals["scheduled"] = "Scheduled"
@@ -2370,10 +2566,10 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `overcool_range_input_method`'.format(value))
+                                     'field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_input_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `overcool_range_input_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Overcool Range Input Method"] = value
 
@@ -2411,13 +2607,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `overcool_constant_range`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.overcool_constant_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `overcool_constant_range`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_constant_range`')
             if value > 3.0:
                 raise ValueError('value need to be smaller 3.0 '
-                                 'for field `overcool_constant_range`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_constant_range`')
         self._data["Overcool Constant Range"] = value
 
     @property
@@ -2449,13 +2645,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `overcool_range_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `overcool_range_schedule_name`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `overcool_range_schedule_name`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_range_schedule_name`')
         self._data["Overcool Range Schedule Name"] = value
 
     @property
@@ -2491,20 +2687,43 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `overcool_control_ratio`'.format(value))
+                                 ' for field `ZoneControlThermostatTemperatureAndHumidity.overcool_control_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `overcool_control_ratio`')
+                                 'for field `ZoneControlThermostatTemperatureAndHumidity.overcool_control_ratio`')
         self._data["Overcool Control Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlThermostatTemperatureAndHumidity:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlThermostatTemperatureAndHumidity:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlThermostatTemperatureAndHumidity: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlThermostatTemperatureAndHumidity: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2522,8 +2741,27 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2539,6 +2777,10 @@ class ThermostatSetpointSingleHeating(object):
     internal_name = "ThermostatSetpoint:SingleHeating"
     field_count = 2
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeating`
@@ -2546,6 +2788,7 @@ class ThermostatSetpointSingleHeating(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Setpoint Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2599,13 +2842,13 @@ class ThermostatSetpointSingleHeating(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointSingleHeating.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointSingleHeating.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointSingleHeating.name`')
         self._data["Name"] = value
 
     @property
@@ -2634,23 +2877,46 @@ class ThermostatSetpointSingleHeating(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointSingleHeating.setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointSingleHeating.setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointSingleHeating.setpoint_temperature_schedule_name`')
         self._data["Setpoint Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointSingleHeating:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointSingleHeating:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointSingleHeating: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointSingleHeating: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2668,8 +2934,27 @@ class ThermostatSetpointSingleHeating(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2685,6 +2970,10 @@ class ThermostatSetpointSingleCooling(object):
     internal_name = "ThermostatSetpoint:SingleCooling"
     field_count = 2
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleCooling`
@@ -2692,6 +2981,7 @@ class ThermostatSetpointSingleCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Setpoint Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2745,13 +3035,13 @@ class ThermostatSetpointSingleCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointSingleCooling.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointSingleCooling.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointSingleCooling.name`')
         self._data["Name"] = value
 
     @property
@@ -2780,23 +3070,46 @@ class ThermostatSetpointSingleCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointSingleCooling.setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointSingleCooling.setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointSingleCooling.setpoint_temperature_schedule_name`')
         self._data["Setpoint Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointSingleCooling:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointSingleCooling:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointSingleCooling: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointSingleCooling: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2814,8 +3127,27 @@ class ThermostatSetpointSingleCooling(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2831,6 +3163,10 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
     internal_name = "ThermostatSetpoint:SingleHeatingOrCooling"
     field_count = 2
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeatingOrCooling`
@@ -2838,6 +3174,7 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Setpoint Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2891,13 +3228,13 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointSingleHeatingOrCooling.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointSingleHeatingOrCooling.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointSingleHeatingOrCooling.name`')
         self._data["Name"] = value
 
     @property
@@ -2926,23 +3263,46 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointSingleHeatingOrCooling.setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointSingleHeatingOrCooling.setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointSingleHeatingOrCooling.setpoint_temperature_schedule_name`')
         self._data["Setpoint Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointSingleHeatingOrCooling:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointSingleHeatingOrCooling:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointSingleHeatingOrCooling: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointSingleHeatingOrCooling: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2960,8 +3320,27 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2977,6 +3356,10 @@ class ThermostatSetpointDualSetpoint(object):
     internal_name = "ThermostatSetpoint:DualSetpoint"
     field_count = 3
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:DualSetpoint`
@@ -2985,6 +3368,7 @@ class ThermostatSetpointDualSetpoint(object):
         self._data["Name"] = None
         self._data["Heating Setpoint Temperature Schedule Name"] = None
         self._data["Cooling Setpoint Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3045,13 +3429,13 @@ class ThermostatSetpointDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointDualSetpoint.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointDualSetpoint.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointDualSetpoint.name`')
         self._data["Name"] = value
 
     @property
@@ -3080,13 +3464,13 @@ class ThermostatSetpointDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointDualSetpoint.heating_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointDualSetpoint.heating_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointDualSetpoint.heating_setpoint_temperature_schedule_name`')
         self._data["Heating Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -3115,23 +3499,46 @@ class ThermostatSetpointDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_setpoint_temperature_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointDualSetpoint.cooling_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointDualSetpoint.cooling_setpoint_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_setpoint_temperature_schedule_name`')
+                                 'for field `ThermostatSetpointDualSetpoint.cooling_setpoint_temperature_schedule_name`')
         self._data["Cooling Setpoint Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointDualSetpoint:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointDualSetpoint:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointDualSetpoint: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointDualSetpoint: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3149,8 +3556,27 @@ class ThermostatSetpointDualSetpoint(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3166,6 +3592,10 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
     field_count = 2
     required_fields = ["Name", "Fanger Thermal Comfort Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
@@ -3173,6 +3603,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3226,13 +3657,13 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerSingleHeating.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeating.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeating.name`')
         self._data["Name"] = value
 
     @property
@@ -3262,23 +3693,46 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fanger_thermal_comfort_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerSingleHeating.fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fanger_thermal_comfort_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeating.fanger_thermal_comfort_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fanger_thermal_comfort_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeating.fanger_thermal_comfort_schedule_name`')
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointThermalComfortFangerSingleHeating:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointThermalComfortFangerSingleHeating:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointThermalComfortFangerSingleHeating: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointThermalComfortFangerSingleHeating: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3296,8 +3750,27 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3313,6 +3786,10 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
     field_count = 2
     required_fields = ["Name", "Fanger Thermal Comfort Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
@@ -3320,6 +3797,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3373,13 +3851,13 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerSingleCooling.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleCooling.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleCooling.name`')
         self._data["Name"] = value
 
     @property
@@ -3409,23 +3887,46 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fanger_thermal_comfort_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerSingleCooling.fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fanger_thermal_comfort_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleCooling.fanger_thermal_comfort_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fanger_thermal_comfort_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleCooling.fanger_thermal_comfort_schedule_name`')
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointThermalComfortFangerSingleCooling:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointThermalComfortFangerSingleCooling:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointThermalComfortFangerSingleCooling: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointThermalComfortFangerSingleCooling: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3443,8 +3944,27 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3461,6 +3981,10 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling"
     field_count = 2
     required_fields = ["Name", "Fanger Thermal Comfort Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling`
@@ -3468,6 +3992,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3521,13 +4046,13 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling.name`')
         self._data["Name"] = value
 
     @property
@@ -3557,23 +4082,46 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fanger_thermal_comfort_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling.fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fanger_thermal_comfort_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling.fanger_thermal_comfort_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fanger_thermal_comfort_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling.fanger_thermal_comfort_schedule_name`')
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3591,8 +4139,27 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3609,6 +4176,10 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint"
     field_count = 3
     required_fields = ["Name", "Fanger Thermal Comfort Heating Schedule Name", "Fanger Thermal Comfort Cooling Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint`
@@ -3617,6 +4188,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Heating Schedule Name"] = None
         self._data["Fanger Thermal Comfort Cooling Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3677,13 +4249,13 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerDualSetpoint.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerDualSetpoint.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerDualSetpoint.name`')
         self._data["Name"] = value
 
     @property
@@ -3713,13 +4285,13 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fanger_thermal_comfort_heating_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerDualSetpoint.fanger_thermal_comfort_heating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fanger_thermal_comfort_heating_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerDualSetpoint.fanger_thermal_comfort_heating_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fanger_thermal_comfort_heating_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerDualSetpoint.fanger_thermal_comfort_heating_schedule_name`')
         self._data["Fanger Thermal Comfort Heating Schedule Name"] = value
 
     @property
@@ -3749,23 +4321,46 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fanger_thermal_comfort_cooling_schedule_name`'.format(value))
+                                 ' for field `ThermostatSetpointThermalComfortFangerDualSetpoint.fanger_thermal_comfort_cooling_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fanger_thermal_comfort_cooling_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerDualSetpoint.fanger_thermal_comfort_cooling_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fanger_thermal_comfort_cooling_schedule_name`')
+                                 'for field `ThermostatSetpointThermalComfortFangerDualSetpoint.fanger_thermal_comfort_cooling_schedule_name`')
         self._data["Fanger Thermal Comfort Cooling Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ThermostatSetpointThermalComfortFangerDualSetpoint:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ThermostatSetpointThermalComfortFangerDualSetpoint:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ThermostatSetpointThermalComfortFangerDualSetpoint: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ThermostatSetpointThermalComfortFangerDualSetpoint: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3783,8 +4378,27 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3801,6 +4415,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
     internal_name = "ZoneControl:Thermostat:StagedDualSetpoint"
     field_count = 16
     required_fields = ["Name", "Zone or ZoneList Name", "Number of Heating Stages", "Stage 1 Heating Temperature Offset", "Number of Cooling Stages", "Stage 1 Cooling Temperature Offset"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:StagedDualSetpoint`
@@ -3822,6 +4440,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         self._data["Stage 2 Cooling Temperature Offset"] = None
         self._data["Stage 3 Cooling Temperature Offset"] = None
         self._data["Stage 4 Cooling Temperature Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3973,13 +4592,13 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.name`')
         self._data["Name"] = value
 
     @property
@@ -4008,13 +4627,13 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_or_zonelist_name`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.zone_or_zonelist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.zone_or_zonelist_name`')
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -4048,18 +4667,18 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_heating_stages`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ZoneControlThermostatStagedDualSetpoint.number_of_heating_stages`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_heating_stages`'.format(value))
+                                         'for field `ZoneControlThermostatStagedDualSetpoint.number_of_heating_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_heating_stages`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.number_of_heating_stages`')
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
-                                 'for field `number_of_heating_stages`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.number_of_heating_stages`')
         self._data["Number of Heating Stages"] = value
 
     @property
@@ -4088,13 +4707,13 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_temperature_setpoint_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.heating_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_temperature_setpoint_schedule_name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.heating_temperature_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_temperature_setpoint_schedule_name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.heating_temperature_setpoint_schedule_name`')
         self._data["Heating Temperature Setpoint Schedule Name"] = value
 
     @property
@@ -4126,10 +4745,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_throttling_temperature_range`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.heating_throttling_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_throttling_temperature_range`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.heating_throttling_temperature_range`')
         self._data["Heating Throttling Temperature Range"] = value
 
     @property
@@ -4165,10 +4784,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_1_heating_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_1_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
-                                 'for field `stage_1_heating_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_1_heating_temperature_offset`')
         self._data["Stage 1 Heating Temperature Offset"] = value
 
     @property
@@ -4205,10 +4824,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_2_heating_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_2_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
-                                 'for field `stage_2_heating_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_2_heating_temperature_offset`')
         self._data["Stage 2 Heating Temperature Offset"] = value
 
     @property
@@ -4245,10 +4864,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_3_heating_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_3_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
-                                 'for field `stage_3_heating_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_3_heating_temperature_offset`')
         self._data["Stage 3 Heating Temperature Offset"] = value
 
     @property
@@ -4284,10 +4903,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_4_heating_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_4_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
-                                 'for field `stage_4_heating_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_4_heating_temperature_offset`')
         self._data["Stage 4 Heating Temperature Offset"] = value
 
     @property
@@ -4321,18 +4940,18 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_cooling_stages`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ZoneControlThermostatStagedDualSetpoint.number_of_cooling_stages`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_cooling_stages`'.format(value))
+                                         'for field `ZoneControlThermostatStagedDualSetpoint.number_of_cooling_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_cooling_stages`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.number_of_cooling_stages`')
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
-                                 'for field `number_of_cooling_stages`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.number_of_cooling_stages`')
         self._data["Number of Cooling Stages"] = value
 
     @property
@@ -4361,13 +4980,13 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_temperature_setpoint_base_schedule_name`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.cooling_temperature_setpoint_base_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_temperature_setpoint_base_schedule_name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.cooling_temperature_setpoint_base_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_temperature_setpoint_base_schedule_name`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.cooling_temperature_setpoint_base_schedule_name`')
         self._data["Cooling Temperature Setpoint Base Schedule Name"] = value
 
     @property
@@ -4399,10 +5018,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_throttling_temperature_range`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.cooling_throttling_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_throttling_temperature_range`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.cooling_throttling_temperature_range`')
         self._data["Cooling Throttling Temperature Range"] = value
 
     @property
@@ -4438,10 +5057,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_1_cooling_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_1_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `stage_1_cooling_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_1_cooling_temperature_offset`')
         self._data["Stage 1 Cooling Temperature Offset"] = value
 
     @property
@@ -4478,10 +5097,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_2_cooling_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_2_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `stage_2_cooling_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_2_cooling_temperature_offset`')
         self._data["Stage 2 Cooling Temperature Offset"] = value
 
     @property
@@ -4518,10 +5137,10 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_3_cooling_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_3_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `stage_3_cooling_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_3_cooling_temperature_offset`')
         self._data["Stage 3 Cooling Temperature Offset"] = value
 
     @property
@@ -4557,20 +5176,43 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stage_4_cooling_temperature_offset`'.format(value))
+                                 ' for field `ZoneControlThermostatStagedDualSetpoint.stage_4_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `stage_4_cooling_temperature_offset`')
+                                 'for field `ZoneControlThermostatStagedDualSetpoint.stage_4_cooling_temperature_offset`')
         self._data["Stage 4 Cooling Temperature Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlThermostatStagedDualSetpoint:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlThermostatStagedDualSetpoint:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlThermostatStagedDualSetpoint: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlThermostatStagedDualSetpoint: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4588,8 +5230,27 @@ class ZoneControlThermostatStagedDualSetpoint(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4605,6 +5266,10 @@ class ZoneControlContaminantController(object):
     internal_name = "ZoneControl:ContaminantController"
     field_count = 7
     required_fields = ["Name", "Controlled Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:ContaminantController`
@@ -4617,6 +5282,7 @@ class ZoneControlContaminantController(object):
         self._data["Minimum Carbon Dioxide Concentration Schedule Name"] = None
         self._data["Generic Contaminant Control Availability Schedule Name"] = None
         self._data["Generic Contaminant Setpoint Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4705,13 +5371,13 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ZoneControlContaminantController.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ZoneControlContaminantController.name`')
         self._data["Name"] = value
 
     @property
@@ -4740,13 +5406,13 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controlled_zone_name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.controlled_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controlled_zone_name`')
+                                 'for field `ZoneControlContaminantController.controlled_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controlled_zone_name`')
+                                 'for field `ZoneControlContaminantController.controlled_zone_name`')
         self._data["Controlled Zone Name"] = value
 
     @property
@@ -4777,13 +5443,13 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `carbon_dioxide_control_availability_schedule_name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.carbon_dioxide_control_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `carbon_dioxide_control_availability_schedule_name`')
+                                 'for field `ZoneControlContaminantController.carbon_dioxide_control_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `carbon_dioxide_control_availability_schedule_name`')
+                                 'for field `ZoneControlContaminantController.carbon_dioxide_control_availability_schedule_name`')
         self._data["Carbon Dioxide Control Availability Schedule Name"] = value
 
     @property
@@ -4813,13 +5479,13 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `carbon_dioxide_setpoint_schedule_name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.carbon_dioxide_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `carbon_dioxide_setpoint_schedule_name`')
+                                 'for field `ZoneControlContaminantController.carbon_dioxide_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `carbon_dioxide_setpoint_schedule_name`')
+                                 'for field `ZoneControlContaminantController.carbon_dioxide_setpoint_schedule_name`')
         self._data["Carbon Dioxide Setpoint Schedule Name"] = value
 
     @property
@@ -4852,13 +5518,13 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_carbon_dioxide_concentration_schedule_name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.minimum_carbon_dioxide_concentration_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_carbon_dioxide_concentration_schedule_name`')
+                                 'for field `ZoneControlContaminantController.minimum_carbon_dioxide_concentration_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_carbon_dioxide_concentration_schedule_name`')
+                                 'for field `ZoneControlContaminantController.minimum_carbon_dioxide_concentration_schedule_name`')
         self._data["Minimum Carbon Dioxide Concentration Schedule Name"] = value
 
     @property
@@ -4890,13 +5556,13 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generic_contaminant_control_availability_schedule_name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.generic_contaminant_control_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generic_contaminant_control_availability_schedule_name`')
+                                 'for field `ZoneControlContaminantController.generic_contaminant_control_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generic_contaminant_control_availability_schedule_name`')
+                                 'for field `ZoneControlContaminantController.generic_contaminant_control_availability_schedule_name`')
         self._data["Generic Contaminant Control Availability Schedule Name"] = value
 
     @property
@@ -4929,23 +5595,46 @@ class ZoneControlContaminantController(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generic_contaminant_setpoint_schedule_name`'.format(value))
+                                 ' for field `ZoneControlContaminantController.generic_contaminant_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generic_contaminant_setpoint_schedule_name`')
+                                 'for field `ZoneControlContaminantController.generic_contaminant_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generic_contaminant_setpoint_schedule_name`')
+                                 'for field `ZoneControlContaminantController.generic_contaminant_setpoint_schedule_name`')
         self._data["Generic Contaminant Setpoint Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ZoneControlContaminantController:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ZoneControlContaminantController:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ZoneControlContaminantController: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ZoneControlContaminantController: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4963,8 +5652,27 @@ class ZoneControlContaminantController(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

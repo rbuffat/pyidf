@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class AirflowNetworkSimulationControl(object):
     """ Corresponds to IDD object `AirflowNetwork:SimulationControl`
         This object defines the global parameters used in an Airflow Network simulation.
@@ -9,6 +12,10 @@ class AirflowNetworkSimulationControl(object):
     internal_name = "AirflowNetwork:SimulationControl"
     field_count = 14
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 13
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:SimulationControl`
@@ -28,6 +35,7 @@ class AirflowNetworkSimulationControl(object):
         self._data["Azimuth Angle of Long Axis of Building"] = None
         self._data["Ratio of Building Width Along Short Axis to Width Along Long Axis"] = None
         self._data["Height Dependence of External Node Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -166,13 +174,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkSimulationControl.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkSimulationControl.name`')
         self._data["Name"] = value
 
     @property
@@ -220,13 +228,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `airflownetwork_control`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.airflownetwork_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `airflownetwork_control`')
+                                 'for field `AirflowNetworkSimulationControl.airflownetwork_control`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `airflownetwork_control`')
+                                 'for field `AirflowNetworkSimulationControl.airflownetwork_control`')
             vals = {}
             vals["multizonewithdistribution"] = "MultizoneWithDistribution"
             vals["multizonewithoutdistribution"] = "MultizoneWithoutDistribution"
@@ -251,10 +259,10 @@ class AirflowNetworkSimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `airflownetwork_control`'.format(value))
+                                     'field `AirflowNetworkSimulationControl.airflownetwork_control`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `airflownetwork_control`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkSimulationControl.airflownetwork_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["AirflowNetwork Control"] = value
 
@@ -295,13 +303,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `wind_pressure_coefficient_type`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.wind_pressure_coefficient_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `wind_pressure_coefficient_type`')
+                                 'for field `AirflowNetworkSimulationControl.wind_pressure_coefficient_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `wind_pressure_coefficient_type`')
+                                 'for field `AirflowNetworkSimulationControl.wind_pressure_coefficient_type`')
             vals = {}
             vals["input"] = "Input"
             vals["surfaceaveragecalculation"] = "SurfaceAverageCalculation"
@@ -324,10 +332,10 @@ class AirflowNetworkSimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `wind_pressure_coefficient_type`'.format(value))
+                                     'field `AirflowNetworkSimulationControl.wind_pressure_coefficient_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `wind_pressure_coefficient_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkSimulationControl.wind_pressure_coefficient_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Pressure Coefficient Type"] = value
 
@@ -358,13 +366,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `airflownetwork_wind_pressure_coefficient_array_name`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.airflownetwork_wind_pressure_coefficient_array_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `airflownetwork_wind_pressure_coefficient_array_name`')
+                                 'for field `AirflowNetworkSimulationControl.airflownetwork_wind_pressure_coefficient_array_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `airflownetwork_wind_pressure_coefficient_array_name`')
+                                 'for field `AirflowNetworkSimulationControl.airflownetwork_wind_pressure_coefficient_array_name`')
         self._data["AirflowNetwork Wind Pressure Coefficient Array Name"] = value
 
     @property
@@ -403,13 +411,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `height_selection_for_local_wind_pressure_calculation`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.height_selection_for_local_wind_pressure_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `height_selection_for_local_wind_pressure_calculation`')
+                                 'for field `AirflowNetworkSimulationControl.height_selection_for_local_wind_pressure_calculation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `height_selection_for_local_wind_pressure_calculation`')
+                                 'for field `AirflowNetworkSimulationControl.height_selection_for_local_wind_pressure_calculation`')
             vals = {}
             vals["externalnode"] = "ExternalNode"
             vals["openingheight"] = "OpeningHeight"
@@ -432,10 +440,10 @@ class AirflowNetworkSimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `height_selection_for_local_wind_pressure_calculation`'.format(value))
+                                     'field `AirflowNetworkSimulationControl.height_selection_for_local_wind_pressure_calculation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `height_selection_for_local_wind_pressure_calculation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkSimulationControl.height_selection_for_local_wind_pressure_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Height Selection for Local Wind Pressure Calculation"] = value
 
@@ -471,13 +479,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `building_type`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.building_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `building_type`')
+                                 'for field `AirflowNetworkSimulationControl.building_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `building_type`')
+                                 'for field `AirflowNetworkSimulationControl.building_type`')
             vals = {}
             vals["lowrise"] = "LowRise"
             vals["highrise"] = "HighRise"
@@ -500,10 +508,10 @@ class AirflowNetworkSimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `building_type`'.format(value))
+                                     'field `AirflowNetworkSimulationControl.building_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `building_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkSimulationControl.building_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Building Type"] = value
 
@@ -541,18 +549,18 @@ class AirflowNetworkSimulationControl(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_number_of_iterations`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `AirflowNetworkSimulationControl.maximum_number_of_iterations`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_number_of_iterations`'.format(value))
+                                         'for field `AirflowNetworkSimulationControl.maximum_number_of_iterations`'.format(value))
             if value <= 10:
                 raise ValueError('value need to be greater 10 '
-                                 'for field `maximum_number_of_iterations`')
+                                 'for field `AirflowNetworkSimulationControl.maximum_number_of_iterations`')
             if value > 30000:
                 raise ValueError('value need to be smaller 30000 '
-                                 'for field `maximum_number_of_iterations`')
+                                 'for field `AirflowNetworkSimulationControl.maximum_number_of_iterations`')
         self._data["Maximum Number of Iterations"] = value
 
     @property
@@ -585,13 +593,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `initialization_type`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.initialization_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `initialization_type`')
+                                 'for field `AirflowNetworkSimulationControl.initialization_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `initialization_type`')
+                                 'for field `AirflowNetworkSimulationControl.initialization_type`')
             vals = {}
             vals["linearinitializationmethod"] = "LinearInitializationMethod"
             vals["zeronodepressures"] = "ZeroNodePressures"
@@ -614,10 +622,10 @@ class AirflowNetworkSimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `initialization_type`'.format(value))
+                                     'field `AirflowNetworkSimulationControl.initialization_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `initialization_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkSimulationControl.initialization_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Initialization Type"] = value
 
@@ -655,10 +663,10 @@ class AirflowNetworkSimulationControl(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_airflow_convergence_tolerance`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.relative_airflow_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `relative_airflow_convergence_tolerance`')
+                                 'for field `AirflowNetworkSimulationControl.relative_airflow_convergence_tolerance`')
         self._data["Relative Airflow Convergence Tolerance"] = value
 
     @property
@@ -694,10 +702,10 @@ class AirflowNetworkSimulationControl(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `absolute_airflow_convergence_tolerance`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.absolute_airflow_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `absolute_airflow_convergence_tolerance`')
+                                 'for field `AirflowNetworkSimulationControl.absolute_airflow_convergence_tolerance`')
         self._data["Absolute Airflow Convergence Tolerance"] = value
 
     @property
@@ -731,13 +739,13 @@ class AirflowNetworkSimulationControl(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `convergence_acceleration_limit`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.convergence_acceleration_limit`'.format(value))
             if value < -1.0:
                 raise ValueError('value need to be greater or equal -1.0 '
-                                 'for field `convergence_acceleration_limit`')
+                                 'for field `AirflowNetworkSimulationControl.convergence_acceleration_limit`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `convergence_acceleration_limit`')
+                                 'for field `AirflowNetworkSimulationControl.convergence_acceleration_limit`')
         self._data["Convergence Acceleration Limit"] = value
 
     @property
@@ -772,13 +780,13 @@ class AirflowNetworkSimulationControl(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `azimuth_angle_of_long_axis_of_building`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.azimuth_angle_of_long_axis_of_building`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `azimuth_angle_of_long_axis_of_building`')
+                                 'for field `AirflowNetworkSimulationControl.azimuth_angle_of_long_axis_of_building`')
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
-                                 'for field `azimuth_angle_of_long_axis_of_building`')
+                                 'for field `AirflowNetworkSimulationControl.azimuth_angle_of_long_axis_of_building`')
         self._data["Azimuth Angle of Long Axis of Building"] = value
 
     @property
@@ -811,13 +819,13 @@ class AirflowNetworkSimulationControl(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ratio_of_building_width_along_short_axis_to_width_along_long_axis`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.ratio_of_building_width_along_short_axis_to_width_along_long_axis`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `ratio_of_building_width_along_short_axis_to_width_along_long_axis`')
+                                 'for field `AirflowNetworkSimulationControl.ratio_of_building_width_along_short_axis_to_width_along_long_axis`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ratio_of_building_width_along_short_axis_to_width_along_long_axis`')
+                                 'for field `AirflowNetworkSimulationControl.ratio_of_building_width_along_short_axis_to_width_along_long_axis`')
         self._data["Ratio of Building Width Along Short Axis to Width Along Long Axis"] = value
 
     @property
@@ -852,13 +860,13 @@ class AirflowNetworkSimulationControl(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `height_dependence_of_external_node_temperature`'.format(value))
+                                 ' for field `AirflowNetworkSimulationControl.height_dependence_of_external_node_temperature`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `height_dependence_of_external_node_temperature`')
+                                 'for field `AirflowNetworkSimulationControl.height_dependence_of_external_node_temperature`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `height_dependence_of_external_node_temperature`')
+                                 'for field `AirflowNetworkSimulationControl.height_dependence_of_external_node_temperature`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -881,21 +889,44 @@ class AirflowNetworkSimulationControl(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `height_dependence_of_external_node_temperature`'.format(value))
+                                     'field `AirflowNetworkSimulationControl.height_dependence_of_external_node_temperature`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `height_dependence_of_external_node_temperature`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkSimulationControl.height_dependence_of_external_node_temperature`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Height Dependence of External Node Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkSimulationControl:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkSimulationControl:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkSimulationControl: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkSimulationControl: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -913,8 +944,27 @@ class AirflowNetworkSimulationControl(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -930,6 +980,10 @@ class AirflowNetworkMultiZoneZone(object):
     internal_name = "AirflowNetwork:MultiZone:Zone"
     field_count = 11
     required_fields = ["Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 8
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Zone`
@@ -946,6 +1000,7 @@ class AirflowNetworkMultiZoneZone(object):
         self._data["Venting Availability Schedule Name"] = None
         self._data["Single Sided Wind Pressure Coefficient Algorithm"] = None
         self._data["Facade Width"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1063,13 +1118,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `AirflowNetworkMultiZoneZone.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `AirflowNetworkMultiZoneZone.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -1112,13 +1167,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_control_mode`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.ventilation_control_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_control_mode`')
+                                 'for field `AirflowNetworkMultiZoneZone.ventilation_control_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_control_mode`')
+                                 'for field `AirflowNetworkMultiZoneZone.ventilation_control_mode`')
             vals = {}
             vals["temperature"] = "Temperature"
             vals["enthalpy"] = "Enthalpy"
@@ -1145,10 +1200,10 @@ class AirflowNetworkMultiZoneZone(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ventilation_control_mode`'.format(value))
+                                     'field `AirflowNetworkMultiZoneZone.ventilation_control_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ventilation_control_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkMultiZoneZone.ventilation_control_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ventilation Control Mode"] = value
 
@@ -1179,13 +1234,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.ventilation_control_zone_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneZone.ventilation_control_zone_temperature_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneZone.ventilation_control_zone_temperature_setpoint_schedule_name`')
         self._data["Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
 
     @property
@@ -1219,13 +1274,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.minimum_venting_open_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.minimum_venting_open_factor`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.minimum_venting_open_factor`')
         self._data["Minimum Venting Open Factor"] = value
 
     @property
@@ -1260,13 +1315,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
             if value >= 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
         self._data["Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
@@ -1300,10 +1355,10 @@ class AirflowNetworkMultiZoneZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`')
         self._data["Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
@@ -1338,13 +1393,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
             if value >= 300000.0:
                 raise ValueError('value need to be smaller 300000.0 '
-                                 'for field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
         self._data["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
@@ -1378,10 +1433,10 @@ class AirflowNetworkMultiZoneZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneZone.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`')
         self._data["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
@@ -1416,13 +1471,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `venting_availability_schedule_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.venting_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `venting_availability_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneZone.venting_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `venting_availability_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneZone.venting_availability_schedule_name`')
         self._data["Venting Availability Schedule Name"] = value
 
     @property
@@ -1458,13 +1513,13 @@ class AirflowNetworkMultiZoneZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `single_sided_wind_pressure_coefficient_algorithm`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.single_sided_wind_pressure_coefficient_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `single_sided_wind_pressure_coefficient_algorithm`')
+                                 'for field `AirflowNetworkMultiZoneZone.single_sided_wind_pressure_coefficient_algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `single_sided_wind_pressure_coefficient_algorithm`')
+                                 'for field `AirflowNetworkMultiZoneZone.single_sided_wind_pressure_coefficient_algorithm`')
             vals = {}
             vals["advanced"] = "Advanced"
             vals["standard"] = "Standard"
@@ -1487,10 +1542,10 @@ class AirflowNetworkMultiZoneZone(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `single_sided_wind_pressure_coefficient_algorithm`'.format(value))
+                                     'field `AirflowNetworkMultiZoneZone.single_sided_wind_pressure_coefficient_algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `single_sided_wind_pressure_coefficient_algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkMultiZoneZone.single_sided_wind_pressure_coefficient_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Single Sided Wind Pressure Coefficient Algorithm"] = value
 
@@ -1524,20 +1579,43 @@ class AirflowNetworkMultiZoneZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `facade_width`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneZone.facade_width`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `facade_width`')
+                                 'for field `AirflowNetworkMultiZoneZone.facade_width`')
         self._data["Facade Width"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneZone:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneZone:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneZone: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneZone: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1555,8 +1633,27 @@ class AirflowNetworkMultiZoneZone(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1573,6 +1670,10 @@ class AirflowNetworkMultiZoneSurface(object):
     internal_name = "AirflowNetwork:MultiZone:Surface"
     field_count = 12
     required_fields = ["Surface Name", "Leakage Component Name", "Window/Door Opening Factor, or Crack Factor"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface`
@@ -1590,6 +1691,7 @@ class AirflowNetworkMultiZoneSurface(object):
         self._data["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = None
         self._data["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = None
         self._data["Venting Availability Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1714,13 +1816,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.surface_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.surface_name`')
         self._data["Surface Name"] = value
 
     @property
@@ -1759,13 +1861,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `leakage_component_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.leakage_component_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `leakage_component_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.leakage_component_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `leakage_component_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.leakage_component_name`')
         self._data["Leakage Component Name"] = value
 
     @property
@@ -1796,13 +1898,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `external_node_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.external_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `external_node_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.external_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `external_node_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.external_node_name`')
         self._data["External Node Name"] = value
 
     @property
@@ -1836,13 +1938,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `window_or_door_opening_factor_or_crack_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.window_or_door_opening_factor_or_crack_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `window_or_door_opening_factor_or_crack_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.window_or_door_opening_factor_or_crack_factor`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `window_or_door_opening_factor_or_crack_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.window_or_door_opening_factor_or_crack_factor`')
         self._data["Window/Door Opening Factor, or Crack Factor"] = value
 
     @property
@@ -1894,13 +1996,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_control_mode`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.ventilation_control_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_control_mode`')
+                                 'for field `AirflowNetworkMultiZoneSurface.ventilation_control_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_control_mode`')
+                                 'for field `AirflowNetworkMultiZoneSurface.ventilation_control_mode`')
             vals = {}
             vals["temperature"] = "Temperature"
             vals["enthalpy"] = "Enthalpy"
@@ -1930,10 +2032,10 @@ class AirflowNetworkMultiZoneSurface(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ventilation_control_mode`'.format(value))
+                                     'field `AirflowNetworkMultiZoneSurface.ventilation_control_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ventilation_control_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkMultiZoneSurface.ventilation_control_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ventilation Control Mode"] = value
 
@@ -1964,13 +2066,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.ventilation_control_zone_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.ventilation_control_zone_temperature_setpoint_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.ventilation_control_zone_temperature_setpoint_schedule_name`')
         self._data["Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
 
     @property
@@ -2004,13 +2106,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.minimum_venting_open_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.minimum_venting_open_factor`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.minimum_venting_open_factor`')
         self._data["Minimum Venting Open Factor"] = value
 
     @property
@@ -2044,13 +2146,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
             if value >= 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`')
         self._data["Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
@@ -2084,10 +2186,10 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`')
         self._data["Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
@@ -2122,13 +2224,13 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
             if value >= 300000.0:
                 raise ValueError('value need to be smaller 300000.0 '
-                                 'for field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`')
         self._data["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
@@ -2162,10 +2264,10 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`')
+                                 'for field `AirflowNetworkMultiZoneSurface.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`')
         self._data["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
@@ -2200,23 +2302,46 @@ class AirflowNetworkMultiZoneSurface(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `venting_availability_schedule_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurface.venting_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `venting_availability_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.venting_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `venting_availability_schedule_name`')
+                                 'for field `AirflowNetworkMultiZoneSurface.venting_availability_schedule_name`')
         self._data["Venting Availability Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneSurface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneSurface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneSurface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneSurface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2234,8 +2359,27 @@ class AirflowNetworkMultiZoneSurface(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2250,6 +2394,10 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
     internal_name = "AirflowNetwork:MultiZone:ReferenceCrackConditions"
     field_count = 4
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:ReferenceCrackConditions`
@@ -2259,6 +2407,7 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
         self._data["Reference Temperature"] = None
         self._data["Reference Barometric Pressure"] = None
         self._data["Reference Humidity Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2327,13 +2476,13 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneReferenceCrackConditions.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneReferenceCrackConditions.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneReferenceCrackConditions.name`')
         self._data["Name"] = value
 
     @property
@@ -2365,7 +2514,7 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_temperature`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneReferenceCrackConditions.reference_temperature`'.format(value))
         self._data["Reference Temperature"] = value
 
     @property
@@ -2400,13 +2549,13 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_barometric_pressure`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneReferenceCrackConditions.reference_barometric_pressure`'.format(value))
             if value < 31000.0:
                 raise ValueError('value need to be greater or equal 31000.0 '
-                                 'for field `reference_barometric_pressure`')
+                                 'for field `AirflowNetworkMultiZoneReferenceCrackConditions.reference_barometric_pressure`')
             if value > 120000.0:
                 raise ValueError('value need to be smaller 120000.0 '
-                                 'for field `reference_barometric_pressure`')
+                                 'for field `AirflowNetworkMultiZoneReferenceCrackConditions.reference_barometric_pressure`')
         self._data["Reference Barometric Pressure"] = value
 
     @property
@@ -2438,17 +2587,40 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_humidity_ratio`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneReferenceCrackConditions.reference_humidity_ratio`'.format(value))
         self._data["Reference Humidity Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneReferenceCrackConditions:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneReferenceCrackConditions:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneReferenceCrackConditions: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneReferenceCrackConditions: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2466,8 +2638,27 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2482,6 +2673,10 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
     internal_name = "AirflowNetwork:MultiZone:Surface:Crack"
     field_count = 4
     required_fields = ["Name", "Air Mass Flow Coefficient at Reference Conditions"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface:Crack`
@@ -2491,6 +2686,7 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
         self._data["Air Mass Flow Coefficient at Reference Conditions"] = None
         self._data["Air Mass Flow Exponent"] = None
         self._data["Reference Crack Conditions"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2559,13 +2755,13 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceCrack.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.name`')
         self._data["Name"] = value
 
     @property
@@ -2599,10 +2795,10 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_coefficient_at_reference_conditions`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceCrack.air_mass_flow_coefficient_at_reference_conditions`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_mass_flow_coefficient_at_reference_conditions`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.air_mass_flow_coefficient_at_reference_conditions`')
         self._data["Air Mass Flow Coefficient at Reference Conditions"] = value
 
     @property
@@ -2636,13 +2832,13 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceCrack.air_mass_flow_exponent`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.air_mass_flow_exponent`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.air_mass_flow_exponent`')
         self._data["Air Mass Flow Exponent"] = value
 
     @property
@@ -2673,23 +2869,46 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reference_crack_conditions`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceCrack.reference_crack_conditions`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reference_crack_conditions`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.reference_crack_conditions`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reference_crack_conditions`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceCrack.reference_crack_conditions`')
         self._data["Reference Crack Conditions"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneSurfaceCrack:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneSurfaceCrack:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneSurfaceCrack: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneSurfaceCrack: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2707,8 +2926,27 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2723,6 +2961,10 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
     internal_name = "AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea"
     field_count = 5
     required_fields = ["Name", "Effective Leakage Area"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea`
@@ -2733,6 +2975,7 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
         self._data["Discharge Coefficient"] = None
         self._data["Reference Pressure Difference"] = None
         self._data["Air Mass Flow Exponent"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2808,13 +3051,13 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.name`')
         self._data["Name"] = value
 
     @property
@@ -2846,10 +3089,10 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `effective_leakage_area`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.effective_leakage_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `effective_leakage_area`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.effective_leakage_area`')
         self._data["Effective Leakage Area"] = value
 
     @property
@@ -2882,10 +3125,10 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.discharge_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `discharge_coefficient`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.discharge_coefficient`')
         self._data["Discharge Coefficient"] = value
 
     @property
@@ -2918,10 +3161,10 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_pressure_difference`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.reference_pressure_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_pressure_difference`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.reference_pressure_difference`')
         self._data["Reference Pressure Difference"] = value
 
     @property
@@ -2955,23 +3198,46 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.air_mass_flow_exponent`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.air_mass_flow_exponent`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea.air_mass_flow_exponent`')
         self._data["Air Mass Flow Exponent"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2989,8 +3255,27 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3006,6 +3291,10 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
     internal_name = "AirflowNetwork:MultiZone:Component:DetailedOpening"
     field_count = 26
     required_fields = ["Name", "Air Mass Flow Coefficient When Opening is Closed", "Number of Sets of Opening Factor Data", "Opening Factor 2"]
+    extensible_fields = 0
+    format = None
+    min_fields = 16
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:DetailedOpening`
@@ -3037,6 +3326,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
         self._data["Width Factor for Opening Factor 4"] = None
         self._data["Height Factor for Opening Factor 4"] = None
         self._data["Start Height Factor for Opening Factor 4"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3259,13 +3549,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.name`')
         self._data["Name"] = value
 
     @property
@@ -3300,10 +3590,10 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_coefficient_when_opening_is_closed`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.air_mass_flow_coefficient_when_opening_is_closed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_mass_flow_coefficient_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.air_mass_flow_coefficient_when_opening_is_closed`')
         self._data["Air Mass Flow Coefficient When Opening is Closed"] = value
 
     @property
@@ -3339,13 +3629,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.air_mass_flow_exponent_when_opening_is_closed`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.air_mass_flow_exponent_when_opening_is_closed`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.air_mass_flow_exponent_when_opening_is_closed`')
         self._data["Air Mass Flow Exponent When Opening is Closed"] = value
 
     @property
@@ -3379,13 +3669,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `type_of_rectanguler_large_vertical_opening_lvo`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.type_of_rectanguler_large_vertical_opening_lvo`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `type_of_rectanguler_large_vertical_opening_lvo`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.type_of_rectanguler_large_vertical_opening_lvo`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `type_of_rectanguler_large_vertical_opening_lvo`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.type_of_rectanguler_large_vertical_opening_lvo`')
             vals = {}
             vals["nonpivoted"] = "NonPivoted"
             vals["horizontallypivoted"] = "HorizontallyPivoted"
@@ -3408,10 +3698,10 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `type_of_rectanguler_large_vertical_opening_lvo`'.format(value))
+                                     'field `AirflowNetworkMultiZoneComponentDetailedOpening.type_of_rectanguler_large_vertical_opening_lvo`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `type_of_rectanguler_large_vertical_opening_lvo`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkMultiZoneComponentDetailedOpening.type_of_rectanguler_large_vertical_opening_lvo`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Rectanguler Large Vertical Opening (LVO)"] = value
 
@@ -3452,10 +3742,10 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `extra_crack_length_or_height_of_pivoting_axis`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.extra_crack_length_or_height_of_pivoting_axis`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `extra_crack_length_or_height_of_pivoting_axis`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.extra_crack_length_or_height_of_pivoting_axis`')
         self._data["Extra Crack Length or Height of Pivoting Axis"] = value
 
     @property
@@ -3490,18 +3780,18 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_sets_of_opening_factor_data`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `AirflowNetworkMultiZoneComponentDetailedOpening.number_of_sets_of_opening_factor_data`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_sets_of_opening_factor_data`'.format(value))
+                                         'for field `AirflowNetworkMultiZoneComponentDetailedOpening.number_of_sets_of_opening_factor_data`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
-                                 'for field `number_of_sets_of_opening_factor_data`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.number_of_sets_of_opening_factor_data`')
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
-                                 'for field `number_of_sets_of_opening_factor_data`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.number_of_sets_of_opening_factor_data`')
         self._data["Number of Sets of Opening Factor Data"] = value
 
     @property
@@ -3535,13 +3825,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `opening_factor_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_1`')
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
-                                 'for field `opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_1`')
         self._data["Opening Factor 1"] = value
 
     @property
@@ -3576,13 +3866,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient_for_opening_factor_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_1`')
         self._data["Discharge Coefficient for Opening Factor 1"] = value
 
     @property
@@ -3616,13 +3906,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_factor_for_opening_factor_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `width_factor_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `width_factor_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_1`')
         self._data["Width Factor for Opening Factor 1"] = value
 
     @property
@@ -3656,13 +3946,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_factor_for_opening_factor_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `height_factor_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `height_factor_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_1`')
         self._data["Height Factor for Opening Factor 1"] = value
 
     @property
@@ -3700,13 +3990,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_height_factor_for_opening_factor_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `start_height_factor_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `start_height_factor_for_opening_factor_1`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_1`')
         self._data["Start Height Factor for Opening Factor 1"] = value
 
     @property
@@ -3743,13 +4033,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `opening_factor_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_2`')
         self._data["Opening Factor 2"] = value
 
     @property
@@ -3784,13 +4074,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient_for_opening_factor_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_2`')
         self._data["Discharge Coefficient for Opening Factor 2"] = value
 
     @property
@@ -3824,13 +4114,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_factor_for_opening_factor_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `width_factor_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `width_factor_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_2`')
         self._data["Width Factor for Opening Factor 2"] = value
 
     @property
@@ -3864,13 +4154,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_factor_for_opening_factor_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `height_factor_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `height_factor_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_2`')
         self._data["Height Factor for Opening Factor 2"] = value
 
     @property
@@ -3908,13 +4198,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_height_factor_for_opening_factor_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `start_height_factor_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_2`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `start_height_factor_for_opening_factor_2`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_2`')
         self._data["Start Height Factor for Opening Factor 2"] = value
 
     @property
@@ -3949,13 +4239,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `opening_factor_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_3`')
         self._data["Opening Factor 3"] = value
 
     @property
@@ -3990,13 +4280,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient_for_opening_factor_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_3`')
         self._data["Discharge Coefficient for Opening Factor 3"] = value
 
     @property
@@ -4030,13 +4320,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_factor_for_opening_factor_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `width_factor_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `width_factor_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_3`')
         self._data["Width Factor for Opening Factor 3"] = value
 
     @property
@@ -4070,13 +4360,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_factor_for_opening_factor_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `height_factor_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `height_factor_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_3`')
         self._data["Height Factor for Opening Factor 3"] = value
 
     @property
@@ -4114,13 +4404,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_height_factor_for_opening_factor_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `start_height_factor_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `start_height_factor_for_opening_factor_3`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_3`')
         self._data["Start Height Factor for Opening Factor 3"] = value
 
     @property
@@ -4153,13 +4443,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `opening_factor_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.opening_factor_4`')
         self._data["Opening Factor 4"] = value
 
     @property
@@ -4194,13 +4484,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient_for_opening_factor_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `discharge_coefficient_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.discharge_coefficient_for_opening_factor_4`')
         self._data["Discharge Coefficient for Opening Factor 4"] = value
 
     @property
@@ -4234,13 +4524,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_factor_for_opening_factor_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `width_factor_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `width_factor_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.width_factor_for_opening_factor_4`')
         self._data["Width Factor for Opening Factor 4"] = value
 
     @property
@@ -4274,13 +4564,13 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_factor_for_opening_factor_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `height_factor_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `height_factor_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.height_factor_for_opening_factor_4`')
         self._data["Height Factor for Opening Factor 4"] = value
 
     @property
@@ -4318,23 +4608,46 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_height_factor_for_opening_factor_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `start_height_factor_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `start_height_factor_for_opening_factor_4`')
+                                 'for field `AirflowNetworkMultiZoneComponentDetailedOpening.start_height_factor_for_opening_factor_4`')
         self._data["Start Height Factor for Opening Factor 4"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneComponentDetailedOpening:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneComponentDetailedOpening:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneComponentDetailedOpening: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneComponentDetailedOpening: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4352,8 +4665,27 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4369,6 +4701,10 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
     internal_name = "AirflowNetwork:MultiZone:Component:SimpleOpening"
     field_count = 5
     required_fields = ["Name", "Air Mass Flow Coefficient When Opening is Closed", "Minimum Density Difference for Two-Way Flow", "Discharge Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:SimpleOpening`
@@ -4379,6 +4715,7 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
         self._data["Air Mass Flow Exponent When Opening is Closed"] = None
         self._data["Minimum Density Difference for Two-Way Flow"] = None
         self._data["Discharge Coefficient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4454,13 +4791,13 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentSimpleOpening.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.name`')
         self._data["Name"] = value
 
     @property
@@ -4494,10 +4831,10 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_coefficient_when_opening_is_closed`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentSimpleOpening.air_mass_flow_coefficient_when_opening_is_closed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_mass_flow_coefficient_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.air_mass_flow_coefficient_when_opening_is_closed`')
         self._data["Air Mass Flow Coefficient When Opening is Closed"] = value
 
     @property
@@ -4533,13 +4870,13 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentSimpleOpening.air_mass_flow_exponent_when_opening_is_closed`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.air_mass_flow_exponent_when_opening_is_closed`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.air_mass_flow_exponent_when_opening_is_closed`')
         self._data["Air Mass Flow Exponent When Opening is Closed"] = value
 
     @property
@@ -4571,10 +4908,10 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_density_difference_for_twoway_flow`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentSimpleOpening.minimum_density_difference_for_twoway_flow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `minimum_density_difference_for_twoway_flow`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.minimum_density_difference_for_twoway_flow`')
         self._data["Minimum Density Difference for Two-Way Flow"] = value
 
     @property
@@ -4607,20 +4944,43 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentSimpleOpening.discharge_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `discharge_coefficient`')
+                                 'for field `AirflowNetworkMultiZoneComponentSimpleOpening.discharge_coefficient`')
         self._data["Discharge Coefficient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneComponentSimpleOpening:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneComponentSimpleOpening:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneComponentSimpleOpening: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneComponentSimpleOpening: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4638,8 +4998,27 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4654,6 +5033,10 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
     internal_name = "AirflowNetwork:MultiZone:Component:HorizontalOpening"
     field_count = 5
     required_fields = ["Name", "Air Mass Flow Coefficient When Opening is Closed", "Discharge Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:HorizontalOpening`
@@ -4664,6 +5047,7 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
         self._data["Air Mass Flow Exponent When Opening is Closed"] = None
         self._data["Sloping Plane Angle"] = None
         self._data["Discharge Coefficient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4739,13 +5123,13 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentHorizontalOpening.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.name`')
         self._data["Name"] = value
 
     @property
@@ -4779,10 +5163,10 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_coefficient_when_opening_is_closed`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentHorizontalOpening.air_mass_flow_coefficient_when_opening_is_closed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_mass_flow_coefficient_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.air_mass_flow_coefficient_when_opening_is_closed`')
         self._data["Air Mass Flow Coefficient When Opening is Closed"] = value
 
     @property
@@ -4818,13 +5202,13 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentHorizontalOpening.air_mass_flow_exponent_when_opening_is_closed`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.air_mass_flow_exponent_when_opening_is_closed`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent_when_opening_is_closed`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.air_mass_flow_exponent_when_opening_is_closed`')
         self._data["Air Mass Flow Exponent When Opening is Closed"] = value
 
     @property
@@ -4858,13 +5242,13 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sloping_plane_angle`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentHorizontalOpening.sloping_plane_angle`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `sloping_plane_angle`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.sloping_plane_angle`')
             if value > 90.0:
                 raise ValueError('value need to be smaller 90.0 '
-                                 'for field `sloping_plane_angle`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.sloping_plane_angle`')
         self._data["Sloping Plane Angle"] = value
 
     @property
@@ -4897,20 +5281,43 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `discharge_coefficient`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentHorizontalOpening.discharge_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `discharge_coefficient`')
+                                 'for field `AirflowNetworkMultiZoneComponentHorizontalOpening.discharge_coefficient`')
         self._data["Discharge Coefficient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneComponentHorizontalOpening:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneComponentHorizontalOpening:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneComponentHorizontalOpening: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneComponentHorizontalOpening: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4928,8 +5335,27 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4945,6 +5371,10 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
     internal_name = "AirflowNetwork:MultiZone:Component:ZoneExhaustFan"
     field_count = 4
     required_fields = ["Name", "Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
@@ -4954,6 +5384,7 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
         self._data["Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"] = None
         self._data["Air Mass Flow Exponent When the Zone Exhaust Fan is Off"] = None
         self._data["Reference Crack Conditions"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5022,13 +5453,13 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.name`')
         self._data["Name"] = value
 
     @property
@@ -5065,10 +5496,10 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions`')
         self._data["Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"] = value
 
     @property
@@ -5104,13 +5535,13 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`')
         self._data["Air Mass Flow Exponent When the Zone Exhaust Fan is Off"] = value
 
     @property
@@ -5141,23 +5572,46 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reference_crack_conditions`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.reference_crack_conditions`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reference_crack_conditions`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.reference_crack_conditions`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reference_crack_conditions`')
+                                 'for field `AirflowNetworkMultiZoneComponentZoneExhaustFan.reference_crack_conditions`')
         self._data["Reference Crack Conditions"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneComponentZoneExhaustFan:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneComponentZoneExhaustFan:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneComponentZoneExhaustFan: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneComponentZoneExhaustFan: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5175,8 +5629,27 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5191,6 +5664,10 @@ class AirflowNetworkMultiZoneExternalNode(object):
     internal_name = "AirflowNetwork:MultiZone:ExternalNode"
     field_count = 3
     required_fields = ["Name", "Wind Pressure Coefficient Values Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:ExternalNode`
@@ -5199,6 +5676,7 @@ class AirflowNetworkMultiZoneExternalNode(object):
         self._data["Name"] = None
         self._data["External Node Height"] = None
         self._data["Wind Pressure Coefficient Values Object Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5261,13 +5739,13 @@ class AirflowNetworkMultiZoneExternalNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneExternalNode.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneExternalNode.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneExternalNode.name`')
         self._data["Name"] = value
 
     @property
@@ -5299,7 +5777,7 @@ class AirflowNetworkMultiZoneExternalNode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `external_node_height`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneExternalNode.external_node_height`'.format(value))
         self._data["External Node Height"] = value
 
     @property
@@ -5329,23 +5807,46 @@ class AirflowNetworkMultiZoneExternalNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `wind_pressure_coefficient_values_object_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneExternalNode.wind_pressure_coefficient_values_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `wind_pressure_coefficient_values_object_name`')
+                                 'for field `AirflowNetworkMultiZoneExternalNode.wind_pressure_coefficient_values_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `wind_pressure_coefficient_values_object_name`')
+                                 'for field `AirflowNetworkMultiZoneExternalNode.wind_pressure_coefficient_values_object_name`')
         self._data["Wind Pressure Coefficient Values Object Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneExternalNode:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneExternalNode:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneExternalNode: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneExternalNode: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5363,8 +5864,27 @@ class AirflowNetworkMultiZoneExternalNode(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5382,6 +5902,10 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
     internal_name = "AirflowNetwork:MultiZone:WindPressureCoefficientArray"
     field_count = 37
     required_fields = ["Name", "Wind Direction 1", "Wind Direction 2"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:WindPressureCoefficientArray`
@@ -5424,6 +5948,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
         self._data["Wind Direction 34"] = None
         self._data["Wind Direction 35"] = None
         self._data["Wind Direction 36"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5723,13 +6248,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.name`')
         self._data["Name"] = value
 
     @property
@@ -5762,13 +6287,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_1`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_1`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_1`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_1`')
         self._data["Wind Direction 1"] = value
 
     @property
@@ -5801,13 +6326,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_2`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_2`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_2`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_2`')
         self._data["Wind Direction 2"] = value
 
     @property
@@ -5840,13 +6365,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_3`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_3`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_3`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_3`')
         self._data["Wind Direction 3"] = value
 
     @property
@@ -5879,13 +6404,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_4`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_4`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_4`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_4`')
         self._data["Wind Direction 4"] = value
 
     @property
@@ -5918,13 +6443,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_5`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_5`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_5`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_5`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_5`')
         self._data["Wind Direction 5"] = value
 
     @property
@@ -5957,13 +6482,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_6`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_6`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_6`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_6`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_6`')
         self._data["Wind Direction 6"] = value
 
     @property
@@ -5996,13 +6521,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_7`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_7`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_7`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_7`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_7`')
         self._data["Wind Direction 7"] = value
 
     @property
@@ -6035,13 +6560,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_8`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_8`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_8`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_8`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_8`')
         self._data["Wind Direction 8"] = value
 
     @property
@@ -6074,13 +6599,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_9`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_9`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_9`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_9`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_9`')
         self._data["Wind Direction 9"] = value
 
     @property
@@ -6113,13 +6638,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_10`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_10`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_10`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_10`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_10`')
         self._data["Wind Direction 10"] = value
 
     @property
@@ -6152,13 +6677,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_11`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_11`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_11`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_11`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_11`')
         self._data["Wind Direction 11"] = value
 
     @property
@@ -6191,13 +6716,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_12`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_12`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_12`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_12`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_12`')
         self._data["Wind Direction 12"] = value
 
     @property
@@ -6230,13 +6755,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_13`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_13`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_13`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_13`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_13`')
         self._data["Wind Direction 13"] = value
 
     @property
@@ -6269,13 +6794,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_14`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_14`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_14`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_14`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_14`')
         self._data["Wind Direction 14"] = value
 
     @property
@@ -6308,13 +6833,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_15`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_15`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_15`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_15`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_15`')
         self._data["Wind Direction 15"] = value
 
     @property
@@ -6347,13 +6872,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_16`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_16`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_16`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_16`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_16`')
         self._data["Wind Direction 16"] = value
 
     @property
@@ -6386,13 +6911,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_17`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_17`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_17`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_17`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_17`')
         self._data["Wind Direction 17"] = value
 
     @property
@@ -6425,13 +6950,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_18`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_18`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_18`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_18`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_18`')
         self._data["Wind Direction 18"] = value
 
     @property
@@ -6464,13 +6989,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_19`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_19`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_19`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_19`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_19`')
         self._data["Wind Direction 19"] = value
 
     @property
@@ -6503,13 +7028,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_20`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_20`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_20`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_20`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_20`')
         self._data["Wind Direction 20"] = value
 
     @property
@@ -6542,13 +7067,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_21`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_21`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_21`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_21`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_21`')
         self._data["Wind Direction 21"] = value
 
     @property
@@ -6581,13 +7106,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_22`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_22`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_22`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_22`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_22`')
         self._data["Wind Direction 22"] = value
 
     @property
@@ -6620,13 +7145,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_23`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_23`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_23`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_23`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_23`')
         self._data["Wind Direction 23"] = value
 
     @property
@@ -6659,13 +7184,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_24`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_24`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_24`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_24`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_24`')
         self._data["Wind Direction 24"] = value
 
     @property
@@ -6698,13 +7223,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_25`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_25`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_25`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_25`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_25`')
         self._data["Wind Direction 25"] = value
 
     @property
@@ -6737,13 +7262,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_26`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_26`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_26`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_26`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_26`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_26`')
         self._data["Wind Direction 26"] = value
 
     @property
@@ -6776,13 +7301,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_27`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_27`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_27`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_27`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_27`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_27`')
         self._data["Wind Direction 27"] = value
 
     @property
@@ -6815,13 +7340,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_28`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_28`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_28`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_28`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_28`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_28`')
         self._data["Wind Direction 28"] = value
 
     @property
@@ -6854,13 +7379,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_29`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_29`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_29`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_29`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_29`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_29`')
         self._data["Wind Direction 29"] = value
 
     @property
@@ -6893,13 +7418,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_30`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_30`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_30`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_30`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_30`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_30`')
         self._data["Wind Direction 30"] = value
 
     @property
@@ -6932,13 +7457,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_31`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_31`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_31`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_31`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_31`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_31`')
         self._data["Wind Direction 31"] = value
 
     @property
@@ -6971,13 +7496,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_32`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_32`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_32`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_32`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_32`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_32`')
         self._data["Wind Direction 32"] = value
 
     @property
@@ -7010,13 +7535,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_33`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_33`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_33`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_33`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_33`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_33`')
         self._data["Wind Direction 33"] = value
 
     @property
@@ -7049,13 +7574,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_34`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_34`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_34`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_34`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_34`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_34`')
         self._data["Wind Direction 34"] = value
 
     @property
@@ -7088,13 +7613,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_35`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_35`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_35`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_35`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_35`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_35`')
         self._data["Wind Direction 35"] = value
 
     @property
@@ -7127,23 +7652,46 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_direction_36`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_36`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `wind_direction_36`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_36`')
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
-                                 'for field `wind_direction_36`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientArray.wind_direction_36`')
         self._data["Wind Direction 36"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneWindPressureCoefficientArray:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneWindPressureCoefficientArray:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneWindPressureCoefficientArray: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneWindPressureCoefficientArray: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7161,8 +7709,27 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7179,6 +7746,10 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
     internal_name = "AirflowNetwork:MultiZone:WindPressureCoefficientValues"
     field_count = 38
     required_fields = ["Name", "AirflowNetwork:MultiZone:WindPressureCoefficientArray Name", "Wind Pressure Coefficient Value 1", "Wind Pressure Coefficient Value 2"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:WindPressureCoefficientValues`
@@ -7222,6 +7793,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
         self._data["Wind Pressure Coefficient Value 34"] = None
         self._data["Wind Pressure Coefficient Value 35"] = None
         self._data["Wind Pressure Coefficient Value 36"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7528,13 +8100,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.name`')
         self._data["Name"] = value
 
     @property
@@ -7564,13 +8136,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `airflownetworkmultizonewindpressurecoefficientarray_name`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.airflownetworkmultizonewindpressurecoefficientarray_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `airflownetworkmultizonewindpressurecoefficientarray_name`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.airflownetworkmultizonewindpressurecoefficientarray_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `airflownetworkmultizonewindpressurecoefficientarray_name`')
+                                 'for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.airflownetworkmultizonewindpressurecoefficientarray_name`')
         self._data["AirflowNetwork:MultiZone:WindPressureCoefficientArray Name"] = value
 
     @property
@@ -7601,7 +8173,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_1`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_1`'.format(value))
         self._data["Wind Pressure Coefficient Value 1"] = value
 
     @property
@@ -7632,7 +8204,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_2`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_2`'.format(value))
         self._data["Wind Pressure Coefficient Value 2"] = value
 
     @property
@@ -7663,7 +8235,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_3`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_3`'.format(value))
         self._data["Wind Pressure Coefficient Value 3"] = value
 
     @property
@@ -7694,7 +8266,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_4`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_4`'.format(value))
         self._data["Wind Pressure Coefficient Value 4"] = value
 
     @property
@@ -7725,7 +8297,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_5`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_5`'.format(value))
         self._data["Wind Pressure Coefficient Value 5"] = value
 
     @property
@@ -7756,7 +8328,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_6`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_6`'.format(value))
         self._data["Wind Pressure Coefficient Value 6"] = value
 
     @property
@@ -7787,7 +8359,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_7`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_7`'.format(value))
         self._data["Wind Pressure Coefficient Value 7"] = value
 
     @property
@@ -7818,7 +8390,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_8`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_8`'.format(value))
         self._data["Wind Pressure Coefficient Value 8"] = value
 
     @property
@@ -7849,7 +8421,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_9`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_9`'.format(value))
         self._data["Wind Pressure Coefficient Value 9"] = value
 
     @property
@@ -7880,7 +8452,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_10`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_10`'.format(value))
         self._data["Wind Pressure Coefficient Value 10"] = value
 
     @property
@@ -7911,7 +8483,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_11`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_11`'.format(value))
         self._data["Wind Pressure Coefficient Value 11"] = value
 
     @property
@@ -7942,7 +8514,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_12`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_12`'.format(value))
         self._data["Wind Pressure Coefficient Value 12"] = value
 
     @property
@@ -7973,7 +8545,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_13`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_13`'.format(value))
         self._data["Wind Pressure Coefficient Value 13"] = value
 
     @property
@@ -8004,7 +8576,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_14`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_14`'.format(value))
         self._data["Wind Pressure Coefficient Value 14"] = value
 
     @property
@@ -8035,7 +8607,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_15`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_15`'.format(value))
         self._data["Wind Pressure Coefficient Value 15"] = value
 
     @property
@@ -8066,7 +8638,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_16`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_16`'.format(value))
         self._data["Wind Pressure Coefficient Value 16"] = value
 
     @property
@@ -8097,7 +8669,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_17`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_17`'.format(value))
         self._data["Wind Pressure Coefficient Value 17"] = value
 
     @property
@@ -8128,7 +8700,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_18`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_18`'.format(value))
         self._data["Wind Pressure Coefficient Value 18"] = value
 
     @property
@@ -8159,7 +8731,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_19`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_19`'.format(value))
         self._data["Wind Pressure Coefficient Value 19"] = value
 
     @property
@@ -8190,7 +8762,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_20`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_20`'.format(value))
         self._data["Wind Pressure Coefficient Value 20"] = value
 
     @property
@@ -8221,7 +8793,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_21`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_21`'.format(value))
         self._data["Wind Pressure Coefficient Value 21"] = value
 
     @property
@@ -8252,7 +8824,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_22`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_22`'.format(value))
         self._data["Wind Pressure Coefficient Value 22"] = value
 
     @property
@@ -8283,7 +8855,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_23`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_23`'.format(value))
         self._data["Wind Pressure Coefficient Value 23"] = value
 
     @property
@@ -8314,7 +8886,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_24`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_24`'.format(value))
         self._data["Wind Pressure Coefficient Value 24"] = value
 
     @property
@@ -8345,7 +8917,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_25`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_25`'.format(value))
         self._data["Wind Pressure Coefficient Value 25"] = value
 
     @property
@@ -8376,7 +8948,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_26`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_26`'.format(value))
         self._data["Wind Pressure Coefficient Value 26"] = value
 
     @property
@@ -8407,7 +8979,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_27`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_27`'.format(value))
         self._data["Wind Pressure Coefficient Value 27"] = value
 
     @property
@@ -8438,7 +9010,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_28`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_28`'.format(value))
         self._data["Wind Pressure Coefficient Value 28"] = value
 
     @property
@@ -8469,7 +9041,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_29`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_29`'.format(value))
         self._data["Wind Pressure Coefficient Value 29"] = value
 
     @property
@@ -8500,7 +9072,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_30`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_30`'.format(value))
         self._data["Wind Pressure Coefficient Value 30"] = value
 
     @property
@@ -8531,7 +9103,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_31`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_31`'.format(value))
         self._data["Wind Pressure Coefficient Value 31"] = value
 
     @property
@@ -8562,7 +9134,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_32`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_32`'.format(value))
         self._data["Wind Pressure Coefficient Value 32"] = value
 
     @property
@@ -8593,7 +9165,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_33`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_33`'.format(value))
         self._data["Wind Pressure Coefficient Value 33"] = value
 
     @property
@@ -8624,7 +9196,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_34`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_34`'.format(value))
         self._data["Wind Pressure Coefficient Value 34"] = value
 
     @property
@@ -8655,7 +9227,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_35`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_35`'.format(value))
         self._data["Wind Pressure Coefficient Value 35"] = value
 
     @property
@@ -8686,17 +9258,40 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `wind_pressure_coefficient_value_36`'.format(value))
+                                 ' for field `AirflowNetworkMultiZoneWindPressureCoefficientValues.wind_pressure_coefficient_value_36`'.format(value))
         self._data["Wind Pressure Coefficient Value 36"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkMultiZoneWindPressureCoefficientValues:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkMultiZoneWindPressureCoefficientValues:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkMultiZoneWindPressureCoefficientValues: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkMultiZoneWindPressureCoefficientValues: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8714,8 +9309,27 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8730,6 +9344,10 @@ class AirflowNetworkDistributionNode(object):
     internal_name = "AirflowNetwork:Distribution:Node"
     field_count = 4
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Node`
@@ -8739,6 +9357,7 @@ class AirflowNetworkDistributionNode(object):
         self._data["Component Name or Node Name"] = None
         self._data["Component Object Type or Node Type"] = None
         self._data["Node Height"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8807,13 +9426,13 @@ class AirflowNetworkDistributionNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionNode.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionNode.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionNode.name`')
         self._data["Name"] = value
 
     @property
@@ -8846,13 +9465,13 @@ class AirflowNetworkDistributionNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_name_or_node_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionNode.component_name_or_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_name_or_node_name`')
+                                 'for field `AirflowNetworkDistributionNode.component_name_or_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_name_or_node_name`')
+                                 'for field `AirflowNetworkDistributionNode.component_name_or_node_name`')
         self._data["Component Name or Node Name"] = value
 
     @property
@@ -8901,13 +9520,13 @@ class AirflowNetworkDistributionNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_object_type_or_node_type`'.format(value))
+                                 ' for field `AirflowNetworkDistributionNode.component_object_type_or_node_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_object_type_or_node_type`')
+                                 'for field `AirflowNetworkDistributionNode.component_object_type_or_node_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_object_type_or_node_type`')
+                                 'for field `AirflowNetworkDistributionNode.component_object_type_or_node_type`')
             vals = {}
             vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
             vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
@@ -8935,10 +9554,10 @@ class AirflowNetworkDistributionNode(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `component_object_type_or_node_type`'.format(value))
+                                     'field `AirflowNetworkDistributionNode.component_object_type_or_node_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `component_object_type_or_node_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkDistributionNode.component_object_type_or_node_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component Object Type or Node Type"] = value
 
@@ -8971,17 +9590,40 @@ class AirflowNetworkDistributionNode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `node_height`'.format(value))
+                                 ' for field `AirflowNetworkDistributionNode.node_height`'.format(value))
         self._data["Node Height"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionNode:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionNode:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionNode: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionNode: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8999,8 +9641,27 @@ class AirflowNetworkDistributionNode(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9015,6 +9676,10 @@ class AirflowNetworkDistributionComponentLeak(object):
     internal_name = "AirflowNetwork:Distribution:Component:Leak"
     field_count = 3
     required_fields = ["Name", "Air Mass Flow Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Leak`
@@ -9023,6 +9688,7 @@ class AirflowNetworkDistributionComponentLeak(object):
         self._data["Name"] = None
         self._data["Air Mass Flow Coefficient"] = None
         self._data["Air Mass Flow Exponent"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9084,13 +9750,13 @@ class AirflowNetworkDistributionComponentLeak(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeak.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentLeak.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentLeak.name`')
         self._data["Name"] = value
 
     @property
@@ -9124,10 +9790,10 @@ class AirflowNetworkDistributionComponentLeak(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_coefficient`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeak.air_mass_flow_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_mass_flow_coefficient`')
+                                 'for field `AirflowNetworkDistributionComponentLeak.air_mass_flow_coefficient`')
         self._data["Air Mass Flow Coefficient"] = value
 
     @property
@@ -9162,23 +9828,46 @@ class AirflowNetworkDistributionComponentLeak(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeak.air_mass_flow_exponent`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkDistributionComponentLeak.air_mass_flow_exponent`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkDistributionComponentLeak.air_mass_flow_exponent`')
         self._data["Air Mass Flow Exponent"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentLeak:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentLeak:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentLeak: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentLeak: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9196,8 +9885,27 @@ class AirflowNetworkDistributionComponentLeak(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9213,6 +9921,10 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
     internal_name = "AirflowNetwork:Distribution:Component:LeakageRatio"
     field_count = 5
     required_fields = ["Name", "Maximum Flow Rate", "Reference Pressure Difference"]
+    extensible_fields = 0
+    format = None
+    min_fields = 5
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:LeakageRatio`
@@ -9223,6 +9935,7 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
         self._data["Maximum Flow Rate"] = None
         self._data["Reference Pressure Difference"] = None
         self._data["Air Mass Flow Exponent"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9298,13 +10011,13 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeakageRatio.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.name`')
         self._data["Name"] = value
 
     @property
@@ -9337,13 +10050,13 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `effective_leakage_ratio`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeakageRatio.effective_leakage_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `effective_leakage_ratio`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.effective_leakage_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `effective_leakage_ratio`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.effective_leakage_ratio`')
         self._data["Effective Leakage Ratio"] = value
 
     @property
@@ -9375,10 +10088,10 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeakageRatio.maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -9410,10 +10123,10 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_pressure_difference`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeakageRatio.reference_pressure_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_pressure_difference`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.reference_pressure_difference`')
         self._data["Reference Pressure Difference"] = value
 
     @property
@@ -9447,23 +10160,46 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_mass_flow_exponent`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentLeakageRatio.air_mass_flow_exponent`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.air_mass_flow_exponent`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `air_mass_flow_exponent`')
+                                 'for field `AirflowNetworkDistributionComponentLeakageRatio.air_mass_flow_exponent`')
         self._data["Air Mass Flow Exponent"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentLeakageRatio:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentLeakageRatio:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentLeakageRatio: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentLeakageRatio: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9481,8 +10217,27 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9497,6 +10252,10 @@ class AirflowNetworkDistributionComponentDuct(object):
     internal_name = "AirflowNetwork:Distribution:Component:Duct"
     field_count = 8
     required_fields = ["Name", "Duct Length", "Hydraulic Diameter", "Cross Section Area"]
+    extensible_fields = 0
+    format = None
+    min_fields = 8
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Duct`
@@ -9510,6 +10269,7 @@ class AirflowNetworkDistributionComponentDuct(object):
         self._data["Coefficient for Local Dynamic Loss Due to Fitting"] = None
         self._data["Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"] = None
         self._data["Overall Moisture Transmittance Coefficient from Air to Air"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9606,13 +10366,13 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.name`')
         self._data["Name"] = value
 
     @property
@@ -9644,10 +10404,10 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `duct_length`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.duct_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `duct_length`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.duct_length`')
         self._data["Duct Length"] = value
 
     @property
@@ -9680,10 +10440,10 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `hydraulic_diameter`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.hydraulic_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `hydraulic_diameter`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.hydraulic_diameter`')
         self._data["Hydraulic Diameter"] = value
 
     @property
@@ -9715,10 +10475,10 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cross_section_area`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.cross_section_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `cross_section_area`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.cross_section_area`')
         self._data["Cross Section Area"] = value
 
     @property
@@ -9751,10 +10511,10 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `surface_roughness`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.surface_roughness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `surface_roughness`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.surface_roughness`')
         self._data["Surface Roughness"] = value
 
     @property
@@ -9787,10 +10547,10 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_for_local_dynamic_loss_due_to_fitting`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.coefficient_for_local_dynamic_loss_due_to_fitting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `coefficient_for_local_dynamic_loss_due_to_fitting`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.coefficient_for_local_dynamic_loss_due_to_fitting`')
         self._data["Coefficient for Local Dynamic Loss Due to Fitting"] = value
 
     @property
@@ -9826,10 +10586,10 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `overall_heat_transmittance_coefficient_ufactor_from_air_to_air`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.overall_heat_transmittance_coefficient_ufactor_from_air_to_air`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `overall_heat_transmittance_coefficient_ufactor_from_air_to_air`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.overall_heat_transmittance_coefficient_ufactor_from_air_to_air`')
         self._data["Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"] = value
 
     @property
@@ -9863,20 +10623,43 @@ class AirflowNetworkDistributionComponentDuct(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `overall_moisture_transmittance_coefficient_from_air_to_air`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentDuct.overall_moisture_transmittance_coefficient_from_air_to_air`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `overall_moisture_transmittance_coefficient_from_air_to_air`')
+                                 'for field `AirflowNetworkDistributionComponentDuct.overall_moisture_transmittance_coefficient_from_air_to_air`')
         self._data["Overall Moisture Transmittance Coefficient from Air to Air"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentDuct:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentDuct:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentDuct: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentDuct: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9894,8 +10677,27 @@ class AirflowNetworkDistributionComponentDuct(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9910,6 +10712,10 @@ class AirflowNetworkDistributionComponentFan(object):
     internal_name = "AirflowNetwork:Distribution:Component:Fan"
     field_count = 2
     required_fields = ["Fan Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Fan`
@@ -9917,6 +10723,7 @@ class AirflowNetworkDistributionComponentFan(object):
         self._data = OrderedDict()
         self._data["Fan Name"] = None
         self._data["Supply Fan Object Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9971,13 +10778,13 @@ class AirflowNetworkDistributionComponentFan(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentFan.fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_name`')
+                                 'for field `AirflowNetworkDistributionComponentFan.fan_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_name`')
+                                 'for field `AirflowNetworkDistributionComponentFan.fan_name`')
         self._data["Fan Name"] = value
 
     @property
@@ -10011,13 +10818,13 @@ class AirflowNetworkDistributionComponentFan(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `supply_fan_object_type`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentFan.supply_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `supply_fan_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentFan.supply_fan_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `supply_fan_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentFan.supply_fan_object_type`')
             vals = {}
             vals["fan:onoff"] = "Fan:OnOff"
             vals["fan:constantvolume"] = "Fan:ConstantVolume"
@@ -10041,21 +10848,44 @@ class AirflowNetworkDistributionComponentFan(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `supply_fan_object_type`'.format(value))
+                                     'field `AirflowNetworkDistributionComponentFan.supply_fan_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `supply_fan_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkDistributionComponentFan.supply_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Fan Object Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentFan:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentFan:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentFan: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentFan: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10073,8 +10903,27 @@ class AirflowNetworkDistributionComponentFan(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10089,6 +10938,10 @@ class AirflowNetworkDistributionComponentCoil(object):
     internal_name = "AirflowNetwork:Distribution:Component:Coil"
     field_count = 4
     required_fields = ["Coil Name", "Coil Object Type", "Air Path Length", "Air Path Hydraulic Diameter"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Coil`
@@ -10098,6 +10951,7 @@ class AirflowNetworkDistributionComponentCoil(object):
         self._data["Coil Object Type"] = None
         self._data["Air Path Length"] = None
         self._data["Air Path Hydraulic Diameter"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10166,13 +11020,13 @@ class AirflowNetworkDistributionComponentCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `coil_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentCoil.coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `coil_name`')
+                                 'for field `AirflowNetworkDistributionComponentCoil.coil_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `coil_name`')
+                                 'for field `AirflowNetworkDistributionComponentCoil.coil_name`')
         self._data["Coil Name"] = value
 
     @property
@@ -10214,13 +11068,13 @@ class AirflowNetworkDistributionComponentCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `coil_object_type`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentCoil.coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `coil_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentCoil.coil_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `coil_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentCoil.coil_object_type`')
             vals = {}
             vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
             vals["coil:heating:gas"] = "Coil:Heating:Gas"
@@ -10252,10 +11106,10 @@ class AirflowNetworkDistributionComponentCoil(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `coil_object_type`'.format(value))
+                                     'field `AirflowNetworkDistributionComponentCoil.coil_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `coil_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkDistributionComponentCoil.coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Coil Object Type"] = value
 
@@ -10288,10 +11142,10 @@ class AirflowNetworkDistributionComponentCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_path_length`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentCoil.air_path_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_path_length`')
+                                 'for field `AirflowNetworkDistributionComponentCoil.air_path_length`')
         self._data["Air Path Length"] = value
 
     @property
@@ -10324,20 +11178,43 @@ class AirflowNetworkDistributionComponentCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_path_hydraulic_diameter`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentCoil.air_path_hydraulic_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_path_hydraulic_diameter`')
+                                 'for field `AirflowNetworkDistributionComponentCoil.air_path_hydraulic_diameter`')
         self._data["Air Path Hydraulic Diameter"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentCoil:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentCoil:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentCoil: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentCoil: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10355,8 +11232,27 @@ class AirflowNetworkDistributionComponentCoil(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10371,6 +11267,10 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
     internal_name = "AirflowNetwork:Distribution:Component:HeatExchanger"
     field_count = 4
     required_fields = ["HeatExchanger Name", "HeatExchanger Object Type", "Air Path Length", "Air Path Hydraulic Diameter"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:HeatExchanger`
@@ -10380,6 +11280,7 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
         self._data["HeatExchanger Object Type"] = None
         self._data["Air Path Length"] = None
         self._data["Air Path Hydraulic Diameter"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10448,13 +11349,13 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heatexchanger_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heatexchanger_name`')
+                                 'for field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heatexchanger_name`')
+                                 'for field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_name`')
         self._data["HeatExchanger Name"] = value
 
     @property
@@ -10488,13 +11389,13 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heatexchanger_object_type`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heatexchanger_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heatexchanger_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_object_type`')
             vals = {}
             vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
             vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
@@ -10518,10 +11419,10 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heatexchanger_object_type`'.format(value))
+                                     'field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heatexchanger_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkDistributionComponentHeatExchanger.heatexchanger_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["HeatExchanger Object Type"] = value
 
@@ -10554,10 +11455,10 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_path_length`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentHeatExchanger.air_path_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_path_length`')
+                                 'for field `AirflowNetworkDistributionComponentHeatExchanger.air_path_length`')
         self._data["Air Path Length"] = value
 
     @property
@@ -10590,20 +11491,43 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_path_hydraulic_diameter`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentHeatExchanger.air_path_hydraulic_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_path_hydraulic_diameter`')
+                                 'for field `AirflowNetworkDistributionComponentHeatExchanger.air_path_hydraulic_diameter`')
         self._data["Air Path Hydraulic Diameter"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentHeatExchanger:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentHeatExchanger:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentHeatExchanger: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentHeatExchanger: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10621,8 +11545,27 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10637,6 +11580,10 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
     internal_name = "AirflowNetwork:Distribution:Component:TerminalUnit"
     field_count = 4
     required_fields = ["Terminal Unit Name", "Terminal Unit Object Type", "Air Path Length", "Air Path Hydraulic Diameter"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:TerminalUnit`
@@ -10646,6 +11593,7 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
         self._data["Terminal Unit Object Type"] = None
         self._data["Air Path Length"] = None
         self._data["Air Path Hydraulic Diameter"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10714,13 +11662,13 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `terminal_unit_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `terminal_unit_name`')
+                                 'for field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `terminal_unit_name`')
+                                 'for field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_name`')
         self._data["Terminal Unit Name"] = value
 
     @property
@@ -10753,13 +11701,13 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `terminal_unit_object_type`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `terminal_unit_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `terminal_unit_object_type`')
+                                 'for field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_object_type`')
             vals = {}
             vals["airterminal:singleduct:constantvolume:reheat"] = "AirTerminal:SingleDuct:ConstantVolume:Reheat"
             vals["airterminal:singleduct:vav:reheat"] = "AirTerminal:SingleDuct:VAV:Reheat"
@@ -10782,10 +11730,10 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `terminal_unit_object_type`'.format(value))
+                                     'field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `terminal_unit_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AirflowNetworkDistributionComponentTerminalUnit.terminal_unit_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Terminal Unit Object Type"] = value
 
@@ -10818,10 +11766,10 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_path_length`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentTerminalUnit.air_path_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_path_length`')
+                                 'for field `AirflowNetworkDistributionComponentTerminalUnit.air_path_length`')
         self._data["Air Path Length"] = value
 
     @property
@@ -10854,20 +11802,43 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_path_hydraulic_diameter`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentTerminalUnit.air_path_hydraulic_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `air_path_hydraulic_diameter`')
+                                 'for field `AirflowNetworkDistributionComponentTerminalUnit.air_path_hydraulic_diameter`')
         self._data["Air Path Hydraulic Diameter"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentTerminalUnit:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentTerminalUnit:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentTerminalUnit: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentTerminalUnit: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10885,8 +11856,27 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10903,6 +11893,10 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
     internal_name = "AirflowNetwork:Distribution:Component:ConstantPressureDrop"
     field_count = 2
     required_fields = ["Name", "Pressure Difference Across the Component"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:ConstantPressureDrop`
@@ -10910,6 +11904,7 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Pressure Difference Across the Component"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10964,13 +11959,13 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentConstantPressureDrop.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentConstantPressureDrop.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionComponentConstantPressureDrop.name`')
         self._data["Name"] = value
 
     @property
@@ -11002,20 +11997,43 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_difference_across_the_component`'.format(value))
+                                 ' for field `AirflowNetworkDistributionComponentConstantPressureDrop.pressure_difference_across_the_component`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pressure_difference_across_the_component`')
+                                 'for field `AirflowNetworkDistributionComponentConstantPressureDrop.pressure_difference_across_the_component`')
         self._data["Pressure Difference Across the Component"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionComponentConstantPressureDrop:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionComponentConstantPressureDrop:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionComponentConstantPressureDrop: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionComponentConstantPressureDrop: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11033,8 +12051,27 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -11049,6 +12086,10 @@ class AirflowNetworkDistributionLinkage(object):
     internal_name = "AirflowNetwork:Distribution:Linkage"
     field_count = 5
     required_fields = ["Name", "Node 1 Name", "Node 2 Name", "Component Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Linkage`
@@ -11059,6 +12100,7 @@ class AirflowNetworkDistributionLinkage(object):
         self._data["Node 2 Name"] = None
         self._data["Component Name"] = None
         self._data["Thermal Zone Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -11134,13 +12176,13 @@ class AirflowNetworkDistributionLinkage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionLinkage.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionLinkage.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AirflowNetworkDistributionLinkage.name`')
         self._data["Name"] = value
 
     @property
@@ -11170,13 +12212,13 @@ class AirflowNetworkDistributionLinkage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `node_1_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionLinkage.node_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `node_1_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.node_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `node_1_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.node_1_name`')
         self._data["Node 1 Name"] = value
 
     @property
@@ -11206,13 +12248,13 @@ class AirflowNetworkDistributionLinkage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `node_2_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionLinkage.node_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `node_2_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.node_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `node_2_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.node_2_name`')
         self._data["Node 2 Name"] = value
 
     @property
@@ -11244,13 +12286,13 @@ class AirflowNetworkDistributionLinkage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionLinkage.component_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.component_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.component_name`')
         self._data["Component Name"] = value
 
     @property
@@ -11282,23 +12324,46 @@ class AirflowNetworkDistributionLinkage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_zone_name`'.format(value))
+                                 ' for field `AirflowNetworkDistributionLinkage.thermal_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_zone_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.thermal_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_zone_name`')
+                                 'for field `AirflowNetworkDistributionLinkage.thermal_zone_name`')
         self._data["Thermal Zone Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AirflowNetworkDistributionLinkage:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AirflowNetworkDistributionLinkage:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AirflowNetworkDistributionLinkage: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AirflowNetworkDistributionLinkage: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11316,8 +12381,27 @@ class AirflowNetworkDistributionLinkage(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

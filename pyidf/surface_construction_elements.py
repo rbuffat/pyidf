@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class Material(object):
     """ Corresponds to IDD object `Material`
         Regular materials described with full set of thermal properties
@@ -9,6 +12,10 @@ class Material(object):
     internal_name = "Material"
     field_count = 9
     required_fields = ["Name", "Roughness", "Thickness", "Conductivity", "Density", "Specific Heat"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material`
@@ -23,6 +30,7 @@ class Material(object):
         self._data["Thermal Absorptance"] = None
         self._data["Solar Absorptance"] = None
         self._data["Visible Absorptance"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -125,13 +133,13 @@ class Material(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `Material.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `Material.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `Material.name`')
         self._data["Name"] = value
 
     @property
@@ -167,13 +175,13 @@ class Material(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `roughness`'.format(value))
+                                 ' for field `Material.roughness`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `roughness`')
+                                 'for field `Material.roughness`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `roughness`')
+                                 'for field `Material.roughness`')
             vals = {}
             vals["veryrough"] = "VeryRough"
             vals["rough"] = "Rough"
@@ -200,10 +208,10 @@ class Material(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `roughness`'.format(value))
+                                     'field `Material.roughness`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `roughness`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `Material.roughness`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness"] = value
 
@@ -237,13 +245,13 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `Material.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `Material.thickness`')
             if value > 3.0:
                 raise ValueError('value need to be smaller 3.0 '
-                                 'for field `thickness`')
+                                 'for field `Material.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -274,10 +282,10 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity`'.format(value))
+                                 ' for field `Material.conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `conductivity`')
+                                 'for field `Material.conductivity`')
         self._data["Conductivity"] = value
 
     @property
@@ -308,10 +316,10 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `density`'.format(value))
+                                 ' for field `Material.density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `density`')
+                                 'for field `Material.density`')
         self._data["Density"] = value
 
     @property
@@ -342,10 +350,10 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat`'.format(value))
+                                 ' for field `Material.specific_heat`'.format(value))
             if value < 100.0:
                 raise ValueError('value need to be greater or equal 100.0 '
-                                 'for field `specific_heat`')
+                                 'for field `Material.specific_heat`')
         self._data["Specific Heat"] = value
 
     @property
@@ -377,13 +385,13 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_absorptance`'.format(value))
+                                 ' for field `Material.thermal_absorptance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_absorptance`')
+                                 'for field `Material.thermal_absorptance`')
             if value > 0.99999:
                 raise ValueError('value need to be smaller 0.99999 '
-                                 'for field `thermal_absorptance`')
+                                 'for field `Material.thermal_absorptance`')
         self._data["Thermal Absorptance"] = value
 
     @property
@@ -415,13 +423,13 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_absorptance`'.format(value))
+                                 ' for field `Material.solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `solar_absorptance`')
+                                 'for field `Material.solar_absorptance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `solar_absorptance`')
+                                 'for field `Material.solar_absorptance`')
         self._data["Solar Absorptance"] = value
 
     @property
@@ -453,23 +461,46 @@ class Material(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_absorptance`'.format(value))
+                                 ' for field `Material.visible_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `visible_absorptance`')
+                                 'for field `Material.visible_absorptance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_absorptance`')
+                                 'for field `Material.visible_absorptance`')
         self._data["Visible Absorptance"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Material:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Material:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Material: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Material: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -487,8 +518,27 @@ class Material(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -503,6 +553,10 @@ class MaterialNoMass(object):
     internal_name = "Material:NoMass"
     field_count = 6
     required_fields = ["Name", "Roughness", "Thermal Resistance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:NoMass`
@@ -514,6 +568,7 @@ class MaterialNoMass(object):
         self._data["Thermal Absorptance"] = None
         self._data["Solar Absorptance"] = None
         self._data["Visible Absorptance"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -595,13 +650,13 @@ class MaterialNoMass(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialNoMass.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialNoMass.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialNoMass.name`')
         self._data["Name"] = value
 
     @property
@@ -637,13 +692,13 @@ class MaterialNoMass(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `roughness`'.format(value))
+                                 ' for field `MaterialNoMass.roughness`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `roughness`')
+                                 'for field `MaterialNoMass.roughness`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `roughness`')
+                                 'for field `MaterialNoMass.roughness`')
             vals = {}
             vals["veryrough"] = "VeryRough"
             vals["rough"] = "Rough"
@@ -670,10 +725,10 @@ class MaterialNoMass(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `roughness`'.format(value))
+                                     'field `MaterialNoMass.roughness`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `roughness`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `MaterialNoMass.roughness`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness"] = value
 
@@ -705,10 +760,10 @@ class MaterialNoMass(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_resistance`'.format(value))
+                                 ' for field `MaterialNoMass.thermal_resistance`'.format(value))
             if value < 0.001:
                 raise ValueError('value need to be greater or equal 0.001 '
-                                 'for field `thermal_resistance`')
+                                 'for field `MaterialNoMass.thermal_resistance`')
         self._data["Thermal Resistance"] = value
 
     @property
@@ -740,13 +795,13 @@ class MaterialNoMass(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_absorptance`'.format(value))
+                                 ' for field `MaterialNoMass.thermal_absorptance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_absorptance`')
+                                 'for field `MaterialNoMass.thermal_absorptance`')
             if value > 0.99999:
                 raise ValueError('value need to be smaller 0.99999 '
-                                 'for field `thermal_absorptance`')
+                                 'for field `MaterialNoMass.thermal_absorptance`')
         self._data["Thermal Absorptance"] = value
 
     @property
@@ -778,13 +833,13 @@ class MaterialNoMass(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_absorptance`'.format(value))
+                                 ' for field `MaterialNoMass.solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `solar_absorptance`')
+                                 'for field `MaterialNoMass.solar_absorptance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `solar_absorptance`')
+                                 'for field `MaterialNoMass.solar_absorptance`')
         self._data["Solar Absorptance"] = value
 
     @property
@@ -816,23 +871,46 @@ class MaterialNoMass(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_absorptance`'.format(value))
+                                 ' for field `MaterialNoMass.visible_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `visible_absorptance`')
+                                 'for field `MaterialNoMass.visible_absorptance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_absorptance`')
+                                 'for field `MaterialNoMass.visible_absorptance`')
         self._data["Visible Absorptance"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialNoMass:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialNoMass:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialNoMass: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialNoMass: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -850,8 +928,27 @@ class MaterialNoMass(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -871,12 +968,17 @@ class MaterialInfraredTransparent(object):
     internal_name = "Material:InfraredTransparent"
     field_count = 1
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:InfraredTransparent`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -923,23 +1025,46 @@ class MaterialInfraredTransparent(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialInfraredTransparent.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialInfraredTransparent.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialInfraredTransparent.name`')
         self._data["Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialInfraredTransparent:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialInfraredTransparent:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialInfraredTransparent: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialInfraredTransparent: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -957,8 +1082,27 @@ class MaterialInfraredTransparent(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -973,6 +1117,10 @@ class MaterialAirGap(object):
     internal_name = "Material:AirGap"
     field_count = 2
     required_fields = ["Name", "Thermal Resistance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:AirGap`
@@ -980,6 +1128,7 @@ class MaterialAirGap(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Thermal Resistance"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1033,13 +1182,13 @@ class MaterialAirGap(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialAirGap.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialAirGap.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialAirGap.name`')
         self._data["Name"] = value
 
     @property
@@ -1070,20 +1219,43 @@ class MaterialAirGap(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_resistance`'.format(value))
+                                 ' for field `MaterialAirGap.thermal_resistance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_resistance`')
+                                 'for field `MaterialAirGap.thermal_resistance`')
         self._data["Thermal Resistance"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialAirGap:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialAirGap:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialAirGap: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialAirGap: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1101,8 +1273,27 @@ class MaterialAirGap(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1122,6 +1313,10 @@ class MaterialRoofVegetation(object):
     internal_name = "Material:RoofVegetation"
     field_count = 19
     required_fields = ["Name", "Leaf Area Index", "Leaf Reflectivity", "Leaf Emissivity", "Roughness", "Thickness", "Conductivity of Dry Soil", "Density of Dry Soil", "Specific Heat of Dry Soil"]
+    extensible_fields = 0
+    format = None
+    min_fields = 18
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:RoofVegetation`
@@ -1146,6 +1341,7 @@ class MaterialRoofVegetation(object):
         self._data["Residual Volumetric Moisture Content of the Soil Layer"] = None
         self._data["Initial Volumetric Moisture Content of the Soil Layer"] = None
         self._data["Moisture Diffusion Calculation Method"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1318,13 +1514,13 @@ class MaterialRoofVegetation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialRoofVegetation.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialRoofVegetation.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialRoofVegetation.name`')
         self._data["Name"] = value
 
     @property
@@ -1358,13 +1554,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_plants`'.format(value))
+                                 ' for field `MaterialRoofVegetation.height_of_plants`'.format(value))
             if value <= 0.005:
                 raise ValueError('value need to be greater 0.005 '
-                                 'for field `height_of_plants`')
+                                 'for field `MaterialRoofVegetation.height_of_plants`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `height_of_plants`')
+                                 'for field `MaterialRoofVegetation.height_of_plants`')
         self._data["Height of Plants"] = value
 
     @property
@@ -1398,13 +1594,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `leaf_area_index`'.format(value))
+                                 ' for field `MaterialRoofVegetation.leaf_area_index`'.format(value))
             if value <= 0.001:
                 raise ValueError('value need to be greater 0.001 '
-                                 'for field `leaf_area_index`')
+                                 'for field `MaterialRoofVegetation.leaf_area_index`')
             if value > 5.0:
                 raise ValueError('value need to be smaller 5.0 '
-                                 'for field `leaf_area_index`')
+                                 'for field `MaterialRoofVegetation.leaf_area_index`')
         self._data["Leaf Area Index"] = value
 
     @property
@@ -1438,13 +1634,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `leaf_reflectivity`'.format(value))
+                                 ' for field `MaterialRoofVegetation.leaf_reflectivity`'.format(value))
             if value < 0.05:
                 raise ValueError('value need to be greater or equal 0.05 '
-                                 'for field `leaf_reflectivity`')
+                                 'for field `MaterialRoofVegetation.leaf_reflectivity`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `leaf_reflectivity`')
+                                 'for field `MaterialRoofVegetation.leaf_reflectivity`')
         self._data["Leaf Reflectivity"] = value
 
     @property
@@ -1476,13 +1672,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `leaf_emissivity`'.format(value))
+                                 ' for field `MaterialRoofVegetation.leaf_emissivity`'.format(value))
             if value < 0.8:
                 raise ValueError('value need to be greater or equal 0.8 '
-                                 'for field `leaf_emissivity`')
+                                 'for field `MaterialRoofVegetation.leaf_emissivity`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `leaf_emissivity`')
+                                 'for field `MaterialRoofVegetation.leaf_emissivity`')
         self._data["Leaf Emissivity"] = value
 
     @property
@@ -1516,13 +1712,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_stomatal_resistance`'.format(value))
+                                 ' for field `MaterialRoofVegetation.minimum_stomatal_resistance`'.format(value))
             if value < 50.0:
                 raise ValueError('value need to be greater or equal 50.0 '
-                                 'for field `minimum_stomatal_resistance`')
+                                 'for field `MaterialRoofVegetation.minimum_stomatal_resistance`')
             if value > 300.0:
                 raise ValueError('value need to be smaller 300.0 '
-                                 'for field `minimum_stomatal_resistance`')
+                                 'for field `MaterialRoofVegetation.minimum_stomatal_resistance`')
         self._data["Minimum Stomatal Resistance"] = value
 
     @property
@@ -1552,13 +1748,13 @@ class MaterialRoofVegetation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `soil_layer_name`'.format(value))
+                                 ' for field `MaterialRoofVegetation.soil_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `soil_layer_name`')
+                                 'for field `MaterialRoofVegetation.soil_layer_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `soil_layer_name`')
+                                 'for field `MaterialRoofVegetation.soil_layer_name`')
         self._data["Soil Layer Name"] = value
 
     @property
@@ -1595,13 +1791,13 @@ class MaterialRoofVegetation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `roughness`'.format(value))
+                                 ' for field `MaterialRoofVegetation.roughness`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `roughness`')
+                                 'for field `MaterialRoofVegetation.roughness`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `roughness`')
+                                 'for field `MaterialRoofVegetation.roughness`')
             vals = {}
             vals["veryrough"] = "VeryRough"
             vals["mediumrough"] = "MediumRough"
@@ -1628,10 +1824,10 @@ class MaterialRoofVegetation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `roughness`'.format(value))
+                                     'field `MaterialRoofVegetation.roughness`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `roughness`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `MaterialRoofVegetation.roughness`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness"] = value
 
@@ -1668,13 +1864,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `MaterialRoofVegetation.thickness`'.format(value))
             if value <= 0.05:
                 raise ValueError('value need to be greater 0.05 '
-                                 'for field `thickness`')
+                                 'for field `MaterialRoofVegetation.thickness`')
             if value > 0.7:
                 raise ValueError('value need to be smaller 0.7 '
-                                 'for field `thickness`')
+                                 'for field `MaterialRoofVegetation.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -1709,13 +1905,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_of_dry_soil`'.format(value))
+                                 ' for field `MaterialRoofVegetation.conductivity_of_dry_soil`'.format(value))
             if value < 0.2:
                 raise ValueError('value need to be greater or equal 0.2 '
-                                 'for field `conductivity_of_dry_soil`')
+                                 'for field `MaterialRoofVegetation.conductivity_of_dry_soil`')
             if value > 1.5:
                 raise ValueError('value need to be smaller 1.5 '
-                                 'for field `conductivity_of_dry_soil`')
+                                 'for field `MaterialRoofVegetation.conductivity_of_dry_soil`')
         self._data["Conductivity of Dry Soil"] = value
 
     @property
@@ -1750,13 +1946,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `density_of_dry_soil`'.format(value))
+                                 ' for field `MaterialRoofVegetation.density_of_dry_soil`'.format(value))
             if value < 300.0:
                 raise ValueError('value need to be greater or equal 300.0 '
-                                 'for field `density_of_dry_soil`')
+                                 'for field `MaterialRoofVegetation.density_of_dry_soil`')
             if value > 2000.0:
                 raise ValueError('value need to be smaller 2000.0 '
-                                 'for field `density_of_dry_soil`')
+                                 'for field `MaterialRoofVegetation.density_of_dry_soil`')
         self._data["Density of Dry Soil"] = value
 
     @property
@@ -1790,13 +1986,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_of_dry_soil`'.format(value))
+                                 ' for field `MaterialRoofVegetation.specific_heat_of_dry_soil`'.format(value))
             if value <= 500.0:
                 raise ValueError('value need to be greater 500.0 '
-                                 'for field `specific_heat_of_dry_soil`')
+                                 'for field `MaterialRoofVegetation.specific_heat_of_dry_soil`')
             if value > 2000.0:
                 raise ValueError('value need to be smaller 2000.0 '
-                                 'for field `specific_heat_of_dry_soil`')
+                                 'for field `MaterialRoofVegetation.specific_heat_of_dry_soil`')
         self._data["Specific Heat of Dry Soil"] = value
 
     @property
@@ -1829,13 +2025,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_absorptance`'.format(value))
+                                 ' for field `MaterialRoofVegetation.thermal_absorptance`'.format(value))
             if value <= 0.8:
                 raise ValueError('value need to be greater 0.8 '
-                                 'for field `thermal_absorptance`')
+                                 'for field `MaterialRoofVegetation.thermal_absorptance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `thermal_absorptance`')
+                                 'for field `MaterialRoofVegetation.thermal_absorptance`')
         self._data["Thermal Absorptance"] = value
 
     @property
@@ -1869,13 +2065,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_absorptance`'.format(value))
+                                 ' for field `MaterialRoofVegetation.solar_absorptance`'.format(value))
             if value < 0.4:
                 raise ValueError('value need to be greater or equal 0.4 '
-                                 'for field `solar_absorptance`')
+                                 'for field `MaterialRoofVegetation.solar_absorptance`')
             if value > 0.9:
                 raise ValueError('value need to be smaller 0.9 '
-                                 'for field `solar_absorptance`')
+                                 'for field `MaterialRoofVegetation.solar_absorptance`')
         self._data["Solar Absorptance"] = value
 
     @property
@@ -1907,13 +2103,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_absorptance`'.format(value))
+                                 ' for field `MaterialRoofVegetation.visible_absorptance`'.format(value))
             if value <= 0.5:
                 raise ValueError('value need to be greater 0.5 '
-                                 'for field `visible_absorptance`')
+                                 'for field `MaterialRoofVegetation.visible_absorptance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_absorptance`')
+                                 'for field `MaterialRoofVegetation.visible_absorptance`')
         self._data["Visible Absorptance"] = value
 
     @property
@@ -1946,13 +2142,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `saturation_volumetric_moisture_content_of_the_soil_layer`'.format(value))
+                                 ' for field `MaterialRoofVegetation.saturation_volumetric_moisture_content_of_the_soil_layer`'.format(value))
             if value <= 0.1:
                 raise ValueError('value need to be greater 0.1 '
-                                 'for field `saturation_volumetric_moisture_content_of_the_soil_layer`')
+                                 'for field `MaterialRoofVegetation.saturation_volumetric_moisture_content_of_the_soil_layer`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `saturation_volumetric_moisture_content_of_the_soil_layer`')
+                                 'for field `MaterialRoofVegetation.saturation_volumetric_moisture_content_of_the_soil_layer`')
         self._data["Saturation Volumetric Moisture Content of the Soil Layer"] = value
 
     @property
@@ -1984,13 +2180,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `residual_volumetric_moisture_content_of_the_soil_layer`'.format(value))
+                                 ' for field `MaterialRoofVegetation.residual_volumetric_moisture_content_of_the_soil_layer`'.format(value))
             if value < 0.01:
                 raise ValueError('value need to be greater or equal 0.01 '
-                                 'for field `residual_volumetric_moisture_content_of_the_soil_layer`')
+                                 'for field `MaterialRoofVegetation.residual_volumetric_moisture_content_of_the_soil_layer`')
             if value > 0.1:
                 raise ValueError('value need to be smaller 0.1 '
-                                 'for field `residual_volumetric_moisture_content_of_the_soil_layer`')
+                                 'for field `MaterialRoofVegetation.residual_volumetric_moisture_content_of_the_soil_layer`')
         self._data["Residual Volumetric Moisture Content of the Soil Layer"] = value
 
     @property
@@ -2022,13 +2218,13 @@ class MaterialRoofVegetation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_volumetric_moisture_content_of_the_soil_layer`'.format(value))
+                                 ' for field `MaterialRoofVegetation.initial_volumetric_moisture_content_of_the_soil_layer`'.format(value))
             if value <= 0.05:
                 raise ValueError('value need to be greater 0.05 '
-                                 'for field `initial_volumetric_moisture_content_of_the_soil_layer`')
+                                 'for field `MaterialRoofVegetation.initial_volumetric_moisture_content_of_the_soil_layer`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `initial_volumetric_moisture_content_of_the_soil_layer`')
+                                 'for field `MaterialRoofVegetation.initial_volumetric_moisture_content_of_the_soil_layer`')
         self._data["Initial Volumetric Moisture Content of the Soil Layer"] = value
 
     @property
@@ -2062,13 +2258,13 @@ class MaterialRoofVegetation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `moisture_diffusion_calculation_method`'.format(value))
+                                 ' for field `MaterialRoofVegetation.moisture_diffusion_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `moisture_diffusion_calculation_method`')
+                                 'for field `MaterialRoofVegetation.moisture_diffusion_calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `moisture_diffusion_calculation_method`')
+                                 'for field `MaterialRoofVegetation.moisture_diffusion_calculation_method`')
             vals = {}
             vals["simple"] = "Simple"
             vals["advanced"] = "Advanced"
@@ -2091,21 +2287,44 @@ class MaterialRoofVegetation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `moisture_diffusion_calculation_method`'.format(value))
+                                     'field `MaterialRoofVegetation.moisture_diffusion_calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `moisture_diffusion_calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `MaterialRoofVegetation.moisture_diffusion_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Moisture Diffusion Calculation Method"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialRoofVegetation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialRoofVegetation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialRoofVegetation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialRoofVegetation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2123,8 +2342,27 @@ class MaterialRoofVegetation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2141,6 +2379,10 @@ class WindowMaterialSimpleGlazingSystem(object):
     internal_name = "WindowMaterial:SimpleGlazingSystem"
     field_count = 4
     required_fields = ["Name", "U-Factor", "Solar Heat Gain Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:SimpleGlazingSystem`
@@ -2150,6 +2392,7 @@ class WindowMaterialSimpleGlazingSystem(object):
         self._data["U-Factor"] = None
         self._data["Solar Heat Gain Coefficient"] = None
         self._data["Visible Transmittance"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2217,13 +2460,13 @@ class WindowMaterialSimpleGlazingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialSimpleGlazingSystem.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.name`')
         self._data["Name"] = value
 
     @property
@@ -2257,13 +2500,13 @@ class WindowMaterialSimpleGlazingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ufactor`'.format(value))
+                                 ' for field `WindowMaterialSimpleGlazingSystem.ufactor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `ufactor`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.ufactor`')
             if value > 7.0:
                 raise ValueError('value need to be smaller 7.0 '
-                                 'for field `ufactor`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.ufactor`')
         self._data["U-Factor"] = value
 
     @property
@@ -2295,13 +2538,13 @@ class WindowMaterialSimpleGlazingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_heat_gain_coefficient`'.format(value))
+                                 ' for field `WindowMaterialSimpleGlazingSystem.solar_heat_gain_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `solar_heat_gain_coefficient`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.solar_heat_gain_coefficient`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `solar_heat_gain_coefficient`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.solar_heat_gain_coefficient`')
         self._data["Solar Heat Gain Coefficient"] = value
 
     @property
@@ -2334,23 +2577,46 @@ class WindowMaterialSimpleGlazingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialSimpleGlazingSystem.visible_transmittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `visible_transmittance`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_transmittance`')
+                                 'for field `WindowMaterialSimpleGlazingSystem.visible_transmittance`')
         self._data["Visible Transmittance"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialSimpleGlazingSystem:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialSimpleGlazingSystem:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialSimpleGlazingSystem: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialSimpleGlazingSystem: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2368,8 +2634,27 @@ class WindowMaterialSimpleGlazingSystem(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2385,6 +2670,10 @@ class WindowMaterialGlazing(object):
     internal_name = "WindowMaterial:Glazing"
     field_count = 18
     required_fields = ["Name", "Optical Data Type", "Thickness"]
+    extensible_fields = 0
+    format = None
+    min_fields = 14
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Glazing`
@@ -2408,6 +2697,7 @@ class WindowMaterialGlazing(object):
         self._data["Solar Diffusing"] = None
         self._data["Youngs modulus"] = None
         self._data["Poissons ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2573,13 +2863,13 @@ class WindowMaterialGlazing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGlazing.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazing.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazing.name`')
         self._data["Name"] = value
 
     @property
@@ -2612,13 +2902,13 @@ class WindowMaterialGlazing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `optical_data_type`'.format(value))
+                                 ' for field `WindowMaterialGlazing.optical_data_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `optical_data_type`')
+                                 'for field `WindowMaterialGlazing.optical_data_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `optical_data_type`')
+                                 'for field `WindowMaterialGlazing.optical_data_type`')
             vals = {}
             vals["spectralaverage"] = "SpectralAverage"
             vals["spectral"] = "Spectral"
@@ -2642,10 +2932,10 @@ class WindowMaterialGlazing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `optical_data_type`'.format(value))
+                                     'field `WindowMaterialGlazing.optical_data_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `optical_data_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGlazing.optical_data_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Optical Data Type"] = value
 
@@ -2676,13 +2966,13 @@ class WindowMaterialGlazing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `window_glass_spectral_data_set_name`'.format(value))
+                                 ' for field `WindowMaterialGlazing.window_glass_spectral_data_set_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `window_glass_spectral_data_set_name`')
+                                 'for field `WindowMaterialGlazing.window_glass_spectral_data_set_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `window_glass_spectral_data_set_name`')
+                                 'for field `WindowMaterialGlazing.window_glass_spectral_data_set_name`')
         self._data["Window Glass Spectral Data Set Name"] = value
 
     @property
@@ -2714,10 +3004,10 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialGlazing.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialGlazing.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -2749,13 +3039,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.solar_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `solar_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.solar_transmittance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `solar_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.solar_transmittance_at_normal_incidence`')
         self._data["Solar Transmittance at Normal Incidence"] = value
 
     @property
@@ -2788,13 +3078,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_solar_reflectance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.front_side_solar_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_solar_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.front_side_solar_reflectance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_solar_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.front_side_solar_reflectance_at_normal_incidence`')
         self._data["Front Side Solar Reflectance at Normal Incidence"] = value
 
     @property
@@ -2827,13 +3117,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_solar_reflectance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.back_side_solar_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_solar_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.back_side_solar_reflectance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_solar_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.back_side_solar_reflectance_at_normal_incidence`')
         self._data["Back Side Solar Reflectance at Normal Incidence"] = value
 
     @property
@@ -2865,13 +3155,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.visible_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `visible_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.visible_transmittance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.visible_transmittance_at_normal_incidence`')
         self._data["Visible Transmittance at Normal Incidence"] = value
 
     @property
@@ -2903,13 +3193,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_visible_reflectance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.front_side_visible_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_visible_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.front_side_visible_reflectance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_visible_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.front_side_visible_reflectance_at_normal_incidence`')
         self._data["Front Side Visible Reflectance at Normal Incidence"] = value
 
     @property
@@ -2941,13 +3231,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_visible_reflectance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.back_side_visible_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_visible_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.back_side_visible_reflectance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_visible_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.back_side_visible_reflectance_at_normal_incidence`')
         self._data["Back Side Visible Reflectance at Normal Incidence"] = value
 
     @property
@@ -2979,13 +3269,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `infrared_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazing.infrared_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `infrared_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.infrared_transmittance_at_normal_incidence`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `infrared_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazing.infrared_transmittance_at_normal_incidence`')
         self._data["Infrared Transmittance at Normal Incidence"] = value
 
     @property
@@ -3017,13 +3307,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_infrared_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialGlazing.front_side_infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `front_side_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialGlazing.front_side_infrared_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialGlazing.front_side_infrared_hemispherical_emissivity`')
         self._data["Front Side Infrared Hemispherical Emissivity"] = value
 
     @property
@@ -3055,13 +3345,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_infrared_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialGlazing.back_side_infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `back_side_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialGlazing.back_side_infrared_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialGlazing.back_side_infrared_hemispherical_emissivity`')
         self._data["Back Side Infrared Hemispherical Emissivity"] = value
 
     @property
@@ -3093,10 +3383,10 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity`'.format(value))
+                                 ' for field `WindowMaterialGlazing.conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `conductivity`')
+                                 'for field `WindowMaterialGlazing.conductivity`')
         self._data["Conductivity"] = value
 
     @property
@@ -3128,13 +3418,13 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dirt_correction_factor_for_solar_and_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazing.dirt_correction_factor_for_solar_and_visible_transmittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `dirt_correction_factor_for_solar_and_visible_transmittance`')
+                                 'for field `WindowMaterialGlazing.dirt_correction_factor_for_solar_and_visible_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `dirt_correction_factor_for_solar_and_visible_transmittance`')
+                                 'for field `WindowMaterialGlazing.dirt_correction_factor_for_solar_and_visible_transmittance`')
         self._data["Dirt Correction Factor for Solar and Visible Transmittance"] = value
 
     @property
@@ -3167,13 +3457,13 @@ class WindowMaterialGlazing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `solar_diffusing`'.format(value))
+                                 ' for field `WindowMaterialGlazing.solar_diffusing`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `solar_diffusing`')
+                                 'for field `WindowMaterialGlazing.solar_diffusing`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `solar_diffusing`')
+                                 'for field `WindowMaterialGlazing.solar_diffusing`')
             vals = {}
             vals["no"] = "No"
             vals["yes"] = "Yes"
@@ -3196,10 +3486,10 @@ class WindowMaterialGlazing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `solar_diffusing`'.format(value))
+                                     'field `WindowMaterialGlazing.solar_diffusing`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `solar_diffusing`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGlazing.solar_diffusing`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Solar Diffusing"] = value
 
@@ -3234,10 +3524,10 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `youngs_modulus`'.format(value))
+                                 ' for field `WindowMaterialGlazing.youngs_modulus`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `youngs_modulus`')
+                                 'for field `WindowMaterialGlazing.youngs_modulus`')
         self._data["Youngs modulus"] = value
 
     @property
@@ -3271,23 +3561,46 @@ class WindowMaterialGlazing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `poissons_ratio`'.format(value))
+                                 ' for field `WindowMaterialGlazing.poissons_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `poissons_ratio`')
+                                 'for field `WindowMaterialGlazing.poissons_ratio`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `poissons_ratio`')
+                                 'for field `WindowMaterialGlazing.poissons_ratio`')
         self._data["Poissons ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGlazing:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGlazing:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGlazing: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGlazing: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3305,8 +3618,27 @@ class WindowMaterialGlazing(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3319,104 +3651,19 @@ class WindowMaterialGlazingGroupThermochromic(object):
         thermochromic glass at different temperatures
     """
     internal_name = "WindowMaterial:GlazingGroup:Thermochromic"
-    field_count = 91
-    required_fields = ["Name", "Optical Data Temperature 1", "Window Material Glazing Name 1"]
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 2
+    format = None
+    min_fields = 3
+    extensible_keys = ["Optical Data Temperature 1", "Window Material Glazing Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:GlazingGroup:Thermochromic`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self._data["Optical Data Temperature 1"] = None
-        self._data["Window Material Glazing Name 1"] = None
-        self._data["Optical Data Temperature 2"] = None
-        self._data["Window Material Glazing Name 2"] = None
-        self._data["Optical Data Temperature 3"] = None
-        self._data["Window Material Glazing Name 3"] = None
-        self._data["Optical Data Temperature 4"] = None
-        self._data["Window Material Glazing Name 4"] = None
-        self._data["Optical Data Temperature 5"] = None
-        self._data["Window Material Glazing Name 5"] = None
-        self._data["Optical Data Temperature 6"] = None
-        self._data["Window Material Glazing Name 6"] = None
-        self._data["Optical Data Temperature 7"] = None
-        self._data["Window Material Glazing Name 7"] = None
-        self._data["Optical Data Temperature 8"] = None
-        self._data["Window Material Glazing Name 8"] = None
-        self._data["Optical Data Temperature 9"] = None
-        self._data["Window Material Glazing Name 9"] = None
-        self._data["Optical Data Temperature 10"] = None
-        self._data["Window Material Glazing Name 10"] = None
-        self._data["Optical Data Temperature 11"] = None
-        self._data["Window Material Glazing Name 11"] = None
-        self._data["Optical Data Temperature 12"] = None
-        self._data["Window Material Glazing Name 12"] = None
-        self._data["Optical Data Temperature 13"] = None
-        self._data["Window Material Glazing Name 13"] = None
-        self._data["Optical Data Temperature 14"] = None
-        self._data["Window Material Glazing Name 14"] = None
-        self._data["Optical Data Temperature 15"] = None
-        self._data["Window Material Glazing Name 15"] = None
-        self._data["Optical Data Temperature 16"] = None
-        self._data["Window Material Glazing Name 16"] = None
-        self._data["Optical Data Temperature 17"] = None
-        self._data["Window Material Glazing Name 17"] = None
-        self._data["Optical Data Temperature 18"] = None
-        self._data["Window Material Glazing Name 18"] = None
-        self._data["Optical Data Temperature 19"] = None
-        self._data["Window Material Glazing Name 19"] = None
-        self._data["Optical Data Temperature 20"] = None
-        self._data["Window Material Glazing Name 20"] = None
-        self._data["Optical Data Temperature 21"] = None
-        self._data["Window Material Glazing Name 21"] = None
-        self._data["Optical Data Temperature 22"] = None
-        self._data["Window Material Glazing Name 22"] = None
-        self._data["Optical Data Temperature 23"] = None
-        self._data["Window Material Glazing Name 23"] = None
-        self._data["Optical Data Temperature 24"] = None
-        self._data["Window Material Glazing Name 24"] = None
-        self._data["Optical Data Temperature 25"] = None
-        self._data["Window Material Glazing Name 25"] = None
-        self._data["Optical Data Temperature 26"] = None
-        self._data["Window Material Glazing Name 26"] = None
-        self._data["Optical Data Temperature 27"] = None
-        self._data["Window Material Glazing Name 27"] = None
-        self._data["Optical Data Temperature 28"] = None
-        self._data["Window Material Glazing Name 28"] = None
-        self._data["Optical Data Temperature 29"] = None
-        self._data["Window Material Glazing Name 29"] = None
-        self._data["Optical Data Temperature 30"] = None
-        self._data["Window Material Glazing Name 30"] = None
-        self._data["Optical Data Temperature 31"] = None
-        self._data["Window Material Glazing Name 31"] = None
-        self._data["Optical Data Temperature 32"] = None
-        self._data["Window Material Glazing Name 32"] = None
-        self._data["Optical Data Temperature 33"] = None
-        self._data["Window Material Glazing Name 33"] = None
-        self._data["Optical Data Temperature 34"] = None
-        self._data["Window Material Glazing Name 34"] = None
-        self._data["Optical Data Temperature 35"] = None
-        self._data["Window Material Glazing Name 35"] = None
-        self._data["Optical Data Temperature 36"] = None
-        self._data["Window Material Glazing Name 36"] = None
-        self._data["Optical Data Temperature 37"] = None
-        self._data["Window Material Glazing Name 37"] = None
-        self._data["Optical Data Temperature 38"] = None
-        self._data["Window Material Glazing Name 38"] = None
-        self._data["Optical Data Temperature 39"] = None
-        self._data["Window Material Glazing Name 39"] = None
-        self._data["Optical Data Temperature 40"] = None
-        self._data["Window Material Glazing Name 40"] = None
-        self._data["Optical Data Temperature 41"] = None
-        self._data["Window Material Glazing Name 41"] = None
-        self._data["Optical Data Temperature 42"] = None
-        self._data["Window Material Glazing Name 42"] = None
-        self._data["Optical Data Temperature 43"] = None
-        self._data["Window Material Glazing Name 43"] = None
-        self._data["Optical Data Temperature 44"] = None
-        self._data["Window Material Glazing Name 44"] = None
-        self._data["Optical Data Temperature 45"] = None
-        self._data["Window Material Glazing Name 45"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3435,636 +3682,14 @@ class WindowMaterialGlazingGroupThermochromic(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_1 = None
-        else:
-            self.optical_data_temperature_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_1 = None
-        else:
-            self.window_material_glazing_name_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_2 = None
-        else:
-            self.optical_data_temperature_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_2 = None
-        else:
-            self.window_material_glazing_name_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_3 = None
-        else:
-            self.optical_data_temperature_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_3 = None
-        else:
-            self.window_material_glazing_name_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_4 = None
-        else:
-            self.optical_data_temperature_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_4 = None
-        else:
-            self.window_material_glazing_name_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_5 = None
-        else:
-            self.optical_data_temperature_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_5 = None
-        else:
-            self.window_material_glazing_name_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_6 = None
-        else:
-            self.optical_data_temperature_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_6 = None
-        else:
-            self.window_material_glazing_name_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_7 = None
-        else:
-            self.optical_data_temperature_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_7 = None
-        else:
-            self.window_material_glazing_name_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_8 = None
-        else:
-            self.optical_data_temperature_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_8 = None
-        else:
-            self.window_material_glazing_name_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_9 = None
-        else:
-            self.optical_data_temperature_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_9 = None
-        else:
-            self.window_material_glazing_name_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_10 = None
-        else:
-            self.optical_data_temperature_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_10 = None
-        else:
-            self.window_material_glazing_name_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_11 = None
-        else:
-            self.optical_data_temperature_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_11 = None
-        else:
-            self.window_material_glazing_name_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_12 = None
-        else:
-            self.optical_data_temperature_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_12 = None
-        else:
-            self.window_material_glazing_name_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_13 = None
-        else:
-            self.optical_data_temperature_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_13 = None
-        else:
-            self.window_material_glazing_name_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_14 = None
-        else:
-            self.optical_data_temperature_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_14 = None
-        else:
-            self.window_material_glazing_name_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_15 = None
-        else:
-            self.optical_data_temperature_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_15 = None
-        else:
-            self.window_material_glazing_name_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_16 = None
-        else:
-            self.optical_data_temperature_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_16 = None
-        else:
-            self.window_material_glazing_name_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_17 = None
-        else:
-            self.optical_data_temperature_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_17 = None
-        else:
-            self.window_material_glazing_name_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_18 = None
-        else:
-            self.optical_data_temperature_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_18 = None
-        else:
-            self.window_material_glazing_name_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_19 = None
-        else:
-            self.optical_data_temperature_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_19 = None
-        else:
-            self.window_material_glazing_name_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_20 = None
-        else:
-            self.optical_data_temperature_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_20 = None
-        else:
-            self.window_material_glazing_name_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_21 = None
-        else:
-            self.optical_data_temperature_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_21 = None
-        else:
-            self.window_material_glazing_name_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_22 = None
-        else:
-            self.optical_data_temperature_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_22 = None
-        else:
-            self.window_material_glazing_name_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_23 = None
-        else:
-            self.optical_data_temperature_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_23 = None
-        else:
-            self.window_material_glazing_name_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_24 = None
-        else:
-            self.optical_data_temperature_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_24 = None
-        else:
-            self.window_material_glazing_name_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_25 = None
-        else:
-            self.optical_data_temperature_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_25 = None
-        else:
-            self.window_material_glazing_name_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_26 = None
-        else:
-            self.optical_data_temperature_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_26 = None
-        else:
-            self.window_material_glazing_name_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_27 = None
-        else:
-            self.optical_data_temperature_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_27 = None
-        else:
-            self.window_material_glazing_name_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_28 = None
-        else:
-            self.optical_data_temperature_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_28 = None
-        else:
-            self.window_material_glazing_name_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_29 = None
-        else:
-            self.optical_data_temperature_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_29 = None
-        else:
-            self.window_material_glazing_name_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_30 = None
-        else:
-            self.optical_data_temperature_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_30 = None
-        else:
-            self.window_material_glazing_name_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_31 = None
-        else:
-            self.optical_data_temperature_31 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_31 = None
-        else:
-            self.window_material_glazing_name_31 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_32 = None
-        else:
-            self.optical_data_temperature_32 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_32 = None
-        else:
-            self.window_material_glazing_name_32 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_33 = None
-        else:
-            self.optical_data_temperature_33 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_33 = None
-        else:
-            self.window_material_glazing_name_33 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_34 = None
-        else:
-            self.optical_data_temperature_34 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_34 = None
-        else:
-            self.window_material_glazing_name_34 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_35 = None
-        else:
-            self.optical_data_temperature_35 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_35 = None
-        else:
-            self.window_material_glazing_name_35 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_36 = None
-        else:
-            self.optical_data_temperature_36 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_36 = None
-        else:
-            self.window_material_glazing_name_36 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_37 = None
-        else:
-            self.optical_data_temperature_37 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_37 = None
-        else:
-            self.window_material_glazing_name_37 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_38 = None
-        else:
-            self.optical_data_temperature_38 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_38 = None
-        else:
-            self.window_material_glazing_name_38 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_39 = None
-        else:
-            self.optical_data_temperature_39 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_39 = None
-        else:
-            self.window_material_glazing_name_39 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_40 = None
-        else:
-            self.optical_data_temperature_40 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_40 = None
-        else:
-            self.window_material_glazing_name_40 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_41 = None
-        else:
-            self.optical_data_temperature_41 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_41 = None
-        else:
-            self.window_material_glazing_name_41 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_42 = None
-        else:
-            self.optical_data_temperature_42 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_42 = None
-        else:
-            self.window_material_glazing_name_42 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_43 = None
-        else:
-            self.optical_data_temperature_43 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_43 = None
-        else:
-            self.window_material_glazing_name_43 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_44 = None
-        else:
-            self.optical_data_temperature_44 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_44 = None
-        else:
-            self.window_material_glazing_name_44 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optical_data_temperature_45 = None
-        else:
-            self.optical_data_temperature_45 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_material_glazing_name_45 = None
-        else:
-            self.window_material_glazing_name_45 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -4093,2993 +3718,103 @@ class WindowMaterialGlazingGroupThermochromic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGlazingGroupThermochromic.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazingGroupThermochromic.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazingGroupThermochromic.name`')
         self._data["Name"] = value
 
-    @property
-    def optical_data_temperature_1(self):
-        """Get optical_data_temperature_1
-
-        Returns:
-            float: the value of `optical_data_temperature_1` or None if not set
-        """
-        return self._data["Optical Data Temperature 1"]
-
-    @optical_data_temperature_1.setter
-    def optical_data_temperature_1(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 1`
+    def add_extensible(self,
+                       optical_data_temperature_1=None,
+                       window_material_glazing_name_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (float): value for IDD Field `Optical Data Temperature 1`
+
+            optical_data_temperature_1 (float): value for IDD Field `Optical Data Temperature 1`
                 Units: C
                 IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+            window_material_glazing_name_1 (str): value for IDD Field `Window Material Glazing Name 1`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_optical_data_temperature_1(optical_data_temperature_1))
+        vals.append(self._check_window_material_glazing_name_1(window_material_glazing_name_1))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_optical_data_temperature_1(self, value):
+        """ Validates falue of field `Optical Data Temperature 1`
         """
         if value is not None:
             try:
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_1`'.format(value))
-        self._data["Optical Data Temperature 1"] = value
+                                 ' for field `WindowMaterialGlazingGroupThermochromic.optical_data_temperature_1`'.format(value))
+        return value
 
-    @property
-    def window_material_glazing_name_1(self):
-        """Get window_material_glazing_name_1
-
-        Returns:
-            str: the value of `window_material_glazing_name_1` or None if not set
-        """
-        return self._data["Window Material Glazing Name 1"]
-
-    @window_material_glazing_name_1.setter
-    def window_material_glazing_name_1(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 1`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 1`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_window_material_glazing_name_1(self, value):
+        """ Validates falue of field `Window Material Glazing Name 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_1`'.format(value))
+                                 ' for field `WindowMaterialGlazingGroupThermochromic.window_material_glazing_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_1`')
+                                 'for field `WindowMaterialGlazingGroupThermochromic.window_material_glazing_name_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_1`')
-        self._data["Window Material Glazing Name 1"] = value
+                                 'for field `WindowMaterialGlazingGroupThermochromic.window_material_glazing_name_1`')
+        return value
 
-    @property
-    def optical_data_temperature_2(self):
-        """Get optical_data_temperature_2
-
-        Returns:
-            float: the value of `optical_data_temperature_2` or None if not set
-        """
-        return self._data["Optical Data Temperature 2"]
-
-    @optical_data_temperature_2.setter
-    def optical_data_temperature_2(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 2`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 2`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_2`'.format(value))
-        self._data["Optical Data Temperature 2"] = value
-
-    @property
-    def window_material_glazing_name_2(self):
-        """Get window_material_glazing_name_2
-
-        Returns:
-            str: the value of `window_material_glazing_name_2` or None if not set
-        """
-        return self._data["Window Material Glazing Name 2"]
-
-    @window_material_glazing_name_2.setter
-    def window_material_glazing_name_2(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 2`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_2`')
-        self._data["Window Material Glazing Name 2"] = value
-
-    @property
-    def optical_data_temperature_3(self):
-        """Get optical_data_temperature_3
-
-        Returns:
-            float: the value of `optical_data_temperature_3` or None if not set
-        """
-        return self._data["Optical Data Temperature 3"]
-
-    @optical_data_temperature_3.setter
-    def optical_data_temperature_3(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 3`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 3`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_3`'.format(value))
-        self._data["Optical Data Temperature 3"] = value
-
-    @property
-    def window_material_glazing_name_3(self):
-        """Get window_material_glazing_name_3
-
-        Returns:
-            str: the value of `window_material_glazing_name_3` or None if not set
-        """
-        return self._data["Window Material Glazing Name 3"]
-
-    @window_material_glazing_name_3.setter
-    def window_material_glazing_name_3(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 3`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_3`')
-        self._data["Window Material Glazing Name 3"] = value
-
-    @property
-    def optical_data_temperature_4(self):
-        """Get optical_data_temperature_4
-
-        Returns:
-            float: the value of `optical_data_temperature_4` or None if not set
-        """
-        return self._data["Optical Data Temperature 4"]
-
-    @optical_data_temperature_4.setter
-    def optical_data_temperature_4(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 4`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 4`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_4`'.format(value))
-        self._data["Optical Data Temperature 4"] = value
-
-    @property
-    def window_material_glazing_name_4(self):
-        """Get window_material_glazing_name_4
-
-        Returns:
-            str: the value of `window_material_glazing_name_4` or None if not set
-        """
-        return self._data["Window Material Glazing Name 4"]
-
-    @window_material_glazing_name_4.setter
-    def window_material_glazing_name_4(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 4`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_4`')
-        self._data["Window Material Glazing Name 4"] = value
-
-    @property
-    def optical_data_temperature_5(self):
-        """Get optical_data_temperature_5
-
-        Returns:
-            float: the value of `optical_data_temperature_5` or None if not set
-        """
-        return self._data["Optical Data Temperature 5"]
-
-    @optical_data_temperature_5.setter
-    def optical_data_temperature_5(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 5`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 5`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_5`'.format(value))
-        self._data["Optical Data Temperature 5"] = value
-
-    @property
-    def window_material_glazing_name_5(self):
-        """Get window_material_glazing_name_5
-
-        Returns:
-            str: the value of `window_material_glazing_name_5` or None if not set
-        """
-        return self._data["Window Material Glazing Name 5"]
-
-    @window_material_glazing_name_5.setter
-    def window_material_glazing_name_5(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 5`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_5`')
-        self._data["Window Material Glazing Name 5"] = value
-
-    @property
-    def optical_data_temperature_6(self):
-        """Get optical_data_temperature_6
-
-        Returns:
-            float: the value of `optical_data_temperature_6` or None if not set
-        """
-        return self._data["Optical Data Temperature 6"]
-
-    @optical_data_temperature_6.setter
-    def optical_data_temperature_6(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 6`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 6`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_6`'.format(value))
-        self._data["Optical Data Temperature 6"] = value
-
-    @property
-    def window_material_glazing_name_6(self):
-        """Get window_material_glazing_name_6
-
-        Returns:
-            str: the value of `window_material_glazing_name_6` or None if not set
-        """
-        return self._data["Window Material Glazing Name 6"]
-
-    @window_material_glazing_name_6.setter
-    def window_material_glazing_name_6(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 6`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_6`')
-        self._data["Window Material Glazing Name 6"] = value
-
-    @property
-    def optical_data_temperature_7(self):
-        """Get optical_data_temperature_7
-
-        Returns:
-            float: the value of `optical_data_temperature_7` or None if not set
-        """
-        return self._data["Optical Data Temperature 7"]
-
-    @optical_data_temperature_7.setter
-    def optical_data_temperature_7(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 7`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 7`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_7`'.format(value))
-        self._data["Optical Data Temperature 7"] = value
-
-    @property
-    def window_material_glazing_name_7(self):
-        """Get window_material_glazing_name_7
-
-        Returns:
-            str: the value of `window_material_glazing_name_7` or None if not set
-        """
-        return self._data["Window Material Glazing Name 7"]
-
-    @window_material_glazing_name_7.setter
-    def window_material_glazing_name_7(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 7`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 7`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_7`')
-        self._data["Window Material Glazing Name 7"] = value
-
-    @property
-    def optical_data_temperature_8(self):
-        """Get optical_data_temperature_8
-
-        Returns:
-            float: the value of `optical_data_temperature_8` or None if not set
-        """
-        return self._data["Optical Data Temperature 8"]
-
-    @optical_data_temperature_8.setter
-    def optical_data_temperature_8(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 8`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 8`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_8`'.format(value))
-        self._data["Optical Data Temperature 8"] = value
-
-    @property
-    def window_material_glazing_name_8(self):
-        """Get window_material_glazing_name_8
-
-        Returns:
-            str: the value of `window_material_glazing_name_8` or None if not set
-        """
-        return self._data["Window Material Glazing Name 8"]
-
-    @window_material_glazing_name_8.setter
-    def window_material_glazing_name_8(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 8`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 8`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_8`')
-        self._data["Window Material Glazing Name 8"] = value
-
-    @property
-    def optical_data_temperature_9(self):
-        """Get optical_data_temperature_9
-
-        Returns:
-            float: the value of `optical_data_temperature_9` or None if not set
-        """
-        return self._data["Optical Data Temperature 9"]
-
-    @optical_data_temperature_9.setter
-    def optical_data_temperature_9(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 9`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 9`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_9`'.format(value))
-        self._data["Optical Data Temperature 9"] = value
-
-    @property
-    def window_material_glazing_name_9(self):
-        """Get window_material_glazing_name_9
-
-        Returns:
-            str: the value of `window_material_glazing_name_9` or None if not set
-        """
-        return self._data["Window Material Glazing Name 9"]
-
-    @window_material_glazing_name_9.setter
-    def window_material_glazing_name_9(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 9`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 9`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_9`')
-        self._data["Window Material Glazing Name 9"] = value
-
-    @property
-    def optical_data_temperature_10(self):
-        """Get optical_data_temperature_10
-
-        Returns:
-            float: the value of `optical_data_temperature_10` or None if not set
-        """
-        return self._data["Optical Data Temperature 10"]
-
-    @optical_data_temperature_10.setter
-    def optical_data_temperature_10(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 10`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 10`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_10`'.format(value))
-        self._data["Optical Data Temperature 10"] = value
-
-    @property
-    def window_material_glazing_name_10(self):
-        """Get window_material_glazing_name_10
-
-        Returns:
-            str: the value of `window_material_glazing_name_10` or None if not set
-        """
-        return self._data["Window Material Glazing Name 10"]
-
-    @window_material_glazing_name_10.setter
-    def window_material_glazing_name_10(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 10`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 10`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_10`')
-        self._data["Window Material Glazing Name 10"] = value
-
-    @property
-    def optical_data_temperature_11(self):
-        """Get optical_data_temperature_11
-
-        Returns:
-            float: the value of `optical_data_temperature_11` or None if not set
-        """
-        return self._data["Optical Data Temperature 11"]
-
-    @optical_data_temperature_11.setter
-    def optical_data_temperature_11(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 11`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 11`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_11`'.format(value))
-        self._data["Optical Data Temperature 11"] = value
-
-    @property
-    def window_material_glazing_name_11(self):
-        """Get window_material_glazing_name_11
-
-        Returns:
-            str: the value of `window_material_glazing_name_11` or None if not set
-        """
-        return self._data["Window Material Glazing Name 11"]
-
-    @window_material_glazing_name_11.setter
-    def window_material_glazing_name_11(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 11`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 11`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_11`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_11`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_11`')
-        self._data["Window Material Glazing Name 11"] = value
-
-    @property
-    def optical_data_temperature_12(self):
-        """Get optical_data_temperature_12
-
-        Returns:
-            float: the value of `optical_data_temperature_12` or None if not set
-        """
-        return self._data["Optical Data Temperature 12"]
-
-    @optical_data_temperature_12.setter
-    def optical_data_temperature_12(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 12`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 12`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_12`'.format(value))
-        self._data["Optical Data Temperature 12"] = value
-
-    @property
-    def window_material_glazing_name_12(self):
-        """Get window_material_glazing_name_12
-
-        Returns:
-            str: the value of `window_material_glazing_name_12` or None if not set
-        """
-        return self._data["Window Material Glazing Name 12"]
-
-    @window_material_glazing_name_12.setter
-    def window_material_glazing_name_12(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 12`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 12`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_12`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_12`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_12`')
-        self._data["Window Material Glazing Name 12"] = value
-
-    @property
-    def optical_data_temperature_13(self):
-        """Get optical_data_temperature_13
-
-        Returns:
-            float: the value of `optical_data_temperature_13` or None if not set
-        """
-        return self._data["Optical Data Temperature 13"]
-
-    @optical_data_temperature_13.setter
-    def optical_data_temperature_13(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 13`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 13`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_13`'.format(value))
-        self._data["Optical Data Temperature 13"] = value
-
-    @property
-    def window_material_glazing_name_13(self):
-        """Get window_material_glazing_name_13
-
-        Returns:
-            str: the value of `window_material_glazing_name_13` or None if not set
-        """
-        return self._data["Window Material Glazing Name 13"]
-
-    @window_material_glazing_name_13.setter
-    def window_material_glazing_name_13(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 13`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 13`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_13`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_13`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_13`')
-        self._data["Window Material Glazing Name 13"] = value
-
-    @property
-    def optical_data_temperature_14(self):
-        """Get optical_data_temperature_14
-
-        Returns:
-            float: the value of `optical_data_temperature_14` or None if not set
-        """
-        return self._data["Optical Data Temperature 14"]
-
-    @optical_data_temperature_14.setter
-    def optical_data_temperature_14(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 14`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 14`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_14`'.format(value))
-        self._data["Optical Data Temperature 14"] = value
-
-    @property
-    def window_material_glazing_name_14(self):
-        """Get window_material_glazing_name_14
-
-        Returns:
-            str: the value of `window_material_glazing_name_14` or None if not set
-        """
-        return self._data["Window Material Glazing Name 14"]
-
-    @window_material_glazing_name_14.setter
-    def window_material_glazing_name_14(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 14`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 14`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_14`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_14`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_14`')
-        self._data["Window Material Glazing Name 14"] = value
-
-    @property
-    def optical_data_temperature_15(self):
-        """Get optical_data_temperature_15
-
-        Returns:
-            float: the value of `optical_data_temperature_15` or None if not set
-        """
-        return self._data["Optical Data Temperature 15"]
-
-    @optical_data_temperature_15.setter
-    def optical_data_temperature_15(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 15`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 15`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_15`'.format(value))
-        self._data["Optical Data Temperature 15"] = value
-
-    @property
-    def window_material_glazing_name_15(self):
-        """Get window_material_glazing_name_15
-
-        Returns:
-            str: the value of `window_material_glazing_name_15` or None if not set
-        """
-        return self._data["Window Material Glazing Name 15"]
-
-    @window_material_glazing_name_15.setter
-    def window_material_glazing_name_15(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 15`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 15`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_15`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_15`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_15`')
-        self._data["Window Material Glazing Name 15"] = value
-
-    @property
-    def optical_data_temperature_16(self):
-        """Get optical_data_temperature_16
-
-        Returns:
-            float: the value of `optical_data_temperature_16` or None if not set
-        """
-        return self._data["Optical Data Temperature 16"]
-
-    @optical_data_temperature_16.setter
-    def optical_data_temperature_16(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 16`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 16`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_16`'.format(value))
-        self._data["Optical Data Temperature 16"] = value
-
-    @property
-    def window_material_glazing_name_16(self):
-        """Get window_material_glazing_name_16
-
-        Returns:
-            str: the value of `window_material_glazing_name_16` or None if not set
-        """
-        return self._data["Window Material Glazing Name 16"]
-
-    @window_material_glazing_name_16.setter
-    def window_material_glazing_name_16(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 16`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 16`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_16`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_16`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_16`')
-        self._data["Window Material Glazing Name 16"] = value
-
-    @property
-    def optical_data_temperature_17(self):
-        """Get optical_data_temperature_17
-
-        Returns:
-            float: the value of `optical_data_temperature_17` or None if not set
-        """
-        return self._data["Optical Data Temperature 17"]
-
-    @optical_data_temperature_17.setter
-    def optical_data_temperature_17(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 17`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 17`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_17`'.format(value))
-        self._data["Optical Data Temperature 17"] = value
-
-    @property
-    def window_material_glazing_name_17(self):
-        """Get window_material_glazing_name_17
-
-        Returns:
-            str: the value of `window_material_glazing_name_17` or None if not set
-        """
-        return self._data["Window Material Glazing Name 17"]
-
-    @window_material_glazing_name_17.setter
-    def window_material_glazing_name_17(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 17`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 17`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_17`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_17`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_17`')
-        self._data["Window Material Glazing Name 17"] = value
-
-    @property
-    def optical_data_temperature_18(self):
-        """Get optical_data_temperature_18
-
-        Returns:
-            float: the value of `optical_data_temperature_18` or None if not set
-        """
-        return self._data["Optical Data Temperature 18"]
-
-    @optical_data_temperature_18.setter
-    def optical_data_temperature_18(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 18`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 18`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_18`'.format(value))
-        self._data["Optical Data Temperature 18"] = value
-
-    @property
-    def window_material_glazing_name_18(self):
-        """Get window_material_glazing_name_18
-
-        Returns:
-            str: the value of `window_material_glazing_name_18` or None if not set
-        """
-        return self._data["Window Material Glazing Name 18"]
-
-    @window_material_glazing_name_18.setter
-    def window_material_glazing_name_18(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 18`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 18`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_18`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_18`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_18`')
-        self._data["Window Material Glazing Name 18"] = value
-
-    @property
-    def optical_data_temperature_19(self):
-        """Get optical_data_temperature_19
-
-        Returns:
-            float: the value of `optical_data_temperature_19` or None if not set
-        """
-        return self._data["Optical Data Temperature 19"]
-
-    @optical_data_temperature_19.setter
-    def optical_data_temperature_19(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 19`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 19`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_19`'.format(value))
-        self._data["Optical Data Temperature 19"] = value
-
-    @property
-    def window_material_glazing_name_19(self):
-        """Get window_material_glazing_name_19
-
-        Returns:
-            str: the value of `window_material_glazing_name_19` or None if not set
-        """
-        return self._data["Window Material Glazing Name 19"]
-
-    @window_material_glazing_name_19.setter
-    def window_material_glazing_name_19(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 19`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 19`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_19`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_19`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_19`')
-        self._data["Window Material Glazing Name 19"] = value
-
-    @property
-    def optical_data_temperature_20(self):
-        """Get optical_data_temperature_20
-
-        Returns:
-            float: the value of `optical_data_temperature_20` or None if not set
-        """
-        return self._data["Optical Data Temperature 20"]
-
-    @optical_data_temperature_20.setter
-    def optical_data_temperature_20(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 20`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 20`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_20`'.format(value))
-        self._data["Optical Data Temperature 20"] = value
-
-    @property
-    def window_material_glazing_name_20(self):
-        """Get window_material_glazing_name_20
-
-        Returns:
-            str: the value of `window_material_glazing_name_20` or None if not set
-        """
-        return self._data["Window Material Glazing Name 20"]
-
-    @window_material_glazing_name_20.setter
-    def window_material_glazing_name_20(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 20`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 20`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_20`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_20`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_20`')
-        self._data["Window Material Glazing Name 20"] = value
-
-    @property
-    def optical_data_temperature_21(self):
-        """Get optical_data_temperature_21
-
-        Returns:
-            float: the value of `optical_data_temperature_21` or None if not set
-        """
-        return self._data["Optical Data Temperature 21"]
-
-    @optical_data_temperature_21.setter
-    def optical_data_temperature_21(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 21`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 21`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_21`'.format(value))
-        self._data["Optical Data Temperature 21"] = value
-
-    @property
-    def window_material_glazing_name_21(self):
-        """Get window_material_glazing_name_21
-
-        Returns:
-            str: the value of `window_material_glazing_name_21` or None if not set
-        """
-        return self._data["Window Material Glazing Name 21"]
-
-    @window_material_glazing_name_21.setter
-    def window_material_glazing_name_21(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 21`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 21`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_21`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_21`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_21`')
-        self._data["Window Material Glazing Name 21"] = value
-
-    @property
-    def optical_data_temperature_22(self):
-        """Get optical_data_temperature_22
-
-        Returns:
-            float: the value of `optical_data_temperature_22` or None if not set
-        """
-        return self._data["Optical Data Temperature 22"]
-
-    @optical_data_temperature_22.setter
-    def optical_data_temperature_22(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 22`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 22`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_22`'.format(value))
-        self._data["Optical Data Temperature 22"] = value
-
-    @property
-    def window_material_glazing_name_22(self):
-        """Get window_material_glazing_name_22
-
-        Returns:
-            str: the value of `window_material_glazing_name_22` or None if not set
-        """
-        return self._data["Window Material Glazing Name 22"]
-
-    @window_material_glazing_name_22.setter
-    def window_material_glazing_name_22(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 22`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 22`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_22`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_22`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_22`')
-        self._data["Window Material Glazing Name 22"] = value
-
-    @property
-    def optical_data_temperature_23(self):
-        """Get optical_data_temperature_23
-
-        Returns:
-            float: the value of `optical_data_temperature_23` or None if not set
-        """
-        return self._data["Optical Data Temperature 23"]
-
-    @optical_data_temperature_23.setter
-    def optical_data_temperature_23(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 23`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 23`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_23`'.format(value))
-        self._data["Optical Data Temperature 23"] = value
-
-    @property
-    def window_material_glazing_name_23(self):
-        """Get window_material_glazing_name_23
-
-        Returns:
-            str: the value of `window_material_glazing_name_23` or None if not set
-        """
-        return self._data["Window Material Glazing Name 23"]
-
-    @window_material_glazing_name_23.setter
-    def window_material_glazing_name_23(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 23`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 23`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_23`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_23`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_23`')
-        self._data["Window Material Glazing Name 23"] = value
-
-    @property
-    def optical_data_temperature_24(self):
-        """Get optical_data_temperature_24
-
-        Returns:
-            float: the value of `optical_data_temperature_24` or None if not set
-        """
-        return self._data["Optical Data Temperature 24"]
-
-    @optical_data_temperature_24.setter
-    def optical_data_temperature_24(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 24`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 24`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_24`'.format(value))
-        self._data["Optical Data Temperature 24"] = value
-
-    @property
-    def window_material_glazing_name_24(self):
-        """Get window_material_glazing_name_24
-
-        Returns:
-            str: the value of `window_material_glazing_name_24` or None if not set
-        """
-        return self._data["Window Material Glazing Name 24"]
-
-    @window_material_glazing_name_24.setter
-    def window_material_glazing_name_24(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 24`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 24`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_24`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_24`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_24`')
-        self._data["Window Material Glazing Name 24"] = value
-
-    @property
-    def optical_data_temperature_25(self):
-        """Get optical_data_temperature_25
-
-        Returns:
-            float: the value of `optical_data_temperature_25` or None if not set
-        """
-        return self._data["Optical Data Temperature 25"]
-
-    @optical_data_temperature_25.setter
-    def optical_data_temperature_25(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 25`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 25`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_25`'.format(value))
-        self._data["Optical Data Temperature 25"] = value
-
-    @property
-    def window_material_glazing_name_25(self):
-        """Get window_material_glazing_name_25
-
-        Returns:
-            str: the value of `window_material_glazing_name_25` or None if not set
-        """
-        return self._data["Window Material Glazing Name 25"]
-
-    @window_material_glazing_name_25.setter
-    def window_material_glazing_name_25(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 25`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 25`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_25`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_25`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_25`')
-        self._data["Window Material Glazing Name 25"] = value
-
-    @property
-    def optical_data_temperature_26(self):
-        """Get optical_data_temperature_26
-
-        Returns:
-            float: the value of `optical_data_temperature_26` or None if not set
-        """
-        return self._data["Optical Data Temperature 26"]
-
-    @optical_data_temperature_26.setter
-    def optical_data_temperature_26(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 26`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 26`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_26`'.format(value))
-        self._data["Optical Data Temperature 26"] = value
-
-    @property
-    def window_material_glazing_name_26(self):
-        """Get window_material_glazing_name_26
-
-        Returns:
-            str: the value of `window_material_glazing_name_26` or None if not set
-        """
-        return self._data["Window Material Glazing Name 26"]
-
-    @window_material_glazing_name_26.setter
-    def window_material_glazing_name_26(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 26`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 26`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_26`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_26`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_26`')
-        self._data["Window Material Glazing Name 26"] = value
-
-    @property
-    def optical_data_temperature_27(self):
-        """Get optical_data_temperature_27
-
-        Returns:
-            float: the value of `optical_data_temperature_27` or None if not set
-        """
-        return self._data["Optical Data Temperature 27"]
-
-    @optical_data_temperature_27.setter
-    def optical_data_temperature_27(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 27`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 27`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_27`'.format(value))
-        self._data["Optical Data Temperature 27"] = value
-
-    @property
-    def window_material_glazing_name_27(self):
-        """Get window_material_glazing_name_27
-
-        Returns:
-            str: the value of `window_material_glazing_name_27` or None if not set
-        """
-        return self._data["Window Material Glazing Name 27"]
-
-    @window_material_glazing_name_27.setter
-    def window_material_glazing_name_27(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 27`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 27`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_27`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_27`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_27`')
-        self._data["Window Material Glazing Name 27"] = value
-
-    @property
-    def optical_data_temperature_28(self):
-        """Get optical_data_temperature_28
-
-        Returns:
-            float: the value of `optical_data_temperature_28` or None if not set
-        """
-        return self._data["Optical Data Temperature 28"]
-
-    @optical_data_temperature_28.setter
-    def optical_data_temperature_28(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 28`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 28`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_28`'.format(value))
-        self._data["Optical Data Temperature 28"] = value
-
-    @property
-    def window_material_glazing_name_28(self):
-        """Get window_material_glazing_name_28
-
-        Returns:
-            str: the value of `window_material_glazing_name_28` or None if not set
-        """
-        return self._data["Window Material Glazing Name 28"]
-
-    @window_material_glazing_name_28.setter
-    def window_material_glazing_name_28(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 28`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 28`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_28`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_28`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_28`')
-        self._data["Window Material Glazing Name 28"] = value
-
-    @property
-    def optical_data_temperature_29(self):
-        """Get optical_data_temperature_29
-
-        Returns:
-            float: the value of `optical_data_temperature_29` or None if not set
-        """
-        return self._data["Optical Data Temperature 29"]
-
-    @optical_data_temperature_29.setter
-    def optical_data_temperature_29(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 29`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 29`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_29`'.format(value))
-        self._data["Optical Data Temperature 29"] = value
-
-    @property
-    def window_material_glazing_name_29(self):
-        """Get window_material_glazing_name_29
-
-        Returns:
-            str: the value of `window_material_glazing_name_29` or None if not set
-        """
-        return self._data["Window Material Glazing Name 29"]
-
-    @window_material_glazing_name_29.setter
-    def window_material_glazing_name_29(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 29`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 29`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_29`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_29`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_29`')
-        self._data["Window Material Glazing Name 29"] = value
-
-    @property
-    def optical_data_temperature_30(self):
-        """Get optical_data_temperature_30
-
-        Returns:
-            float: the value of `optical_data_temperature_30` or None if not set
-        """
-        return self._data["Optical Data Temperature 30"]
-
-    @optical_data_temperature_30.setter
-    def optical_data_temperature_30(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 30`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 30`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_30`'.format(value))
-        self._data["Optical Data Temperature 30"] = value
-
-    @property
-    def window_material_glazing_name_30(self):
-        """Get window_material_glazing_name_30
-
-        Returns:
-            str: the value of `window_material_glazing_name_30` or None if not set
-        """
-        return self._data["Window Material Glazing Name 30"]
-
-    @window_material_glazing_name_30.setter
-    def window_material_glazing_name_30(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 30`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 30`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_30`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_30`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_30`')
-        self._data["Window Material Glazing Name 30"] = value
-
-    @property
-    def optical_data_temperature_31(self):
-        """Get optical_data_temperature_31
-
-        Returns:
-            float: the value of `optical_data_temperature_31` or None if not set
-        """
-        return self._data["Optical Data Temperature 31"]
-
-    @optical_data_temperature_31.setter
-    def optical_data_temperature_31(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 31`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 31`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_31`'.format(value))
-        self._data["Optical Data Temperature 31"] = value
-
-    @property
-    def window_material_glazing_name_31(self):
-        """Get window_material_glazing_name_31
-
-        Returns:
-            str: the value of `window_material_glazing_name_31` or None if not set
-        """
-        return self._data["Window Material Glazing Name 31"]
-
-    @window_material_glazing_name_31.setter
-    def window_material_glazing_name_31(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 31`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 31`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_31`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_31`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_31`')
-        self._data["Window Material Glazing Name 31"] = value
-
-    @property
-    def optical_data_temperature_32(self):
-        """Get optical_data_temperature_32
-
-        Returns:
-            float: the value of `optical_data_temperature_32` or None if not set
-        """
-        return self._data["Optical Data Temperature 32"]
-
-    @optical_data_temperature_32.setter
-    def optical_data_temperature_32(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 32`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 32`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_32`'.format(value))
-        self._data["Optical Data Temperature 32"] = value
-
-    @property
-    def window_material_glazing_name_32(self):
-        """Get window_material_glazing_name_32
-
-        Returns:
-            str: the value of `window_material_glazing_name_32` or None if not set
-        """
-        return self._data["Window Material Glazing Name 32"]
-
-    @window_material_glazing_name_32.setter
-    def window_material_glazing_name_32(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 32`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 32`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_32`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_32`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_32`')
-        self._data["Window Material Glazing Name 32"] = value
-
-    @property
-    def optical_data_temperature_33(self):
-        """Get optical_data_temperature_33
-
-        Returns:
-            float: the value of `optical_data_temperature_33` or None if not set
-        """
-        return self._data["Optical Data Temperature 33"]
-
-    @optical_data_temperature_33.setter
-    def optical_data_temperature_33(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 33`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 33`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_33`'.format(value))
-        self._data["Optical Data Temperature 33"] = value
-
-    @property
-    def window_material_glazing_name_33(self):
-        """Get window_material_glazing_name_33
-
-        Returns:
-            str: the value of `window_material_glazing_name_33` or None if not set
-        """
-        return self._data["Window Material Glazing Name 33"]
-
-    @window_material_glazing_name_33.setter
-    def window_material_glazing_name_33(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 33`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 33`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_33`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_33`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_33`')
-        self._data["Window Material Glazing Name 33"] = value
-
-    @property
-    def optical_data_temperature_34(self):
-        """Get optical_data_temperature_34
-
-        Returns:
-            float: the value of `optical_data_temperature_34` or None if not set
-        """
-        return self._data["Optical Data Temperature 34"]
-
-    @optical_data_temperature_34.setter
-    def optical_data_temperature_34(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 34`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 34`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_34`'.format(value))
-        self._data["Optical Data Temperature 34"] = value
-
-    @property
-    def window_material_glazing_name_34(self):
-        """Get window_material_glazing_name_34
-
-        Returns:
-            str: the value of `window_material_glazing_name_34` or None if not set
-        """
-        return self._data["Window Material Glazing Name 34"]
-
-    @window_material_glazing_name_34.setter
-    def window_material_glazing_name_34(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 34`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 34`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_34`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_34`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_34`')
-        self._data["Window Material Glazing Name 34"] = value
-
-    @property
-    def optical_data_temperature_35(self):
-        """Get optical_data_temperature_35
-
-        Returns:
-            float: the value of `optical_data_temperature_35` or None if not set
-        """
-        return self._data["Optical Data Temperature 35"]
-
-    @optical_data_temperature_35.setter
-    def optical_data_temperature_35(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 35`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 35`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_35`'.format(value))
-        self._data["Optical Data Temperature 35"] = value
-
-    @property
-    def window_material_glazing_name_35(self):
-        """Get window_material_glazing_name_35
-
-        Returns:
-            str: the value of `window_material_glazing_name_35` or None if not set
-        """
-        return self._data["Window Material Glazing Name 35"]
-
-    @window_material_glazing_name_35.setter
-    def window_material_glazing_name_35(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 35`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 35`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_35`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_35`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_35`')
-        self._data["Window Material Glazing Name 35"] = value
-
-    @property
-    def optical_data_temperature_36(self):
-        """Get optical_data_temperature_36
-
-        Returns:
-            float: the value of `optical_data_temperature_36` or None if not set
-        """
-        return self._data["Optical Data Temperature 36"]
-
-    @optical_data_temperature_36.setter
-    def optical_data_temperature_36(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 36`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 36`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_36`'.format(value))
-        self._data["Optical Data Temperature 36"] = value
-
-    @property
-    def window_material_glazing_name_36(self):
-        """Get window_material_glazing_name_36
-
-        Returns:
-            str: the value of `window_material_glazing_name_36` or None if not set
-        """
-        return self._data["Window Material Glazing Name 36"]
-
-    @window_material_glazing_name_36.setter
-    def window_material_glazing_name_36(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 36`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 36`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_36`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_36`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_36`')
-        self._data["Window Material Glazing Name 36"] = value
-
-    @property
-    def optical_data_temperature_37(self):
-        """Get optical_data_temperature_37
-
-        Returns:
-            float: the value of `optical_data_temperature_37` or None if not set
-        """
-        return self._data["Optical Data Temperature 37"]
-
-    @optical_data_temperature_37.setter
-    def optical_data_temperature_37(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 37`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 37`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_37`'.format(value))
-        self._data["Optical Data Temperature 37"] = value
-
-    @property
-    def window_material_glazing_name_37(self):
-        """Get window_material_glazing_name_37
-
-        Returns:
-            str: the value of `window_material_glazing_name_37` or None if not set
-        """
-        return self._data["Window Material Glazing Name 37"]
-
-    @window_material_glazing_name_37.setter
-    def window_material_glazing_name_37(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 37`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 37`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_37`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_37`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_37`')
-        self._data["Window Material Glazing Name 37"] = value
-
-    @property
-    def optical_data_temperature_38(self):
-        """Get optical_data_temperature_38
-
-        Returns:
-            float: the value of `optical_data_temperature_38` or None if not set
-        """
-        return self._data["Optical Data Temperature 38"]
-
-    @optical_data_temperature_38.setter
-    def optical_data_temperature_38(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 38`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 38`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_38`'.format(value))
-        self._data["Optical Data Temperature 38"] = value
-
-    @property
-    def window_material_glazing_name_38(self):
-        """Get window_material_glazing_name_38
-
-        Returns:
-            str: the value of `window_material_glazing_name_38` or None if not set
-        """
-        return self._data["Window Material Glazing Name 38"]
-
-    @window_material_glazing_name_38.setter
-    def window_material_glazing_name_38(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 38`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 38`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_38`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_38`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_38`')
-        self._data["Window Material Glazing Name 38"] = value
-
-    @property
-    def optical_data_temperature_39(self):
-        """Get optical_data_temperature_39
-
-        Returns:
-            float: the value of `optical_data_temperature_39` or None if not set
-        """
-        return self._data["Optical Data Temperature 39"]
-
-    @optical_data_temperature_39.setter
-    def optical_data_temperature_39(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 39`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 39`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_39`'.format(value))
-        self._data["Optical Data Temperature 39"] = value
-
-    @property
-    def window_material_glazing_name_39(self):
-        """Get window_material_glazing_name_39
-
-        Returns:
-            str: the value of `window_material_glazing_name_39` or None if not set
-        """
-        return self._data["Window Material Glazing Name 39"]
-
-    @window_material_glazing_name_39.setter
-    def window_material_glazing_name_39(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 39`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 39`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_39`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_39`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_39`')
-        self._data["Window Material Glazing Name 39"] = value
-
-    @property
-    def optical_data_temperature_40(self):
-        """Get optical_data_temperature_40
-
-        Returns:
-            float: the value of `optical_data_temperature_40` or None if not set
-        """
-        return self._data["Optical Data Temperature 40"]
-
-    @optical_data_temperature_40.setter
-    def optical_data_temperature_40(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 40`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 40`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_40`'.format(value))
-        self._data["Optical Data Temperature 40"] = value
-
-    @property
-    def window_material_glazing_name_40(self):
-        """Get window_material_glazing_name_40
-
-        Returns:
-            str: the value of `window_material_glazing_name_40` or None if not set
-        """
-        return self._data["Window Material Glazing Name 40"]
-
-    @window_material_glazing_name_40.setter
-    def window_material_glazing_name_40(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 40`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 40`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_40`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_40`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_40`')
-        self._data["Window Material Glazing Name 40"] = value
-
-    @property
-    def optical_data_temperature_41(self):
-        """Get optical_data_temperature_41
-
-        Returns:
-            float: the value of `optical_data_temperature_41` or None if not set
-        """
-        return self._data["Optical Data Temperature 41"]
-
-    @optical_data_temperature_41.setter
-    def optical_data_temperature_41(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 41`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 41`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_41`'.format(value))
-        self._data["Optical Data Temperature 41"] = value
-
-    @property
-    def window_material_glazing_name_41(self):
-        """Get window_material_glazing_name_41
-
-        Returns:
-            str: the value of `window_material_glazing_name_41` or None if not set
-        """
-        return self._data["Window Material Glazing Name 41"]
-
-    @window_material_glazing_name_41.setter
-    def window_material_glazing_name_41(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 41`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 41`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_41`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_41`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_41`')
-        self._data["Window Material Glazing Name 41"] = value
-
-    @property
-    def optical_data_temperature_42(self):
-        """Get optical_data_temperature_42
-
-        Returns:
-            float: the value of `optical_data_temperature_42` or None if not set
-        """
-        return self._data["Optical Data Temperature 42"]
-
-    @optical_data_temperature_42.setter
-    def optical_data_temperature_42(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 42`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 42`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_42`'.format(value))
-        self._data["Optical Data Temperature 42"] = value
-
-    @property
-    def window_material_glazing_name_42(self):
-        """Get window_material_glazing_name_42
-
-        Returns:
-            str: the value of `window_material_glazing_name_42` or None if not set
-        """
-        return self._data["Window Material Glazing Name 42"]
-
-    @window_material_glazing_name_42.setter
-    def window_material_glazing_name_42(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 42`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 42`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_42`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_42`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_42`')
-        self._data["Window Material Glazing Name 42"] = value
-
-    @property
-    def optical_data_temperature_43(self):
-        """Get optical_data_temperature_43
-
-        Returns:
-            float: the value of `optical_data_temperature_43` or None if not set
-        """
-        return self._data["Optical Data Temperature 43"]
-
-    @optical_data_temperature_43.setter
-    def optical_data_temperature_43(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 43`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 43`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_43`'.format(value))
-        self._data["Optical Data Temperature 43"] = value
-
-    @property
-    def window_material_glazing_name_43(self):
-        """Get window_material_glazing_name_43
-
-        Returns:
-            str: the value of `window_material_glazing_name_43` or None if not set
-        """
-        return self._data["Window Material Glazing Name 43"]
-
-    @window_material_glazing_name_43.setter
-    def window_material_glazing_name_43(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 43`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 43`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_43`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_43`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_43`')
-        self._data["Window Material Glazing Name 43"] = value
-
-    @property
-    def optical_data_temperature_44(self):
-        """Get optical_data_temperature_44
-
-        Returns:
-            float: the value of `optical_data_temperature_44` or None if not set
-        """
-        return self._data["Optical Data Temperature 44"]
-
-    @optical_data_temperature_44.setter
-    def optical_data_temperature_44(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 44`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 44`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_44`'.format(value))
-        self._data["Optical Data Temperature 44"] = value
-
-    @property
-    def window_material_glazing_name_44(self):
-        """Get window_material_glazing_name_44
-
-        Returns:
-            str: the value of `window_material_glazing_name_44` or None if not set
-        """
-        return self._data["Window Material Glazing Name 44"]
-
-    @window_material_glazing_name_44.setter
-    def window_material_glazing_name_44(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 44`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 44`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_44`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_44`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_44`')
-        self._data["Window Material Glazing Name 44"] = value
-
-    @property
-    def optical_data_temperature_45(self):
-        """Get optical_data_temperature_45
-
-        Returns:
-            float: the value of `optical_data_temperature_45` or None if not set
-        """
-        return self._data["Optical Data Temperature 45"]
-
-    @optical_data_temperature_45.setter
-    def optical_data_temperature_45(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Temperature 45`
-
-        Args:
-            value (float): value for IDD Field `Optical Data Temperature 45`
-                Units: C
-                IP-Units: F
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `optical_data_temperature_45`'.format(value))
-        self._data["Optical Data Temperature 45"] = value
-
-    @property
-    def window_material_glazing_name_45(self):
-        """Get window_material_glazing_name_45
-
-        Returns:
-            str: the value of `window_material_glazing_name_45` or None if not set
-        """
-        return self._data["Window Material Glazing Name 45"]
-
-    @window_material_glazing_name_45.setter
-    def window_material_glazing_name_45(self, value=None):
-        """  Corresponds to IDD Field `Window Material Glazing Name 45`
-
-        Args:
-            value (str): value for IDD Field `Window Material Glazing Name 45`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `window_material_glazing_name_45`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `window_material_glazing_name_45`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `window_material_glazing_name_45`')
-        self._data["Window Material Glazing Name 45"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGlazingGroupThermochromic:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGlazingGroupThermochromic:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGlazingGroupThermochromic: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGlazingGroupThermochromic: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7097,8 +3832,27 @@ class WindowMaterialGlazingGroupThermochromic(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7115,6 +3869,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     internal_name = "WindowMaterial:Glazing:RefractionExtinctionMethod"
     field_count = 11
     required_fields = ["Name", "Thickness", "Solar Index of Refraction", "Solar Extinction Coefficient", "Visible Index of Refraction", "Visible Extinction Coefficient"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Glazing:RefractionExtinctionMethod`
@@ -7131,6 +3889,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         self._data["Conductivity"] = None
         self._data["Dirt Correction Factor for Solar and Visible Transmittance"] = None
         self._data["Solar Diffusing"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7247,13 +4006,13 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.name`')
         self._data["Name"] = value
 
     @property
@@ -7285,10 +4044,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -7318,10 +4077,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_index_of_refraction`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_index_of_refraction`'.format(value))
             if value <= 1.0:
                 raise ValueError('value need to be greater 1.0 '
-                                 'for field `solar_index_of_refraction`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_index_of_refraction`')
         self._data["Solar Index of Refraction"] = value
 
     @property
@@ -7352,10 +4111,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_extinction_coefficient`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_extinction_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `solar_extinction_coefficient`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_extinction_coefficient`')
         self._data["Solar Extinction Coefficient"] = value
 
     @property
@@ -7385,10 +4144,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_index_of_refraction`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.visible_index_of_refraction`'.format(value))
             if value <= 1.0:
                 raise ValueError('value need to be greater 1.0 '
-                                 'for field `visible_index_of_refraction`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.visible_index_of_refraction`')
         self._data["Visible Index of Refraction"] = value
 
     @property
@@ -7419,10 +4178,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_extinction_coefficient`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.visible_extinction_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `visible_extinction_coefficient`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.visible_extinction_coefficient`')
         self._data["Visible Extinction Coefficient"] = value
 
     @property
@@ -7454,13 +4213,13 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `infrared_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.infrared_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `infrared_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.infrared_transmittance_at_normal_incidence`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `infrared_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.infrared_transmittance_at_normal_incidence`')
         self._data["Infrared Transmittance at Normal Incidence"] = value
 
     @property
@@ -7493,13 +4252,13 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `infrared_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.infrared_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.infrared_hemispherical_emissivity`')
         self._data["Infrared Hemispherical Emissivity"] = value
 
     @property
@@ -7531,10 +4290,10 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `conductivity`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.conductivity`')
         self._data["Conductivity"] = value
 
     @property
@@ -7566,13 +4325,13 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dirt_correction_factor_for_solar_and_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.dirt_correction_factor_for_solar_and_visible_transmittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `dirt_correction_factor_for_solar_and_visible_transmittance`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.dirt_correction_factor_for_solar_and_visible_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `dirt_correction_factor_for_solar_and_visible_transmittance`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.dirt_correction_factor_for_solar_and_visible_transmittance`')
         self._data["Dirt Correction Factor for Solar and Visible Transmittance"] = value
 
     @property
@@ -7605,13 +4364,13 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `solar_diffusing`'.format(value))
+                                 ' for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_diffusing`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `solar_diffusing`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_diffusing`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `solar_diffusing`')
+                                 'for field `WindowMaterialGlazingRefractionExtinctionMethod.solar_diffusing`')
             vals = {}
             vals["no"] = "No"
             vals["yes"] = "Yes"
@@ -7634,21 +4393,44 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `solar_diffusing`'.format(value))
+                                     'field `WindowMaterialGlazingRefractionExtinctionMethod.solar_diffusing`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `solar_diffusing`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGlazingRefractionExtinctionMethod.solar_diffusing`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Solar Diffusing"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGlazingRefractionExtinctionMethod:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGlazingRefractionExtinctionMethod:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGlazingRefractionExtinctionMethod: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGlazingRefractionExtinctionMethod: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7666,8 +4448,27 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7682,6 +4483,10 @@ class WindowMaterialGas(object):
     internal_name = "WindowMaterial:Gas"
     field_count = 14
     required_fields = ["Name", "Gas Type", "Thickness"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Gas`
@@ -7701,6 +4506,7 @@ class WindowMaterialGas(object):
         self._data["Specific Heat Coefficient C"] = None
         self._data["Molecular Weight"] = None
         self._data["Specific Heat Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7838,13 +4644,13 @@ class WindowMaterialGas(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGas.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGas.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGas.name`')
         self._data["Name"] = value
 
     @property
@@ -7879,13 +4685,13 @@ class WindowMaterialGas(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_type`'.format(value))
+                                 ' for field `WindowMaterialGas.gas_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_type`')
+                                 'for field `WindowMaterialGas.gas_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_type`')
+                                 'for field `WindowMaterialGas.gas_type`')
             vals = {}
             vals["air"] = "Air"
             vals["argon"] = "Argon"
@@ -7911,10 +4717,10 @@ class WindowMaterialGas(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_type`'.format(value))
+                                     'field `WindowMaterialGas.gas_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGas.gas_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas Type"] = value
 
@@ -7947,10 +4753,10 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialGas.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialGas.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -7981,7 +4787,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_coefficient_a`'.format(value))
+                                 ' for field `WindowMaterialGas.conductivity_coefficient_a`'.format(value))
         self._data["Conductivity Coefficient A"] = value
 
     @property
@@ -8012,7 +4818,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_coefficient_b`'.format(value))
+                                 ' for field `WindowMaterialGas.conductivity_coefficient_b`'.format(value))
         self._data["Conductivity Coefficient B"] = value
 
     @property
@@ -8043,7 +4849,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_coefficient_c`'.format(value))
+                                 ' for field `WindowMaterialGas.conductivity_coefficient_c`'.format(value))
         self._data["Conductivity Coefficient C"] = value
 
     @property
@@ -8075,10 +4881,10 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `viscosity_coefficient_a`'.format(value))
+                                 ' for field `WindowMaterialGas.viscosity_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `viscosity_coefficient_a`')
+                                 'for field `WindowMaterialGas.viscosity_coefficient_a`')
         self._data["Viscosity Coefficient A"] = value
 
     @property
@@ -8109,7 +4915,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `viscosity_coefficient_b`'.format(value))
+                                 ' for field `WindowMaterialGas.viscosity_coefficient_b`'.format(value))
         self._data["Viscosity Coefficient B"] = value
 
     @property
@@ -8140,7 +4946,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `viscosity_coefficient_c`'.format(value))
+                                 ' for field `WindowMaterialGas.viscosity_coefficient_c`'.format(value))
         self._data["Viscosity Coefficient C"] = value
 
     @property
@@ -8172,10 +4978,10 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_coefficient_a`'.format(value))
+                                 ' for field `WindowMaterialGas.specific_heat_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `specific_heat_coefficient_a`')
+                                 'for field `WindowMaterialGas.specific_heat_coefficient_a`')
         self._data["Specific Heat Coefficient A"] = value
 
     @property
@@ -8206,7 +5012,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_coefficient_b`'.format(value))
+                                 ' for field `WindowMaterialGas.specific_heat_coefficient_b`'.format(value))
         self._data["Specific Heat Coefficient B"] = value
 
     @property
@@ -8237,7 +5043,7 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_coefficient_c`'.format(value))
+                                 ' for field `WindowMaterialGas.specific_heat_coefficient_c`'.format(value))
         self._data["Specific Heat Coefficient C"] = value
 
     @property
@@ -8270,13 +5076,13 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `molecular_weight`'.format(value))
+                                 ' for field `WindowMaterialGas.molecular_weight`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
-                                 'for field `molecular_weight`')
+                                 'for field `WindowMaterialGas.molecular_weight`')
             if value > 200.0:
                 raise ValueError('value need to be smaller 200.0 '
-                                 'for field `molecular_weight`')
+                                 'for field `WindowMaterialGas.molecular_weight`')
         self._data["Molecular Weight"] = value
 
     @property
@@ -8306,17 +5112,40 @@ class WindowMaterialGas(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_ratio`'.format(value))
+                                 ' for field `WindowMaterialGas.specific_heat_ratio`'.format(value))
         self._data["Specific Heat Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGas:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGas:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGas: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGas: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8334,8 +5163,27 @@ class WindowMaterialGas(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8350,6 +5198,10 @@ class WindowGapSupportPillar(object):
     internal_name = "WindowGap:SupportPillar"
     field_count = 3
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowGap:SupportPillar`
@@ -8358,6 +5210,7 @@ class WindowGapSupportPillar(object):
         self._data["Name"] = None
         self._data["Spacing"] = None
         self._data["Radius"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8418,13 +5271,13 @@ class WindowGapSupportPillar(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowGapSupportPillar.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowGapSupportPillar.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowGapSupportPillar.name`')
         self._data["Name"] = value
 
     @property
@@ -8456,10 +5309,10 @@ class WindowGapSupportPillar(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `spacing`'.format(value))
+                                 ' for field `WindowGapSupportPillar.spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `spacing`')
+                                 'for field `WindowGapSupportPillar.spacing`')
         self._data["Spacing"] = value
 
     @property
@@ -8491,20 +5344,43 @@ class WindowGapSupportPillar(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radius`'.format(value))
+                                 ' for field `WindowGapSupportPillar.radius`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `radius`')
+                                 'for field `WindowGapSupportPillar.radius`')
         self._data["Radius"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowGapSupportPillar:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowGapSupportPillar:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowGapSupportPillar: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowGapSupportPillar: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8522,8 +5398,27 @@ class WindowGapSupportPillar(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8540,6 +5435,10 @@ class WindowGapDeflectionState(object):
     internal_name = "WindowGap:DeflectionState"
     field_count = 4
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowGap:DeflectionState`
@@ -8549,6 +5448,7 @@ class WindowGapDeflectionState(object):
         self._data["Deflected Thickness"] = None
         self._data["Initial Temperature"] = None
         self._data["Initial Pressure"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8616,13 +5516,13 @@ class WindowGapDeflectionState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowGapDeflectionState.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowGapDeflectionState.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowGapDeflectionState.name`')
         self._data["Name"] = value
 
     @property
@@ -8655,10 +5555,10 @@ class WindowGapDeflectionState(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `deflected_thickness`'.format(value))
+                                 ' for field `WindowGapDeflectionState.deflected_thickness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `deflected_thickness`')
+                                 'for field `WindowGapDeflectionState.deflected_thickness`')
         self._data["Deflected Thickness"] = value
 
     @property
@@ -8690,10 +5590,10 @@ class WindowGapDeflectionState(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_temperature`'.format(value))
+                                 ' for field `WindowGapDeflectionState.initial_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `initial_temperature`')
+                                 'for field `WindowGapDeflectionState.initial_temperature`')
         self._data["Initial Temperature"] = value
 
     @property
@@ -8725,20 +5625,43 @@ class WindowGapDeflectionState(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_pressure`'.format(value))
+                                 ' for field `WindowGapDeflectionState.initial_pressure`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `initial_pressure`')
+                                 'for field `WindowGapDeflectionState.initial_pressure`')
         self._data["Initial Pressure"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowGapDeflectionState:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowGapDeflectionState:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowGapDeflectionState: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowGapDeflectionState: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8756,8 +5679,27 @@ class WindowGapDeflectionState(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8772,6 +5714,10 @@ class WindowMaterialGasMixture(object):
     internal_name = "WindowMaterial:GasMixture"
     field_count = 11
     required_fields = ["Name", "Thickness", "Number of Gases in Mixture", "Gas 1 Type", "Gas 1 Fraction", "Gas 2 Type", "Gas 2 Fraction"]
+    extensible_fields = 0
+    format = None
+    min_fields = 7
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:GasMixture`
@@ -8788,6 +5734,7 @@ class WindowMaterialGasMixture(object):
         self._data["Gas 3 Fraction"] = None
         self._data["Gas 4 Type"] = None
         self._data["Gas 4 Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8904,13 +5851,13 @@ class WindowMaterialGasMixture(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGasMixture.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGasMixture.name`')
         self._data["Name"] = value
 
     @property
@@ -8941,10 +5888,10 @@ class WindowMaterialGasMixture(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialGasMixture.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -8977,18 +5924,18 @@ class WindowMaterialGasMixture(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_gases_in_mixture`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `WindowMaterialGasMixture.number_of_gases_in_mixture`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_gases_in_mixture`'.format(value))
+                                         'for field `WindowMaterialGasMixture.number_of_gases_in_mixture`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_gases_in_mixture`')
+                                 'for field `WindowMaterialGasMixture.number_of_gases_in_mixture`')
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
-                                 'for field `number_of_gases_in_mixture`')
+                                 'for field `WindowMaterialGasMixture.number_of_gases_in_mixture`')
         self._data["Number of Gases in Mixture"] = value
 
     @property
@@ -9022,13 +5969,13 @@ class WindowMaterialGasMixture(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_1_type`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_1_type`')
+                                 'for field `WindowMaterialGasMixture.gas_1_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_1_type`')
+                                 'for field `WindowMaterialGasMixture.gas_1_type`')
             vals = {}
             vals["air"] = "Air"
             vals["argon"] = "Argon"
@@ -9053,10 +6000,10 @@ class WindowMaterialGasMixture(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_1_type`'.format(value))
+                                     'field `WindowMaterialGasMixture.gas_1_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_1_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGasMixture.gas_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 1 Type"] = value
 
@@ -9088,13 +6035,13 @@ class WindowMaterialGasMixture(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_1_fraction`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_1_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `gas_1_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_1_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `gas_1_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_1_fraction`')
         self._data["Gas 1 Fraction"] = value
 
     @property
@@ -9128,13 +6075,13 @@ class WindowMaterialGasMixture(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_2_type`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_2_type`')
+                                 'for field `WindowMaterialGasMixture.gas_2_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_2_type`')
+                                 'for field `WindowMaterialGasMixture.gas_2_type`')
             vals = {}
             vals["air"] = "Air"
             vals["argon"] = "Argon"
@@ -9159,10 +6106,10 @@ class WindowMaterialGasMixture(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_2_type`'.format(value))
+                                     'field `WindowMaterialGasMixture.gas_2_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_2_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGasMixture.gas_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 2 Type"] = value
 
@@ -9194,13 +6141,13 @@ class WindowMaterialGasMixture(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_2_fraction`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_2_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `gas_2_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_2_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `gas_2_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_2_fraction`')
         self._data["Gas 2 Fraction"] = value
 
     @property
@@ -9234,13 +6181,13 @@ class WindowMaterialGasMixture(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_3_type`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_3_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_3_type`')
+                                 'for field `WindowMaterialGasMixture.gas_3_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_3_type`')
+                                 'for field `WindowMaterialGasMixture.gas_3_type`')
             vals = {}
             vals["air"] = "Air"
             vals["argon"] = "Argon"
@@ -9265,10 +6212,10 @@ class WindowMaterialGasMixture(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_3_type`'.format(value))
+                                     'field `WindowMaterialGasMixture.gas_3_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_3_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGasMixture.gas_3_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 3 Type"] = value
 
@@ -9300,13 +6247,13 @@ class WindowMaterialGasMixture(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_3_fraction`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_3_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `gas_3_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_3_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `gas_3_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_3_fraction`')
         self._data["Gas 3 Fraction"] = value
 
     @property
@@ -9340,13 +6287,13 @@ class WindowMaterialGasMixture(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_4_type`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_4_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_4_type`')
+                                 'for field `WindowMaterialGasMixture.gas_4_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_4_type`')
+                                 'for field `WindowMaterialGasMixture.gas_4_type`')
             vals = {}
             vals["air"] = "Air"
             vals["argon"] = "Argon"
@@ -9371,10 +6318,10 @@ class WindowMaterialGasMixture(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_4_type`'.format(value))
+                                     'field `WindowMaterialGasMixture.gas_4_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_4_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGasMixture.gas_4_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 4 Type"] = value
 
@@ -9406,23 +6353,46 @@ class WindowMaterialGasMixture(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `gas_4_fraction`'.format(value))
+                                 ' for field `WindowMaterialGasMixture.gas_4_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `gas_4_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_4_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `gas_4_fraction`')
+                                 'for field `WindowMaterialGasMixture.gas_4_fraction`')
         self._data["Gas 4 Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGasMixture:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGasMixture:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGasMixture: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGasMixture: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9440,8 +6410,27 @@ class WindowMaterialGasMixture(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9459,6 +6448,10 @@ class WindowMaterialGap(object):
     internal_name = "WindowMaterial:Gap"
     field_count = 6
     required_fields = ["Name", "Thickness", "Gas (or Gas Mixture)"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Gap`
@@ -9470,6 +6463,7 @@ class WindowMaterialGap(object):
         self._data["Pressure"] = None
         self._data["Deflection State"] = None
         self._data["Support Pillar"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9551,13 +6545,13 @@ class WindowMaterialGap(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGap.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGap.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGap.name`')
         self._data["Name"] = value
 
     @property
@@ -9587,7 +6581,7 @@ class WindowMaterialGap(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialGap.thickness`'.format(value))
         self._data["Thickness"] = value
 
     @property
@@ -9618,13 +6612,13 @@ class WindowMaterialGap(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_or_gas_mixture`'.format(value))
+                                 ' for field `WindowMaterialGap.gas_or_gas_mixture`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_or_gas_mixture`')
+                                 'for field `WindowMaterialGap.gas_or_gas_mixture`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_or_gas_mixture`')
+                                 'for field `WindowMaterialGap.gas_or_gas_mixture`')
         self._data["Gas (or Gas Mixture)"] = value
 
     @property
@@ -9655,7 +6649,7 @@ class WindowMaterialGap(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure`'.format(value))
+                                 ' for field `WindowMaterialGap.pressure`'.format(value))
         self._data["Pressure"] = value
 
     @property
@@ -9685,13 +6679,13 @@ class WindowMaterialGap(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `deflection_state`'.format(value))
+                                 ' for field `WindowMaterialGap.deflection_state`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `deflection_state`')
+                                 'for field `WindowMaterialGap.deflection_state`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `deflection_state`')
+                                 'for field `WindowMaterialGap.deflection_state`')
         self._data["Deflection State"] = value
 
     @property
@@ -9722,23 +6716,46 @@ class WindowMaterialGap(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `support_pillar`'.format(value))
+                                 ' for field `WindowMaterialGap.support_pillar`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `support_pillar`')
+                                 'for field `WindowMaterialGap.support_pillar`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `support_pillar`')
+                                 'for field `WindowMaterialGap.support_pillar`')
         self._data["Support Pillar"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGap:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGap:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGap: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGap: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9756,8 +6773,27 @@ class WindowMaterialGap(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9775,6 +6811,10 @@ class WindowMaterialShade(object):
     internal_name = "WindowMaterial:Shade"
     field_count = 15
     required_fields = ["Name", "Solar Transmittance", "Solar Reflectance", "Visible Transmittance", "Visible Reflectance", "Infrared Hemispherical Emissivity", "Infrared Transmittance", "Thickness", "Conductivity"]
+    extensible_fields = 0
+    format = None
+    min_fields = 15
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Shade`
@@ -9795,6 +6835,7 @@ class WindowMaterialShade(object):
         self._data["Left-Side Opening Multiplier"] = None
         self._data["Right-Side Opening Multiplier"] = None
         self._data["Airflow Permeability"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9939,13 +6980,13 @@ class WindowMaterialShade(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialShade.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialShade.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialShade.name`')
         self._data["Name"] = value
 
     @property
@@ -9978,13 +7019,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShade.solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `solar_transmittance`')
+                                 'for field `WindowMaterialShade.solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `solar_transmittance`')
+                                 'for field `WindowMaterialShade.solar_transmittance`')
         self._data["Solar Transmittance"] = value
 
     @property
@@ -10018,13 +7059,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialShade.solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `solar_reflectance`')
+                                 'for field `WindowMaterialShade.solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `solar_reflectance`')
+                                 'for field `WindowMaterialShade.solar_reflectance`')
         self._data["Solar Reflectance"] = value
 
     @property
@@ -10057,13 +7098,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShade.visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `visible_transmittance`')
+                                 'for field `WindowMaterialShade.visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_transmittance`')
+                                 'for field `WindowMaterialShade.visible_transmittance`')
         self._data["Visible Transmittance"] = value
 
     @property
@@ -10097,13 +7138,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialShade.visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `visible_reflectance`')
+                                 'for field `WindowMaterialShade.visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `visible_reflectance`')
+                                 'for field `WindowMaterialShade.visible_reflectance`')
         self._data["Visible Reflectance"] = value
 
     @property
@@ -10135,13 +7176,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `infrared_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialShade.infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialShade.infrared_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialShade.infrared_hemispherical_emissivity`')
         self._data["Infrared Hemispherical Emissivity"] = value
 
     @property
@@ -10173,13 +7214,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `infrared_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShade.infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `infrared_transmittance`')
+                                 'for field `WindowMaterialShade.infrared_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `infrared_transmittance`')
+                                 'for field `WindowMaterialShade.infrared_transmittance`')
         self._data["Infrared Transmittance"] = value
 
     @property
@@ -10211,10 +7252,10 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialShade.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialShade.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -10245,10 +7286,10 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity`'.format(value))
+                                 ' for field `WindowMaterialShade.conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `conductivity`')
+                                 'for field `WindowMaterialShade.conductivity`')
         self._data["Conductivity"] = value
 
     @property
@@ -10282,13 +7323,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shade_to_glass_distance`'.format(value))
+                                 ' for field `WindowMaterialShade.shade_to_glass_distance`'.format(value))
             if value < 0.001:
                 raise ValueError('value need to be greater or equal 0.001 '
-                                 'for field `shade_to_glass_distance`')
+                                 'for field `WindowMaterialShade.shade_to_glass_distance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `shade_to_glass_distance`')
+                                 'for field `WindowMaterialShade.shade_to_glass_distance`')
         self._data["Shade to Glass Distance"] = value
 
     @property
@@ -10320,13 +7361,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `top_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialShade.top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `top_opening_multiplier`')
+                                 'for field `WindowMaterialShade.top_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `top_opening_multiplier`')
+                                 'for field `WindowMaterialShade.top_opening_multiplier`')
         self._data["Top Opening Multiplier"] = value
 
     @property
@@ -10358,13 +7399,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `bottom_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialShade.bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `bottom_opening_multiplier`')
+                                 'for field `WindowMaterialShade.bottom_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `bottom_opening_multiplier`')
+                                 'for field `WindowMaterialShade.bottom_opening_multiplier`')
         self._data["Bottom Opening Multiplier"] = value
 
     @property
@@ -10396,13 +7437,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `leftside_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialShade.leftside_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `leftside_opening_multiplier`')
+                                 'for field `WindowMaterialShade.leftside_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `leftside_opening_multiplier`')
+                                 'for field `WindowMaterialShade.leftside_opening_multiplier`')
         self._data["Left-Side Opening Multiplier"] = value
 
     @property
@@ -10434,13 +7475,13 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rightside_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialShade.rightside_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rightside_opening_multiplier`')
+                                 'for field `WindowMaterialShade.rightside_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `rightside_opening_multiplier`')
+                                 'for field `WindowMaterialShade.rightside_opening_multiplier`')
         self._data["Right-Side Opening Multiplier"] = value
 
     @property
@@ -10473,23 +7514,46 @@ class WindowMaterialShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `airflow_permeability`'.format(value))
+                                 ' for field `WindowMaterialShade.airflow_permeability`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `airflow_permeability`')
+                                 'for field `WindowMaterialShade.airflow_permeability`')
             if value > 0.8:
                 raise ValueError('value need to be smaller 0.8 '
-                                 'for field `airflow_permeability`')
+                                 'for field `WindowMaterialShade.airflow_permeability`')
         self._data["Airflow Permeability"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialShade:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialShade:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialShade: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialShade: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10507,8 +7571,27 @@ class WindowMaterialShade(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10523,6 +7606,10 @@ class WindowMaterialComplexShade(object):
     internal_name = "WindowMaterial:ComplexShade"
     field_count = 18
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 12
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:ComplexShade`
@@ -10546,6 +7633,7 @@ class WindowMaterialComplexShade(object):
         self._data["Slat Angle"] = None
         self._data["Slat Conductivity"] = None
         self._data["Slat Curve"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10711,13 +7799,13 @@ class WindowMaterialComplexShade(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialComplexShade.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialComplexShade.name`')
         self._data["Name"] = value
 
     @property
@@ -10753,13 +7841,13 @@ class WindowMaterialComplexShade(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_type`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.layer_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_type`')
+                                 'for field `WindowMaterialComplexShade.layer_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_type`')
+                                 'for field `WindowMaterialComplexShade.layer_type`')
             vals = {}
             vals["venetian"] = "Venetian"
             vals["woven"] = "Woven"
@@ -10785,10 +7873,10 @@ class WindowMaterialComplexShade(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `layer_type`'.format(value))
+                                     'field `WindowMaterialComplexShade.layer_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `layer_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialComplexShade.layer_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Layer Type"] = value
 
@@ -10821,10 +7909,10 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialComplexShade.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -10856,10 +7944,10 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `conductivity`')
+                                 'for field `WindowMaterialComplexShade.conductivity`')
         self._data["Conductivity"] = value
 
     @property
@@ -10891,13 +7979,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ir_transmittance`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.ir_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ir_transmittance`')
+                                 'for field `WindowMaterialComplexShade.ir_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ir_transmittance`')
+                                 'for field `WindowMaterialComplexShade.ir_transmittance`')
         self._data["IR Transmittance"] = value
 
     @property
@@ -10929,13 +8017,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_emissivity`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.front_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_emissivity`')
+                                 'for field `WindowMaterialComplexShade.front_emissivity`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_emissivity`')
+                                 'for field `WindowMaterialComplexShade.front_emissivity`')
         self._data["Front Emissivity"] = value
 
     @property
@@ -10967,13 +8055,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_emissivity`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.back_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_emissivity`')
+                                 'for field `WindowMaterialComplexShade.back_emissivity`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_emissivity`')
+                                 'for field `WindowMaterialComplexShade.back_emissivity`')
         self._data["Back Emissivity"] = value
 
     @property
@@ -11005,13 +8093,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `top_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `top_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.top_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `top_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.top_opening_multiplier`')
         self._data["Top Opening Multiplier"] = value
 
     @property
@@ -11043,13 +8131,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `bottom_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `bottom_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.bottom_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `bottom_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.bottom_opening_multiplier`')
         self._data["Bottom Opening Multiplier"] = value
 
     @property
@@ -11081,13 +8169,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `left_side_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.left_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `left_side_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.left_side_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `left_side_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.left_side_opening_multiplier`')
         self._data["Left Side Opening Multiplier"] = value
 
     @property
@@ -11119,13 +8207,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `right_side_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.right_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `right_side_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.right_side_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `right_side_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.right_side_opening_multiplier`')
         self._data["Right Side Opening Multiplier"] = value
 
     @property
@@ -11157,13 +8245,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.front_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.front_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_opening_multiplier`')
+                                 'for field `WindowMaterialComplexShade.front_opening_multiplier`')
         self._data["Front Opening Multiplier"] = value
 
     @property
@@ -11195,10 +8283,10 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_width`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.slat_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_width`')
+                                 'for field `WindowMaterialComplexShade.slat_width`')
         self._data["Slat Width"] = value
 
     @property
@@ -11231,10 +8319,10 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_spacing`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.slat_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_spacing`')
+                                 'for field `WindowMaterialComplexShade.slat_spacing`')
         self._data["Slat Spacing"] = value
 
     @property
@@ -11268,10 +8356,10 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_thickness`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.slat_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_thickness`')
+                                 'for field `WindowMaterialComplexShade.slat_thickness`')
         self._data["Slat Thickness"] = value
 
     @property
@@ -11304,13 +8392,13 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_angle`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.slat_angle`'.format(value))
             if value < -90.0:
                 raise ValueError('value need to be greater or equal -90.0 '
-                                 'for field `slat_angle`')
+                                 'for field `WindowMaterialComplexShade.slat_angle`')
             if value > 90.0:
                 raise ValueError('value need to be smaller 90.0 '
-                                 'for field `slat_angle`')
+                                 'for field `WindowMaterialComplexShade.slat_angle`')
         self._data["Slat Angle"] = value
 
     @property
@@ -11342,10 +8430,10 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_conductivity`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.slat_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_conductivity`')
+                                 'for field `WindowMaterialComplexShade.slat_conductivity`')
         self._data["Slat Conductivity"] = value
 
     @property
@@ -11380,20 +8468,43 @@ class WindowMaterialComplexShade(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_curve`'.format(value))
+                                 ' for field `WindowMaterialComplexShade.slat_curve`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_curve`')
+                                 'for field `WindowMaterialComplexShade.slat_curve`')
         self._data["Slat Curve"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialComplexShade:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialComplexShade:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialComplexShade: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialComplexShade: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11411,8 +8522,27 @@ class WindowMaterialComplexShade(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -11427,6 +8557,10 @@ class WindowMaterialBlind(object):
     internal_name = "WindowMaterial:Blind"
     field_count = 29
     required_fields = ["Name", "Slat Width", "Slat Separation", "Front Side Slat Beam Solar Reflectance", "Back Side Slat Beam Solar Reflectance", "Front Side Slat Diffuse Solar Reflectance", "Back Side Slat Diffuse Solar Reflectance", "Slat Beam Visible Transmittance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 29
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Blind`
@@ -11461,6 +8595,7 @@ class WindowMaterialBlind(object):
         self._data["Blind Right Side Opening Multiplier"] = None
         self._data["Minimum Slat Angle"] = None
         self._data["Maximum Slat Angle"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -11703,13 +8838,13 @@ class WindowMaterialBlind(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialBlind.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialBlind.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialBlind.name`')
         self._data["Name"] = value
 
     @property
@@ -11742,13 +8877,13 @@ class WindowMaterialBlind(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `slat_orientation`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_orientation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `slat_orientation`')
+                                 'for field `WindowMaterialBlind.slat_orientation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `slat_orientation`')
+                                 'for field `WindowMaterialBlind.slat_orientation`')
             vals = {}
             vals["horizontal"] = "Horizontal"
             vals["vertical"] = "Vertical"
@@ -11771,10 +8906,10 @@ class WindowMaterialBlind(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `slat_orientation`'.format(value))
+                                     'field `WindowMaterialBlind.slat_orientation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `slat_orientation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialBlind.slat_orientation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Slat Orientation"] = value
 
@@ -11808,13 +8943,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_width`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_width`')
+                                 'for field `WindowMaterialBlind.slat_width`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_width`')
+                                 'for field `WindowMaterialBlind.slat_width`')
         self._data["Slat Width"] = value
 
     @property
@@ -11848,13 +8983,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_separation`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_separation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_separation`')
+                                 'for field `WindowMaterialBlind.slat_separation`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_separation`')
+                                 'for field `WindowMaterialBlind.slat_separation`')
         self._data["Slat Separation"] = value
 
     @property
@@ -11890,13 +9025,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_thickness`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_thickness`')
+                                 'for field `WindowMaterialBlind.slat_thickness`')
             if value > 0.1:
                 raise ValueError('value need to be smaller 0.1 '
-                                 'for field `slat_thickness`')
+                                 'for field `WindowMaterialBlind.slat_thickness`')
         self._data["Slat Thickness"] = value
 
     @property
@@ -11938,13 +9073,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_angle`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_angle`')
+                                 'for field `WindowMaterialBlind.slat_angle`')
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
-                                 'for field `slat_angle`')
+                                 'for field `WindowMaterialBlind.slat_angle`')
         self._data["Slat Angle"] = value
 
     @property
@@ -11977,10 +9112,10 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_conductivity`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_conductivity`')
+                                 'for field `WindowMaterialBlind.slat_conductivity`')
         self._data["Slat Conductivity"] = value
 
     @property
@@ -12012,13 +9147,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_beam_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_beam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_beam_solar_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_beam_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_beam_solar_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_beam_solar_transmittance`')
         self._data["Slat Beam Solar Transmittance"] = value
 
     @property
@@ -12049,13 +9184,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_beam_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.front_side_slat_beam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_beam_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_beam_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_beam_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_beam_solar_reflectance`')
         self._data["Front Side Slat Beam Solar Reflectance"] = value
 
     @property
@@ -12086,13 +9221,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_beam_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.back_side_slat_beam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_beam_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_beam_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_beam_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_beam_solar_reflectance`')
         self._data["Back Side Slat Beam Solar Reflectance"] = value
 
     @property
@@ -12125,13 +9260,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_diffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_diffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_diffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_diffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_diffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_diffuse_solar_transmittance`')
         self._data["Slat Diffuse Solar Transmittance"] = value
 
     @property
@@ -12163,13 +9298,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_diffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.front_side_slat_diffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_diffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_diffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_diffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_diffuse_solar_reflectance`')
         self._data["Front Side Slat Diffuse Solar Reflectance"] = value
 
     @property
@@ -12201,13 +9336,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_diffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.back_side_slat_diffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_diffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_diffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_diffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_diffuse_solar_reflectance`')
         self._data["Back Side Slat Diffuse Solar Reflectance"] = value
 
     @property
@@ -12239,13 +9374,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_beam_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_beam_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_beam_visible_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_beam_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_beam_visible_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_beam_visible_transmittance`')
         self._data["Slat Beam Visible Transmittance"] = value
 
     @property
@@ -12277,13 +9412,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_beam_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.front_side_slat_beam_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_beam_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_beam_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_beam_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_beam_visible_reflectance`')
         self._data["Front Side Slat Beam Visible Reflectance"] = value
 
     @property
@@ -12315,13 +9450,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_beam_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.back_side_slat_beam_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_beam_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_beam_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_beam_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_beam_visible_reflectance`')
         self._data["Back Side Slat Beam Visible Reflectance"] = value
 
     @property
@@ -12355,13 +9490,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_diffuse_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_diffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_diffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_diffuse_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_diffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_diffuse_visible_transmittance`')
         self._data["Slat Diffuse Visible Transmittance"] = value
 
     @property
@@ -12394,13 +9529,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_diffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.front_side_slat_diffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_diffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_diffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_diffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.front_side_slat_diffuse_visible_reflectance`')
         self._data["Front Side Slat Diffuse Visible Reflectance"] = value
 
     @property
@@ -12433,13 +9568,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_diffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlind.back_side_slat_diffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_diffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_diffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_diffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlind.back_side_slat_diffuse_visible_reflectance`')
         self._data["Back Side Slat Diffuse Visible Reflectance"] = value
 
     @property
@@ -12471,13 +9606,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_infrared_hemispherical_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlind.slat_infrared_hemispherical_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_infrared_hemispherical_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_infrared_hemispherical_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_infrared_hemispherical_transmittance`')
+                                 'for field `WindowMaterialBlind.slat_infrared_hemispherical_transmittance`')
         self._data["Slat Infrared Hemispherical Transmittance"] = value
 
     @property
@@ -12509,13 +9644,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_infrared_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialBlind.front_side_slat_infrared_hemispherical_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialBlind.front_side_slat_infrared_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialBlind.front_side_slat_infrared_hemispherical_emissivity`')
         self._data["Front Side Slat Infrared Hemispherical Emissivity"] = value
 
     @property
@@ -12547,13 +9682,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_infrared_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialBlind.back_side_slat_infrared_hemispherical_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialBlind.back_side_slat_infrared_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_infrared_hemispherical_emissivity`')
+                                 'for field `WindowMaterialBlind.back_side_slat_infrared_hemispherical_emissivity`')
         self._data["Back Side Slat Infrared Hemispherical Emissivity"] = value
 
     @property
@@ -12587,13 +9722,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blind_to_glass_distance`'.format(value))
+                                 ' for field `WindowMaterialBlind.blind_to_glass_distance`'.format(value))
             if value < 0.01:
                 raise ValueError('value need to be greater or equal 0.01 '
-                                 'for field `blind_to_glass_distance`')
+                                 'for field `WindowMaterialBlind.blind_to_glass_distance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `blind_to_glass_distance`')
+                                 'for field `WindowMaterialBlind.blind_to_glass_distance`')
         self._data["Blind to Glass Distance"] = value
 
     @property
@@ -12625,13 +9760,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blind_top_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialBlind.blind_top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `blind_top_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_top_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `blind_top_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_top_opening_multiplier`')
         self._data["Blind Top Opening Multiplier"] = value
 
     @property
@@ -12663,13 +9798,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blind_bottom_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialBlind.blind_bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `blind_bottom_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_bottom_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `blind_bottom_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_bottom_opening_multiplier`')
         self._data["Blind Bottom Opening Multiplier"] = value
 
     @property
@@ -12701,13 +9836,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blind_left_side_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialBlind.blind_left_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `blind_left_side_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_left_side_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `blind_left_side_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_left_side_opening_multiplier`')
         self._data["Blind Left Side Opening Multiplier"] = value
 
     @property
@@ -12739,13 +9874,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blind_right_side_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialBlind.blind_right_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `blind_right_side_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_right_side_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `blind_right_side_opening_multiplier`')
+                                 'for field `WindowMaterialBlind.blind_right_side_opening_multiplier`')
         self._data["Blind Right Side Opening Multiplier"] = value
 
     @property
@@ -12782,13 +9917,13 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_slat_angle`'.format(value))
+                                 ' for field `WindowMaterialBlind.minimum_slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_slat_angle`')
+                                 'for field `WindowMaterialBlind.minimum_slat_angle`')
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
-                                 'for field `minimum_slat_angle`')
+                                 'for field `WindowMaterialBlind.minimum_slat_angle`')
         self._data["Minimum Slat Angle"] = value
 
     @property
@@ -12825,23 +9960,46 @@ class WindowMaterialBlind(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_slat_angle`'.format(value))
+                                 ' for field `WindowMaterialBlind.maximum_slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_slat_angle`')
+                                 'for field `WindowMaterialBlind.maximum_slat_angle`')
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
-                                 'for field `maximum_slat_angle`')
+                                 'for field `WindowMaterialBlind.maximum_slat_angle`')
         self._data["Maximum Slat Angle"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialBlind:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialBlind:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialBlind: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialBlind: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -12859,8 +10017,27 @@ class WindowMaterialBlind(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -12875,6 +10052,10 @@ class WindowMaterialScreen(object):
     internal_name = "WindowMaterial:Screen"
     field_count = 14
     required_fields = ["Name", "Diffuse Solar Reflectance", "Diffuse Visible Reflectance", "Screen Material Spacing", "Screen Material Diameter"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Screen`
@@ -12894,6 +10075,7 @@ class WindowMaterialScreen(object):
         self._data["Left Side Opening Multiplier"] = None
         self._data["Right Side Opening Multiplier"] = None
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13032,13 +10214,13 @@ class WindowMaterialScreen(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialScreen.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialScreen.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialScreen.name`')
         self._data["Name"] = value
 
     @property
@@ -13073,13 +10255,13 @@ class WindowMaterialScreen(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reflected_beam_transmittance_accounting_method`'.format(value))
+                                 ' for field `WindowMaterialScreen.reflected_beam_transmittance_accounting_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reflected_beam_transmittance_accounting_method`')
+                                 'for field `WindowMaterialScreen.reflected_beam_transmittance_accounting_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reflected_beam_transmittance_accounting_method`')
+                                 'for field `WindowMaterialScreen.reflected_beam_transmittance_accounting_method`')
             vals = {}
             vals["donotmodel"] = "DoNotModel"
             vals["modelasdirectbeam"] = "ModelAsDirectBeam"
@@ -13103,10 +10285,10 @@ class WindowMaterialScreen(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `reflected_beam_transmittance_accounting_method`'.format(value))
+                                     'field `WindowMaterialScreen.reflected_beam_transmittance_accounting_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `reflected_beam_transmittance_accounting_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialScreen.reflected_beam_transmittance_accounting_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reflected Beam Transmittance Accounting Method"] = value
 
@@ -13141,13 +10323,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `diffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialScreen.diffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `diffuse_solar_reflectance`')
+                                 'for field `WindowMaterialScreen.diffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `diffuse_solar_reflectance`')
+                                 'for field `WindowMaterialScreen.diffuse_solar_reflectance`')
         self._data["Diffuse Solar Reflectance"] = value
 
     @property
@@ -13182,13 +10364,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `diffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialScreen.diffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `diffuse_visible_reflectance`')
+                                 'for field `WindowMaterialScreen.diffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `diffuse_visible_reflectance`')
+                                 'for field `WindowMaterialScreen.diffuse_visible_reflectance`')
         self._data["Diffuse Visible Reflectance"] = value
 
     @property
@@ -13223,13 +10405,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_hemispherical_emissivity`'.format(value))
+                                 ' for field `WindowMaterialScreen.thermal_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_hemispherical_emissivity`')
+                                 'for field `WindowMaterialScreen.thermal_hemispherical_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `thermal_hemispherical_emissivity`')
+                                 'for field `WindowMaterialScreen.thermal_hemispherical_emissivity`')
         self._data["Thermal Hemispherical Emissivity"] = value
 
     @property
@@ -13263,10 +10445,10 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity`'.format(value))
+                                 ' for field `WindowMaterialScreen.conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `conductivity`')
+                                 'for field `WindowMaterialScreen.conductivity`')
         self._data["Conductivity"] = value
 
     @property
@@ -13299,10 +10481,10 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_material_spacing`'.format(value))
+                                 ' for field `WindowMaterialScreen.screen_material_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `screen_material_spacing`')
+                                 'for field `WindowMaterialScreen.screen_material_spacing`')
         self._data["Screen Material Spacing"] = value
 
     @property
@@ -13335,10 +10517,10 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_material_diameter`'.format(value))
+                                 ' for field `WindowMaterialScreen.screen_material_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `screen_material_diameter`')
+                                 'for field `WindowMaterialScreen.screen_material_diameter`')
         self._data["Screen Material Diameter"] = value
 
     @property
@@ -13373,13 +10555,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_to_glass_distance`'.format(value))
+                                 ' for field `WindowMaterialScreen.screen_to_glass_distance`'.format(value))
             if value < 0.001:
                 raise ValueError('value need to be greater or equal 0.001 '
-                                 'for field `screen_to_glass_distance`')
+                                 'for field `WindowMaterialScreen.screen_to_glass_distance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_to_glass_distance`')
+                                 'for field `WindowMaterialScreen.screen_to_glass_distance`')
         self._data["Screen to Glass Distance"] = value
 
     @property
@@ -13414,13 +10596,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `top_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialScreen.top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `top_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.top_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `top_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.top_opening_multiplier`')
         self._data["Top Opening Multiplier"] = value
 
     @property
@@ -13455,13 +10637,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `bottom_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialScreen.bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `bottom_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.bottom_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `bottom_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.bottom_opening_multiplier`')
         self._data["Bottom Opening Multiplier"] = value
 
     @property
@@ -13496,13 +10678,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `left_side_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialScreen.left_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `left_side_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.left_side_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `left_side_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.left_side_opening_multiplier`')
         self._data["Left Side Opening Multiplier"] = value
 
     @property
@@ -13537,13 +10719,13 @@ class WindowMaterialScreen(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `right_side_opening_multiplier`'.format(value))
+                                 ' for field `WindowMaterialScreen.right_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `right_side_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.right_side_opening_multiplier`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `right_side_opening_multiplier`')
+                                 'for field `WindowMaterialScreen.right_side_opening_multiplier`')
         self._data["Right Side Opening Multiplier"] = value
 
     @property
@@ -13583,13 +10765,13 @@ class WindowMaterialScreen(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
+                                 ' for field `WindowMaterialScreen.angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `angle_of_resolution_for_screen_transmittance_output_map`')
+                                 'for field `WindowMaterialScreen.angle_of_resolution_for_screen_transmittance_output_map`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `angle_of_resolution_for_screen_transmittance_output_map`')
+                                 'for field `WindowMaterialScreen.angle_of_resolution_for_screen_transmittance_output_map`')
             vals = {}
             vals["0"] = "0"
             vals["1"] = "1"
@@ -13615,21 +10797,44 @@ class WindowMaterialScreen(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
+                                     'field `WindowMaterialScreen.angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialScreen.angle_of_resolution_for_screen_transmittance_output_map`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialScreen:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialScreen:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialScreen: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialScreen: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -13647,8 +10852,27 @@ class WindowMaterialScreen(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -13666,6 +10890,10 @@ class WindowMaterialShadeEquivalentLayer(object):
     internal_name = "WindowMaterial:Shade:EquivalentLayer"
     field_count = 12
     required_fields = ["Name", "Front Side Shade Beam-Diffuse Solar Transmittance", "Back Side Shade Beam-Diffuse Solar Transmittance", "Front Side Shade Beam-Diffuse Solar Reflectance", "Back Side Shade Beam-Diffuse Solar Reflectance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Shade:EquivalentLayer`
@@ -13683,6 +10911,7 @@ class WindowMaterialShadeEquivalentLayer(object):
         self._data["Shade Material Infrared Transmittance"] = None
         self._data["Front Side Shade Material Infrared Emissivity"] = None
         self._data["Back Side Shade Material Infrared Emissivity"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13806,13 +11035,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -13848,13 +11077,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shade_beambeam_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.shade_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `shade_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beambeam_solar_transmittance`')
             if value > 0.8:
                 raise ValueError('value need to be smaller 0.8 '
-                                 'for field `shade_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beambeam_solar_transmittance`')
         self._data["Shade Beam-Beam Solar Transmittance"] = value
 
     @property
@@ -13888,13 +11117,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_shade_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.front_side_shade_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_shade_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.front_side_shade_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_shade_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.front_side_shade_beamdiffuse_solar_transmittance`')
         self._data["Front Side Shade Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -13928,13 +11157,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_shade_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.back_side_shade_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_shade_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.back_side_shade_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_shade_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.back_side_shade_beamdiffuse_solar_transmittance`')
         self._data["Back Side Shade Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -13968,13 +11197,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_shade_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.front_side_shade_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_shade_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.front_side_shade_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_shade_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.front_side_shade_beamdiffuse_solar_reflectance`')
         self._data["Front Side Shade Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -14008,13 +11237,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_shade_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.back_side_shade_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_shade_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.back_side_shade_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_shade_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.back_side_shade_beamdiffuse_solar_reflectance`')
         self._data["Back Side Shade Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -14049,13 +11278,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shade_beambeam_visible_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.shade_beambeam_visible_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `shade_beambeam_visible_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beambeam_visible_transmittance_at_normal_incidence`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `shade_beambeam_visible_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beambeam_visible_transmittance_at_normal_incidence`')
         self._data["Shade Beam-Beam Visible Transmittance at Normal Incidence"] = value
 
     @property
@@ -14090,13 +11319,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shade_beamdiffuse_visible_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.shade_beamdiffuse_visible_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `shade_beamdiffuse_visible_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beamdiffuse_visible_transmittance_at_normal_incidence`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `shade_beamdiffuse_visible_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beamdiffuse_visible_transmittance_at_normal_incidence`')
         self._data["Shade Beam-Diffuse Visible Transmittance at Normal Incidence"] = value
 
     @property
@@ -14131,13 +11360,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shade_beamdiffuse_visible_reflectance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.shade_beamdiffuse_visible_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `shade_beamdiffuse_visible_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beamdiffuse_visible_reflectance_at_normal_incidence`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `shade_beamdiffuse_visible_reflectance_at_normal_incidence`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_beamdiffuse_visible_reflectance_at_normal_incidence`')
         self._data["Shade Beam-Diffuse Visible Reflectance at Normal Incidence"] = value
 
     @property
@@ -14172,13 +11401,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shade_material_infrared_transmittance`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.shade_material_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `shade_material_infrared_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_material_infrared_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `shade_material_infrared_transmittance`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.shade_material_infrared_transmittance`')
         self._data["Shade Material Infrared Transmittance"] = value
 
     @property
@@ -14214,13 +11443,13 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_shade_material_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.front_side_shade_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `front_side_shade_material_infrared_emissivity`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.front_side_shade_material_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_shade_material_infrared_emissivity`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.front_side_shade_material_infrared_emissivity`')
         self._data["Front Side Shade Material Infrared Emissivity"] = value
 
     @property
@@ -14256,23 +11485,46 @@ class WindowMaterialShadeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_shade_material_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialShadeEquivalentLayer.back_side_shade_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `back_side_shade_material_infrared_emissivity`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.back_side_shade_material_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_shade_material_infrared_emissivity`')
+                                 'for field `WindowMaterialShadeEquivalentLayer.back_side_shade_material_infrared_emissivity`')
         self._data["Back Side Shade Material Infrared Emissivity"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialShadeEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialShadeEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialShadeEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialShadeEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -14290,8 +11542,27 @@ class WindowMaterialShadeEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -14309,6 +11580,10 @@ class WindowMaterialDrapeEquivalentLayer(object):
     internal_name = "WindowMaterial:Drape:EquivalentLayer"
     field_count = 14
     required_fields = ["Name", "Front Side Drape Beam-Diffuse Solar Transmittance", "Back Side Drape Beam-Diffuse Solar Transmittance", "Front Side Drape Beam-Diffuse Solar Reflectance", "Back Side Drape Beam-Diffuse Solar Reflectance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Drape:EquivalentLayer`
@@ -14328,6 +11603,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
         self._data["Back Side Drape Material Infrared Emissivity"] = None
         self._data["Width of Pleated Fabric"] = None
         self._data["Length of Pleated Fabric"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -14465,13 +11741,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -14507,13 +11783,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drape_beambeam_solar_transmittance_at_normal_incidence`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.drape_beambeam_solar_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drape_beambeam_solar_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beambeam_solar_transmittance_at_normal_incidence`')
             if value > 0.2:
                 raise ValueError('value need to be smaller 0.2 '
-                                 'for field `drape_beambeam_solar_transmittance_at_normal_incidence`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beambeam_solar_transmittance_at_normal_incidence`')
         self._data["Drape Beam-Beam Solar Transmittance at Normal Incidence"] = value
 
     @property
@@ -14548,13 +11824,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_drape_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_drape_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_drape_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_beamdiffuse_solar_transmittance`')
         self._data["Front Side Drape Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -14589,13 +11865,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_drape_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_drape_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_drape_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_beamdiffuse_solar_transmittance`')
         self._data["Back Side Drape Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -14629,13 +11905,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_drape_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_drape_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_drape_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_beamdiffuse_solar_reflectance`')
         self._data["Front Side Drape Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -14669,13 +11945,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_drape_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_drape_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_drape_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_beamdiffuse_solar_reflectance`')
         self._data["Back Side Drape Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -14709,13 +11985,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drape_beambeam_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.drape_beambeam_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drape_beambeam_visible_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beambeam_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `drape_beambeam_visible_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beambeam_visible_transmittance`')
         self._data["Drape Beam-Beam Visible Transmittance"] = value
 
     @property
@@ -14750,13 +12026,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drape_beamdiffuse_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.drape_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drape_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beamdiffuse_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `drape_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beamdiffuse_visible_transmittance`')
         self._data["Drape Beam-Diffuse Visible Transmittance"] = value
 
     @property
@@ -14791,13 +12067,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drape_beamdiffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.drape_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drape_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beamdiffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `drape_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_beamdiffuse_visible_reflectance`')
         self._data["Drape Beam-Diffuse Visible Reflectance"] = value
 
     @property
@@ -14832,13 +12108,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `drape_material_infrared_transmittance`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.drape_material_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `drape_material_infrared_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_material_infrared_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `drape_material_infrared_transmittance`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.drape_material_infrared_transmittance`')
         self._data["Drape Material Infrared Transmittance"] = value
 
     @property
@@ -14874,13 +12150,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_drape_material_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `front_side_drape_material_infrared_emissivity`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_material_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_drape_material_infrared_emissivity`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.front_side_drape_material_infrared_emissivity`')
         self._data["Front Side Drape Material Infrared Emissivity"] = value
 
     @property
@@ -14916,13 +12192,13 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_drape_material_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `back_side_drape_material_infrared_emissivity`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_material_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_drape_material_infrared_emissivity`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.back_side_drape_material_infrared_emissivity`')
         self._data["Back Side Drape Material Infrared Emissivity"] = value
 
     @property
@@ -14957,10 +12233,10 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_of_pleated_fabric`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.width_of_pleated_fabric`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `width_of_pleated_fabric`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.width_of_pleated_fabric`')
         self._data["Width of Pleated Fabric"] = value
 
     @property
@@ -14995,20 +12271,43 @@ class WindowMaterialDrapeEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `length_of_pleated_fabric`'.format(value))
+                                 ' for field `WindowMaterialDrapeEquivalentLayer.length_of_pleated_fabric`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `length_of_pleated_fabric`')
+                                 'for field `WindowMaterialDrapeEquivalentLayer.length_of_pleated_fabric`')
         self._data["Length of Pleated Fabric"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialDrapeEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialDrapeEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialDrapeEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialDrapeEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -15026,8 +12325,27 @@ class WindowMaterialDrapeEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -15045,6 +12363,10 @@ class WindowMaterialBlindEquivalentLayer(object):
     internal_name = "WindowMaterial:Blind:EquivalentLayer"
     field_count = 24
     required_fields = ["Name", "Slat Width", "Slat Separation", "Front Side Slat Beam-Diffuse Solar Reflectance", "Back Side Slat Beam-Diffuse Solar Reflectance", "Front Side Slat Diffuse-Diffuse Solar Reflectance", "Back Side Slat Diffuse-Diffuse Solar Reflectance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 10
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Blind:EquivalentLayer`
@@ -15074,6 +12396,7 @@ class WindowMaterialBlindEquivalentLayer(object):
         self._data["Front Side Slat Infrared Emissivity"] = None
         self._data["Back Side Slat Infrared Emissivity"] = None
         self._data["Slat Angle Control"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -15281,13 +12604,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -15320,13 +12643,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `slat_orientation`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_orientation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `slat_orientation`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_orientation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `slat_orientation`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_orientation`')
             vals = {}
             vals["horizontal"] = "Horizontal"
             vals["vertical"] = "Vertical"
@@ -15349,10 +12672,10 @@ class WindowMaterialBlindEquivalentLayer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `slat_orientation`'.format(value))
+                                     'field `WindowMaterialBlindEquivalentLayer.slat_orientation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `slat_orientation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialBlindEquivalentLayer.slat_orientation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Slat Orientation"] = value
 
@@ -15386,13 +12709,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_width`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_width`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_width`')
             if value > 0.025:
                 raise ValueError('value need to be smaller 0.025 '
-                                 'for field `slat_width`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_width`')
         self._data["Slat Width"] = value
 
     @property
@@ -15426,13 +12749,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_separation`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_separation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `slat_separation`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_separation`')
             if value > 0.025:
                 raise ValueError('value need to be smaller 0.025 '
-                                 'for field `slat_separation`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_separation`')
         self._data["Slat Separation"] = value
 
     @property
@@ -15469,13 +12792,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_crown`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_crown`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_crown`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_crown`')
             if value > 0.00156:
                 raise ValueError('value need to be smaller 0.00156 '
-                                 'for field `slat_crown`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_crown`')
         self._data["Slat Crown"] = value
 
     @property
@@ -15508,13 +12831,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_angle`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_angle`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_angle`')
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
-                                 'for field `slat_angle`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_angle`')
         self._data["Slat Angle"] = value
 
     @property
@@ -15548,13 +12871,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_solar_transmittance`')
         self._data["Front Side Slat Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -15589,13 +12912,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_solar_transmittance`')
         self._data["Back Side Slat Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -15629,13 +12952,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_solar_reflectance`')
         self._data["Front Side Slat Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -15669,13 +12992,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_solar_reflectance`')
         self._data["Back Side Slat Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -15711,13 +13034,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_beamdiffuse_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_visible_transmittance`')
         self._data["Front Side Slat Beam-Diffuse Visible Transmittance"] = value
 
     @property
@@ -15753,13 +13076,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_beamdiffuse_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_visible_transmittance`')
         self._data["Back Side Slat Beam-Diffuse Visible Transmittance"] = value
 
     @property
@@ -15794,13 +13117,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_beamdiffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_beamdiffuse_visible_reflectance`')
         self._data["Front Side Slat Beam-Diffuse Visible Reflectance"] = value
 
     @property
@@ -15835,13 +13158,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_beamdiffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_beamdiffuse_visible_reflectance`')
         self._data["Back Side Slat Beam-Diffuse Visible Reflectance"] = value
 
     @property
@@ -15876,13 +13199,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_diffusediffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_diffusediffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_diffusediffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_diffusediffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_diffusediffuse_solar_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_diffusediffuse_solar_transmittance`')
         self._data["Slat Diffuse-Diffuse Solar Transmittance"] = value
 
     @property
@@ -15916,13 +13239,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_diffusediffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_diffusediffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_diffusediffuse_solar_reflectance`')
         self._data["Front Side Slat Diffuse-Diffuse Solar Reflectance"] = value
 
     @property
@@ -15956,13 +13279,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_diffusediffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_diffusediffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_diffusediffuse_solar_reflectance`')
         self._data["Back Side Slat Diffuse-Diffuse Solar Reflectance"] = value
 
     @property
@@ -15995,13 +13318,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_diffusediffuse_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_diffusediffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_diffusediffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_diffusediffuse_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_diffusediffuse_visible_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_diffusediffuse_visible_transmittance`')
         self._data["Slat Diffuse-Diffuse Visible Transmittance"] = value
 
     @property
@@ -16035,13 +13358,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_diffusediffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_diffusediffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_diffusediffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_diffusediffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_diffusediffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_diffusediffuse_visible_reflectance`')
         self._data["Front Side Slat Diffuse-Diffuse Visible Reflectance"] = value
 
     @property
@@ -16075,13 +13398,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_diffusediffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_diffusediffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_diffusediffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_diffusediffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_diffusediffuse_visible_reflectance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_diffusediffuse_visible_reflectance`')
         self._data["Back Side Slat Diffuse-Diffuse Visible Reflectance"] = value
 
     @property
@@ -16115,13 +13438,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `slat_infrared_transmittance`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `slat_infrared_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_infrared_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `slat_infrared_transmittance`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_infrared_transmittance`')
         self._data["Slat Infrared Transmittance"] = value
 
     @property
@@ -16155,13 +13478,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_slat_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.front_side_slat_infrared_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_slat_infrared_emissivity`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_slat_infrared_emissivity`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.front_side_slat_infrared_emissivity`')
         self._data["Front Side Slat Infrared Emissivity"] = value
 
     @property
@@ -16195,13 +13518,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_slat_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.back_side_slat_infrared_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_slat_infrared_emissivity`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_slat_infrared_emissivity`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.back_side_slat_infrared_emissivity`')
         self._data["Back Side Slat Infrared Emissivity"] = value
 
     @property
@@ -16239,13 +13562,13 @@ class WindowMaterialBlindEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `slat_angle_control`'.format(value))
+                                 ' for field `WindowMaterialBlindEquivalentLayer.slat_angle_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `slat_angle_control`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_angle_control`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `slat_angle_control`')
+                                 'for field `WindowMaterialBlindEquivalentLayer.slat_angle_control`')
             vals = {}
             vals["fixedslatangle"] = "FixedSlatAngle"
             vals["maximizesolar"] = "MaximizeSolar"
@@ -16269,21 +13592,44 @@ class WindowMaterialBlindEquivalentLayer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `slat_angle_control`'.format(value))
+                                     'field `WindowMaterialBlindEquivalentLayer.slat_angle_control`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `slat_angle_control`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialBlindEquivalentLayer.slat_angle_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Slat Angle Control"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialBlindEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialBlindEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialBlindEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialBlindEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -16301,8 +13647,27 @@ class WindowMaterialBlindEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -16318,6 +13683,10 @@ class WindowMaterialScreenEquivalentLayer(object):
     internal_name = "WindowMaterial:Screen:EquivalentLayer"
     field_count = 11
     required_fields = ["Name", "Screen Beam-Beam Solar Transmittance", "Screen Beam-Diffuse Solar Transmittance", "Screen Beam-Diffuse Solar Reflectance", "Screen Beam-Beam Visible Transmittance", "Screen Beam-Diffuse Visible Transmittance", "Screen Beam-Diffuse Visible Reflectance", "Screen Infrared Transmittance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Screen:EquivalentLayer`
@@ -16334,6 +13703,7 @@ class WindowMaterialScreenEquivalentLayer(object):
         self._data["Screen Infrared Emissivity"] = None
         self._data["Screen Wire Spacing"] = None
         self._data["Screen Wire Diameter"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -16451,13 +13821,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -16496,8 +13866,8 @@ class WindowMaterialScreenEquivalentLayer(object):
                     self._data["Screen Beam-Beam Solar Transmittance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `screen_beambeam_solar_transmittance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_solar_transmittance`'.format(value))
                     self._data["Screen Beam-Beam Solar Transmittance"] = "Autocalculate"
                     return
             except ValueError:
@@ -16506,13 +13876,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `screen_beambeam_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_solar_transmittance`')
         self._data["Screen Beam-Beam Solar Transmittance"] = value
 
     @property
@@ -16547,13 +13917,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_solar_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_solar_transmittance`')
         self._data["Screen Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -16588,13 +13958,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_solar_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_solar_reflectance`')
         self._data["Screen Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -16629,13 +13999,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_beambeam_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_beambeam_visible_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_beambeam_visible_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beambeam_visible_transmittance`')
         self._data["Screen Beam-Beam Visible Transmittance"] = value
 
     @property
@@ -16670,13 +14040,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_beamdiffuse_visible_transmittance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_visible_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_beamdiffuse_visible_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_visible_transmittance`')
         self._data["Screen Beam-Diffuse Visible Transmittance"] = value
 
     @property
@@ -16711,13 +14081,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_beamdiffuse_visible_reflectance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_visible_reflectance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_beamdiffuse_visible_reflectance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_beamdiffuse_visible_reflectance`')
         self._data["Screen Beam-Diffuse Visible Reflectance"] = value
 
     @property
@@ -16752,13 +14122,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_infrared_transmittance`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `screen_infrared_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_infrared_transmittance`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_infrared_transmittance`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_infrared_transmittance`')
         self._data["Screen Infrared Transmittance"] = value
 
     @property
@@ -16793,13 +14163,13 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `screen_infrared_emissivity`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `screen_infrared_emissivity`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_infrared_emissivity`')
         self._data["Screen Infrared Emissivity"] = value
 
     @property
@@ -16833,10 +14203,10 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_wire_spacing`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_wire_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `screen_wire_spacing`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_wire_spacing`')
         self._data["Screen Wire Spacing"] = value
 
     @property
@@ -16870,20 +14240,43 @@ class WindowMaterialScreenEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `screen_wire_diameter`'.format(value))
+                                 ' for field `WindowMaterialScreenEquivalentLayer.screen_wire_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `screen_wire_diameter`')
+                                 'for field `WindowMaterialScreenEquivalentLayer.screen_wire_diameter`')
         self._data["Screen Wire Diameter"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialScreenEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialScreenEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialScreenEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialScreenEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -16901,8 +14294,27 @@ class WindowMaterialScreenEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -16918,6 +14330,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
     internal_name = "WindowMaterial:Glazing:EquivalentLayer"
     field_count = 28
     required_fields = ["Name", "Optical Data Type", "Front Side Beam-Beam Solar Transmittance", "Back Side Beam-Beam Solar Transmittance", "Front Side Beam-Beam Solar Reflectance", "Back Side Beam-Beam Solar Reflectance"]
+    extensible_fields = 0
+    format = None
+    min_fields = 11
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Glazing:EquivalentLayer`
@@ -16951,6 +14367,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
         self._data["Infrared Transmittance (applies to front and back)"] = None
         self._data["Front Side Infrared Emissivity"] = None
         self._data["Back Side Infrared Emissivity"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -17186,13 +14603,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -17224,13 +14641,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `optical_data_type`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.optical_data_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `optical_data_type`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.optical_data_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `optical_data_type`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.optical_data_type`')
             vals = {}
             vals["spectralaverage"] = "SpectralAverage"
             vals["spectral (not supported now)"] = "Spectral (not supported now)"
@@ -17253,10 +14670,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `optical_data_type`'.format(value))
+                                     'field `WindowMaterialGlazingEquivalentLayer.optical_data_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `optical_data_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGlazingEquivalentLayer.optical_data_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Optical Data Type"] = value
 
@@ -17287,13 +14704,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `window_glass_spectral_data_set_name`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.window_glass_spectral_data_set_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `window_glass_spectral_data_set_name`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.window_glass_spectral_data_set_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `window_glass_spectral_data_set_name`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.window_glass_spectral_data_set_name`')
         self._data["Window Glass Spectral Data Set Name"] = value
 
     @property
@@ -17326,13 +14743,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beambeam_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_solar_transmittance`')
         self._data["Front Side Beam-Beam Solar Transmittance"] = value
 
     @property
@@ -17365,13 +14782,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beambeam_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beambeam_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_solar_transmittance`')
         self._data["Back Side Beam-Beam Solar Transmittance"] = value
 
     @property
@@ -17405,13 +14822,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beambeam_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beambeam_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beambeam_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_solar_reflectance`')
         self._data["Front Side Beam-Beam Solar Reflectance"] = value
 
     @property
@@ -17445,13 +14862,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beambeam_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beambeam_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beambeam_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_solar_reflectance`')
         self._data["Back Side Beam-Beam Solar Reflectance"] = value
 
     @property
@@ -17484,13 +14901,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beambeam_visible_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beambeam_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_visible_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beambeam_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_visible_solar_transmittance`')
         self._data["Front Side Beam-Beam Visible Solar Transmittance"] = value
 
     @property
@@ -17523,13 +14940,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beambeam_visible_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beambeam_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_visible_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beambeam_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_visible_solar_transmittance`')
         self._data["Back Side Beam-Beam Visible Solar Transmittance"] = value
 
     @property
@@ -17563,13 +14980,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beambeam_visible_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beambeam_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_visible_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beambeam_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beambeam_visible_solar_reflectance`')
         self._data["Front Side Beam-Beam Visible Solar Reflectance"] = value
 
     @property
@@ -17603,13 +15020,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beambeam_visible_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beambeam_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_visible_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beambeam_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beambeam_visible_solar_reflectance`')
         self._data["Back Side Beam-Beam Visible Solar Reflectance"] = value
 
     @property
@@ -17643,13 +15060,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_solar_transmittance`')
         self._data["Front Side Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -17683,13 +15100,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beamdiffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beamdiffuse_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_solar_transmittance`')
         self._data["Back Side Beam-Diffuse Solar Transmittance"] = value
 
     @property
@@ -17724,13 +15141,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_solar_reflectance`')
         self._data["Front Side Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -17765,13 +15182,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beamdiffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beamdiffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_solar_reflectance`')
         self._data["Back Side Beam-Diffuse Solar Reflectance"] = value
 
     @property
@@ -17805,13 +15222,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beamdiffuse_visible_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beamdiffuse_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_visible_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beamdiffuse_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_visible_solar_transmittance`')
         self._data["Front Side Beam-Diffuse Visible Solar Transmittance"] = value
 
     @property
@@ -17845,13 +15262,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beamdiffuse_visible_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beamdiffuse_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_visible_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beamdiffuse_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_visible_solar_transmittance`')
         self._data["Back Side Beam-Diffuse Visible Solar Transmittance"] = value
 
     @property
@@ -17886,13 +15303,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_beamdiffuse_visible_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_beamdiffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_visible_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_beamdiffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_beamdiffuse_visible_solar_reflectance`')
         self._data["Front Side Beam-Diffuse Visible Solar Reflectance"] = value
 
     @property
@@ -17927,13 +15344,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_beamdiffuse_visible_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_beamdiffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_visible_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_beamdiffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_beamdiffuse_visible_solar_reflectance`')
         self._data["Back Side Beam-Diffuse Visible Solar Reflectance"] = value
 
     @property
@@ -17973,8 +15390,8 @@ class WindowMaterialGlazingEquivalentLayer(object):
                     self._data["Diffuse-Diffuse Solar Transmittance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `diffusediffuse_solar_transmittance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_solar_transmittance`'.format(value))
                     self._data["Diffuse-Diffuse Solar Transmittance"] = "Autocalculate"
                     return
             except ValueError:
@@ -17983,13 +15400,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `diffusediffuse_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `diffusediffuse_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `diffusediffuse_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_solar_transmittance`')
         self._data["Diffuse-Diffuse Solar Transmittance"] = value
 
     @property
@@ -18029,8 +15446,8 @@ class WindowMaterialGlazingEquivalentLayer(object):
                     self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `front_side_diffusediffuse_solar_reflectance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_solar_reflectance`'.format(value))
                     self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
@@ -18039,13 +15456,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `front_side_diffusediffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_solar_reflectance`')
         self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = value
 
     @property
@@ -18085,8 +15502,8 @@ class WindowMaterialGlazingEquivalentLayer(object):
                     self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `back_side_diffusediffuse_solar_reflectance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_solar_reflectance`'.format(value))
                     self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
@@ -18095,13 +15512,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `back_side_diffusediffuse_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_diffusediffuse_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_solar_reflectance`')
         self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = value
 
     @property
@@ -18138,8 +15555,8 @@ class WindowMaterialGlazingEquivalentLayer(object):
                     self._data["Diffuse-Diffuse Visible Solar Transmittance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `diffusediffuse_visible_solar_transmittance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_visible_solar_transmittance`'.format(value))
                     self._data["Diffuse-Diffuse Visible Solar Transmittance"] = "Autocalculate"
                     return
             except ValueError:
@@ -18148,13 +15565,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `diffusediffuse_visible_solar_transmittance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `diffusediffuse_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_visible_solar_transmittance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `diffusediffuse_visible_solar_transmittance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.diffusediffuse_visible_solar_transmittance`')
         self._data["Diffuse-Diffuse Visible Solar Transmittance"] = value
 
     @property
@@ -18191,8 +15608,8 @@ class WindowMaterialGlazingEquivalentLayer(object):
                     self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `front_side_diffusediffuse_visible_solar_reflectance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_visible_solar_reflectance`'.format(value))
                     self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
@@ -18201,13 +15618,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `front_side_diffusediffuse_visible_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `front_side_diffusediffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_visible_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_diffusediffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_diffusediffuse_visible_solar_reflectance`')
         self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = value
 
     @property
@@ -18244,8 +15661,8 @@ class WindowMaterialGlazingEquivalentLayer(object):
                     self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `back_side_diffusediffuse_visible_solar_reflectance`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_visible_solar_reflectance`'.format(value))
                     self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
@@ -18254,13 +15671,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `back_side_diffusediffuse_visible_solar_reflectance`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `back_side_diffusediffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_visible_solar_reflectance`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_diffusediffuse_visible_solar_reflectance`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_diffusediffuse_visible_solar_reflectance`')
         self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = value
 
     @property
@@ -18295,13 +15712,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `infrared_transmittance_applies_to_front_and_back`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.infrared_transmittance_applies_to_front_and_back`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `infrared_transmittance_applies_to_front_and_back`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.infrared_transmittance_applies_to_front_and_back`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `infrared_transmittance_applies_to_front_and_back`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.infrared_transmittance_applies_to_front_and_back`')
         self._data["Infrared Transmittance (applies to front and back)"] = value
 
     @property
@@ -18335,13 +15752,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `front_side_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.front_side_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `front_side_infrared_emissivity`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `front_side_infrared_emissivity`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.front_side_infrared_emissivity`')
         self._data["Front Side Infrared Emissivity"] = value
 
     @property
@@ -18375,23 +15792,46 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `back_side_infrared_emissivity`'.format(value))
+                                 ' for field `WindowMaterialGlazingEquivalentLayer.back_side_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `back_side_infrared_emissivity`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_infrared_emissivity`')
             if value >= 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `back_side_infrared_emissivity`')
+                                 'for field `WindowMaterialGlazingEquivalentLayer.back_side_infrared_emissivity`')
         self._data["Back Side Infrared Emissivity"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGlazingEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGlazingEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGlazingEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGlazingEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -18409,8 +15849,27 @@ class WindowMaterialGlazingEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -18427,6 +15886,10 @@ class ConstructionWindowEquivalentLayer(object):
     internal_name = "Construction:WindowEquivalentLayer"
     field_count = 12
     required_fields = ["Name", "Outside Layer"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:WindowEquivalentLayer`
@@ -18444,6 +15907,7 @@ class ConstructionWindowEquivalentLayer(object):
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
         self._data["Layer 11"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -18567,13 +16031,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConstructionWindowEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConstructionWindowEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -18602,13 +16066,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outside_layer`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.outside_layer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outside_layer`')
+                                 'for field `ConstructionWindowEquivalentLayer.outside_layer`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outside_layer`')
+                                 'for field `ConstructionWindowEquivalentLayer.outside_layer`')
         self._data["Outside Layer"] = value
 
     @property
@@ -18637,13 +16101,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_2`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_2`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_2`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_2`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_2`')
         self._data["Layer 2"] = value
 
     @property
@@ -18672,13 +16136,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_3`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_3`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_3`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_3`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_3`')
         self._data["Layer 3"] = value
 
     @property
@@ -18707,13 +16171,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_4`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_4`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_4`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_4`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_4`')
         self._data["Layer 4"] = value
 
     @property
@@ -18742,13 +16206,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_5`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_5`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_5`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_5`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_5`')
         self._data["Layer 5"] = value
 
     @property
@@ -18777,13 +16241,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_6`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_6`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_6`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_6`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_6`')
         self._data["Layer 6"] = value
 
     @property
@@ -18812,13 +16276,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_7`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_7`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_7`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_7`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_7`')
         self._data["Layer 7"] = value
 
     @property
@@ -18847,13 +16311,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_8`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_8`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_8`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_8`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_8`')
         self._data["Layer 8"] = value
 
     @property
@@ -18882,13 +16346,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_9`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_9`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_9`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_9`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_9`')
         self._data["Layer 9"] = value
 
     @property
@@ -18917,13 +16381,13 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_10`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_10`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_10`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_10`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_10`')
         self._data["Layer 10"] = value
 
     @property
@@ -18952,23 +16416,46 @@ class ConstructionWindowEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_11`'.format(value))
+                                 ' for field `ConstructionWindowEquivalentLayer.layer_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_11`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_11`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_11`')
+                                 'for field `ConstructionWindowEquivalentLayer.layer_11`')
         self._data["Layer 11"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConstructionWindowEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConstructionWindowEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConstructionWindowEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConstructionWindowEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -18986,8 +16473,27 @@ class ConstructionWindowEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -19003,6 +16509,10 @@ class WindowMaterialGapEquivalentLayer(object):
     internal_name = "WindowMaterial:Gap:EquivalentLayer"
     field_count = 15
     required_fields = ["Name", "Gas Type", "Thickness", "Gap Vent Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Gap:EquivalentLayer`
@@ -19023,6 +16533,7 @@ class WindowMaterialGapEquivalentLayer(object):
         self._data["Specific Heat Coefficient C"] = None
         self._data["Molecular Weight"] = None
         self._data["Specific Heat Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -19167,13 +16678,13 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGapEquivalentLayer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowMaterialGapEquivalentLayer.name`')
         self._data["Name"] = value
 
     @property
@@ -19208,13 +16719,13 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gas_type`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.gas_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gas_type`')
+                                 'for field `WindowMaterialGapEquivalentLayer.gas_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gas_type`')
+                                 'for field `WindowMaterialGapEquivalentLayer.gas_type`')
             vals = {}
             vals["air"] = "AIR"
             vals["argon"] = "ARGON"
@@ -19240,10 +16751,10 @@ class WindowMaterialGapEquivalentLayer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gas_type`'.format(value))
+                                     'field `WindowMaterialGapEquivalentLayer.gas_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gas_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGapEquivalentLayer.gas_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas Type"] = value
 
@@ -19276,10 +16787,10 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thickness`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thickness`')
+                                 'for field `WindowMaterialGapEquivalentLayer.thickness`')
         self._data["Thickness"] = value
 
     @property
@@ -19316,13 +16827,13 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_vent_type`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.gap_vent_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_vent_type`')
+                                 'for field `WindowMaterialGapEquivalentLayer.gap_vent_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_vent_type`')
+                                 'for field `WindowMaterialGapEquivalentLayer.gap_vent_type`')
             vals = {}
             vals["sealed"] = "Sealed"
             vals["ventedindoor"] = "VentedIndoor"
@@ -19346,10 +16857,10 @@ class WindowMaterialGapEquivalentLayer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gap_vent_type`'.format(value))
+                                     'field `WindowMaterialGapEquivalentLayer.gap_vent_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gap_vent_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowMaterialGapEquivalentLayer.gap_vent_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gap Vent Type"] = value
 
@@ -19381,7 +16892,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_coefficient_a`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.conductivity_coefficient_a`'.format(value))
         self._data["Conductivity Coefficient A"] = value
 
     @property
@@ -19412,7 +16923,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_coefficient_b`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.conductivity_coefficient_b`'.format(value))
         self._data["Conductivity Coefficient B"] = value
 
     @property
@@ -19443,7 +16954,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `conductivity_coefficient_c`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.conductivity_coefficient_c`'.format(value))
         self._data["Conductivity Coefficient C"] = value
 
     @property
@@ -19475,10 +16986,10 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `viscosity_coefficient_a`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.viscosity_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `viscosity_coefficient_a`')
+                                 'for field `WindowMaterialGapEquivalentLayer.viscosity_coefficient_a`')
         self._data["Viscosity Coefficient A"] = value
 
     @property
@@ -19509,7 +17020,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `viscosity_coefficient_b`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.viscosity_coefficient_b`'.format(value))
         self._data["Viscosity Coefficient B"] = value
 
     @property
@@ -19540,7 +17051,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `viscosity_coefficient_c`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.viscosity_coefficient_c`'.format(value))
         self._data["Viscosity Coefficient C"] = value
 
     @property
@@ -19572,10 +17083,10 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_coefficient_a`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.specific_heat_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `specific_heat_coefficient_a`')
+                                 'for field `WindowMaterialGapEquivalentLayer.specific_heat_coefficient_a`')
         self._data["Specific Heat Coefficient A"] = value
 
     @property
@@ -19606,7 +17117,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_coefficient_b`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.specific_heat_coefficient_b`'.format(value))
         self._data["Specific Heat Coefficient B"] = value
 
     @property
@@ -19637,7 +17148,7 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_coefficient_c`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.specific_heat_coefficient_c`'.format(value))
         self._data["Specific Heat Coefficient C"] = value
 
     @property
@@ -19670,13 +17181,13 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `molecular_weight`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.molecular_weight`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
-                                 'for field `molecular_weight`')
+                                 'for field `WindowMaterialGapEquivalentLayer.molecular_weight`')
             if value > 200.0:
                 raise ValueError('value need to be smaller 200.0 '
-                                 'for field `molecular_weight`')
+                                 'for field `WindowMaterialGapEquivalentLayer.molecular_weight`')
         self._data["Molecular Weight"] = value
 
     @property
@@ -19706,17 +17217,40 @@ class WindowMaterialGapEquivalentLayer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `specific_heat_ratio`'.format(value))
+                                 ' for field `WindowMaterialGapEquivalentLayer.specific_heat_ratio`'.format(value))
         self._data["Specific Heat Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowMaterialGapEquivalentLayer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowMaterialGapEquivalentLayer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowMaterialGapEquivalentLayer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowMaterialGapEquivalentLayer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -19734,8 +17268,27 @@ class WindowMaterialGapEquivalentLayer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -19752,6 +17305,10 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     internal_name = "MaterialProperty:MoisturePenetrationDepth:Settings"
     field_count = 6
     required_fields = ["Name", "Moisture Penetration Depth", "Moisture Equation Coefficient a", "Moisture Equation Coefficient b", "Moisture Equation Coefficient c", "Moisture Equation Coefficient d"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:MoisturePenetrationDepth:Settings`
@@ -19763,6 +17320,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         self._data["Moisture Equation Coefficient b"] = None
         self._data["Moisture Equation Coefficient c"] = None
         self._data["Moisture Equation Coefficient d"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -19847,13 +17405,13 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialPropertyMoisturePenetrationDepthSettings.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialPropertyMoisturePenetrationDepthSettings.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialPropertyMoisturePenetrationDepthSettings.name`')
         self._data["Name"] = value
 
     @property
@@ -19885,10 +17443,10 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_penetration_depth`'.format(value))
+                                 ' for field `MaterialPropertyMoisturePenetrationDepthSettings.moisture_penetration_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_penetration_depth`')
+                                 'for field `MaterialPropertyMoisturePenetrationDepthSettings.moisture_penetration_depth`')
         self._data["Moisture Penetration Depth"] = value
 
     @property
@@ -19918,7 +17476,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_equation_coefficient_a`'.format(value))
+                                 ' for field `MaterialPropertyMoisturePenetrationDepthSettings.moisture_equation_coefficient_a`'.format(value))
         self._data["Moisture Equation Coefficient a"] = value
 
     @property
@@ -19948,7 +17506,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_equation_coefficient_b`'.format(value))
+                                 ' for field `MaterialPropertyMoisturePenetrationDepthSettings.moisture_equation_coefficient_b`'.format(value))
         self._data["Moisture Equation Coefficient b"] = value
 
     @property
@@ -19978,7 +17536,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_equation_coefficient_c`'.format(value))
+                                 ' for field `MaterialPropertyMoisturePenetrationDepthSettings.moisture_equation_coefficient_c`'.format(value))
         self._data["Moisture Equation Coefficient c"] = value
 
     @property
@@ -20008,17 +17566,40 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_equation_coefficient_d`'.format(value))
+                                 ' for field `MaterialPropertyMoisturePenetrationDepthSettings.moisture_equation_coefficient_d`'.format(value))
         self._data["Moisture Equation Coefficient d"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyMoisturePenetrationDepthSettings:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyMoisturePenetrationDepthSettings:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyMoisturePenetrationDepthSettings: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyMoisturePenetrationDepthSettings: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -20036,8 +17617,27 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -20056,6 +17656,10 @@ class MaterialPropertyPhaseChange(object):
     internal_name = "MaterialProperty:PhaseChange"
     field_count = 34
     required_fields = ["Name", "Temperature 1", "Enthalpy 1", "Temperature 2", "Enthalpy 2", "Temperature 3", "Enthalpy 3"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:PhaseChange`
@@ -20095,6 +17699,7 @@ class MaterialPropertyPhaseChange(object):
         self._data["Enthalpy 15"] = None
         self._data["Temperature 16"] = None
         self._data["Enthalpy 16"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -20374,13 +17979,13 @@ class MaterialPropertyPhaseChange(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialPropertyPhaseChange.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialPropertyPhaseChange.name`')
         self._data["Name"] = value
 
     @property
@@ -20414,7 +18019,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_coefficient_for_thermal_conductivity`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_coefficient_for_thermal_conductivity`'.format(value))
         self._data["Temperature Coefficient for Thermal Conductivity"] = value
 
     @property
@@ -20446,7 +18051,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_1`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_1`'.format(value))
         self._data["Temperature 1"] = value
 
     @property
@@ -20478,7 +18083,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_1`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_1`'.format(value))
         self._data["Enthalpy 1"] = value
 
     @property
@@ -20510,7 +18115,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_2`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_2`'.format(value))
         self._data["Temperature 2"] = value
 
     @property
@@ -20542,7 +18147,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_2`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_2`'.format(value))
         self._data["Enthalpy 2"] = value
 
     @property
@@ -20574,7 +18179,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_3`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_3`'.format(value))
         self._data["Temperature 3"] = value
 
     @property
@@ -20606,7 +18211,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_3`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_3`'.format(value))
         self._data["Enthalpy 3"] = value
 
     @property
@@ -20638,7 +18243,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_4`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_4`'.format(value))
         self._data["Temperature 4"] = value
 
     @property
@@ -20670,7 +18275,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_4`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_4`'.format(value))
         self._data["Enthalpy 4"] = value
 
     @property
@@ -20702,7 +18307,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_5`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_5`'.format(value))
         self._data["Temperature 5"] = value
 
     @property
@@ -20734,7 +18339,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_5`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_5`'.format(value))
         self._data["Enthalpy 5"] = value
 
     @property
@@ -20766,7 +18371,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_6`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_6`'.format(value))
         self._data["Temperature 6"] = value
 
     @property
@@ -20798,7 +18403,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_6`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_6`'.format(value))
         self._data["Enthalpy 6"] = value
 
     @property
@@ -20830,7 +18435,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_7`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_7`'.format(value))
         self._data["Temperature 7"] = value
 
     @property
@@ -20862,7 +18467,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_7`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_7`'.format(value))
         self._data["Enthalpy 7"] = value
 
     @property
@@ -20894,7 +18499,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_8`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_8`'.format(value))
         self._data["Temperature 8"] = value
 
     @property
@@ -20926,7 +18531,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_8`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_8`'.format(value))
         self._data["Enthalpy 8"] = value
 
     @property
@@ -20958,7 +18563,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_9`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_9`'.format(value))
         self._data["Temperature 9"] = value
 
     @property
@@ -20990,7 +18595,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_9`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_9`'.format(value))
         self._data["Enthalpy 9"] = value
 
     @property
@@ -21022,7 +18627,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_10`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_10`'.format(value))
         self._data["Temperature 10"] = value
 
     @property
@@ -21054,7 +18659,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_10`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_10`'.format(value))
         self._data["Enthalpy 10"] = value
 
     @property
@@ -21086,7 +18691,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_11`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_11`'.format(value))
         self._data["Temperature 11"] = value
 
     @property
@@ -21118,7 +18723,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_11`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_11`'.format(value))
         self._data["Enthalpy 11"] = value
 
     @property
@@ -21150,7 +18755,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_12`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_12`'.format(value))
         self._data["Temperature 12"] = value
 
     @property
@@ -21182,7 +18787,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_12`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_12`'.format(value))
         self._data["Enthalpy 12"] = value
 
     @property
@@ -21214,7 +18819,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_13`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_13`'.format(value))
         self._data["Temperature 13"] = value
 
     @property
@@ -21246,7 +18851,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_13`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_13`'.format(value))
         self._data["Enthalpy 13"] = value
 
     @property
@@ -21278,7 +18883,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_14`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_14`'.format(value))
         self._data["Temperature 14"] = value
 
     @property
@@ -21310,7 +18915,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_14`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_14`'.format(value))
         self._data["Enthalpy 14"] = value
 
     @property
@@ -21342,7 +18947,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_15`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_15`'.format(value))
         self._data["Temperature 15"] = value
 
     @property
@@ -21374,7 +18979,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_15`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_15`'.format(value))
         self._data["Enthalpy 15"] = value
 
     @property
@@ -21406,7 +19011,7 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_16`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.temperature_16`'.format(value))
         self._data["Temperature 16"] = value
 
     @property
@@ -21438,17 +19043,40 @@ class MaterialPropertyPhaseChange(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_16`'.format(value))
+                                 ' for field `MaterialPropertyPhaseChange.enthalpy_16`'.format(value))
         self._data["Enthalpy 16"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyPhaseChange:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyPhaseChange:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyPhaseChange: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyPhaseChange: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -21466,8 +19094,27 @@ class MaterialPropertyPhaseChange(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -21485,6 +19132,10 @@ class MaterialPropertyVariableThermalConductivity(object):
     internal_name = "MaterialProperty:VariableThermalConductivity"
     field_count = 21
     required_fields = ["Name", "Temperature 1", "Thermal Conductivity 1", "Temperature 2", "Thermal Conductivity 2", "Temperature 3", "Thermal Conductivity 3"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:VariableThermalConductivity`
@@ -21511,6 +19162,7 @@ class MaterialPropertyVariableThermalConductivity(object):
         self._data["Thermal Conductivity 9"] = None
         self._data["Temperature 10"] = None
         self._data["Thermal Conductivity 10"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -21699,13 +19351,13 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `MaterialPropertyVariableThermalConductivity.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `MaterialPropertyVariableThermalConductivity.name`')
         self._data["Name"] = value
 
     @property
@@ -21737,7 +19389,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_1`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_1`'.format(value))
         self._data["Temperature 1"] = value
 
     @property
@@ -21769,7 +19421,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_1`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_1`'.format(value))
         self._data["Thermal Conductivity 1"] = value
 
     @property
@@ -21801,7 +19453,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_2`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_2`'.format(value))
         self._data["Temperature 2"] = value
 
     @property
@@ -21833,7 +19485,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_2`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_2`'.format(value))
         self._data["Thermal Conductivity 2"] = value
 
     @property
@@ -21865,7 +19517,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_3`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_3`'.format(value))
         self._data["Temperature 3"] = value
 
     @property
@@ -21897,7 +19549,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_3`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_3`'.format(value))
         self._data["Thermal Conductivity 3"] = value
 
     @property
@@ -21929,7 +19581,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_4`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_4`'.format(value))
         self._data["Temperature 4"] = value
 
     @property
@@ -21961,7 +19613,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_4`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_4`'.format(value))
         self._data["Thermal Conductivity 4"] = value
 
     @property
@@ -21993,7 +19645,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_5`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_5`'.format(value))
         self._data["Temperature 5"] = value
 
     @property
@@ -22025,7 +19677,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_5`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_5`'.format(value))
         self._data["Thermal Conductivity 5"] = value
 
     @property
@@ -22057,7 +19709,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_6`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_6`'.format(value))
         self._data["Temperature 6"] = value
 
     @property
@@ -22089,7 +19741,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_6`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_6`'.format(value))
         self._data["Thermal Conductivity 6"] = value
 
     @property
@@ -22121,7 +19773,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_7`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_7`'.format(value))
         self._data["Temperature 7"] = value
 
     @property
@@ -22153,7 +19805,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_7`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_7`'.format(value))
         self._data["Thermal Conductivity 7"] = value
 
     @property
@@ -22185,7 +19837,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_8`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_8`'.format(value))
         self._data["Temperature 8"] = value
 
     @property
@@ -22217,7 +19869,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_8`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_8`'.format(value))
         self._data["Thermal Conductivity 8"] = value
 
     @property
@@ -22249,7 +19901,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_9`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_9`'.format(value))
         self._data["Temperature 9"] = value
 
     @property
@@ -22281,7 +19933,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_9`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_9`'.format(value))
         self._data["Thermal Conductivity 9"] = value
 
     @property
@@ -22313,7 +19965,7 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_10`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.temperature_10`'.format(value))
         self._data["Temperature 10"] = value
 
     @property
@@ -22345,17 +19997,40 @@ class MaterialPropertyVariableThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_10`'.format(value))
+                                 ' for field `MaterialPropertyVariableThermalConductivity.thermal_conductivity_10`'.format(value))
         self._data["Thermal Conductivity 10"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyVariableThermalConductivity:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyVariableThermalConductivity:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyVariableThermalConductivity: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyVariableThermalConductivity: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -22373,8 +20048,27 @@ class MaterialPropertyVariableThermalConductivity(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -22391,6 +20085,10 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Settings"
     field_count = 3
     required_fields = ["Material Name", "Porosity", "Initial Water Content Ratio"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Settings`
@@ -22399,6 +20097,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         self._data["Material Name"] = None
         self._data["Porosity"] = None
         self._data["Initial Water Content Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -22461,13 +20160,13 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `material_name`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSettings.material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSettings.material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSettings.material_name`')
         self._data["Material Name"] = value
 
     @property
@@ -22499,13 +20198,13 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `porosity`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSettings.porosity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `porosity`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSettings.porosity`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `porosity`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSettings.porosity`')
         self._data["Porosity"] = value
 
     @property
@@ -22538,20 +20237,43 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_water_content_ratio`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSettings.initial_water_content_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `initial_water_content_ratio`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSettings.initial_water_content_ratio`')
         self._data["Initial Water Content Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyHeatAndMoistureTransferSettings:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyHeatAndMoistureTransferSettings:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyHeatAndMoistureTransferSettings: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyHeatAndMoistureTransferSettings: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -22569,8 +20291,27 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -22587,6 +20328,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm"
     field_count = 52
     required_fields = ["Material Name", "Number of Isotherm Coordinates", "Relative Humidity Fraction 1", "Moisture Content 1"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm`
@@ -22644,6 +20389,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         self._data["Moisture Content 24"] = None
         self._data["Relative Humidity Fraction 25"] = None
         self._data["Moisture Content 25"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -23048,13 +20794,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `material_name`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.material_name`')
         self._data["Material Name"] = value
 
     @property
@@ -23088,18 +20834,18 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_isotherm_coordinates`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.number_of_isotherm_coordinates`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_isotherm_coordinates`'.format(value))
+                                         'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.number_of_isotherm_coordinates`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_isotherm_coordinates`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.number_of_isotherm_coordinates`')
             if value > 25:
                 raise ValueError('value need to be smaller 25 '
-                                 'for field `number_of_isotherm_coordinates`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.number_of_isotherm_coordinates`')
         self._data["Number of Isotherm Coordinates"] = value
 
     @property
@@ -23132,13 +20878,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_1`')
         self._data["Relative Humidity Fraction 1"] = value
 
     @property
@@ -23169,10 +20915,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_1`')
         self._data["Moisture Content 1"] = value
 
     @property
@@ -23205,13 +20951,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_2`')
         self._data["Relative Humidity Fraction 2"] = value
 
     @property
@@ -23242,10 +20988,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_2`')
         self._data["Moisture Content 2"] = value
 
     @property
@@ -23278,13 +21024,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_3`')
         self._data["Relative Humidity Fraction 3"] = value
 
     @property
@@ -23315,10 +21061,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_3`')
         self._data["Moisture Content 3"] = value
 
     @property
@@ -23351,13 +21097,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_4`')
         self._data["Relative Humidity Fraction 4"] = value
 
     @property
@@ -23388,10 +21134,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_4`')
         self._data["Moisture Content 4"] = value
 
     @property
@@ -23424,13 +21170,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_5`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_5`')
         self._data["Relative Humidity Fraction 5"] = value
 
     @property
@@ -23461,10 +21207,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_5`')
         self._data["Moisture Content 5"] = value
 
     @property
@@ -23497,13 +21243,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_6`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_6`')
         self._data["Relative Humidity Fraction 6"] = value
 
     @property
@@ -23534,10 +21280,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_6`')
         self._data["Moisture Content 6"] = value
 
     @property
@@ -23570,13 +21316,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_7`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_7`')
         self._data["Relative Humidity Fraction 7"] = value
 
     @property
@@ -23607,10 +21353,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_7`')
         self._data["Moisture Content 7"] = value
 
     @property
@@ -23643,13 +21389,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_8`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_8`')
         self._data["Relative Humidity Fraction 8"] = value
 
     @property
@@ -23680,10 +21426,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_8`')
         self._data["Moisture Content 8"] = value
 
     @property
@@ -23716,13 +21462,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_9`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_9`')
         self._data["Relative Humidity Fraction 9"] = value
 
     @property
@@ -23753,10 +21499,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_9`')
         self._data["Moisture Content 9"] = value
 
     @property
@@ -23789,13 +21535,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_10`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_10`')
         self._data["Relative Humidity Fraction 10"] = value
 
     @property
@@ -23826,10 +21572,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_10`')
         self._data["Moisture Content 10"] = value
 
     @property
@@ -23862,13 +21608,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_11`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_11`')
         self._data["Relative Humidity Fraction 11"] = value
 
     @property
@@ -23899,10 +21645,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_11`')
         self._data["Moisture Content 11"] = value
 
     @property
@@ -23935,13 +21681,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_12`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_12`')
         self._data["Relative Humidity Fraction 12"] = value
 
     @property
@@ -23972,10 +21718,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_12`')
         self._data["Moisture Content 12"] = value
 
     @property
@@ -24008,13 +21754,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_13`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_13`')
         self._data["Relative Humidity Fraction 13"] = value
 
     @property
@@ -24045,10 +21791,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_13`')
         self._data["Moisture Content 13"] = value
 
     @property
@@ -24081,13 +21827,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_14`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_14`')
         self._data["Relative Humidity Fraction 14"] = value
 
     @property
@@ -24118,10 +21864,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_14`')
         self._data["Moisture Content 14"] = value
 
     @property
@@ -24154,13 +21900,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_15`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_15`')
         self._data["Relative Humidity Fraction 15"] = value
 
     @property
@@ -24191,10 +21937,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_15`')
         self._data["Moisture Content 15"] = value
 
     @property
@@ -24227,13 +21973,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_16`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_16`')
         self._data["Relative Humidity Fraction 16"] = value
 
     @property
@@ -24264,10 +22010,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_16`')
         self._data["Moisture Content 16"] = value
 
     @property
@@ -24300,13 +22046,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_17`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_17`')
         self._data["Relative Humidity Fraction 17"] = value
 
     @property
@@ -24337,10 +22083,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_17`')
         self._data["Moisture Content 17"] = value
 
     @property
@@ -24373,13 +22119,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_18`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_18`')
         self._data["Relative Humidity Fraction 18"] = value
 
     @property
@@ -24410,10 +22156,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_18`')
         self._data["Moisture Content 18"] = value
 
     @property
@@ -24446,13 +22192,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_19`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_19`')
         self._data["Relative Humidity Fraction 19"] = value
 
     @property
@@ -24483,10 +22229,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_19`')
         self._data["Moisture Content 19"] = value
 
     @property
@@ -24519,13 +22265,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_20`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_20`')
         self._data["Relative Humidity Fraction 20"] = value
 
     @property
@@ -24556,10 +22302,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_20`')
         self._data["Moisture Content 20"] = value
 
     @property
@@ -24592,13 +22338,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_21`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_21`')
         self._data["Relative Humidity Fraction 21"] = value
 
     @property
@@ -24629,10 +22375,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_21`')
         self._data["Moisture Content 21"] = value
 
     @property
@@ -24665,13 +22411,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_22`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_22`')
         self._data["Relative Humidity Fraction 22"] = value
 
     @property
@@ -24702,10 +22448,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_22`')
         self._data["Moisture Content 22"] = value
 
     @property
@@ -24738,13 +22484,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_23`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_23`')
         self._data["Relative Humidity Fraction 23"] = value
 
     @property
@@ -24775,10 +22521,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_23`')
         self._data["Moisture Content 23"] = value
 
     @property
@@ -24811,13 +22557,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_24`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_24`')
         self._data["Relative Humidity Fraction 24"] = value
 
     @property
@@ -24848,10 +22594,10 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_24`')
         self._data["Moisture Content 24"] = value
 
     @property
@@ -24884,13 +22630,13 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_25`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.relative_humidity_fraction_25`')
         self._data["Relative Humidity Fraction 25"] = value
 
     @property
@@ -24921,20 +22667,43 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm.moisture_content_25`')
         self._data["Moisture Content 25"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyHeatAndMoistureTransferSorptionIsotherm:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyHeatAndMoistureTransferSorptionIsotherm:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyHeatAndMoistureTransferSorptionIsotherm: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyHeatAndMoistureTransferSorptionIsotherm: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -24952,8 +22721,27 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -24970,6 +22758,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Suction"
     field_count = 52
     required_fields = ["Material Name", "Number of Suction points", "Moisture Content 1", "Liquid Transport Coefficient 1"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Suction`
@@ -25027,6 +22819,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         self._data["Liquid Transport Coefficient 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Liquid Transport Coefficient 25"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -25431,13 +23224,13 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `material_name`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.material_name`')
         self._data["Material Name"] = value
 
     @property
@@ -25471,18 +23264,18 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_suction_points`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MaterialPropertyHeatAndMoistureTransferSuction.number_of_suction_points`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_suction_points`'.format(value))
+                                         'for field `MaterialPropertyHeatAndMoistureTransferSuction.number_of_suction_points`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_suction_points`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.number_of_suction_points`')
             if value > 25:
                 raise ValueError('value need to be smaller 25 '
-                                 'for field `number_of_suction_points`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.number_of_suction_points`')
         self._data["Number of Suction points"] = value
 
     @property
@@ -25513,10 +23306,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_1`')
         self._data["Moisture Content 1"] = value
 
     @property
@@ -25547,10 +23340,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_1`')
         self._data["Liquid Transport Coefficient 1"] = value
 
     @property
@@ -25581,10 +23374,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_2`')
         self._data["Moisture Content 2"] = value
 
     @property
@@ -25615,10 +23408,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_2`')
         self._data["Liquid Transport Coefficient 2"] = value
 
     @property
@@ -25649,10 +23442,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_3`')
         self._data["Moisture Content 3"] = value
 
     @property
@@ -25683,10 +23476,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_3`')
         self._data["Liquid Transport Coefficient 3"] = value
 
     @property
@@ -25717,10 +23510,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_4`')
         self._data["Moisture Content 4"] = value
 
     @property
@@ -25751,10 +23544,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_4`')
         self._data["Liquid Transport Coefficient 4"] = value
 
     @property
@@ -25785,10 +23578,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_5`')
         self._data["Moisture Content 5"] = value
 
     @property
@@ -25819,10 +23612,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_5`')
         self._data["Liquid Transport Coefficient 5"] = value
 
     @property
@@ -25853,10 +23646,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_6`')
         self._data["Moisture Content 6"] = value
 
     @property
@@ -25887,10 +23680,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_6`')
         self._data["Liquid Transport Coefficient 6"] = value
 
     @property
@@ -25921,10 +23714,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_7`')
         self._data["Moisture Content 7"] = value
 
     @property
@@ -25955,10 +23748,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_7`')
         self._data["Liquid Transport Coefficient 7"] = value
 
     @property
@@ -25989,10 +23782,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_8`')
         self._data["Moisture Content 8"] = value
 
     @property
@@ -26023,10 +23816,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_8`')
         self._data["Liquid Transport Coefficient 8"] = value
 
     @property
@@ -26057,10 +23850,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_9`')
         self._data["Moisture Content 9"] = value
 
     @property
@@ -26091,10 +23884,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_9`')
         self._data["Liquid Transport Coefficient 9"] = value
 
     @property
@@ -26125,10 +23918,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_10`')
         self._data["Moisture Content 10"] = value
 
     @property
@@ -26159,10 +23952,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_10`')
         self._data["Liquid Transport Coefficient 10"] = value
 
     @property
@@ -26193,10 +23986,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_11`')
         self._data["Moisture Content 11"] = value
 
     @property
@@ -26227,10 +24020,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_11`')
         self._data["Liquid Transport Coefficient 11"] = value
 
     @property
@@ -26261,10 +24054,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_12`')
         self._data["Moisture Content 12"] = value
 
     @property
@@ -26295,10 +24088,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_12`')
         self._data["Liquid Transport Coefficient 12"] = value
 
     @property
@@ -26329,10 +24122,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_13`')
         self._data["Moisture Content 13"] = value
 
     @property
@@ -26363,10 +24156,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_13`')
         self._data["Liquid Transport Coefficient 13"] = value
 
     @property
@@ -26397,10 +24190,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_14`')
         self._data["Moisture Content 14"] = value
 
     @property
@@ -26431,10 +24224,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_14`')
         self._data["Liquid Transport Coefficient 14"] = value
 
     @property
@@ -26465,10 +24258,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_15`')
         self._data["Moisture Content 15"] = value
 
     @property
@@ -26499,10 +24292,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_15`')
         self._data["Liquid Transport Coefficient 15"] = value
 
     @property
@@ -26533,10 +24326,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_16`')
         self._data["Moisture Content 16"] = value
 
     @property
@@ -26567,10 +24360,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_16`')
         self._data["Liquid Transport Coefficient 16"] = value
 
     @property
@@ -26601,10 +24394,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_17`')
         self._data["Moisture Content 17"] = value
 
     @property
@@ -26635,10 +24428,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_17`')
         self._data["Liquid Transport Coefficient 17"] = value
 
     @property
@@ -26669,10 +24462,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_18`')
         self._data["Moisture Content 18"] = value
 
     @property
@@ -26703,10 +24496,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_18`')
         self._data["Liquid Transport Coefficient 18"] = value
 
     @property
@@ -26737,10 +24530,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_19`')
         self._data["Moisture Content 19"] = value
 
     @property
@@ -26771,10 +24564,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_19`')
         self._data["Liquid Transport Coefficient 19"] = value
 
     @property
@@ -26805,10 +24598,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_20`')
         self._data["Moisture Content 20"] = value
 
     @property
@@ -26839,10 +24632,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_20`')
         self._data["Liquid Transport Coefficient 20"] = value
 
     @property
@@ -26873,10 +24666,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_21`')
         self._data["Moisture Content 21"] = value
 
     @property
@@ -26907,10 +24700,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_21`')
         self._data["Liquid Transport Coefficient 21"] = value
 
     @property
@@ -26941,10 +24734,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_22`')
         self._data["Moisture Content 22"] = value
 
     @property
@@ -26975,10 +24768,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_22`')
         self._data["Liquid Transport Coefficient 22"] = value
 
     @property
@@ -27009,10 +24802,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_23`')
         self._data["Moisture Content 23"] = value
 
     @property
@@ -27043,10 +24836,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_23`')
         self._data["Liquid Transport Coefficient 23"] = value
 
     @property
@@ -27077,10 +24870,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_24`')
         self._data["Moisture Content 24"] = value
 
     @property
@@ -27111,10 +24904,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_24`')
         self._data["Liquid Transport Coefficient 24"] = value
 
     @property
@@ -27145,10 +24938,10 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.moisture_content_25`')
         self._data["Moisture Content 25"] = value
 
     @property
@@ -27179,20 +24972,43 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferSuction.liquid_transport_coefficient_25`')
         self._data["Liquid Transport Coefficient 25"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyHeatAndMoistureTransferSuction:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyHeatAndMoistureTransferSuction:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyHeatAndMoistureTransferSuction: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyHeatAndMoistureTransferSuction: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -27210,8 +25026,27 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -27228,6 +25063,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Redistribution"
     field_count = 52
     required_fields = ["Material Name", "Number of Redistribution points", "Moisture Content 1", "Liquid Transport Coefficient 1"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Redistribution`
@@ -27285,6 +25124,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         self._data["Liquid Transport Coefficient 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Liquid Transport Coefficient 25"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -27689,13 +25529,13 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `material_name`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.material_name`')
         self._data["Material Name"] = value
 
     @property
@@ -27729,18 +25569,18 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_redistribution_points`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.number_of_redistribution_points`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_redistribution_points`'.format(value))
+                                         'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.number_of_redistribution_points`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_redistribution_points`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.number_of_redistribution_points`')
             if value > 25:
                 raise ValueError('value need to be smaller 25 '
-                                 'for field `number_of_redistribution_points`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.number_of_redistribution_points`')
         self._data["Number of Redistribution points"] = value
 
     @property
@@ -27771,10 +25611,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_1`')
         self._data["Moisture Content 1"] = value
 
     @property
@@ -27805,10 +25645,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_1`')
         self._data["Liquid Transport Coefficient 1"] = value
 
     @property
@@ -27839,10 +25679,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_2`')
         self._data["Moisture Content 2"] = value
 
     @property
@@ -27873,10 +25713,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_2`')
         self._data["Liquid Transport Coefficient 2"] = value
 
     @property
@@ -27907,10 +25747,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_3`')
         self._data["Moisture Content 3"] = value
 
     @property
@@ -27941,10 +25781,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_3`')
         self._data["Liquid Transport Coefficient 3"] = value
 
     @property
@@ -27975,10 +25815,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_4`')
         self._data["Moisture Content 4"] = value
 
     @property
@@ -28009,10 +25849,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_4`')
         self._data["Liquid Transport Coefficient 4"] = value
 
     @property
@@ -28043,10 +25883,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_5`')
         self._data["Moisture Content 5"] = value
 
     @property
@@ -28077,10 +25917,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_5`')
         self._data["Liquid Transport Coefficient 5"] = value
 
     @property
@@ -28111,10 +25951,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_6`')
         self._data["Moisture Content 6"] = value
 
     @property
@@ -28145,10 +25985,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_6`')
         self._data["Liquid Transport Coefficient 6"] = value
 
     @property
@@ -28179,10 +26019,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_7`')
         self._data["Moisture Content 7"] = value
 
     @property
@@ -28213,10 +26053,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_7`')
         self._data["Liquid Transport Coefficient 7"] = value
 
     @property
@@ -28247,10 +26087,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_8`')
         self._data["Moisture Content 8"] = value
 
     @property
@@ -28281,10 +26121,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_8`')
         self._data["Liquid Transport Coefficient 8"] = value
 
     @property
@@ -28315,10 +26155,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_9`')
         self._data["Moisture Content 9"] = value
 
     @property
@@ -28349,10 +26189,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_9`')
         self._data["Liquid Transport Coefficient 9"] = value
 
     @property
@@ -28383,10 +26223,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_10`')
         self._data["Moisture Content 10"] = value
 
     @property
@@ -28417,10 +26257,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_10`')
         self._data["Liquid Transport Coefficient 10"] = value
 
     @property
@@ -28451,10 +26291,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_11`')
         self._data["Moisture Content 11"] = value
 
     @property
@@ -28485,10 +26325,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_11`')
         self._data["Liquid Transport Coefficient 11"] = value
 
     @property
@@ -28519,10 +26359,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_12`')
         self._data["Moisture Content 12"] = value
 
     @property
@@ -28553,10 +26393,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_12`')
         self._data["Liquid Transport Coefficient 12"] = value
 
     @property
@@ -28587,10 +26427,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_13`')
         self._data["Moisture Content 13"] = value
 
     @property
@@ -28621,10 +26461,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_13`')
         self._data["Liquid Transport Coefficient 13"] = value
 
     @property
@@ -28655,10 +26495,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_14`')
         self._data["Moisture Content 14"] = value
 
     @property
@@ -28689,10 +26529,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_14`')
         self._data["Liquid Transport Coefficient 14"] = value
 
     @property
@@ -28723,10 +26563,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_15`')
         self._data["Moisture Content 15"] = value
 
     @property
@@ -28757,10 +26597,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_15`')
         self._data["Liquid Transport Coefficient 15"] = value
 
     @property
@@ -28791,10 +26631,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_16`')
         self._data["Moisture Content 16"] = value
 
     @property
@@ -28825,10 +26665,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_16`')
         self._data["Liquid Transport Coefficient 16"] = value
 
     @property
@@ -28859,10 +26699,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_17`')
         self._data["Moisture Content 17"] = value
 
     @property
@@ -28893,10 +26733,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_17`')
         self._data["Liquid Transport Coefficient 17"] = value
 
     @property
@@ -28927,10 +26767,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_18`')
         self._data["Moisture Content 18"] = value
 
     @property
@@ -28961,10 +26801,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_18`')
         self._data["Liquid Transport Coefficient 18"] = value
 
     @property
@@ -28995,10 +26835,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_19`')
         self._data["Moisture Content 19"] = value
 
     @property
@@ -29029,10 +26869,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_19`')
         self._data["Liquid Transport Coefficient 19"] = value
 
     @property
@@ -29063,10 +26903,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_20`')
         self._data["Moisture Content 20"] = value
 
     @property
@@ -29097,10 +26937,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_20`')
         self._data["Liquid Transport Coefficient 20"] = value
 
     @property
@@ -29131,10 +26971,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_21`')
         self._data["Moisture Content 21"] = value
 
     @property
@@ -29165,10 +27005,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_21`')
         self._data["Liquid Transport Coefficient 21"] = value
 
     @property
@@ -29199,10 +27039,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_22`')
         self._data["Moisture Content 22"] = value
 
     @property
@@ -29233,10 +27073,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_22`')
         self._data["Liquid Transport Coefficient 22"] = value
 
     @property
@@ -29267,10 +27107,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_23`')
         self._data["Moisture Content 23"] = value
 
     @property
@@ -29301,10 +27141,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_23`')
         self._data["Liquid Transport Coefficient 23"] = value
 
     @property
@@ -29335,10 +27175,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_24`')
         self._data["Moisture Content 24"] = value
 
     @property
@@ -29369,10 +27209,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_24`')
         self._data["Liquid Transport Coefficient 24"] = value
 
     @property
@@ -29403,10 +27243,10 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.moisture_content_25`')
         self._data["Moisture Content 25"] = value
 
     @property
@@ -29437,20 +27277,43 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_transport_coefficient_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `liquid_transport_coefficient_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferRedistribution.liquid_transport_coefficient_25`')
         self._data["Liquid Transport Coefficient 25"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyHeatAndMoistureTransferRedistribution:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyHeatAndMoistureTransferRedistribution:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyHeatAndMoistureTransferRedistribution: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyHeatAndMoistureTransferRedistribution: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -29468,8 +27331,27 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -29486,6 +27368,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Diffusion"
     field_count = 52
     required_fields = ["Material Name", "Number of Data Pairs", "Relative Humidity Fraction 1", "Water Vapor Diffusion Resistance Factor 1"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Diffusion`
@@ -29543,6 +27429,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         self._data["Water Vapor Diffusion Resistance Factor 24"] = None
         self._data["Relative Humidity Fraction 25"] = None
         self._data["Water Vapor Diffusion Resistance Factor 25"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -29947,13 +27834,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `material_name`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.material_name`')
         self._data["Material Name"] = value
 
     @property
@@ -29987,18 +27874,18 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_data_pairs`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.number_of_data_pairs`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_data_pairs`'.format(value))
+                                         'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.number_of_data_pairs`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_data_pairs`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.number_of_data_pairs`')
             if value > 25:
                 raise ValueError('value need to be smaller 25 '
-                                 'for field `number_of_data_pairs`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.number_of_data_pairs`')
         self._data["Number of Data Pairs"] = value
 
     @property
@@ -30031,13 +27918,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_1`')
         self._data["Relative Humidity Fraction 1"] = value
 
     @property
@@ -30068,10 +27955,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_1`')
         self._data["Water Vapor Diffusion Resistance Factor 1"] = value
 
     @property
@@ -30104,13 +27991,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_2`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_2`')
         self._data["Relative Humidity Fraction 2"] = value
 
     @property
@@ -30141,10 +28028,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_2`')
         self._data["Water Vapor Diffusion Resistance Factor 2"] = value
 
     @property
@@ -30177,13 +28064,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_3`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_3`')
         self._data["Relative Humidity Fraction 3"] = value
 
     @property
@@ -30214,10 +28101,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_3`')
         self._data["Water Vapor Diffusion Resistance Factor 3"] = value
 
     @property
@@ -30250,13 +28137,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_4`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_4`')
         self._data["Relative Humidity Fraction 4"] = value
 
     @property
@@ -30287,10 +28174,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_4`')
         self._data["Water Vapor Diffusion Resistance Factor 4"] = value
 
     @property
@@ -30323,13 +28210,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_5`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_5`')
         self._data["Relative Humidity Fraction 5"] = value
 
     @property
@@ -30360,10 +28247,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_5`')
         self._data["Water Vapor Diffusion Resistance Factor 5"] = value
 
     @property
@@ -30396,13 +28283,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_6`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_6`')
         self._data["Relative Humidity Fraction 6"] = value
 
     @property
@@ -30433,10 +28320,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_6`')
         self._data["Water Vapor Diffusion Resistance Factor 6"] = value
 
     @property
@@ -30469,13 +28356,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_7`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_7`')
         self._data["Relative Humidity Fraction 7"] = value
 
     @property
@@ -30506,10 +28393,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_7`')
         self._data["Water Vapor Diffusion Resistance Factor 7"] = value
 
     @property
@@ -30542,13 +28429,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_8`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_8`')
         self._data["Relative Humidity Fraction 8"] = value
 
     @property
@@ -30579,10 +28466,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_8`')
         self._data["Water Vapor Diffusion Resistance Factor 8"] = value
 
     @property
@@ -30615,13 +28502,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_9`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_9`')
         self._data["Relative Humidity Fraction 9"] = value
 
     @property
@@ -30652,10 +28539,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_9`')
         self._data["Water Vapor Diffusion Resistance Factor 9"] = value
 
     @property
@@ -30688,13 +28575,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_10`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_10`')
         self._data["Relative Humidity Fraction 10"] = value
 
     @property
@@ -30725,10 +28612,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_10`')
         self._data["Water Vapor Diffusion Resistance Factor 10"] = value
 
     @property
@@ -30761,13 +28648,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_11`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_11`')
         self._data["Relative Humidity Fraction 11"] = value
 
     @property
@@ -30798,10 +28685,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_11`')
         self._data["Water Vapor Diffusion Resistance Factor 11"] = value
 
     @property
@@ -30834,13 +28721,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_12`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_12`')
         self._data["Relative Humidity Fraction 12"] = value
 
     @property
@@ -30871,10 +28758,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_12`')
         self._data["Water Vapor Diffusion Resistance Factor 12"] = value
 
     @property
@@ -30907,13 +28794,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_13`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_13`')
         self._data["Relative Humidity Fraction 13"] = value
 
     @property
@@ -30944,10 +28831,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_13`')
         self._data["Water Vapor Diffusion Resistance Factor 13"] = value
 
     @property
@@ -30980,13 +28867,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_14`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_14`')
         self._data["Relative Humidity Fraction 14"] = value
 
     @property
@@ -31017,10 +28904,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_14`')
         self._data["Water Vapor Diffusion Resistance Factor 14"] = value
 
     @property
@@ -31053,13 +28940,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_15`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_15`')
         self._data["Relative Humidity Fraction 15"] = value
 
     @property
@@ -31090,10 +28977,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_15`')
         self._data["Water Vapor Diffusion Resistance Factor 15"] = value
 
     @property
@@ -31126,13 +29013,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_16`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_16`')
         self._data["Relative Humidity Fraction 16"] = value
 
     @property
@@ -31163,10 +29050,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_16`')
         self._data["Water Vapor Diffusion Resistance Factor 16"] = value
 
     @property
@@ -31199,13 +29086,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_17`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_17`')
         self._data["Relative Humidity Fraction 17"] = value
 
     @property
@@ -31236,10 +29123,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_17`')
         self._data["Water Vapor Diffusion Resistance Factor 17"] = value
 
     @property
@@ -31272,13 +29159,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_18`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_18`')
         self._data["Relative Humidity Fraction 18"] = value
 
     @property
@@ -31309,10 +29196,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_18`')
         self._data["Water Vapor Diffusion Resistance Factor 18"] = value
 
     @property
@@ -31345,13 +29232,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_19`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_19`')
         self._data["Relative Humidity Fraction 19"] = value
 
     @property
@@ -31382,10 +29269,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_19`')
         self._data["Water Vapor Diffusion Resistance Factor 19"] = value
 
     @property
@@ -31418,13 +29305,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_20`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_20`')
         self._data["Relative Humidity Fraction 20"] = value
 
     @property
@@ -31455,10 +29342,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_20`')
         self._data["Water Vapor Diffusion Resistance Factor 20"] = value
 
     @property
@@ -31491,13 +29378,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_21`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_21`')
         self._data["Relative Humidity Fraction 21"] = value
 
     @property
@@ -31528,10 +29415,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_21`')
         self._data["Water Vapor Diffusion Resistance Factor 21"] = value
 
     @property
@@ -31564,13 +29451,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_22`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_22`')
         self._data["Relative Humidity Fraction 22"] = value
 
     @property
@@ -31601,10 +29488,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_22`')
         self._data["Water Vapor Diffusion Resistance Factor 22"] = value
 
     @property
@@ -31637,13 +29524,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_23`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_23`')
         self._data["Relative Humidity Fraction 23"] = value
 
     @property
@@ -31674,10 +29561,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_23`')
         self._data["Water Vapor Diffusion Resistance Factor 23"] = value
 
     @property
@@ -31710,13 +29597,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_24`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_24`')
         self._data["Relative Humidity Fraction 24"] = value
 
     @property
@@ -31747,10 +29634,10 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_24`')
         self._data["Water Vapor Diffusion Resistance Factor 24"] = value
 
     @property
@@ -31783,13 +29670,13 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `relative_humidity_fraction_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `relative_humidity_fraction_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_25`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `relative_humidity_fraction_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.relative_humidity_fraction_25`')
         self._data["Relative Humidity Fraction 25"] = value
 
     @property
@@ -31820,20 +29707,43 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_vapor_diffusion_resistance_factor_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_vapor_diffusion_resistance_factor_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferDiffusion.water_vapor_diffusion_resistance_factor_25`')
         self._data["Water Vapor Diffusion Resistance Factor 25"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyHeatAndMoistureTransferDiffusion:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyHeatAndMoistureTransferDiffusion:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyHeatAndMoistureTransferDiffusion: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyHeatAndMoistureTransferDiffusion: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -31851,8 +29761,27 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -31869,6 +29798,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity"
     field_count = 52
     required_fields = ["Material Name", "Number of Thermal Coordinates", "Moisture Content 1", "Thermal Conductivity 1"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity`
@@ -31926,6 +29859,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         self._data["Thermal Conductivity 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Thermal Conductivity 25"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -32330,13 +30264,13 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `material_name`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `material_name`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.material_name`')
         self._data["Material Name"] = value
 
     @property
@@ -32370,18 +30304,18 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_thermal_coordinates`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.number_of_thermal_coordinates`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_thermal_coordinates`'.format(value))
+                                         'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.number_of_thermal_coordinates`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_thermal_coordinates`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.number_of_thermal_coordinates`')
             if value > 25:
                 raise ValueError('value need to be smaller 25 '
-                                 'for field `number_of_thermal_coordinates`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.number_of_thermal_coordinates`')
         self._data["Number of Thermal Coordinates"] = value
 
     @property
@@ -32412,10 +30346,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_1`')
         self._data["Moisture Content 1"] = value
 
     @property
@@ -32446,10 +30380,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_1`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_1`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_1`')
         self._data["Thermal Conductivity 1"] = value
 
     @property
@@ -32480,10 +30414,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_2`')
         self._data["Moisture Content 2"] = value
 
     @property
@@ -32514,10 +30448,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_2`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_2`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_2`')
         self._data["Thermal Conductivity 2"] = value
 
     @property
@@ -32548,10 +30482,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_3`')
         self._data["Moisture Content 3"] = value
 
     @property
@@ -32582,10 +30516,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_3`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_3`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_3`')
         self._data["Thermal Conductivity 3"] = value
 
     @property
@@ -32616,10 +30550,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_4`')
         self._data["Moisture Content 4"] = value
 
     @property
@@ -32650,10 +30584,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_4`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_4`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_4`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_4`')
         self._data["Thermal Conductivity 4"] = value
 
     @property
@@ -32684,10 +30618,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_5`')
         self._data["Moisture Content 5"] = value
 
     @property
@@ -32718,10 +30652,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_5`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_5`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_5`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_5`')
         self._data["Thermal Conductivity 5"] = value
 
     @property
@@ -32752,10 +30686,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_6`')
         self._data["Moisture Content 6"] = value
 
     @property
@@ -32786,10 +30720,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_6`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_6`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_6`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_6`')
         self._data["Thermal Conductivity 6"] = value
 
     @property
@@ -32820,10 +30754,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_7`')
         self._data["Moisture Content 7"] = value
 
     @property
@@ -32854,10 +30788,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_7`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_7`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_7`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_7`')
         self._data["Thermal Conductivity 7"] = value
 
     @property
@@ -32888,10 +30822,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_8`')
         self._data["Moisture Content 8"] = value
 
     @property
@@ -32922,10 +30856,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_8`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_8`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_8`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_8`')
         self._data["Thermal Conductivity 8"] = value
 
     @property
@@ -32956,10 +30890,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_9`')
         self._data["Moisture Content 9"] = value
 
     @property
@@ -32990,10 +30924,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_9`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_9`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_9`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_9`')
         self._data["Thermal Conductivity 9"] = value
 
     @property
@@ -33024,10 +30958,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_10`')
         self._data["Moisture Content 10"] = value
 
     @property
@@ -33058,10 +30992,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_10`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_10`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_10`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_10`')
         self._data["Thermal Conductivity 10"] = value
 
     @property
@@ -33092,10 +31026,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_11`')
         self._data["Moisture Content 11"] = value
 
     @property
@@ -33126,10 +31060,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_11`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_11`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_11`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_11`')
         self._data["Thermal Conductivity 11"] = value
 
     @property
@@ -33160,10 +31094,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_12`')
         self._data["Moisture Content 12"] = value
 
     @property
@@ -33194,10 +31128,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_12`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_12`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_12`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_12`')
         self._data["Thermal Conductivity 12"] = value
 
     @property
@@ -33228,10 +31162,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_13`')
         self._data["Moisture Content 13"] = value
 
     @property
@@ -33262,10 +31196,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_13`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_13`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_13`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_13`')
         self._data["Thermal Conductivity 13"] = value
 
     @property
@@ -33296,10 +31230,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_14`')
         self._data["Moisture Content 14"] = value
 
     @property
@@ -33330,10 +31264,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_14`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_14`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_14`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_14`')
         self._data["Thermal Conductivity 14"] = value
 
     @property
@@ -33364,10 +31298,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_15`')
         self._data["Moisture Content 15"] = value
 
     @property
@@ -33398,10 +31332,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_15`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_15`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_15`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_15`')
         self._data["Thermal Conductivity 15"] = value
 
     @property
@@ -33432,10 +31366,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_16`')
         self._data["Moisture Content 16"] = value
 
     @property
@@ -33466,10 +31400,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_16`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_16`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_16`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_16`')
         self._data["Thermal Conductivity 16"] = value
 
     @property
@@ -33500,10 +31434,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_17`')
         self._data["Moisture Content 17"] = value
 
     @property
@@ -33534,10 +31468,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_17`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_17`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_17`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_17`')
         self._data["Thermal Conductivity 17"] = value
 
     @property
@@ -33568,10 +31502,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_18`')
         self._data["Moisture Content 18"] = value
 
     @property
@@ -33602,10 +31536,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_18`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_18`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_18`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_18`')
         self._data["Thermal Conductivity 18"] = value
 
     @property
@@ -33636,10 +31570,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_19`')
         self._data["Moisture Content 19"] = value
 
     @property
@@ -33670,10 +31604,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_19`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_19`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_19`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_19`')
         self._data["Thermal Conductivity 19"] = value
 
     @property
@@ -33704,10 +31638,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_20`')
         self._data["Moisture Content 20"] = value
 
     @property
@@ -33738,10 +31672,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_20`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_20`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_20`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_20`')
         self._data["Thermal Conductivity 20"] = value
 
     @property
@@ -33772,10 +31706,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_21`')
         self._data["Moisture Content 21"] = value
 
     @property
@@ -33806,10 +31740,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_21`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_21`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_21`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_21`')
         self._data["Thermal Conductivity 21"] = value
 
     @property
@@ -33840,10 +31774,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_22`')
         self._data["Moisture Content 22"] = value
 
     @property
@@ -33874,10 +31808,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_22`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_22`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_22`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_22`')
         self._data["Thermal Conductivity 22"] = value
 
     @property
@@ -33908,10 +31842,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_23`')
         self._data["Moisture Content 23"] = value
 
     @property
@@ -33942,10 +31876,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_23`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_23`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_23`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_23`')
         self._data["Thermal Conductivity 23"] = value
 
     @property
@@ -33976,10 +31910,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_24`')
         self._data["Moisture Content 24"] = value
 
     @property
@@ -34010,10 +31944,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_24`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_24`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_24`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_24`')
         self._data["Thermal Conductivity 24"] = value
 
     @property
@@ -34044,10 +31978,10 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `moisture_content_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `moisture_content_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.moisture_content_25`')
         self._data["Moisture Content 25"] = value
 
     @property
@@ -34078,20 +32012,43 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermal_conductivity_25`'.format(value))
+                                 ' for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_25`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermal_conductivity_25`')
+                                 'for field `MaterialPropertyHeatAndMoistureTransferThermalConductivity.thermal_conductivity_25`')
         self._data["Thermal Conductivity 25"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field MaterialPropertyHeatAndMoistureTransferThermalConductivity:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyHeatAndMoistureTransferThermalConductivity:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyHeatAndMoistureTransferThermalConductivity: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyHeatAndMoistureTransferThermalConductivity: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -34109,8 +32066,270 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class MaterialPropertyGlazingSpectralData(object):
+    """ Corresponds to IDD object `MaterialProperty:GlazingSpectralData`
+        Name is followed by up to 800 sets of normal-incidence measured values of
+        [wavelength, transmittance, front reflectance, back reflectance] for wavelengths
+        covering the solar spectrum (from about 0.25 to 2.5 microns)
+    """
+    internal_name = "MaterialProperty:GlazingSpectralData"
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 4
+    format = "spectral"
+    min_fields = 0
+    extensible_keys = ["Wavelength", "Transmittance", "Front Reflectance", "Back Reflectance"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `MaterialProperty:GlazingSpectralData`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `MaterialPropertyGlazingSpectralData.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `MaterialPropertyGlazingSpectralData.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `MaterialPropertyGlazingSpectralData.name`')
+        self._data["Name"] = value
+
+    def add_extensible(self,
+                       wavelength=None,
+                       transmittance=None,
+                       front_reflectance=None,
+                       back_reflectance=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            wavelength (float): value for IDD Field `Wavelength`
+                Units: micron
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            transmittance (float): value for IDD Field `Transmittance`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            front_reflectance (float): value for IDD Field `Front Reflectance`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            back_reflectance (float): value for IDD Field `Back Reflectance`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_wavelength(wavelength))
+        vals.append(self._check_transmittance(transmittance))
+        vals.append(self._check_front_reflectance(front_reflectance))
+        vals.append(self._check_back_reflectance(back_reflectance))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_wavelength(self, value):
+        """ Validates falue of field `Wavelength`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `MaterialPropertyGlazingSpectralData.wavelength`'.format(value))
+        return value
+
+    def _check_transmittance(self, value):
+        """ Validates falue of field `Transmittance`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `MaterialPropertyGlazingSpectralData.transmittance`'.format(value))
+        return value
+
+    def _check_front_reflectance(self, value):
+        """ Validates falue of field `Front Reflectance`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `MaterialPropertyGlazingSpectralData.front_reflectance`'.format(value))
+        return value
+
+    def _check_back_reflectance(self, value):
+        """ Validates falue of field `Back Reflectance`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `MaterialPropertyGlazingSpectralData.back_reflectance`'.format(value))
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field MaterialPropertyGlazingSpectralData:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field MaterialPropertyGlazingSpectralData:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for MaterialPropertyGlazingSpectralData: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for MaterialPropertyGlazingSpectralData: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -34127,6 +32346,10 @@ class Construction(object):
     internal_name = "Construction"
     field_count = 11
     required_fields = ["Name", "Outside Layer"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction`
@@ -34143,6 +32366,7 @@ class Construction(object):
         self._data["Layer 8"] = None
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -34259,13 +32483,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `Construction.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `Construction.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `Construction.name`')
         self._data["Name"] = value
 
     @property
@@ -34294,13 +32518,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outside_layer`'.format(value))
+                                 ' for field `Construction.outside_layer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outside_layer`')
+                                 'for field `Construction.outside_layer`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outside_layer`')
+                                 'for field `Construction.outside_layer`')
         self._data["Outside Layer"] = value
 
     @property
@@ -34329,13 +32553,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_2`'.format(value))
+                                 ' for field `Construction.layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_2`')
+                                 'for field `Construction.layer_2`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_2`')
+                                 'for field `Construction.layer_2`')
         self._data["Layer 2"] = value
 
     @property
@@ -34364,13 +32588,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_3`'.format(value))
+                                 ' for field `Construction.layer_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_3`')
+                                 'for field `Construction.layer_3`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_3`')
+                                 'for field `Construction.layer_3`')
         self._data["Layer 3"] = value
 
     @property
@@ -34399,13 +32623,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_4`'.format(value))
+                                 ' for field `Construction.layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_4`')
+                                 'for field `Construction.layer_4`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_4`')
+                                 'for field `Construction.layer_4`')
         self._data["Layer 4"] = value
 
     @property
@@ -34434,13 +32658,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_5`'.format(value))
+                                 ' for field `Construction.layer_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_5`')
+                                 'for field `Construction.layer_5`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_5`')
+                                 'for field `Construction.layer_5`')
         self._data["Layer 5"] = value
 
     @property
@@ -34469,13 +32693,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_6`'.format(value))
+                                 ' for field `Construction.layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_6`')
+                                 'for field `Construction.layer_6`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_6`')
+                                 'for field `Construction.layer_6`')
         self._data["Layer 6"] = value
 
     @property
@@ -34504,13 +32728,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_7`'.format(value))
+                                 ' for field `Construction.layer_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_7`')
+                                 'for field `Construction.layer_7`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_7`')
+                                 'for field `Construction.layer_7`')
         self._data["Layer 7"] = value
 
     @property
@@ -34539,13 +32763,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_8`'.format(value))
+                                 ' for field `Construction.layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_8`')
+                                 'for field `Construction.layer_8`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_8`')
+                                 'for field `Construction.layer_8`')
         self._data["Layer 8"] = value
 
     @property
@@ -34574,13 +32798,13 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_9`'.format(value))
+                                 ' for field `Construction.layer_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_9`')
+                                 'for field `Construction.layer_9`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_9`')
+                                 'for field `Construction.layer_9`')
         self._data["Layer 9"] = value
 
     @property
@@ -34609,23 +32833,46 @@ class Construction(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_10`'.format(value))
+                                 ' for field `Construction.layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_10`')
+                                 'for field `Construction.layer_10`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_10`')
+                                 'for field `Construction.layer_10`')
         self._data["Layer 10"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Construction:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Construction:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Construction: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Construction: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -34643,8 +32890,27 @@ class Construction(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -34659,6 +32925,10 @@ class ConstructionCfactorUndergroundWall(object):
     internal_name = "Construction:CfactorUndergroundWall"
     field_count = 3
     required_fields = ["Name", "C-Factor", "Height"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:CfactorUndergroundWall`
@@ -34667,6 +32937,7 @@ class ConstructionCfactorUndergroundWall(object):
         self._data["Name"] = None
         self._data["C-Factor"] = None
         self._data["Height"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -34727,13 +32998,13 @@ class ConstructionCfactorUndergroundWall(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConstructionCfactorUndergroundWall.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConstructionCfactorUndergroundWall.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConstructionCfactorUndergroundWall.name`')
         self._data["Name"] = value
 
     @property
@@ -34765,10 +33036,10 @@ class ConstructionCfactorUndergroundWall(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cfactor`'.format(value))
+                                 ' for field `ConstructionCfactorUndergroundWall.cfactor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `cfactor`')
+                                 'for field `ConstructionCfactorUndergroundWall.cfactor`')
         self._data["C-Factor"] = value
 
     @property
@@ -34800,20 +33071,43 @@ class ConstructionCfactorUndergroundWall(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height`'.format(value))
+                                 ' for field `ConstructionCfactorUndergroundWall.height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `height`')
+                                 'for field `ConstructionCfactorUndergroundWall.height`')
         self._data["Height"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConstructionCfactorUndergroundWall:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConstructionCfactorUndergroundWall:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConstructionCfactorUndergroundWall: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConstructionCfactorUndergroundWall: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -34831,8 +33125,27 @@ class ConstructionCfactorUndergroundWall(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -34847,6 +33160,10 @@ class ConstructionFfactorGroundFloor(object):
     internal_name = "Construction:FfactorGroundFloor"
     field_count = 4
     required_fields = ["Name", "F-Factor", "Area", "PerimeterExposed"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:FfactorGroundFloor`
@@ -34856,6 +33173,7 @@ class ConstructionFfactorGroundFloor(object):
         self._data["F-Factor"] = None
         self._data["Area"] = None
         self._data["PerimeterExposed"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -34923,13 +33241,13 @@ class ConstructionFfactorGroundFloor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConstructionFfactorGroundFloor.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConstructionFfactorGroundFloor.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConstructionFfactorGroundFloor.name`')
         self._data["Name"] = value
 
     @property
@@ -34961,10 +33279,10 @@ class ConstructionFfactorGroundFloor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ffactor`'.format(value))
+                                 ' for field `ConstructionFfactorGroundFloor.ffactor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `ffactor`')
+                                 'for field `ConstructionFfactorGroundFloor.ffactor`')
         self._data["F-Factor"] = value
 
     @property
@@ -34996,10 +33314,10 @@ class ConstructionFfactorGroundFloor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `area`'.format(value))
+                                 ' for field `ConstructionFfactorGroundFloor.area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `area`')
+                                 'for field `ConstructionFfactorGroundFloor.area`')
         self._data["Area"] = value
 
     @property
@@ -35031,20 +33349,43 @@ class ConstructionFfactorGroundFloor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `perimeterexposed`'.format(value))
+                                 ' for field `ConstructionFfactorGroundFloor.perimeterexposed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `perimeterexposed`')
+                                 'for field `ConstructionFfactorGroundFloor.perimeterexposed`')
         self._data["PerimeterExposed"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConstructionFfactorGroundFloor:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConstructionFfactorGroundFloor:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConstructionFfactorGroundFloor: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConstructionFfactorGroundFloor: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -35062,8 +33403,27 @@ class ConstructionFfactorGroundFloor(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -35080,6 +33440,10 @@ class ConstructionInternalSource(object):
     internal_name = "Construction:InternalSource"
     field_count = 15
     required_fields = ["Name", "Source Present After Layer Number", "Temperature Calculation Requested After Layer Number", "Dimensions for the CTF Calculation", "Tube Spacing", "Outside Layer"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:InternalSource`
@@ -35100,6 +33464,7 @@ class ConstructionInternalSource(object):
         self._data["Layer 8"] = None
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -35244,13 +33609,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConstructionInternalSource.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConstructionInternalSource.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConstructionInternalSource.name`')
         self._data["Name"] = value
 
     @property
@@ -35283,15 +33648,15 @@ class ConstructionInternalSource(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `source_present_after_layer_number`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConstructionInternalSource.source_present_after_layer_number`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `source_present_after_layer_number`'.format(value))
+                                         'for field `ConstructionInternalSource.source_present_after_layer_number`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `source_present_after_layer_number`')
+                                 'for field `ConstructionInternalSource.source_present_after_layer_number`')
         self._data["Source Present After Layer Number"] = value
 
     @property
@@ -35323,12 +33688,12 @@ class ConstructionInternalSource(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `temperature_calculation_requested_after_layer_number`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConstructionInternalSource.temperature_calculation_requested_after_layer_number`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `temperature_calculation_requested_after_layer_number`'.format(value))
+                                         'for field `ConstructionInternalSource.temperature_calculation_requested_after_layer_number`'.format(value))
         self._data["Temperature Calculation Requested After Layer Number"] = value
 
     @property
@@ -35362,18 +33727,18 @@ class ConstructionInternalSource(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `dimensions_for_the_ctf_calculation`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ConstructionInternalSource.dimensions_for_the_ctf_calculation`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `dimensions_for_the_ctf_calculation`'.format(value))
+                                         'for field `ConstructionInternalSource.dimensions_for_the_ctf_calculation`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `dimensions_for_the_ctf_calculation`')
+                                 'for field `ConstructionInternalSource.dimensions_for_the_ctf_calculation`')
             if value > 2:
                 raise ValueError('value need to be smaller 2 '
-                                 'for field `dimensions_for_the_ctf_calculation`')
+                                 'for field `ConstructionInternalSource.dimensions_for_the_ctf_calculation`')
         self._data["Dimensions for the CTF Calculation"] = value
 
     @property
@@ -35405,7 +33770,7 @@ class ConstructionInternalSource(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `tube_spacing`'.format(value))
+                                 ' for field `ConstructionInternalSource.tube_spacing`'.format(value))
         self._data["Tube Spacing"] = value
 
     @property
@@ -35434,13 +33799,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outside_layer`'.format(value))
+                                 ' for field `ConstructionInternalSource.outside_layer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outside_layer`')
+                                 'for field `ConstructionInternalSource.outside_layer`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outside_layer`')
+                                 'for field `ConstructionInternalSource.outside_layer`')
         self._data["Outside Layer"] = value
 
     @property
@@ -35469,13 +33834,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_2`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_2`')
+                                 'for field `ConstructionInternalSource.layer_2`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_2`')
+                                 'for field `ConstructionInternalSource.layer_2`')
         self._data["Layer 2"] = value
 
     @property
@@ -35504,13 +33869,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_3`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_3`')
+                                 'for field `ConstructionInternalSource.layer_3`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_3`')
+                                 'for field `ConstructionInternalSource.layer_3`')
         self._data["Layer 3"] = value
 
     @property
@@ -35539,13 +33904,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_4`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_4`')
+                                 'for field `ConstructionInternalSource.layer_4`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_4`')
+                                 'for field `ConstructionInternalSource.layer_4`')
         self._data["Layer 4"] = value
 
     @property
@@ -35574,13 +33939,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_5`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_5`')
+                                 'for field `ConstructionInternalSource.layer_5`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_5`')
+                                 'for field `ConstructionInternalSource.layer_5`')
         self._data["Layer 5"] = value
 
     @property
@@ -35609,13 +33974,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_6`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_6`')
+                                 'for field `ConstructionInternalSource.layer_6`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_6`')
+                                 'for field `ConstructionInternalSource.layer_6`')
         self._data["Layer 6"] = value
 
     @property
@@ -35644,13 +34009,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_7`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_7`')
+                                 'for field `ConstructionInternalSource.layer_7`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_7`')
+                                 'for field `ConstructionInternalSource.layer_7`')
         self._data["Layer 7"] = value
 
     @property
@@ -35679,13 +34044,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_8`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_8`')
+                                 'for field `ConstructionInternalSource.layer_8`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_8`')
+                                 'for field `ConstructionInternalSource.layer_8`')
         self._data["Layer 8"] = value
 
     @property
@@ -35714,13 +34079,13 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_9`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_9`')
+                                 'for field `ConstructionInternalSource.layer_9`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_9`')
+                                 'for field `ConstructionInternalSource.layer_9`')
         self._data["Layer 9"] = value
 
     @property
@@ -35749,23 +34114,46 @@ class ConstructionInternalSource(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_10`'.format(value))
+                                 ' for field `ConstructionInternalSource.layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_10`')
+                                 'for field `ConstructionInternalSource.layer_10`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_10`')
+                                 'for field `ConstructionInternalSource.layer_10`')
         self._data["Layer 10"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConstructionInternalSource:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConstructionInternalSource:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConstructionInternalSource: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConstructionInternalSource: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -35783,8 +34171,27 @@ class ConstructionInternalSource(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -35799,6 +34206,10 @@ class WindowThermalModelParams(object):
     internal_name = "WindowThermalModel:Params"
     field_count = 8
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowThermalModel:Params`
@@ -35812,6 +34223,7 @@ class WindowThermalModelParams(object):
         self._data["Vacuum Pressure Limit"] = None
         self._data["Initial temperature"] = None
         self._data["Initial pressure"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -35907,13 +34319,13 @@ class WindowThermalModelParams(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `WindowThermalModelParams.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `WindowThermalModelParams.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `WindowThermalModelParams.name`')
         self._data["Name"] = value
 
     @property
@@ -35947,13 +34359,13 @@ class WindowThermalModelParams(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `standard`'.format(value))
+                                 ' for field `WindowThermalModelParams.standard`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `standard`')
+                                 'for field `WindowThermalModelParams.standard`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `standard`')
+                                 'for field `WindowThermalModelParams.standard`')
             vals = {}
             vals["iso15099"] = "ISO15099"
             vals["en673declared"] = "EN673Declared"
@@ -35977,10 +34389,10 @@ class WindowThermalModelParams(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `standard`'.format(value))
+                                     'field `WindowThermalModelParams.standard`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `standard`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowThermalModelParams.standard`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["standard"] = value
 
@@ -36016,13 +34428,13 @@ class WindowThermalModelParams(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_model`'.format(value))
+                                 ' for field `WindowThermalModelParams.thermal_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_model`')
+                                 'for field `WindowThermalModelParams.thermal_model`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_model`')
+                                 'for field `WindowThermalModelParams.thermal_model`')
             vals = {}
             vals["iso15099"] = "ISO15099"
             vals["scaledcavitywidth"] = "ScaledCavityWidth"
@@ -36047,10 +34459,10 @@ class WindowThermalModelParams(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `thermal_model`'.format(value))
+                                     'field `WindowThermalModelParams.thermal_model`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `thermal_model`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowThermalModelParams.thermal_model`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Model"] = value
 
@@ -36083,13 +34495,13 @@ class WindowThermalModelParams(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sdscalar`'.format(value))
+                                 ' for field `WindowThermalModelParams.sdscalar`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `sdscalar`')
+                                 'for field `WindowThermalModelParams.sdscalar`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `sdscalar`')
+                                 'for field `WindowThermalModelParams.sdscalar`')
         self._data["SDScalar"] = value
 
     @property
@@ -36123,13 +34535,13 @@ class WindowThermalModelParams(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `deflection_model`'.format(value))
+                                 ' for field `WindowThermalModelParams.deflection_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `deflection_model`')
+                                 'for field `WindowThermalModelParams.deflection_model`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `deflection_model`')
+                                 'for field `WindowThermalModelParams.deflection_model`')
             vals = {}
             vals["nodeflection"] = "NoDeflection"
             vals["temperatureandpressureinput"] = "TemperatureAndPressureInput"
@@ -36153,10 +34565,10 @@ class WindowThermalModelParams(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `deflection_model`'.format(value))
+                                     'field `WindowThermalModelParams.deflection_model`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `deflection_model`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `WindowThermalModelParams.deflection_model`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Deflection Model"] = value
 
@@ -36188,7 +34600,7 @@ class WindowThermalModelParams(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `vacuum_pressure_limit`'.format(value))
+                                 ' for field `WindowThermalModelParams.vacuum_pressure_limit`'.format(value))
         self._data["Vacuum Pressure Limit"] = value
 
     @property
@@ -36220,7 +34632,7 @@ class WindowThermalModelParams(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_temperature`'.format(value))
+                                 ' for field `WindowThermalModelParams.initial_temperature`'.format(value))
         self._data["Initial temperature"] = value
 
     @property
@@ -36252,17 +34664,40 @@ class WindowThermalModelParams(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_pressure`'.format(value))
+                                 ' for field `WindowThermalModelParams.initial_pressure`'.format(value))
         self._data["Initial pressure"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field WindowThermalModelParams:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field WindowThermalModelParams:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for WindowThermalModelParams: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for WindowThermalModelParams: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -36280,8 +34715,27 @@ class WindowThermalModelParams(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -36297,6 +34751,10 @@ class ConstructionComplexFenestrationState(object):
     internal_name = "Construction:ComplexFenestrationState"
     field_count = 36
     required_fields = ["Name", "Window Thermal Model", "Basis Matrix Name", "Solar Optical Complex Front Transmittance Matrix Name", "Solar Optical Complex Back Reflectance Matrix Name", "Visible Optical Complex Front Transmittance Matrix Name", "Visible Optical Complex Back Transmittance Matrix Name", "Outside Layer Name", "Outside Layer Directional Front Absoptance Matrix Name", "Outside Layer Directional Back Absoptance Matrix Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:ComplexFenestrationState`
@@ -36338,6 +34796,7 @@ class ConstructionComplexFenestrationState(object):
         self._data["Layer 5 Name"] = None
         self._data["Layer 5 Directional Front Absoptance Matrix Name"] = None
         self._data["Layer 5 Directional Back Absoptance Matrix Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -36629,13 +35088,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConstructionComplexFenestrationState.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConstructionComplexFenestrationState.name`')
         self._data["Name"] = value
 
     @property
@@ -36668,13 +35127,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `basis_type`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.basis_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `basis_type`')
+                                 'for field `ConstructionComplexFenestrationState.basis_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `basis_type`')
+                                 'for field `ConstructionComplexFenestrationState.basis_type`')
             vals = {}
             vals["lbnlwindow"] = "LBNLWINDOW"
             vals["userdefined"] = "UserDefined"
@@ -36697,10 +35156,10 @@ class ConstructionComplexFenestrationState(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `basis_type`'.format(value))
+                                     'field `ConstructionComplexFenestrationState.basis_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `basis_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ConstructionComplexFenestrationState.basis_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Basis Type"] = value
 
@@ -36734,13 +35193,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `basis_symmetry_type`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.basis_symmetry_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `basis_symmetry_type`')
+                                 'for field `ConstructionComplexFenestrationState.basis_symmetry_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `basis_symmetry_type`')
+                                 'for field `ConstructionComplexFenestrationState.basis_symmetry_type`')
             vals = {}
             vals["axisymmetric"] = "Axisymmetric"
             vals["none"] = "None"
@@ -36763,10 +35222,10 @@ class ConstructionComplexFenestrationState(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `basis_symmetry_type`'.format(value))
+                                     'field `ConstructionComplexFenestrationState.basis_symmetry_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `basis_symmetry_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ConstructionComplexFenestrationState.basis_symmetry_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Basis Symmetry Type"] = value
 
@@ -36796,13 +35255,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `window_thermal_model`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.window_thermal_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `window_thermal_model`')
+                                 'for field `ConstructionComplexFenestrationState.window_thermal_model`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `window_thermal_model`')
+                                 'for field `ConstructionComplexFenestrationState.window_thermal_model`')
         self._data["Window Thermal Model"] = value
 
     @property
@@ -36831,13 +35290,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `basis_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.basis_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `basis_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.basis_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `basis_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.basis_matrix_name`')
         self._data["Basis Matrix Name"] = value
 
     @property
@@ -36866,13 +35325,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `solar_optical_complex_front_transmittance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.solar_optical_complex_front_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `solar_optical_complex_front_transmittance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.solar_optical_complex_front_transmittance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `solar_optical_complex_front_transmittance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.solar_optical_complex_front_transmittance_matrix_name`')
         self._data["Solar Optical Complex Front Transmittance Matrix Name"] = value
 
     @property
@@ -36901,13 +35360,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `solar_optical_complex_back_reflectance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.solar_optical_complex_back_reflectance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `solar_optical_complex_back_reflectance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.solar_optical_complex_back_reflectance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `solar_optical_complex_back_reflectance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.solar_optical_complex_back_reflectance_matrix_name`')
         self._data["Solar Optical Complex Back Reflectance Matrix Name"] = value
 
     @property
@@ -36936,13 +35395,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `visible_optical_complex_front_transmittance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.visible_optical_complex_front_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `visible_optical_complex_front_transmittance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.visible_optical_complex_front_transmittance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `visible_optical_complex_front_transmittance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.visible_optical_complex_front_transmittance_matrix_name`')
         self._data["Visible Optical Complex Front Transmittance Matrix Name"] = value
 
     @property
@@ -36971,13 +35430,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `visible_optical_complex_back_transmittance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.visible_optical_complex_back_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `visible_optical_complex_back_transmittance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.visible_optical_complex_back_transmittance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `visible_optical_complex_back_transmittance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.visible_optical_complex_back_transmittance_matrix_name`')
         self._data["Visible Optical Complex Back Transmittance Matrix Name"] = value
 
     @property
@@ -37006,13 +35465,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outside_layer_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.outside_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outside_layer_name`')
+                                 'for field `ConstructionComplexFenestrationState.outside_layer_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outside_layer_name`')
+                                 'for field `ConstructionComplexFenestrationState.outside_layer_name`')
         self._data["Outside Layer Name"] = value
 
     @property
@@ -37041,13 +35500,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outside_layer_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.outside_layer_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outside_layer_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.outside_layer_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outside_layer_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.outside_layer_directional_front_absoptance_matrix_name`')
         self._data["Outside Layer Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37076,13 +35535,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outside_layer_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.outside_layer_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outside_layer_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.outside_layer_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outside_layer_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.outside_layer_directional_back_absoptance_matrix_name`')
         self._data["Outside Layer Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37111,13 +35570,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_1_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_1_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_1_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_1_name`')
         self._data["Gap 1 Name"] = value
 
     @property
@@ -37147,13 +35606,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cfs_gap_1_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.cfs_gap_1_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cfs_gap_1_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.cfs_gap_1_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cfs_gap_1_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.cfs_gap_1_directional_front_absoptance_matrix_name`')
         self._data["CFS Gap 1 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37183,13 +35642,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cfs_gap_1_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.cfs_gap_1_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cfs_gap_1_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.cfs_gap_1_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cfs_gap_1_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.cfs_gap_1_directional_back_absoptance_matrix_name`')
         self._data["CFS Gap 1 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37218,13 +35677,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_2_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_2_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_2_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_2_name`')
         self._data["Layer 2 Name"] = value
 
     @property
@@ -37253,13 +35712,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_2_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_2_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_2_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_2_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_2_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_2_directional_front_absoptance_matrix_name`')
         self._data["Layer 2 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37288,13 +35747,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_2_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_2_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_2_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_2_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_2_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_2_directional_back_absoptance_matrix_name`')
         self._data["Layer 2 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37323,13 +35782,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_2_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_2_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_2_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_2_name`')
         self._data["Gap 2 Name"] = value
 
     @property
@@ -37359,13 +35818,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_2_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_2_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_2_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_2_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_2_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_2_directional_front_absoptance_matrix_name`')
         self._data["Gap 2 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37395,13 +35854,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_2_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_2_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_2_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_2_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_2_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_2_directional_back_absoptance_matrix_name`')
         self._data["Gap 2 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37430,13 +35889,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_3_material`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_3_material`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_3_material`')
+                                 'for field `ConstructionComplexFenestrationState.layer_3_material`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_3_material`')
+                                 'for field `ConstructionComplexFenestrationState.layer_3_material`')
         self._data["Layer 3 Material"] = value
 
     @property
@@ -37465,13 +35924,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_3_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_3_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_3_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_3_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_3_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_3_directional_front_absoptance_matrix_name`')
         self._data["Layer 3 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37500,13 +35959,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_3_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_3_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_3_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_3_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_3_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_3_directional_back_absoptance_matrix_name`')
         self._data["Layer 3 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37535,13 +35994,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_3_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_3_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_3_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_3_name`')
         self._data["Gap 3 Name"] = value
 
     @property
@@ -37571,13 +36030,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_3_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_3_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_3_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_3_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_3_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_3_directional_front_absoptance_matrix_name`')
         self._data["Gap 3 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37607,13 +36066,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_3_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_3_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_3_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_3_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_3_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_3_directional_back_absoptance_matrix_name`')
         self._data["Gap 3 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37642,13 +36101,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_4_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_4_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_4_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_4_name`')
         self._data["Layer 4 Name"] = value
 
     @property
@@ -37677,13 +36136,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_4_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_4_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_4_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_4_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_4_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_4_directional_front_absoptance_matrix_name`')
         self._data["Layer 4 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37712,13 +36171,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_4_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_4_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_4_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_4_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_4_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_4_directional_back_absoptance_matrix_name`')
         self._data["Layer 4 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37747,13 +36206,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_4_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_4_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_4_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_4_name`')
         self._data["Gap 4 Name"] = value
 
     @property
@@ -37783,13 +36242,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_4_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_4_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_4_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_4_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_4_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_4_directional_front_absoptance_matrix_name`')
         self._data["Gap 4 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37819,13 +36278,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gap_4_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.gap_4_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gap_4_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_4_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gap_4_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.gap_4_directional_back_absoptance_matrix_name`')
         self._data["Gap 4 Directional Back Absoptance Matrix Name"] = value
 
     @property
@@ -37854,13 +36313,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_5_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_5_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_5_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_5_name`')
         self._data["Layer 5 Name"] = value
 
     @property
@@ -37889,13 +36348,13 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_5_directional_front_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_5_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_5_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_5_directional_front_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_5_directional_front_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_5_directional_front_absoptance_matrix_name`')
         self._data["Layer 5 Directional Front Absoptance Matrix Name"] = value
 
     @property
@@ -37924,23 +36383,46 @@ class ConstructionComplexFenestrationState(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `layer_5_directional_back_absoptance_matrix_name`'.format(value))
+                                 ' for field `ConstructionComplexFenestrationState.layer_5_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `layer_5_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_5_directional_back_absoptance_matrix_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `layer_5_directional_back_absoptance_matrix_name`')
+                                 'for field `ConstructionComplexFenestrationState.layer_5_directional_back_absoptance_matrix_name`')
         self._data["Layer 5 Directional Back Absoptance Matrix Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConstructionComplexFenestrationState:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConstructionComplexFenestrationState:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConstructionComplexFenestrationState: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConstructionComplexFenestrationState: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -37958,8 +36440,27 @@ class ConstructionComplexFenestrationState(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -37974,6 +36475,10 @@ class ConstructionWindowDataFile(object):
     internal_name = "Construction:WindowDataFile"
     field_count = 2
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:WindowDataFile`
@@ -37981,6 +36486,7 @@ class ConstructionWindowDataFile(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["File Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -38034,13 +36540,13 @@ class ConstructionWindowDataFile(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConstructionWindowDataFile.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConstructionWindowDataFile.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConstructionWindowDataFile.name`')
         self._data["Name"] = value
 
     @property
@@ -38071,23 +36577,46 @@ class ConstructionWindowDataFile(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `file_name`'.format(value))
+                                 ' for field `ConstructionWindowDataFile.file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `file_name`')
+                                 'for field `ConstructionWindowDataFile.file_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `file_name`')
+                                 'for field `ConstructionWindowDataFile.file_name`')
         self._data["File Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConstructionWindowDataFile:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConstructionWindowDataFile:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConstructionWindowDataFile: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConstructionWindowDataFile: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -38105,8 +36634,27 @@ class ConstructionWindowDataFile(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

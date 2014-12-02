@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class AvailabilityManagerScheduled(object):
     """ Corresponds to IDD object `AvailabilityManager:Scheduled`
         Determines the availability of a loop or system: whether it is on or off.
@@ -10,6 +13,10 @@ class AvailabilityManagerScheduled(object):
     internal_name = "AvailabilityManager:Scheduled"
     field_count = 2
     required_fields = ["Name", "Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:Scheduled`
@@ -17,6 +24,7 @@ class AvailabilityManagerScheduled(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -70,13 +78,13 @@ class AvailabilityManagerScheduled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerScheduled.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerScheduled.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerScheduled.name`')
         self._data["Name"] = value
 
     @property
@@ -105,23 +113,46 @@ class AvailabilityManagerScheduled(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerScheduled.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `AvailabilityManagerScheduled.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `AvailabilityManagerScheduled.schedule_name`')
         self._data["Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerScheduled:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerScheduled:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerScheduled: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerScheduled: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -139,8 +170,27 @@ class AvailabilityManagerScheduled(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -156,6 +206,10 @@ class AvailabilityManagerScheduledOn(object):
     internal_name = "AvailabilityManager:ScheduledOn"
     field_count = 2
     required_fields = ["Name", "Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:ScheduledOn`
@@ -163,6 +217,7 @@ class AvailabilityManagerScheduledOn(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -216,13 +271,13 @@ class AvailabilityManagerScheduledOn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerScheduledOn.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerScheduledOn.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerScheduledOn.name`')
         self._data["Name"] = value
 
     @property
@@ -251,23 +306,46 @@ class AvailabilityManagerScheduledOn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerScheduledOn.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `AvailabilityManagerScheduledOn.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `AvailabilityManagerScheduledOn.schedule_name`')
         self._data["Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerScheduledOn:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerScheduledOn:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerScheduledOn: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerScheduledOn: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -285,8 +363,27 @@ class AvailabilityManagerScheduledOn(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -302,6 +399,10 @@ class AvailabilityManagerScheduledOff(object):
     internal_name = "AvailabilityManager:ScheduledOff"
     field_count = 2
     required_fields = ["Name", "Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:ScheduledOff`
@@ -309,6 +410,7 @@ class AvailabilityManagerScheduledOff(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -362,13 +464,13 @@ class AvailabilityManagerScheduledOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerScheduledOff.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerScheduledOff.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerScheduledOff.name`')
         self._data["Name"] = value
 
     @property
@@ -397,23 +499,46 @@ class AvailabilityManagerScheduledOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerScheduledOff.schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `schedule_name`')
+                                 'for field `AvailabilityManagerScheduledOff.schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `schedule_name`')
+                                 'for field `AvailabilityManagerScheduledOff.schedule_name`')
         self._data["Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerScheduledOff:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerScheduledOff:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerScheduledOff: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerScheduledOff: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -431,8 +556,27 @@ class AvailabilityManagerScheduledOff(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -447,6 +591,10 @@ class AvailabilityManagerOptimumStart(object):
     internal_name = "AvailabilityManager:OptimumStart"
     field_count = 14
     required_fields = ["Name", "Applicability Schedule Name", "Fan Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:OptimumStart`
@@ -466,6 +614,7 @@ class AvailabilityManagerOptimumStart(object):
         self._data["Initial Temperature Gradient during Heating"] = None
         self._data["Constant Start Time"] = None
         self._data["Number of Previous Days"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -603,13 +752,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerOptimumStart.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerOptimumStart.name`')
         self._data["Name"] = value
 
     @property
@@ -638,13 +787,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `applicability_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerOptimumStart.applicability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerOptimumStart.applicability_schedule_name`')
         self._data["Applicability Schedule Name"] = value
 
     @property
@@ -673,13 +822,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_schedule_name`')
+                                 'for field `AvailabilityManagerOptimumStart.fan_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_schedule_name`')
+                                 'for field `AvailabilityManagerOptimumStart.fan_schedule_name`')
         self._data["Fan Schedule Name"] = value
 
     @property
@@ -713,13 +862,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type`')
+                                 'for field `AvailabilityManagerOptimumStart.control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type`')
+                                 'for field `AvailabilityManagerOptimumStart.control_type`')
             vals = {}
             vals["stayoff"] = "StayOff"
             vals["controlzone"] = "ControlZone"
@@ -743,10 +892,10 @@ class AvailabilityManagerOptimumStart(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_type`'.format(value))
+                                     'field `AvailabilityManagerOptimumStart.control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AvailabilityManagerOptimumStart.control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -776,13 +925,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_zone_name`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_zone_name`')
+                                 'for field `AvailabilityManagerOptimumStart.control_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_zone_name`')
+                                 'for field `AvailabilityManagerOptimumStart.control_zone_name`')
         self._data["Control Zone Name"] = value
 
     @property
@@ -811,13 +960,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_list_name`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.zone_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_list_name`')
+                                 'for field `AvailabilityManagerOptimumStart.zone_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_list_name`')
+                                 'for field `AvailabilityManagerOptimumStart.zone_list_name`')
         self._data["Zone List Name"] = value
 
     @property
@@ -849,7 +998,7 @@ class AvailabilityManagerOptimumStart(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_value_for_optimum_start_time`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.maximum_value_for_optimum_start_time`'.format(value))
         self._data["Maximum Value for Optimum Start Time"] = value
 
     @property
@@ -884,13 +1033,13 @@ class AvailabilityManagerOptimumStart(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_algorithm`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.control_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_algorithm`')
+                                 'for field `AvailabilityManagerOptimumStart.control_algorithm`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_algorithm`')
+                                 'for field `AvailabilityManagerOptimumStart.control_algorithm`')
             vals = {}
             vals["constanttemperaturegradient"] = "ConstantTemperatureGradient"
             vals["adaptivetemperaturegradient"] = "AdaptiveTemperatureGradient"
@@ -915,10 +1064,10 @@ class AvailabilityManagerOptimumStart(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_algorithm`'.format(value))
+                                     'field `AvailabilityManagerOptimumStart.control_algorithm`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_algorithm`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AvailabilityManagerOptimumStart.control_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Algorithm"] = value
 
@@ -949,7 +1098,7 @@ class AvailabilityManagerOptimumStart(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_temperature_gradient_during_cooling`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.constant_temperature_gradient_during_cooling`'.format(value))
         self._data["Constant Temperature Gradient during Cooling"] = value
 
     @property
@@ -979,7 +1128,7 @@ class AvailabilityManagerOptimumStart(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_temperature_gradient_during_heating`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.constant_temperature_gradient_during_heating`'.format(value))
         self._data["Constant Temperature Gradient during Heating"] = value
 
     @property
@@ -1009,7 +1158,7 @@ class AvailabilityManagerOptimumStart(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_temperature_gradient_during_cooling`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.initial_temperature_gradient_during_cooling`'.format(value))
         self._data["Initial Temperature Gradient during Cooling"] = value
 
     @property
@@ -1039,7 +1188,7 @@ class AvailabilityManagerOptimumStart(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_temperature_gradient_during_heating`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.initial_temperature_gradient_during_heating`'.format(value))
         self._data["Initial Temperature Gradient during Heating"] = value
 
     @property
@@ -1070,7 +1219,7 @@ class AvailabilityManagerOptimumStart(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_start_time`'.format(value))
+                                 ' for field `AvailabilityManagerOptimumStart.constant_start_time`'.format(value))
         self._data["Constant Start Time"] = value
 
     @property
@@ -1107,28 +1256,51 @@ class AvailabilityManagerOptimumStart(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_previous_days`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `AvailabilityManagerOptimumStart.number_of_previous_days`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_previous_days`'.format(value))
+                                         'for field `AvailabilityManagerOptimumStart.number_of_previous_days`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
-                                 'for field `number_of_previous_days`')
+                                 'for field `AvailabilityManagerOptimumStart.number_of_previous_days`')
             if value > 5:
                 raise ValueError('value need to be smaller 5 '
-                                 'for field `number_of_previous_days`')
+                                 'for field `AvailabilityManagerOptimumStart.number_of_previous_days`')
         self._data["Number of Previous Days"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerOptimumStart:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerOptimumStart:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerOptimumStart: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerOptimumStart: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1146,8 +1318,27 @@ class AvailabilityManagerOptimumStart(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1163,6 +1354,10 @@ class AvailabilityManagerNightCycle(object):
     internal_name = "AvailabilityManager:NightCycle"
     field_count = 7
     required_fields = ["Name", "Applicability Schedule Name", "Fan Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 6
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:NightCycle`
@@ -1175,6 +1370,7 @@ class AvailabilityManagerNightCycle(object):
         self._data["Thermostat Tolerance"] = None
         self._data["Cycling Run Time"] = None
         self._data["Control Zone Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1263,13 +1459,13 @@ class AvailabilityManagerNightCycle(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerNightCycle.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerNightCycle.name`')
         self._data["Name"] = value
 
     @property
@@ -1298,13 +1494,13 @@ class AvailabilityManagerNightCycle(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `applicability_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerNightCycle.applicability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerNightCycle.applicability_schedule_name`')
         self._data["Applicability Schedule Name"] = value
 
     @property
@@ -1333,13 +1529,13 @@ class AvailabilityManagerNightCycle(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_schedule_name`')
+                                 'for field `AvailabilityManagerNightCycle.fan_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_schedule_name`')
+                                 'for field `AvailabilityManagerNightCycle.fan_schedule_name`')
         self._data["Fan Schedule Name"] = value
 
     @property
@@ -1377,13 +1573,13 @@ class AvailabilityManagerNightCycle(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_type`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_type`')
+                                 'for field `AvailabilityManagerNightCycle.control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_type`')
+                                 'for field `AvailabilityManagerNightCycle.control_type`')
             vals = {}
             vals["stayoff"] = "StayOff"
             vals["cycleonany"] = "CycleOnAny"
@@ -1408,10 +1604,10 @@ class AvailabilityManagerNightCycle(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `control_type`'.format(value))
+                                     'field `AvailabilityManagerNightCycle.control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AvailabilityManagerNightCycle.control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -1443,7 +1639,7 @@ class AvailabilityManagerNightCycle(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_tolerance`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.thermostat_tolerance`'.format(value))
         self._data["Thermostat Tolerance"] = value
 
     @property
@@ -1474,7 +1670,7 @@ class AvailabilityManagerNightCycle(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cycling_run_time`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.cycling_run_time`'.format(value))
         self._data["Cycling Run Time"] = value
 
     @property
@@ -1506,23 +1702,46 @@ class AvailabilityManagerNightCycle(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_zone_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightCycle.control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_zone_name`')
+                                 'for field `AvailabilityManagerNightCycle.control_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_zone_name`')
+                                 'for field `AvailabilityManagerNightCycle.control_zone_name`')
         self._data["Control Zone Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerNightCycle:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerNightCycle:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerNightCycle: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerNightCycle: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1540,8 +1759,27 @@ class AvailabilityManagerNightCycle(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1556,6 +1794,10 @@ class AvailabilityManagerDifferentialThermostat(object):
     internal_name = "AvailabilityManager:DifferentialThermostat"
     field_count = 5
     required_fields = ["Name", "Hot Node Name", "Cold Node Name", "Temperature Difference On Limit"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:DifferentialThermostat`
@@ -1566,6 +1808,7 @@ class AvailabilityManagerDifferentialThermostat(object):
         self._data["Cold Node Name"] = None
         self._data["Temperature Difference On Limit"] = None
         self._data["Temperature Difference Off Limit"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1640,13 +1883,13 @@ class AvailabilityManagerDifferentialThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerDifferentialThermostat.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerDifferentialThermostat.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerDifferentialThermostat.name`')
         self._data["Name"] = value
 
     @property
@@ -1675,13 +1918,13 @@ class AvailabilityManagerDifferentialThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `hot_node_name`'.format(value))
+                                 ' for field `AvailabilityManagerDifferentialThermostat.hot_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `hot_node_name`')
+                                 'for field `AvailabilityManagerDifferentialThermostat.hot_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `hot_node_name`')
+                                 'for field `AvailabilityManagerDifferentialThermostat.hot_node_name`')
         self._data["Hot Node Name"] = value
 
     @property
@@ -1710,13 +1953,13 @@ class AvailabilityManagerDifferentialThermostat(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cold_node_name`'.format(value))
+                                 ' for field `AvailabilityManagerDifferentialThermostat.cold_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cold_node_name`')
+                                 'for field `AvailabilityManagerDifferentialThermostat.cold_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cold_node_name`')
+                                 'for field `AvailabilityManagerDifferentialThermostat.cold_node_name`')
         self._data["Cold Node Name"] = value
 
     @property
@@ -1746,7 +1989,7 @@ class AvailabilityManagerDifferentialThermostat(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_difference_on_limit`'.format(value))
+                                 ' for field `AvailabilityManagerDifferentialThermostat.temperature_difference_on_limit`'.format(value))
         self._data["Temperature Difference On Limit"] = value
 
     @property
@@ -1777,17 +2020,40 @@ class AvailabilityManagerDifferentialThermostat(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_difference_off_limit`'.format(value))
+                                 ' for field `AvailabilityManagerDifferentialThermostat.temperature_difference_off_limit`'.format(value))
         self._data["Temperature Difference Off Limit"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerDifferentialThermostat:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerDifferentialThermostat:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerDifferentialThermostat: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerDifferentialThermostat: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1805,8 +2071,27 @@ class AvailabilityManagerDifferentialThermostat(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1821,6 +2106,10 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
     internal_name = "AvailabilityManager:HighTemperatureTurnOff"
     field_count = 3
     required_fields = ["Name", "Sensor Node Name", "Temperature"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:HighTemperatureTurnOff`
@@ -1829,6 +2118,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1889,13 +2179,13 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerHighTemperatureTurnOff.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOff.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOff.name`')
         self._data["Name"] = value
 
     @property
@@ -1924,13 +2214,13 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `AvailabilityManagerHighTemperatureTurnOff.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOff.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOff.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -1960,17 +2250,40 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature`'.format(value))
+                                 ' for field `AvailabilityManagerHighTemperatureTurnOff.temperature`'.format(value))
         self._data["Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerHighTemperatureTurnOff:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerHighTemperatureTurnOff:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerHighTemperatureTurnOff: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerHighTemperatureTurnOff: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1988,8 +2301,27 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2004,6 +2336,10 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
     internal_name = "AvailabilityManager:HighTemperatureTurnOn"
     field_count = 3
     required_fields = ["Name", "Sensor Node Name", "Temperature"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:HighTemperatureTurnOn`
@@ -2012,6 +2348,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2072,13 +2409,13 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerHighTemperatureTurnOn.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOn.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOn.name`')
         self._data["Name"] = value
 
     @property
@@ -2107,13 +2444,13 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `AvailabilityManagerHighTemperatureTurnOn.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOn.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerHighTemperatureTurnOn.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2143,17 +2480,40 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature`'.format(value))
+                                 ' for field `AvailabilityManagerHighTemperatureTurnOn.temperature`'.format(value))
         self._data["Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerHighTemperatureTurnOn:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerHighTemperatureTurnOn:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerHighTemperatureTurnOn: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerHighTemperatureTurnOn: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2171,8 +2531,27 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2187,6 +2566,10 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
     internal_name = "AvailabilityManager:LowTemperatureTurnOff"
     field_count = 4
     required_fields = ["Name", "Sensor Node Name", "Temperature"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:LowTemperatureTurnOff`
@@ -2196,6 +2579,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
         self._data["Applicability Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2263,13 +2647,13 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOff.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOff.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOff.name`')
         self._data["Name"] = value
 
     @property
@@ -2298,13 +2682,13 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOff.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOff.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOff.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2334,7 +2718,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOff.temperature`'.format(value))
         self._data["Temperature"] = value
 
     @property
@@ -2364,23 +2748,46 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `applicability_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOff.applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOff.applicability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOff.applicability_schedule_name`')
         self._data["Applicability Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerLowTemperatureTurnOff:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerLowTemperatureTurnOff:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerLowTemperatureTurnOff: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerLowTemperatureTurnOff: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2398,8 +2805,27 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2414,6 +2840,10 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
     internal_name = "AvailabilityManager:LowTemperatureTurnOn"
     field_count = 3
     required_fields = ["Name", "Sensor Node Name", "Temperature"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:LowTemperatureTurnOn`
@@ -2422,6 +2852,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2482,13 +2913,13 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOn.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOn.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOn.name`')
         self._data["Name"] = value
 
     @property
@@ -2517,13 +2948,13 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sensor_node_name`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOn.sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOn.sensor_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sensor_node_name`')
+                                 'for field `AvailabilityManagerLowTemperatureTurnOn.sensor_node_name`')
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2553,17 +2984,40 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature`'.format(value))
+                                 ' for field `AvailabilityManagerLowTemperatureTurnOn.temperature`'.format(value))
         self._data["Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerLowTemperatureTurnOn:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerLowTemperatureTurnOn:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerLowTemperatureTurnOn: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerLowTemperatureTurnOn: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2581,8 +3035,27 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2598,6 +3071,10 @@ class AvailabilityManagerNightVentilation(object):
     internal_name = "AvailabilityManager:NightVentilation"
     field_count = 8
     required_fields = ["Name", "Applicability Schedule Name", "Fan Schedule Name", "Control Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 7
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:NightVentilation`
@@ -2611,6 +3088,7 @@ class AvailabilityManagerNightVentilation(object):
         self._data["Ventilation Temperature Low Limit"] = None
         self._data["Night Venting Flow Fraction"] = None
         self._data["Control Zone Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2706,13 +3184,13 @@ class AvailabilityManagerNightVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerNightVentilation.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerNightVentilation.name`')
         self._data["Name"] = value
 
     @property
@@ -2741,13 +3219,13 @@ class AvailabilityManagerNightVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `applicability_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerNightVentilation.applicability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `applicability_schedule_name`')
+                                 'for field `AvailabilityManagerNightVentilation.applicability_schedule_name`')
         self._data["Applicability Schedule Name"] = value
 
     @property
@@ -2776,13 +3254,13 @@ class AvailabilityManagerNightVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_schedule_name`')
+                                 'for field `AvailabilityManagerNightVentilation.fan_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_schedule_name`')
+                                 'for field `AvailabilityManagerNightVentilation.fan_schedule_name`')
         self._data["Fan Schedule Name"] = value
 
     @property
@@ -2813,13 +3291,13 @@ class AvailabilityManagerNightVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_temperature_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.ventilation_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_temperature_schedule_name`')
+                                 'for field `AvailabilityManagerNightVentilation.ventilation_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_temperature_schedule_name`')
+                                 'for field `AvailabilityManagerNightVentilation.ventilation_temperature_schedule_name`')
         self._data["Ventilation Temperature Schedule Name"] = value
 
     @property
@@ -2852,7 +3330,7 @@ class AvailabilityManagerNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ventilation_temperature_difference`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.ventilation_temperature_difference`'.format(value))
         self._data["Ventilation Temperature Difference"] = value
 
     @property
@@ -2885,7 +3363,7 @@ class AvailabilityManagerNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ventilation_temperature_low_limit`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.ventilation_temperature_low_limit`'.format(value))
         self._data["Ventilation Temperature Low Limit"] = value
 
     @property
@@ -2918,10 +3396,10 @@ class AvailabilityManagerNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `night_venting_flow_fraction`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.night_venting_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `night_venting_flow_fraction`')
+                                 'for field `AvailabilityManagerNightVentilation.night_venting_flow_fraction`')
         self._data["Night Venting Flow Fraction"] = value
 
     @property
@@ -2953,23 +3431,46 @@ class AvailabilityManagerNightVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `control_zone_name`'.format(value))
+                                 ' for field `AvailabilityManagerNightVentilation.control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `control_zone_name`')
+                                 'for field `AvailabilityManagerNightVentilation.control_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `control_zone_name`')
+                                 'for field `AvailabilityManagerNightVentilation.control_zone_name`')
         self._data["Control Zone Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerNightVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerNightVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerNightVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerNightVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2987,8 +3488,27 @@ class AvailabilityManagerNightVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3014,6 +3534,10 @@ class AvailabilityManagerHybridVentilation(object):
     internal_name = "AvailabilityManager:HybridVentilation"
     field_count = 17
     required_fields = ["Name", "Controlled Zone Name", "Ventilation Control Mode Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 13
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:HybridVentilation`
@@ -3036,6 +3560,7 @@ class AvailabilityManagerHybridVentilation(object):
         self._data["AirflowNetwork Control Type Schedule Name"] = None
         self._data["Simple Airflow Control Type Schedule Name"] = None
         self._data["ZoneVentilation Object Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3194,13 +3719,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerHybridVentilation.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerHybridVentilation.name`')
         self._data["Name"] = value
 
     @property
@@ -3232,13 +3757,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `hvac_air_loop_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `hvac_air_loop_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.hvac_air_loop_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `hvac_air_loop_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.hvac_air_loop_name`')
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -3269,13 +3794,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controlled_zone_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.controlled_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controlled_zone_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.controlled_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controlled_zone_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.controlled_zone_name`')
         self._data["Controlled Zone Name"] = value
 
     @property
@@ -3310,13 +3835,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ventilation_control_mode_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.ventilation_control_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ventilation_control_mode_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.ventilation_control_mode_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ventilation_control_mode_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.ventilation_control_mode_schedule_name`')
         self._data["Ventilation Control Mode Schedule Name"] = value
 
     @property
@@ -3351,13 +3876,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `use_weather_file_rain_indicators`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `use_weather_file_rain_indicators`')
+                                 'for field `AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `use_weather_file_rain_indicators`')
+                                 'for field `AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -3380,10 +3905,10 @@ class AvailabilityManagerHybridVentilation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `use_weather_file_rain_indicators`'.format(value))
+                                     'field `AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `use_weather_file_rain_indicators`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AvailabilityManagerHybridVentilation.use_weather_file_rain_indicators`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Use Weather File Rain Indicators"] = value
 
@@ -3418,13 +3943,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_wind_speed`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.maximum_wind_speed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_wind_speed`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_wind_speed`')
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
-                                 'for field `maximum_wind_speed`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_wind_speed`')
         self._data["Maximum Wind Speed"] = value
 
     @property
@@ -3458,13 +3983,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_outdoor_temperature`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.minimum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_outdoor_temperature`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_outdoor_temperature`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_temperature`')
         self._data["Minimum Outdoor Temperature"] = value
 
     @property
@@ -3498,13 +4023,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_outdoor_temperature`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.maximum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_outdoor_temperature`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_outdoor_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_outdoor_temperature`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_outdoor_temperature`')
         self._data["Maximum Outdoor Temperature"] = value
 
     @property
@@ -3537,13 +4062,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_outdoor_enthalpy`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.minimum_outdoor_enthalpy`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `minimum_outdoor_enthalpy`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_enthalpy`')
             if value >= 300000.0:
                 raise ValueError('value need to be smaller 300000.0 '
-                                 'for field `minimum_outdoor_enthalpy`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_enthalpy`')
         self._data["Minimum Outdoor Enthalpy"] = value
 
     @property
@@ -3576,13 +4101,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_outdoor_enthalpy`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.maximum_outdoor_enthalpy`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_outdoor_enthalpy`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_outdoor_enthalpy`')
             if value >= 300000.0:
                 raise ValueError('value need to be smaller 300000.0 '
-                                 'for field `maximum_outdoor_enthalpy`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_outdoor_enthalpy`')
         self._data["Maximum Outdoor Enthalpy"] = value
 
     @property
@@ -3617,13 +4142,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_outdoor_dewpoint`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.minimum_outdoor_dewpoint`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `minimum_outdoor_dewpoint`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_dewpoint`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `minimum_outdoor_dewpoint`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_dewpoint`')
         self._data["Minimum Outdoor Dewpoint"] = value
 
     @property
@@ -3658,13 +4183,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_outdoor_dewpoint`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.maximum_outdoor_dewpoint`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `maximum_outdoor_dewpoint`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_outdoor_dewpoint`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `maximum_outdoor_dewpoint`')
+                                 'for field `AvailabilityManagerHybridVentilation.maximum_outdoor_dewpoint`')
         self._data["Maximum Outdoor Dewpoint"] = value
 
     @property
@@ -3694,13 +4219,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_outdoor_ventilation_air_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.minimum_outdoor_ventilation_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_outdoor_ventilation_air_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_ventilation_air_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_outdoor_ventilation_air_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.minimum_outdoor_ventilation_air_schedule_name`')
         self._data["Minimum Outdoor Ventilation Air Schedule Name"] = value
 
     @property
@@ -3733,13 +4258,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `opening_factor_function_of_wind_speed_curve_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.opening_factor_function_of_wind_speed_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `opening_factor_function_of_wind_speed_curve_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.opening_factor_function_of_wind_speed_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `opening_factor_function_of_wind_speed_curve_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.opening_factor_function_of_wind_speed_curve_name`')
         self._data["Opening Factor Function of Wind Speed Curve Name"] = value
 
     @property
@@ -3770,13 +4295,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `airflownetwork_control_type_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.airflownetwork_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `airflownetwork_control_type_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.airflownetwork_control_type_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `airflownetwork_control_type_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.airflownetwork_control_type_schedule_name`')
         self._data["AirflowNetwork Control Type Schedule Name"] = value
 
     @property
@@ -3808,13 +4333,13 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `simple_airflow_control_type_schedule_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.simple_airflow_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `simple_airflow_control_type_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.simple_airflow_control_type_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `simple_airflow_control_type_schedule_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.simple_airflow_control_type_schedule_name`')
         self._data["Simple Airflow Control Type Schedule Name"] = value
 
     @property
@@ -3850,23 +4375,46 @@ class AvailabilityManagerHybridVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zoneventilation_object_name`'.format(value))
+                                 ' for field `AvailabilityManagerHybridVentilation.zoneventilation_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zoneventilation_object_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.zoneventilation_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zoneventilation_object_name`')
+                                 'for field `AvailabilityManagerHybridVentilation.zoneventilation_object_name`')
         self._data["ZoneVentilation Object Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerHybridVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerHybridVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerHybridVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerHybridVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3884,8 +4432,27 @@ class AvailabilityManagerHybridVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3901,26 +4468,19 @@ class AvailabilityManagerAssignmentList(object):
         NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).
     """
     internal_name = "AvailabilityManagerAssignmentList"
-    field_count = 13
-    required_fields = ["Name", "Availability Manager 1 Object Type", "Availability Manager 1 Name"]
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 2
+    format = None
+    min_fields = 3
+    extensible_keys = ["Availability Manager 1 Object Type", "Availability Manager 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManagerAssignmentList`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self._data["Availability Manager 1 Object Type"] = None
-        self._data["Availability Manager 1 Name"] = None
-        self._data["Availability Manager 2 Object Type"] = None
-        self._data["Availability Manager 2 Name"] = None
-        self._data["Availability Manager 3 Object Type"] = None
-        self._data["Availability Manager 3 Name"] = None
-        self._data["Availability Manager 4 Object Type"] = None
-        self._data["Availability Manager 4 Name"] = None
-        self._data["Availability Manager 5 Object Type"] = None
-        self._data["Availability Manager 5 Name"] = None
-        self._data["Availability Manager 6 Object Type"] = None
-        self._data["Availability Manager 6 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3939,90 +4499,14 @@ class AvailabilityManagerAssignmentList(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.availability_manager_1_object_type = None
-        else:
-            self.availability_manager_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_1_name = None
-        else:
-            self.availability_manager_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_2_object_type = None
-        else:
-            self.availability_manager_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_2_name = None
-        else:
-            self.availability_manager_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_3_object_type = None
-        else:
-            self.availability_manager_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_3_name = None
-        else:
-            self.availability_manager_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_4_object_type = None
-        else:
-            self.availability_manager_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_4_name = None
-        else:
-            self.availability_manager_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_5_object_type = None
-        else:
-            self.availability_manager_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_5_name = None
-        else:
-            self.availability_manager_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_6_object_type = None
-        else:
-            self.availability_manager_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_6_name = None
-        else:
-            self.availability_manager_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -4051,30 +4535,24 @@ class AvailabilityManagerAssignmentList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `AvailabilityManagerAssignmentList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerAssignmentList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `AvailabilityManagerAssignmentList.name`')
         self._data["Name"] = value
 
-    @property
-    def availability_manager_1_object_type(self):
-        """Get availability_manager_1_object_type
-
-        Returns:
-            str: the value of `availability_manager_1_object_type` or None if not set
-        """
-        return self._data["Availability Manager 1 Object Type"]
-
-    @availability_manager_1_object_type.setter
-    def availability_manager_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 1 Object Type`
+    def add_extensible(self,
+                       availability_manager_1_object_type=None,
+                       availability_manager_1_name=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Availability Manager 1 Object Type`
+
+            availability_manager_1_object_type (str): value for IDD Field `Availability Manager 1 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4089,21 +4567,36 @@ class AvailabilityManagerAssignmentList(object):
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+            availability_manager_1_name (str): value for IDD Field `Availability Manager 1 Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_availability_manager_1_object_type(availability_manager_1_object_type))
+        vals.append(self._check_availability_manager_1_name(availability_manager_1_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_availability_manager_1_object_type(self, value):
+        """ Validates falue of field `Availability Manager 1 Object Type`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_1_object_type`'.format(value))
+                                 ' for field `AvailabilityManagerAssignmentList.availability_manager_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_1_object_type`')
+                                 'for field `AvailabilityManagerAssignmentList.availability_manager_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_1_object_type`')
+                                 'for field `AvailabilityManagerAssignmentList.availability_manager_1_object_type`')
             vals = {}
             vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
             vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
@@ -4134,636 +4627,61 @@ class AvailabilityManagerAssignmentList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `availability_manager_1_object_type`'.format(value))
+                                     'field `AvailabilityManagerAssignmentList.availability_manager_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `availability_manager_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `AvailabilityManagerAssignmentList.availability_manager_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
-        self._data["Availability Manager 1 Object Type"] = value
+        return value
 
-    @property
-    def availability_manager_1_name(self):
-        """Get availability_manager_1_name
-
-        Returns:
-            str: the value of `availability_manager_1_name` or None if not set
-        """
-        return self._data["Availability Manager 1 Name"]
-
-    @availability_manager_1_name.setter
-    def availability_manager_1_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 1 Name`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_availability_manager_1_name(self, value):
+        """ Validates falue of field `Availability Manager 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_1_name`'.format(value))
+                                 ' for field `AvailabilityManagerAssignmentList.availability_manager_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_1_name`')
+                                 'for field `AvailabilityManagerAssignmentList.availability_manager_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_1_name`')
-        self._data["Availability Manager 1 Name"] = value
+                                 'for field `AvailabilityManagerAssignmentList.availability_manager_1_name`')
+        return value
 
-    @property
-    def availability_manager_2_object_type(self):
-        """Get availability_manager_2_object_type
-
-        Returns:
-            str: the value of `availability_manager_2_object_type` or None if not set
-        """
-        return self._data["Availability Manager 2 Object Type"]
-
-    @availability_manager_2_object_type.setter
-    def availability_manager_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 2 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 2 Object Type`
-                Accepted values are:
-                      - AvailabilityManager:Scheduled
-                      - AvailabilityManager:ScheduledOn
-                      - AvailabilityManager:ScheduledOff
-                      - AvailabilityManager:NightCycle
-                      - AvailabilityManager:DifferentialThermostat
-                      - AvailabilityManager:HighTemperatureTurnOff
-                      - AvailabilityManager:HighTemperatureTurnOn
-                      - AvailabilityManager:LowTemperatureTurnOff
-                      - AvailabilityManager:LowTemperatureTurnOn
-                      - AvailabilityManager:NightVentilation
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_2_object_type`')
-            vals = {}
-            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
-            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
-            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
-            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
-            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
-            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
-            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
-            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
-            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
-            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `availability_manager_2_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `availability_manager_2_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Availability Manager 2 Object Type"] = value
-
-    @property
-    def availability_manager_2_name(self):
-        """Get availability_manager_2_name
-
-        Returns:
-            str: the value of `availability_manager_2_name` or None if not set
-        """
-        return self._data["Availability Manager 2 Name"]
-
-    @availability_manager_2_name.setter
-    def availability_manager_2_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 2 Name`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_2_name`')
-        self._data["Availability Manager 2 Name"] = value
-
-    @property
-    def availability_manager_3_object_type(self):
-        """Get availability_manager_3_object_type
-
-        Returns:
-            str: the value of `availability_manager_3_object_type` or None if not set
-        """
-        return self._data["Availability Manager 3 Object Type"]
-
-    @availability_manager_3_object_type.setter
-    def availability_manager_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 3 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 3 Object Type`
-                Accepted values are:
-                      - AvailabilityManager:Scheduled
-                      - AvailabilityManager:ScheduledOn
-                      - AvailabilityManager:ScheduledOff
-                      - AvailabilityManager:NightCycle
-                      - AvailabilityManager:DifferentialThermostat
-                      - AvailabilityManager:HighTemperatureTurnOff
-                      - AvailabilityManager:HighTemperatureTurnOn
-                      - AvailabilityManager:LowTemperatureTurnOff
-                      - AvailabilityManager:LowTemperatureTurnOn
-                      - AvailabilityManager:NightVentilation
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_3_object_type`')
-            vals = {}
-            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
-            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
-            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
-            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
-            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
-            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
-            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
-            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
-            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
-            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `availability_manager_3_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `availability_manager_3_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Availability Manager 3 Object Type"] = value
-
-    @property
-    def availability_manager_3_name(self):
-        """Get availability_manager_3_name
-
-        Returns:
-            str: the value of `availability_manager_3_name` or None if not set
-        """
-        return self._data["Availability Manager 3 Name"]
-
-    @availability_manager_3_name.setter
-    def availability_manager_3_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 3 Name`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_3_name`')
-        self._data["Availability Manager 3 Name"] = value
-
-    @property
-    def availability_manager_4_object_type(self):
-        """Get availability_manager_4_object_type
-
-        Returns:
-            str: the value of `availability_manager_4_object_type` or None if not set
-        """
-        return self._data["Availability Manager 4 Object Type"]
-
-    @availability_manager_4_object_type.setter
-    def availability_manager_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 4 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 4 Object Type`
-                Accepted values are:
-                      - AvailabilityManager:Scheduled
-                      - AvailabilityManager:ScheduledOn
-                      - AvailabilityManager:ScheduledOff
-                      - AvailabilityManager:NightCycle
-                      - AvailabilityManager:DifferentialThermostat
-                      - AvailabilityManager:HighTemperatureTurnOff
-                      - AvailabilityManager:HighTemperatureTurnOn
-                      - AvailabilityManager:LowTemperatureTurnOff
-                      - AvailabilityManager:LowTemperatureTurnOn
-                      - AvailabilityManager:NightVentilation
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_4_object_type`')
-            vals = {}
-            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
-            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
-            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
-            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
-            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
-            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
-            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
-            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
-            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
-            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `availability_manager_4_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `availability_manager_4_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Availability Manager 4 Object Type"] = value
-
-    @property
-    def availability_manager_4_name(self):
-        """Get availability_manager_4_name
-
-        Returns:
-            str: the value of `availability_manager_4_name` or None if not set
-        """
-        return self._data["Availability Manager 4 Name"]
-
-    @availability_manager_4_name.setter
-    def availability_manager_4_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 4 Name`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_4_name`')
-        self._data["Availability Manager 4 Name"] = value
-
-    @property
-    def availability_manager_5_object_type(self):
-        """Get availability_manager_5_object_type
-
-        Returns:
-            str: the value of `availability_manager_5_object_type` or None if not set
-        """
-        return self._data["Availability Manager 5 Object Type"]
-
-    @availability_manager_5_object_type.setter
-    def availability_manager_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 5 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 5 Object Type`
-                Accepted values are:
-                      - AvailabilityManager:Scheduled
-                      - AvailabilityManager:ScheduledOn
-                      - AvailabilityManager:ScheduledOff
-                      - AvailabilityManager:NightCycle
-                      - AvailabilityManager:DifferentialThermostat
-                      - AvailabilityManager:HighTemperatureTurnOff
-                      - AvailabilityManager:HighTemperatureTurnOn
-                      - AvailabilityManager:LowTemperatureTurnOff
-                      - AvailabilityManager:LowTemperatureTurnOn
-                      - AvailabilityManager:NightVentilation
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_5_object_type`')
-            vals = {}
-            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
-            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
-            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
-            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
-            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
-            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
-            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
-            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
-            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
-            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `availability_manager_5_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `availability_manager_5_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Availability Manager 5 Object Type"] = value
-
-    @property
-    def availability_manager_5_name(self):
-        """Get availability_manager_5_name
-
-        Returns:
-            str: the value of `availability_manager_5_name` or None if not set
-        """
-        return self._data["Availability Manager 5 Name"]
-
-    @availability_manager_5_name.setter
-    def availability_manager_5_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 5 Name`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_5_name`')
-        self._data["Availability Manager 5 Name"] = value
-
-    @property
-    def availability_manager_6_object_type(self):
-        """Get availability_manager_6_object_type
-
-        Returns:
-            str: the value of `availability_manager_6_object_type` or None if not set
-        """
-        return self._data["Availability Manager 6 Object Type"]
-
-    @availability_manager_6_object_type.setter
-    def availability_manager_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 6 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 6 Object Type`
-                Accepted values are:
-                      - AvailabilityManager:Scheduled
-                      - AvailabilityManager:ScheduledOn
-                      - AvailabilityManager:ScheduledOff
-                      - AvailabilityManager:NightCycle
-                      - AvailabilityManager:DifferentialThermostat
-                      - AvailabilityManager:HighTemperatureTurnOff
-                      - AvailabilityManager:HighTemperatureTurnOn
-                      - AvailabilityManager:LowTemperatureTurnOff
-                      - AvailabilityManager:LowTemperatureTurnOn
-                      - AvailabilityManager:NightVentilation
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_6_object_type`')
-            vals = {}
-            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
-            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
-            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
-            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
-            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
-            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
-            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
-            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
-            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
-            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `availability_manager_6_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `availability_manager_6_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Availability Manager 6 Object Type"] = value
-
-    @property
-    def availability_manager_6_name(self):
-        """Get availability_manager_6_name
-
-        Returns:
-            str: the value of `availability_manager_6_name` or None if not set
-        """
-        return self._data["Availability Manager 6 Name"]
-
-    @availability_manager_6_name.setter
-    def availability_manager_6_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager 6 Name`
-
-        Args:
-            value (str): value for IDD Field `Availability Manager 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `availability_manager_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `availability_manager_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `availability_manager_6_name`')
-        self._data["Availability Manager 6 Name"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field AvailabilityManagerAssignmentList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field AvailabilityManagerAssignmentList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for AvailabilityManagerAssignmentList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for AvailabilityManagerAssignmentList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4781,8 +4699,27 @@ class AvailabilityManagerAssignmentList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

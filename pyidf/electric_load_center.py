@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class GeneratorInternalCombustionEngine(object):
     """ Corresponds to IDD object `Generator:InternalCombustionEngine`
         This generator model is the empirical model from the Building Loads
@@ -12,6 +15,10 @@ class GeneratorInternalCombustionEngine(object):
     internal_name = "Generator:InternalCombustionEngine"
     field_count = 21
     required_fields = ["Name", "Fuel Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:InternalCombustionEngine`
@@ -38,6 +45,7 @@ class GeneratorInternalCombustionEngine(object):
         self._data["Heat Recovery Outlet Node Name"] = None
         self._data["Fuel Type"] = None
         self._data["Heat Recovery Maximum Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -224,13 +232,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorInternalCombustionEngine.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorInternalCombustionEngine.name`')
         self._data["Name"] = value
 
     @property
@@ -260,7 +268,7 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_power_output`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.rated_power_output`'.format(value))
         self._data["Rated Power Output"] = value
 
     @property
@@ -289,13 +297,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electric_circuit_node_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.electric_circuit_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electric_circuit_node_name`')
+                                 'for field `GeneratorInternalCombustionEngine.electric_circuit_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electric_circuit_node_name`')
+                                 'for field `GeneratorInternalCombustionEngine.electric_circuit_node_name`')
         self._data["Electric Circuit Node Name"] = value
 
     @property
@@ -326,13 +334,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_part_load_ratio`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.minimum_part_load_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_part_load_ratio`')
+                                 'for field `GeneratorInternalCombustionEngine.minimum_part_load_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_part_load_ratio`')
+                                 'for field `GeneratorInternalCombustionEngine.minimum_part_load_ratio`')
         self._data["Minimum Part Load Ratio"] = value
 
     @property
@@ -363,13 +371,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_part_load_ratio`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.maximum_part_load_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_part_load_ratio`')
+                                 'for field `GeneratorInternalCombustionEngine.maximum_part_load_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `maximum_part_load_ratio`')
+                                 'for field `GeneratorInternalCombustionEngine.maximum_part_load_ratio`')
         self._data["Maximum Part Load Ratio"] = value
 
     @property
@@ -398,7 +406,7 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `optimum_part_load_ratio`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.optimum_part_load_ratio`'.format(value))
         self._data["Optimum Part Load Ratio"] = value
 
     @property
@@ -430,13 +438,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `shaft_power_curve_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.shaft_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `shaft_power_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.shaft_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `shaft_power_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.shaft_power_curve_name`')
         self._data["Shaft Power Curve Name"] = value
 
     @property
@@ -468,13 +476,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `jacket_heat_recovery_curve_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.jacket_heat_recovery_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `jacket_heat_recovery_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.jacket_heat_recovery_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `jacket_heat_recovery_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.jacket_heat_recovery_curve_name`')
         self._data["Jacket Heat Recovery Curve Name"] = value
 
     @property
@@ -506,13 +514,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `lube_heat_recovery_curve_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.lube_heat_recovery_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `lube_heat_recovery_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.lube_heat_recovery_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `lube_heat_recovery_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.lube_heat_recovery_curve_name`')
         self._data["Lube Heat Recovery Curve Name"] = value
 
     @property
@@ -544,13 +552,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `total_exhaust_energy_curve_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.total_exhaust_energy_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `total_exhaust_energy_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.total_exhaust_energy_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `total_exhaust_energy_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.total_exhaust_energy_curve_name`')
         self._data["Total Exhaust Energy Curve Name"] = value
 
     @property
@@ -582,13 +590,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.exhaust_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_temperature_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.exhaust_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_temperature_curve_name`')
+                                 'for field `GeneratorInternalCombustionEngine.exhaust_temperature_curve_name`')
         self._data["Exhaust Temperature Curve Name"] = value
 
     @property
@@ -618,7 +626,7 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_1_of_ufactor_times_area_curve`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.coefficient_1_of_ufactor_times_area_curve`'.format(value))
         self._data["Coefficient 1 of U-Factor Times Area Curve"] = value
 
     @property
@@ -650,10 +658,10 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_2_of_ufactor_times_area_curve`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.coefficient_2_of_ufactor_times_area_curve`'.format(value))
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
-                                 'for field `coefficient_2_of_ufactor_times_area_curve`')
+                                 'for field `GeneratorInternalCombustionEngine.coefficient_2_of_ufactor_times_area_curve`')
         self._data["Coefficient 2 of U-Factor Times Area Curve"] = value
 
     @property
@@ -683,7 +691,7 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_exhaust_flow_per_unit_of_power_output`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.maximum_exhaust_flow_per_unit_of_power_output`'.format(value))
         self._data["Maximum Exhaust Flow per Unit of Power Output"] = value
 
     @property
@@ -713,7 +721,7 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_minimum_exhaust_temperature`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.design_minimum_exhaust_temperature`'.format(value))
         self._data["Design Minimum Exhaust Temperature"] = value
 
     @property
@@ -743,7 +751,7 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fuel_higher_heating_value`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.fuel_higher_heating_value`'.format(value))
         self._data["Fuel Higher Heating Value"] = value
 
     @property
@@ -777,10 +785,10 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_heat_recovery_water_flow_rate`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.design_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_heat_recovery_water_flow_rate`')
+                                 'for field `GeneratorInternalCombustionEngine.design_heat_recovery_water_flow_rate`')
         self._data["Design Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -809,13 +817,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.heat_recovery_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_inlet_node_name`')
+                                 'for field `GeneratorInternalCombustionEngine.heat_recovery_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_inlet_node_name`')
+                                 'for field `GeneratorInternalCombustionEngine.heat_recovery_inlet_node_name`')
         self._data["Heat Recovery Inlet Node Name"] = value
 
     @property
@@ -844,13 +852,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.heat_recovery_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_outlet_node_name`')
+                                 'for field `GeneratorInternalCombustionEngine.heat_recovery_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_outlet_node_name`')
+                                 'for field `GeneratorInternalCombustionEngine.heat_recovery_outlet_node_name`')
         self._data["Heat Recovery Outlet Node Name"] = value
 
     @property
@@ -889,13 +897,13 @@ class GeneratorInternalCombustionEngine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_type`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorInternalCombustionEngine.fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorInternalCombustionEngine.fuel_type`')
             vals = {}
             vals["naturalgas"] = "NaturalGas"
             vals["propanegas"] = "PropaneGas"
@@ -924,10 +932,10 @@ class GeneratorInternalCombustionEngine(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_type`'.format(value))
+                                     'field `GeneratorInternalCombustionEngine.fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorInternalCombustionEngine.fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -961,23 +969,46 @@ class GeneratorInternalCombustionEngine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heat_recovery_maximum_temperature`'.format(value))
+                                 ' for field `GeneratorInternalCombustionEngine.heat_recovery_maximum_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heat_recovery_maximum_temperature`')
+                                 'for field `GeneratorInternalCombustionEngine.heat_recovery_maximum_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `heat_recovery_maximum_temperature`')
+                                 'for field `GeneratorInternalCombustionEngine.heat_recovery_maximum_temperature`')
         self._data["Heat Recovery Maximum Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorInternalCombustionEngine:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorInternalCombustionEngine:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorInternalCombustionEngine: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorInternalCombustionEngine: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -995,8 +1026,27 @@ class GeneratorInternalCombustionEngine(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1014,6 +1064,10 @@ class GeneratorCombustionTurbine(object):
     internal_name = "Generator:CombustionTurbine"
     field_count = 24
     required_fields = ["Name", "Fuel Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:CombustionTurbine`
@@ -1043,6 +1097,7 @@ class GeneratorCombustionTurbine(object):
         self._data["Fuel Type"] = None
         self._data["Heat Recovery Maximum Temperature"] = None
         self._data["Outdoor Air Inlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1250,13 +1305,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorCombustionTurbine.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorCombustionTurbine.name`')
         self._data["Name"] = value
 
     @property
@@ -1286,7 +1341,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_power_output`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.rated_power_output`'.format(value))
         self._data["Rated Power Output"] = value
 
     @property
@@ -1315,13 +1370,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electric_circuit_node_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.electric_circuit_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electric_circuit_node_name`')
+                                 'for field `GeneratorCombustionTurbine.electric_circuit_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electric_circuit_node_name`')
+                                 'for field `GeneratorCombustionTurbine.electric_circuit_node_name`')
         self._data["Electric Circuit Node Name"] = value
 
     @property
@@ -1352,13 +1407,13 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_part_load_ratio`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.minimum_part_load_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_part_load_ratio`')
+                                 'for field `GeneratorCombustionTurbine.minimum_part_load_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_part_load_ratio`')
+                                 'for field `GeneratorCombustionTurbine.minimum_part_load_ratio`')
         self._data["Minimum Part Load Ratio"] = value
 
     @property
@@ -1389,13 +1444,13 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_part_load_ratio`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.maximum_part_load_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_part_load_ratio`')
+                                 'for field `GeneratorCombustionTurbine.maximum_part_load_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `maximum_part_load_ratio`')
+                                 'for field `GeneratorCombustionTurbine.maximum_part_load_ratio`')
         self._data["Maximum Part Load Ratio"] = value
 
     @property
@@ -1424,7 +1479,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `optimum_part_load_ratio`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.optimum_part_load_ratio`'.format(value))
         self._data["Optimum Part Load Ratio"] = value
 
     @property
@@ -1458,13 +1513,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `part_load_based_fuel_input_curve_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.part_load_based_fuel_input_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `part_load_based_fuel_input_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.part_load_based_fuel_input_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `part_load_based_fuel_input_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.part_load_based_fuel_input_curve_name`')
         self._data["Part Load Based Fuel Input Curve Name"] = value
 
     @property
@@ -1498,13 +1553,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `temperature_based_fuel_input_curve_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.temperature_based_fuel_input_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `temperature_based_fuel_input_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.temperature_based_fuel_input_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `temperature_based_fuel_input_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.temperature_based_fuel_input_curve_name`')
         self._data["Temperature Based Fuel Input Curve Name"] = value
 
     @property
@@ -1536,13 +1591,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_flow_curve_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.exhaust_flow_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_flow_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.exhaust_flow_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_flow_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.exhaust_flow_curve_name`')
         self._data["Exhaust Flow Curve Name"] = value
 
     @property
@@ -1576,13 +1631,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `part_load_based_exhaust_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.part_load_based_exhaust_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `part_load_based_exhaust_temperature_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.part_load_based_exhaust_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `part_load_based_exhaust_temperature_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.part_load_based_exhaust_temperature_curve_name`')
         self._data["Part Load Based Exhaust Temperature Curve Name"] = value
 
     @property
@@ -1616,13 +1671,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `temperature_based_exhaust_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.temperature_based_exhaust_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `temperature_based_exhaust_temperature_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.temperature_based_exhaust_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `temperature_based_exhaust_temperature_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.temperature_based_exhaust_temperature_curve_name`')
         self._data["Temperature Based Exhaust Temperature Curve Name"] = value
 
     @property
@@ -1654,13 +1709,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_lube_energy_curve_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.heat_recovery_lube_energy_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_lube_energy_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_lube_energy_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_lube_energy_curve_name`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_lube_energy_curve_name`')
         self._data["Heat Recovery Lube Energy Curve Name"] = value
 
     @property
@@ -1690,7 +1745,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_1_of_ufactor_times_area_curve`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.coefficient_1_of_ufactor_times_area_curve`'.format(value))
         self._data["Coefficient 1 of U-Factor Times Area Curve"] = value
 
     @property
@@ -1722,10 +1777,10 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_2_of_ufactor_times_area_curve`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.coefficient_2_of_ufactor_times_area_curve`'.format(value))
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
-                                 'for field `coefficient_2_of_ufactor_times_area_curve`')
+                                 'for field `GeneratorCombustionTurbine.coefficient_2_of_ufactor_times_area_curve`')
         self._data["Coefficient 2 of U-Factor Times Area Curve"] = value
 
     @property
@@ -1755,7 +1810,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_exhaust_flow_per_unit_of_power_output`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.maximum_exhaust_flow_per_unit_of_power_output`'.format(value))
         self._data["Maximum Exhaust Flow per Unit of Power Output"] = value
 
     @property
@@ -1785,7 +1840,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_minimum_exhaust_temperature`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.design_minimum_exhaust_temperature`'.format(value))
         self._data["Design Minimum Exhaust Temperature"] = value
 
     @property
@@ -1815,7 +1870,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_air_inlet_temperature`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.design_air_inlet_temperature`'.format(value))
         self._data["Design Air Inlet Temperature"] = value
 
     @property
@@ -1845,7 +1900,7 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fuel_higher_heating_value`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.fuel_higher_heating_value`'.format(value))
         self._data["Fuel Higher Heating Value"] = value
 
     @property
@@ -1879,10 +1934,10 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_heat_recovery_water_flow_rate`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.design_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_heat_recovery_water_flow_rate`')
+                                 'for field `GeneratorCombustionTurbine.design_heat_recovery_water_flow_rate`')
         self._data["Design Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -1911,13 +1966,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.heat_recovery_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_inlet_node_name`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_inlet_node_name`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_inlet_node_name`')
         self._data["Heat Recovery Inlet Node Name"] = value
 
     @property
@@ -1946,13 +2001,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.heat_recovery_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_outlet_node_name`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_outlet_node_name`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_outlet_node_name`')
         self._data["Heat Recovery Outlet Node Name"] = value
 
     @property
@@ -1991,13 +2046,13 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_type`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorCombustionTurbine.fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorCombustionTurbine.fuel_type`')
             vals = {}
             vals["naturalgas"] = "NaturalGas"
             vals["propanegas"] = "PropaneGas"
@@ -2026,10 +2081,10 @@ class GeneratorCombustionTurbine(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_type`'.format(value))
+                                     'field `GeneratorCombustionTurbine.fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorCombustionTurbine.fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -2063,13 +2118,13 @@ class GeneratorCombustionTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heat_recovery_maximum_temperature`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.heat_recovery_maximum_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heat_recovery_maximum_temperature`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_maximum_temperature`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `heat_recovery_maximum_temperature`')
+                                 'for field `GeneratorCombustionTurbine.heat_recovery_maximum_temperature`')
         self._data["Heat Recovery Maximum Temperature"] = value
 
     @property
@@ -2099,23 +2154,46 @@ class GeneratorCombustionTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outdoor_air_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorCombustionTurbine.outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outdoor_air_inlet_node_name`')
+                                 'for field `GeneratorCombustionTurbine.outdoor_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outdoor_air_inlet_node_name`')
+                                 'for field `GeneratorCombustionTurbine.outdoor_air_inlet_node_name`')
         self._data["Outdoor Air Inlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorCombustionTurbine:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorCombustionTurbine:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorCombustionTurbine: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorCombustionTurbine: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2133,8 +2211,27 @@ class GeneratorCombustionTurbine(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2151,6 +2248,10 @@ class GeneratorMicroTurbine(object):
     internal_name = "Generator:MicroTurbine"
     field_count = 39
     required_fields = ["Name", "Reference Electrical Power Output", "Reference Electrical Efficiency Using Lower Heating Value", "Electrical Power Function of Temperature and Elevation Curve Name", "Electrical Efficiency Function of Temperature Curve Name", "Electrical Efficiency Function of Part Load Ratio Curve Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 11
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:MicroTurbine`
@@ -2195,6 +2296,7 @@ class GeneratorMicroTurbine(object):
         self._data["Nominal Exhaust Air Outlet Temperature"] = None
         self._data["Exhaust Air Temperature Function of Temperature Curve Name"] = None
         self._data["Exhaust Air Temperature Function of Part Load Ratio Curve Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2507,13 +2609,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorMicroTurbine.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorMicroTurbine.name`')
         self._data["Name"] = value
 
     @property
@@ -2544,10 +2646,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_electrical_power_output`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_electrical_power_output`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_electrical_power_output`')
+                                 'for field `GeneratorMicroTurbine.reference_electrical_power_output`')
         self._data["Reference Electrical Power Output"] = value
 
     @property
@@ -2579,10 +2681,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_full_load_electrical_power_output`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.minimum_full_load_electrical_power_output`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_full_load_electrical_power_output`')
+                                 'for field `GeneratorMicroTurbine.minimum_full_load_electrical_power_output`')
         self._data["Minimum Full Load Electrical Power Output"] = value
 
     @property
@@ -2615,10 +2717,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_full_load_electrical_power_output`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.maximum_full_load_electrical_power_output`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_full_load_electrical_power_output`')
+                                 'for field `GeneratorMicroTurbine.maximum_full_load_electrical_power_output`')
         self._data["Maximum Full Load Electrical Power Output"] = value
 
     @property
@@ -2651,13 +2753,13 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_electrical_efficiency_using_lower_heating_value`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_electrical_efficiency_using_lower_heating_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_electrical_efficiency_using_lower_heating_value`')
+                                 'for field `GeneratorMicroTurbine.reference_electrical_efficiency_using_lower_heating_value`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `reference_electrical_efficiency_using_lower_heating_value`')
+                                 'for field `GeneratorMicroTurbine.reference_electrical_efficiency_using_lower_heating_value`')
         self._data["Reference Electrical Efficiency Using Lower Heating Value"] = value
 
     @property
@@ -2688,7 +2790,7 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_combustion_air_inlet_temperature`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_combustion_air_inlet_temperature`'.format(value))
         self._data["Reference Combustion Air Inlet Temperature"] = value
 
     @property
@@ -2720,10 +2822,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_combustion_air_inlet_humidity_ratio`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_combustion_air_inlet_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_combustion_air_inlet_humidity_ratio`')
+                                 'for field `GeneratorMicroTurbine.reference_combustion_air_inlet_humidity_ratio`')
         self._data["Reference Combustion Air Inlet Humidity Ratio"] = value
 
     @property
@@ -2755,10 +2857,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_elevation`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_elevation`'.format(value))
             if value < -300.0:
                 raise ValueError('value need to be greater or equal -300.0 '
-                                 'for field `reference_elevation`')
+                                 'for field `GeneratorMicroTurbine.reference_elevation`')
         self._data["Reference Elevation"] = value
 
     @property
@@ -2791,13 +2893,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_power_function_of_temperature_and_elevation_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.electrical_power_function_of_temperature_and_elevation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_power_function_of_temperature_and_elevation_curve_name`')
+                                 'for field `GeneratorMicroTurbine.electrical_power_function_of_temperature_and_elevation_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_power_function_of_temperature_and_elevation_curve_name`')
+                                 'for field `GeneratorMicroTurbine.electrical_power_function_of_temperature_and_elevation_curve_name`')
         self._data["Electrical Power Function of Temperature and Elevation Curve Name"] = value
 
     @property
@@ -2829,13 +2931,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_efficiency_function_of_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.electrical_efficiency_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_efficiency_function_of_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.electrical_efficiency_function_of_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_efficiency_function_of_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.electrical_efficiency_function_of_temperature_curve_name`')
         self._data["Electrical Efficiency Function of Temperature Curve Name"] = value
 
     @property
@@ -2868,13 +2970,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_efficiency_function_of_part_load_ratio_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.electrical_efficiency_function_of_part_load_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_efficiency_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.electrical_efficiency_function_of_part_load_ratio_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_efficiency_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.electrical_efficiency_function_of_part_load_ratio_curve_name`')
         self._data["Electrical Efficiency Function of Part Load Ratio Curve Name"] = value
 
     @property
@@ -2907,13 +3009,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_type`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorMicroTurbine.fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorMicroTurbine.fuel_type`')
             vals = {}
             vals["naturalgas"] = "NaturalGas"
             vals["propanegas"] = "PropaneGas"
@@ -2936,10 +3038,10 @@ class GeneratorMicroTurbine(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_type`'.format(value))
+                                     'field `GeneratorMicroTurbine.fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorMicroTurbine.fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -2972,10 +3074,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fuel_higher_heating_value`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.fuel_higher_heating_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fuel_higher_heating_value`')
+                                 'for field `GeneratorMicroTurbine.fuel_higher_heating_value`')
         self._data["Fuel Higher Heating Value"] = value
 
     @property
@@ -3007,10 +3109,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fuel_lower_heating_value`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.fuel_lower_heating_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fuel_lower_heating_value`')
+                                 'for field `GeneratorMicroTurbine.fuel_lower_heating_value`')
         self._data["Fuel Lower Heating Value"] = value
 
     @property
@@ -3044,10 +3146,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `standby_power`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.standby_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `standby_power`')
+                                 'for field `GeneratorMicroTurbine.standby_power`')
         self._data["Standby Power"] = value
 
     @property
@@ -3082,10 +3184,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ancillary_power`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.ancillary_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ancillary_power`')
+                                 'for field `GeneratorMicroTurbine.ancillary_power`')
         self._data["Ancillary Power"] = value
 
     @property
@@ -3119,13 +3221,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ancillary_power_function_of_fuel_input_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.ancillary_power_function_of_fuel_input_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ancillary_power_function_of_fuel_input_curve_name`')
+                                 'for field `GeneratorMicroTurbine.ancillary_power_function_of_fuel_input_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ancillary_power_function_of_fuel_input_curve_name`')
+                                 'for field `GeneratorMicroTurbine.ancillary_power_function_of_fuel_input_curve_name`')
         self._data["Ancillary Power Function of Fuel Input Curve Name"] = value
 
     @property
@@ -3154,13 +3256,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_inlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_inlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_inlet_node_name`')
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
     @property
@@ -3189,13 +3291,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_outlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_outlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_outlet_node_name`')
         self._data["Heat Recovery Water Outlet Node Name"] = value
 
     @property
@@ -3229,13 +3331,13 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_thermal_efficiency_using_lower_heat_value`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_thermal_efficiency_using_lower_heat_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `reference_thermal_efficiency_using_lower_heat_value`')
+                                 'for field `GeneratorMicroTurbine.reference_thermal_efficiency_using_lower_heat_value`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `reference_thermal_efficiency_using_lower_heat_value`')
+                                 'for field `GeneratorMicroTurbine.reference_thermal_efficiency_using_lower_heat_value`')
         self._data["Reference Thermal Efficiency Using Lower Heat Value"] = value
 
     @property
@@ -3265,7 +3367,7 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_inlet_water_temperature`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_inlet_water_temperature`'.format(value))
         self._data["Reference Inlet Water Temperature"] = value
 
     @property
@@ -3303,13 +3405,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_flow_operating_mode`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_water_flow_operating_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_flow_operating_mode`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_flow_operating_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_flow_operating_mode`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_flow_operating_mode`')
             vals = {}
             vals["plantcontrol"] = "PlantControl"
             vals["internalcontrol"] = "InternalControl"
@@ -3332,10 +3434,10 @@ class GeneratorMicroTurbine(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heat_recovery_water_flow_operating_mode`'.format(value))
+                                     'field `GeneratorMicroTurbine.heat_recovery_water_flow_operating_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heat_recovery_water_flow_operating_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorMicroTurbine.heat_recovery_water_flow_operating_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Recovery Water Flow Operating Mode"] = value
 
@@ -3367,10 +3469,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_heat_recovery_water_flow_rate`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_heat_recovery_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_heat_recovery_water_flow_rate`')
+                                 'for field `GeneratorMicroTurbine.reference_heat_recovery_water_flow_rate`')
         self._data["Reference Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -3405,13 +3507,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_water_flow_rate_function_of_temperature_and_power_curve_name`')
         self._data["Heat Recovery Water Flow Rate Function of Temperature and Power Curve Name"] = value
 
     @property
@@ -3446,13 +3548,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_efficiency_function_of_temperature_and_elevation_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.thermal_efficiency_function_of_temperature_and_elevation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_efficiency_function_of_temperature_and_elevation_curve_name`')
+                                 'for field `GeneratorMicroTurbine.thermal_efficiency_function_of_temperature_and_elevation_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_efficiency_function_of_temperature_and_elevation_curve_name`')
+                                 'for field `GeneratorMicroTurbine.thermal_efficiency_function_of_temperature_and_elevation_curve_name`')
         self._data["Thermal Efficiency Function of Temperature and Elevation Curve Name"] = value
 
     @property
@@ -3487,13 +3589,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_rate_function_of_part_load_ratio_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_part_load_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_rate_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_part_load_ratio_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_rate_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_part_load_ratio_curve_name`')
         self._data["Heat Recovery Rate Function of Part Load Ratio Curve Name"] = value
 
     @property
@@ -3526,13 +3628,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_rate_function_of_inlet_water_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_inlet_water_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_rate_function_of_inlet_water_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_inlet_water_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_rate_function_of_inlet_water_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_inlet_water_temperature_curve_name`')
         self._data["Heat Recovery Rate Function of Inlet Water Temperature Curve Name"] = value
 
     @property
@@ -3565,13 +3667,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_rate_function_of_water_flow_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_water_flow_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_rate_function_of_water_flow_rate_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_water_flow_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_rate_function_of_water_flow_rate_curve_name`')
+                                 'for field `GeneratorMicroTurbine.heat_recovery_rate_function_of_water_flow_rate_curve_name`')
         self._data["Heat Recovery Rate Function of Water Flow Rate Curve Name"] = value
 
     @property
@@ -3603,10 +3705,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_heat_recovery_water_flow_rate`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.minimum_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_heat_recovery_water_flow_rate`')
+                                 'for field `GeneratorMicroTurbine.minimum_heat_recovery_water_flow_rate`')
         self._data["Minimum Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -3638,10 +3740,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_heat_recovery_water_flow_rate`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.maximum_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_heat_recovery_water_flow_rate`')
+                                 'for field `GeneratorMicroTurbine.maximum_heat_recovery_water_flow_rate`')
         self._data["Maximum Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -3671,7 +3773,7 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_heat_recovery_water_temperature`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.maximum_heat_recovery_water_temperature`'.format(value))
         self._data["Maximum Heat Recovery Water Temperature"] = value
 
     @property
@@ -3701,13 +3803,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `combustion_air_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.combustion_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `combustion_air_inlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.combustion_air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `combustion_air_inlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.combustion_air_inlet_node_name`')
         self._data["Combustion Air Inlet Node Name"] = value
 
     @property
@@ -3736,13 +3838,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `combustion_air_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.combustion_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `combustion_air_outlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.combustion_air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `combustion_air_outlet_node_name`')
+                                 'for field `GeneratorMicroTurbine.combustion_air_outlet_node_name`')
         self._data["Combustion Air Outlet Node Name"] = value
 
     @property
@@ -3773,10 +3875,10 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_exhaust_air_mass_flow_rate`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.reference_exhaust_air_mass_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `reference_exhaust_air_mass_flow_rate`')
+                                 'for field `GeneratorMicroTurbine.reference_exhaust_air_mass_flow_rate`')
         self._data["Reference Exhaust Air Mass Flow Rate"] = value
 
     @property
@@ -3810,13 +3912,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_air_flow_rate_function_of_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.exhaust_air_flow_rate_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_air_flow_rate_function_of_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_flow_rate_function_of_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_air_flow_rate_function_of_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_flow_rate_function_of_temperature_curve_name`')
         self._data["Exhaust Air Flow Rate Function of Temperature Curve Name"] = value
 
     @property
@@ -3851,13 +3953,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_air_flow_rate_function_of_part_load_ratio_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.exhaust_air_flow_rate_function_of_part_load_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_air_flow_rate_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_flow_rate_function_of_part_load_ratio_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_air_flow_rate_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_flow_rate_function_of_part_load_ratio_curve_name`')
         self._data["Exhaust Air Flow Rate Function of Part Load Ratio Curve Name"] = value
 
     @property
@@ -3887,7 +3989,7 @@ class GeneratorMicroTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_exhaust_air_outlet_temperature`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.nominal_exhaust_air_outlet_temperature`'.format(value))
         self._data["Nominal Exhaust Air Outlet Temperature"] = value
 
     @property
@@ -3921,13 +4023,13 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_air_temperature_function_of_temperature_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.exhaust_air_temperature_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_air_temperature_function_of_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_temperature_function_of_temperature_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_air_temperature_function_of_temperature_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_temperature_function_of_temperature_curve_name`')
         self._data["Exhaust Air Temperature Function of Temperature Curve Name"] = value
 
     @property
@@ -3962,23 +4064,46 @@ class GeneratorMicroTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_air_temperature_function_of_part_load_ratio_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroTurbine.exhaust_air_temperature_function_of_part_load_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_air_temperature_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_temperature_function_of_part_load_ratio_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_air_temperature_function_of_part_load_ratio_curve_name`')
+                                 'for field `GeneratorMicroTurbine.exhaust_air_temperature_function_of_part_load_ratio_curve_name`')
         self._data["Exhaust Air Temperature Function of Part Load Ratio Curve Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorMicroTurbine:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorMicroTurbine:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorMicroTurbine: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorMicroTurbine: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3996,8 +4121,27 @@ class GeneratorMicroTurbine(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4017,6 +4161,10 @@ class GeneratorPhotovoltaic(object):
     internal_name = "Generator:Photovoltaic"
     field_count = 7
     required_fields = ["Name", "Surface Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:Photovoltaic`
@@ -4029,6 +4177,7 @@ class GeneratorPhotovoltaic(object):
         self._data["Heat Transfer Integration Mode"] = None
         self._data["Number of Series Strings in Parallel"] = None
         self._data["Number of Modules in Series"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4117,13 +4266,13 @@ class GeneratorPhotovoltaic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorPhotovoltaic.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorPhotovoltaic.name`')
         self._data["Name"] = value
 
     @property
@@ -4152,13 +4301,13 @@ class GeneratorPhotovoltaic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_name`')
+                                 'for field `GeneratorPhotovoltaic.surface_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_name`')
+                                 'for field `GeneratorPhotovoltaic.surface_name`')
         self._data["Surface Name"] = value
 
     @property
@@ -4191,13 +4340,13 @@ class GeneratorPhotovoltaic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `photovoltaic_performance_object_type`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.photovoltaic_performance_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `photovoltaic_performance_object_type`')
+                                 'for field `GeneratorPhotovoltaic.photovoltaic_performance_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `photovoltaic_performance_object_type`')
+                                 'for field `GeneratorPhotovoltaic.photovoltaic_performance_object_type`')
             vals = {}
             vals["photovoltaicperformance:simple"] = "PhotovoltaicPerformance:Simple"
             vals["photovoltaicperformance:equivalentone-diode"] = "PhotovoltaicPerformance:EquivalentOne-Diode"
@@ -4221,10 +4370,10 @@ class GeneratorPhotovoltaic(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `photovoltaic_performance_object_type`'.format(value))
+                                     'field `GeneratorPhotovoltaic.photovoltaic_performance_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `photovoltaic_performance_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorPhotovoltaic.photovoltaic_performance_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Photovoltaic Performance Object Type"] = value
 
@@ -4255,13 +4404,13 @@ class GeneratorPhotovoltaic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `module_performance_name`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.module_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `module_performance_name`')
+                                 'for field `GeneratorPhotovoltaic.module_performance_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `module_performance_name`')
+                                 'for field `GeneratorPhotovoltaic.module_performance_name`')
         self._data["Module Performance Name"] = value
 
     @property
@@ -4298,13 +4447,13 @@ class GeneratorPhotovoltaic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_transfer_integration_mode`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.heat_transfer_integration_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_transfer_integration_mode`')
+                                 'for field `GeneratorPhotovoltaic.heat_transfer_integration_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_transfer_integration_mode`')
+                                 'for field `GeneratorPhotovoltaic.heat_transfer_integration_mode`')
             vals = {}
             vals["decoupled"] = "Decoupled"
             vals["decoupledullebergdynamic"] = "DecoupledUllebergDynamic"
@@ -4331,10 +4480,10 @@ class GeneratorPhotovoltaic(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heat_transfer_integration_mode`'.format(value))
+                                     'field `GeneratorPhotovoltaic.heat_transfer_integration_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heat_transfer_integration_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorPhotovoltaic.heat_transfer_integration_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Transfer Integration Mode"] = value
 
@@ -4368,10 +4517,10 @@ class GeneratorPhotovoltaic(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_series_strings_in_parallel`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.number_of_series_strings_in_parallel`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `number_of_series_strings_in_parallel`')
+                                 'for field `GeneratorPhotovoltaic.number_of_series_strings_in_parallel`')
         self._data["Number of Series Strings in Parallel"] = value
 
     @property
@@ -4404,20 +4553,43 @@ class GeneratorPhotovoltaic(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_modules_in_series`'.format(value))
+                                 ' for field `GeneratorPhotovoltaic.number_of_modules_in_series`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `number_of_modules_in_series`')
+                                 'for field `GeneratorPhotovoltaic.number_of_modules_in_series`')
         self._data["Number of Modules in Series"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorPhotovoltaic:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorPhotovoltaic:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorPhotovoltaic: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorPhotovoltaic: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4435,8 +4607,27 @@ class GeneratorPhotovoltaic(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4454,6 +4645,10 @@ class PhotovoltaicPerformanceSimple(object):
     internal_name = "PhotovoltaicPerformance:Simple"
     field_count = 5
     required_fields = ["Fraction of Surface Area with Active Solar Cells"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PhotovoltaicPerformance:Simple`
@@ -4464,6 +4659,7 @@ class PhotovoltaicPerformanceSimple(object):
         self._data["Conversion Efficiency Input Mode"] = None
         self._data["Value for Cell Efficiency if Fixed"] = None
         self._data["Efficiency Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4538,13 +4734,13 @@ class PhotovoltaicPerformanceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSimple.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PhotovoltaicPerformanceSimple.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PhotovoltaicPerformanceSimple.name`')
         self._data["Name"] = value
 
     @property
@@ -4576,13 +4772,13 @@ class PhotovoltaicPerformanceSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_surface_area_with_active_solar_cells`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSimple.fraction_of_surface_area_with_active_solar_cells`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_surface_area_with_active_solar_cells`')
+                                 'for field `PhotovoltaicPerformanceSimple.fraction_of_surface_area_with_active_solar_cells`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_surface_area_with_active_solar_cells`')
+                                 'for field `PhotovoltaicPerformanceSimple.fraction_of_surface_area_with_active_solar_cells`')
         self._data["Fraction of Surface Area with Active Solar Cells"] = value
 
     @property
@@ -4614,13 +4810,13 @@ class PhotovoltaicPerformanceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `conversion_efficiency_input_mode`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSimple.conversion_efficiency_input_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `conversion_efficiency_input_mode`')
+                                 'for field `PhotovoltaicPerformanceSimple.conversion_efficiency_input_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `conversion_efficiency_input_mode`')
+                                 'for field `PhotovoltaicPerformanceSimple.conversion_efficiency_input_mode`')
             vals = {}
             vals["fixed"] = "Fixed"
             vals["scheduled"] = "Scheduled"
@@ -4643,10 +4839,10 @@ class PhotovoltaicPerformanceSimple(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `conversion_efficiency_input_mode`'.format(value))
+                                     'field `PhotovoltaicPerformanceSimple.conversion_efficiency_input_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `conversion_efficiency_input_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PhotovoltaicPerformanceSimple.conversion_efficiency_input_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Conversion Efficiency Input Mode"] = value
 
@@ -4679,13 +4875,13 @@ class PhotovoltaicPerformanceSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `value_for_cell_efficiency_if_fixed`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSimple.value_for_cell_efficiency_if_fixed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `value_for_cell_efficiency_if_fixed`')
+                                 'for field `PhotovoltaicPerformanceSimple.value_for_cell_efficiency_if_fixed`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `value_for_cell_efficiency_if_fixed`')
+                                 'for field `PhotovoltaicPerformanceSimple.value_for_cell_efficiency_if_fixed`')
         self._data["Value for Cell Efficiency if Fixed"] = value
 
     @property
@@ -4714,23 +4910,46 @@ class PhotovoltaicPerformanceSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `efficiency_schedule_name`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSimple.efficiency_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `efficiency_schedule_name`')
+                                 'for field `PhotovoltaicPerformanceSimple.efficiency_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `efficiency_schedule_name`')
+                                 'for field `PhotovoltaicPerformanceSimple.efficiency_schedule_name`')
         self._data["Efficiency Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PhotovoltaicPerformanceSimple:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PhotovoltaicPerformanceSimple:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PhotovoltaicPerformanceSimple: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PhotovoltaicPerformanceSimple: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4748,8 +4967,27 @@ class PhotovoltaicPerformanceSimple(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4766,6 +5004,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
     internal_name = "PhotovoltaicPerformance:EquivalentOne-Diode"
     field_count = 20
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PhotovoltaicPerformance:EquivalentOne-Diode`
@@ -4791,6 +5033,7 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
         self._data["Nominal Operating Cell Temperature Test Insolation"] = None
         self._data["Module Heat Loss Coefficient"] = None
         self._data["Total Heat Capacity"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4970,13 +5213,13 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.name`')
         self._data["Name"] = value
 
     @property
@@ -5008,13 +5251,13 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cell_type`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.cell_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cell_type`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.cell_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cell_type`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.cell_type`')
             vals = {}
             vals["crystallinesilicon"] = "CrystallineSilicon"
             vals["amorphoussilicon"] = "AmorphousSilicon"
@@ -5037,10 +5280,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cell_type`'.format(value))
+                                     'field `PhotovoltaicPerformanceEquivalentOneDiode.cell_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cell_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PhotovoltaicPerformanceEquivalentOneDiode.cell_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cell type"] = value
 
@@ -5075,15 +5318,15 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_cells_in_series`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PhotovoltaicPerformanceEquivalentOneDiode.number_of_cells_in_series`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_cells_in_series`'.format(value))
+                                         'for field `PhotovoltaicPerformanceEquivalentOneDiode.number_of_cells_in_series`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
-                                 'for field `number_of_cells_in_series`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.number_of_cells_in_series`')
         self._data["Number of Cells in Series"] = value
 
     @property
@@ -5118,10 +5361,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `active_area`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.active_area`'.format(value))
             if value < 0.1:
                 raise ValueError('value need to be greater or equal 0.1 '
-                                 'for field `active_area`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.active_area`')
         self._data["Active Area"] = value
 
     @property
@@ -5154,13 +5397,13 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `transmittance_absorptance_product`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.transmittance_absorptance_product`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `transmittance_absorptance_product`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.transmittance_absorptance_product`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `transmittance_absorptance_product`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.transmittance_absorptance_product`')
         self._data["Transmittance Absorptance Product"] = value
 
     @property
@@ -5192,10 +5435,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `semiconductor_bandgap`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.semiconductor_bandgap`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `semiconductor_bandgap`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.semiconductor_bandgap`')
         self._data["Semiconductor Bandgap"] = value
 
     @property
@@ -5227,10 +5470,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shunt_resistance`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.shunt_resistance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `shunt_resistance`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.shunt_resistance`')
         self._data["Shunt Resistance"] = value
 
     @property
@@ -5262,10 +5505,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `short_circuit_current`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.short_circuit_current`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `short_circuit_current`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.short_circuit_current`')
         self._data["Short Circuit Current"] = value
 
     @property
@@ -5297,10 +5540,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `open_circuit_voltage`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.open_circuit_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `open_circuit_voltage`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.open_circuit_voltage`')
         self._data["Open Circuit Voltage"] = value
 
     @property
@@ -5332,10 +5575,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_temperature`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.reference_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `reference_temperature`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.reference_temperature`')
         self._data["Reference Temperature"] = value
 
     @property
@@ -5367,10 +5610,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_insolation`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.reference_insolation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `reference_insolation`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.reference_insolation`')
         self._data["Reference Insolation"] = value
 
     @property
@@ -5406,10 +5649,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `module_current_at_maximum_power`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.module_current_at_maximum_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `module_current_at_maximum_power`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.module_current_at_maximum_power`')
         self._data["Module Current at Maximum Power"] = value
 
     @property
@@ -5445,10 +5688,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `module_voltage_at_maximum_power`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.module_voltage_at_maximum_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `module_voltage_at_maximum_power`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.module_voltage_at_maximum_power`')
         self._data["Module Voltage at Maximum Power"] = value
 
     @property
@@ -5479,7 +5722,7 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_coefficient_of_short_circuit_current`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.temperature_coefficient_of_short_circuit_current`'.format(value))
         self._data["Temperature Coefficient of Short Circuit Current"] = value
 
     @property
@@ -5510,7 +5753,7 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_coefficient_of_open_circuit_voltage`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.temperature_coefficient_of_open_circuit_voltage`'.format(value))
         self._data["Temperature Coefficient of Open Circuit Voltage"] = value
 
     @property
@@ -5542,10 +5785,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_operating_cell_temperature_test_ambient_temperature`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.nominal_operating_cell_temperature_test_ambient_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_operating_cell_temperature_test_ambient_temperature`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.nominal_operating_cell_temperature_test_ambient_temperature`')
         self._data["Nominal Operating Cell Temperature Test Ambient Temperature"] = value
 
     @property
@@ -5577,10 +5820,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_operating_cell_temperature_test_cell_temperature`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.nominal_operating_cell_temperature_test_cell_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_operating_cell_temperature_test_cell_temperature`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.nominal_operating_cell_temperature_test_cell_temperature`')
         self._data["Nominal Operating Cell Temperature Test Cell Temperature"] = value
 
     @property
@@ -5612,10 +5855,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_operating_cell_temperature_test_insolation`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.nominal_operating_cell_temperature_test_insolation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_operating_cell_temperature_test_insolation`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.nominal_operating_cell_temperature_test_insolation`')
         self._data["Nominal Operating Cell Temperature Test Insolation"] = value
 
     @property
@@ -5647,10 +5890,10 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `module_heat_loss_coefficient`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.module_heat_loss_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `module_heat_loss_coefficient`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.module_heat_loss_coefficient`')
         self._data["Module Heat Loss Coefficient"] = value
 
     @property
@@ -5682,20 +5925,43 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `total_heat_capacity`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceEquivalentOneDiode.total_heat_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `total_heat_capacity`')
+                                 'for field `PhotovoltaicPerformanceEquivalentOneDiode.total_heat_capacity`')
         self._data["Total Heat Capacity"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PhotovoltaicPerformanceEquivalentOneDiode:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PhotovoltaicPerformanceEquivalentOneDiode:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PhotovoltaicPerformanceEquivalentOneDiode: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PhotovoltaicPerformanceEquivalentOneDiode: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5713,8 +5979,27 @@ class PhotovoltaicPerformanceEquivalentOneDiode(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5730,6 +6015,10 @@ class PhotovoltaicPerformanceSandia(object):
     internal_name = "PhotovoltaicPerformance:Sandia"
     field_count = 40
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PhotovoltaicPerformance:Sandia`
@@ -5775,6 +6064,7 @@ class PhotovoltaicPerformanceSandia(object):
         self._data["Sandia Database Parameter Ixx0"] = None
         self._data["Sandia Database Parameter c6"] = None
         self._data["Sandia Database Parameter c7"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6094,13 +6384,13 @@ class PhotovoltaicPerformanceSandia(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PhotovoltaicPerformanceSandia.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PhotovoltaicPerformanceSandia.name`')
         self._data["Name"] = value
 
     @property
@@ -6133,10 +6423,10 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `active_area`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.active_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `active_area`')
+                                 'for field `PhotovoltaicPerformanceSandia.active_area`')
         self._data["Active Area"] = value
 
     @property
@@ -6170,15 +6460,15 @@ class PhotovoltaicPerformanceSandia(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_cells_in_series`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PhotovoltaicPerformanceSandia.number_of_cells_in_series`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_cells_in_series`'.format(value))
+                                         'for field `PhotovoltaicPerformanceSandia.number_of_cells_in_series`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_cells_in_series`')
+                                 'for field `PhotovoltaicPerformanceSandia.number_of_cells_in_series`')
         self._data["Number of Cells in Series"] = value
 
     @property
@@ -6212,15 +6502,15 @@ class PhotovoltaicPerformanceSandia(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_cells_in_parallel`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PhotovoltaicPerformanceSandia.number_of_cells_in_parallel`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_cells_in_parallel`'.format(value))
+                                         'for field `PhotovoltaicPerformanceSandia.number_of_cells_in_parallel`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_cells_in_parallel`')
+                                 'for field `PhotovoltaicPerformanceSandia.number_of_cells_in_parallel`')
         self._data["Number of Cells in Parallel"] = value
 
     @property
@@ -6251,7 +6541,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `short_circuit_current`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.short_circuit_current`'.format(value))
         self._data["Short Circuit Current"] = value
 
     @property
@@ -6282,7 +6572,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `open_circuit_voltage`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.open_circuit_voltage`'.format(value))
         self._data["Open Circuit Voltage"] = value
 
     @property
@@ -6313,7 +6603,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `current_at_maximum_power_point`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.current_at_maximum_power_point`'.format(value))
         self._data["Current at Maximum Power Point"] = value
 
     @property
@@ -6344,7 +6634,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `voltage_at_maximum_power_point`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.voltage_at_maximum_power_point`'.format(value))
         self._data["Voltage at Maximum Power Point"] = value
 
     @property
@@ -6375,7 +6665,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_aisc`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_aisc`'.format(value))
         self._data["Sandia Database Parameter aIsc"] = value
 
     @property
@@ -6406,7 +6696,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_aimp`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_aimp`'.format(value))
         self._data["Sandia Database Parameter aImp"] = value
 
     @property
@@ -6437,7 +6727,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c0`'.format(value))
         self._data["Sandia Database Parameter c0"] = value
 
     @property
@@ -6468,7 +6758,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c1`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c1`'.format(value))
         self._data["Sandia Database Parameter c1"] = value
 
     @property
@@ -6499,7 +6789,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_bvoc0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_bvoc0`'.format(value))
         self._data["Sandia Database Parameter BVoc0"] = value
 
     @property
@@ -6530,7 +6820,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_mbvoc`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_mbvoc`'.format(value))
         self._data["Sandia Database Parameter mBVoc"] = value
 
     @property
@@ -6561,7 +6851,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_bvmp0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_bvmp0`'.format(value))
         self._data["Sandia Database Parameter BVmp0"] = value
 
     @property
@@ -6592,7 +6882,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_mbvmp`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_mbvmp`'.format(value))
         self._data["Sandia Database Parameter mBVmp"] = value
 
     @property
@@ -6623,7 +6913,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `diode_factor`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.diode_factor`'.format(value))
         self._data["Diode Factor"] = value
 
     @property
@@ -6654,7 +6944,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c2`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c2`'.format(value))
         self._data["Sandia Database Parameter c2"] = value
 
     @property
@@ -6685,7 +6975,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c3`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c3`'.format(value))
         self._data["Sandia Database Parameter c3"] = value
 
     @property
@@ -6716,7 +7006,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_a0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_a0`'.format(value))
         self._data["Sandia Database Parameter a0"] = value
 
     @property
@@ -6747,7 +7037,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_a1`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_a1`'.format(value))
         self._data["Sandia Database Parameter a1"] = value
 
     @property
@@ -6778,7 +7068,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_a2`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_a2`'.format(value))
         self._data["Sandia Database Parameter a2"] = value
 
     @property
@@ -6809,7 +7099,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_a3`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_a3`'.format(value))
         self._data["Sandia Database Parameter a3"] = value
 
     @property
@@ -6840,7 +7130,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_a4`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_a4`'.format(value))
         self._data["Sandia Database Parameter a4"] = value
 
     @property
@@ -6871,7 +7161,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b0`'.format(value))
         self._data["Sandia Database Parameter b0"] = value
 
     @property
@@ -6902,7 +7192,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b1`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b1`'.format(value))
         self._data["Sandia Database Parameter b1"] = value
 
     @property
@@ -6933,7 +7223,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b2`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b2`'.format(value))
         self._data["Sandia Database Parameter b2"] = value
 
     @property
@@ -6964,7 +7254,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b3`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b3`'.format(value))
         self._data["Sandia Database Parameter b3"] = value
 
     @property
@@ -6995,7 +7285,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b4`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b4`'.format(value))
         self._data["Sandia Database Parameter b4"] = value
 
     @property
@@ -7026,7 +7316,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b5`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b5`'.format(value))
         self._data["Sandia Database Parameter b5"] = value
 
     @property
@@ -7057,7 +7347,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_deltatc`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_deltatc`'.format(value))
         self._data["Sandia Database Parameter Delta(Tc)"] = value
 
     @property
@@ -7088,7 +7378,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_fd`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_fd`'.format(value))
         self._data["Sandia Database Parameter fd"] = value
 
     @property
@@ -7119,7 +7409,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_a`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_a`'.format(value))
         self._data["Sandia Database Parameter a"] = value
 
     @property
@@ -7150,7 +7440,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_b`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_b`'.format(value))
         self._data["Sandia Database Parameter b"] = value
 
     @property
@@ -7181,7 +7471,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c4`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c4`'.format(value))
         self._data["Sandia Database Parameter c4"] = value
 
     @property
@@ -7212,7 +7502,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c5`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c5`'.format(value))
         self._data["Sandia Database Parameter c5"] = value
 
     @property
@@ -7242,7 +7532,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_ix0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_ix0`'.format(value))
         self._data["Sandia Database Parameter Ix0"] = value
 
     @property
@@ -7272,7 +7562,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_ixx0`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_ixx0`'.format(value))
         self._data["Sandia Database Parameter Ixx0"] = value
 
     @property
@@ -7302,7 +7592,7 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c6`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c6`'.format(value))
         self._data["Sandia Database Parameter c6"] = value
 
     @property
@@ -7332,17 +7622,40 @@ class PhotovoltaicPerformanceSandia(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `sandia_database_parameter_c7`'.format(value))
+                                 ' for field `PhotovoltaicPerformanceSandia.sandia_database_parameter_c7`'.format(value))
         self._data["Sandia Database Parameter c7"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PhotovoltaicPerformanceSandia:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PhotovoltaicPerformanceSandia:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PhotovoltaicPerformanceSandia: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PhotovoltaicPerformanceSandia: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7360,8 +7673,27 @@ class PhotovoltaicPerformanceSandia(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7376,6 +7708,10 @@ class GeneratorFuelCell(object):
     internal_name = "Generator:FuelCell"
     field_count = 10
     required_fields = ["Name", "Power Module Name", "Air Supply Name", "Fuel Supply Name", "Water Supply Name", "Auxiliary Heater Name", "Heat Exchanger Name", "Electrical Storage Name", "Inverter Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell`
@@ -7391,6 +7727,7 @@ class GeneratorFuelCell(object):
         self._data["Electrical Storage Name"] = None
         self._data["Inverter Name"] = None
         self._data["Stack Cooler Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7500,13 +7837,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCell.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCell.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCell.name`')
         self._data["Name"] = value
 
     @property
@@ -7536,13 +7873,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `power_module_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.power_module_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `power_module_name`')
+                                 'for field `GeneratorFuelCell.power_module_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `power_module_name`')
+                                 'for field `GeneratorFuelCell.power_module_name`')
         self._data["Power Module Name"] = value
 
     @property
@@ -7572,13 +7909,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_supply_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.air_supply_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_supply_name`')
+                                 'for field `GeneratorFuelCell.air_supply_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_supply_name`')
+                                 'for field `GeneratorFuelCell.air_supply_name`')
         self._data["Air Supply Name"] = value
 
     @property
@@ -7608,13 +7945,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_supply_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.fuel_supply_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_supply_name`')
+                                 'for field `GeneratorFuelCell.fuel_supply_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_supply_name`')
+                                 'for field `GeneratorFuelCell.fuel_supply_name`')
         self._data["Fuel Supply Name"] = value
 
     @property
@@ -7644,13 +7981,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_supply_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.water_supply_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_supply_name`')
+                                 'for field `GeneratorFuelCell.water_supply_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_supply_name`')
+                                 'for field `GeneratorFuelCell.water_supply_name`')
         self._data["Water Supply Name"] = value
 
     @property
@@ -7680,13 +8017,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `auxiliary_heater_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.auxiliary_heater_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `auxiliary_heater_name`')
+                                 'for field `GeneratorFuelCell.auxiliary_heater_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `auxiliary_heater_name`')
+                                 'for field `GeneratorFuelCell.auxiliary_heater_name`')
         self._data["Auxiliary Heater Name"] = value
 
     @property
@@ -7716,13 +8053,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_exchanger_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.heat_exchanger_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_exchanger_name`')
+                                 'for field `GeneratorFuelCell.heat_exchanger_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_exchanger_name`')
+                                 'for field `GeneratorFuelCell.heat_exchanger_name`')
         self._data["Heat Exchanger Name"] = value
 
     @property
@@ -7752,13 +8089,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_storage_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.electrical_storage_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_storage_name`')
+                                 'for field `GeneratorFuelCell.electrical_storage_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_storage_name`')
+                                 'for field `GeneratorFuelCell.electrical_storage_name`')
         self._data["Electrical Storage Name"] = value
 
     @property
@@ -7788,13 +8125,13 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inverter_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.inverter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inverter_name`')
+                                 'for field `GeneratorFuelCell.inverter_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inverter_name`')
+                                 'for field `GeneratorFuelCell.inverter_name`')
         self._data["Inverter Name"] = value
 
     @property
@@ -7825,23 +8162,46 @@ class GeneratorFuelCell(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `stack_cooler_name`'.format(value))
+                                 ' for field `GeneratorFuelCell.stack_cooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `stack_cooler_name`')
+                                 'for field `GeneratorFuelCell.stack_cooler_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `stack_cooler_name`')
+                                 'for field `GeneratorFuelCell.stack_cooler_name`')
         self._data["Stack Cooler Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCell:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCell:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCell: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCell: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7859,8 +8219,27 @@ class GeneratorFuelCell(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7878,6 +8257,10 @@ class GeneratorFuelCellPowerModule(object):
     internal_name = "Generator:FuelCell:PowerModule"
     field_count = 33
     required_fields = ["Name", "Efficiency Curve Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:PowerModule`
@@ -7916,6 +8299,7 @@ class GeneratorFuelCellPowerModule(object):
         self._data["Dilution Outlet Air Node Name"] = None
         self._data["Minimum Operating Point"] = None
         self._data["Maximum Operating Point"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8186,13 +8570,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellPowerModule.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellPowerModule.name`')
         self._data["Name"] = value
 
     @property
@@ -8224,13 +8608,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `efficiency_curve_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.efficiency_curve_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `efficiency_curve_mode`')
+                                 'for field `GeneratorFuelCellPowerModule.efficiency_curve_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `efficiency_curve_mode`')
+                                 'for field `GeneratorFuelCellPowerModule.efficiency_curve_mode`')
             vals = {}
             vals["annex42"] = "Annex42"
             vals["normalized"] = "Normalized"
@@ -8253,10 +8637,10 @@ class GeneratorFuelCellPowerModule(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `efficiency_curve_mode`'.format(value))
+                                     'field `GeneratorFuelCellPowerModule.efficiency_curve_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `efficiency_curve_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellPowerModule.efficiency_curve_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Efficiency Curve Mode"] = value
 
@@ -8287,13 +8671,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `efficiency_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `efficiency_curve_name`')
+                                 'for field `GeneratorFuelCellPowerModule.efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `efficiency_curve_name`')
+                                 'for field `GeneratorFuelCellPowerModule.efficiency_curve_name`')
         self._data["Efficiency Curve Name"] = value
 
     @property
@@ -8323,7 +8707,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_efficiency`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.nominal_efficiency`'.format(value))
         self._data["Nominal Efficiency"] = value
 
     @property
@@ -8354,7 +8738,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_electrical_power`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.nominal_electrical_power`'.format(value))
         self._data["Nominal Electrical Power"] = value
 
     @property
@@ -8384,7 +8768,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_stops_at_start_of_simulation`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.number_of_stops_at_start_of_simulation`'.format(value))
         self._data["Number of Stops at Start of Simulation"] = value
 
     @property
@@ -8414,7 +8798,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cycling_performance_degradation_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.cycling_performance_degradation_coefficient`'.format(value))
         self._data["Cycling Performance Degradation Coefficient"] = value
 
     @property
@@ -8444,7 +8828,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_run_hours_at_beginning_of_simulation`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.number_of_run_hours_at_beginning_of_simulation`'.format(value))
         self._data["Number of Run Hours at Beginning of Simulation"] = value
 
     @property
@@ -8474,7 +8858,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `accumulated_run_time_degradation_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.accumulated_run_time_degradation_coefficient`'.format(value))
         self._data["Accumulated Run Time Degradation Coefficient"] = value
 
     @property
@@ -8504,7 +8888,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `run_time_degradation_initiation_time_threshold`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.run_time_degradation_initiation_time_threshold`'.format(value))
         self._data["Run Time Degradation Initiation Time Threshold"] = value
 
     @property
@@ -8535,7 +8919,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_up_transient_limit`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.power_up_transient_limit`'.format(value))
         self._data["Power Up Transient Limit"] = value
 
     @property
@@ -8567,7 +8951,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_down_transient_limit`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.power_down_transient_limit`'.format(value))
         self._data["Power Down Transient Limit"] = value
 
     @property
@@ -8598,7 +8982,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_up_time`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.start_up_time`'.format(value))
         self._data["Start Up Time"] = value
 
     @property
@@ -8628,7 +9012,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_up_fuel`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.start_up_fuel`'.format(value))
         self._data["Start Up Fuel"] = value
 
     @property
@@ -8658,7 +9042,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_up_electricity_consumption`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.start_up_electricity_consumption`'.format(value))
         self._data["Start Up Electricity Consumption"] = value
 
     @property
@@ -8688,7 +9072,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `start_up_electricity_produced`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.start_up_electricity_produced`'.format(value))
         self._data["Start Up Electricity Produced"] = value
 
     @property
@@ -8718,7 +9102,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shut_down_time`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.shut_down_time`'.format(value))
         self._data["Shut Down Time"] = value
 
     @property
@@ -8748,7 +9132,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shut_down_fuel`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.shut_down_fuel`'.format(value))
         self._data["Shut Down Fuel"] = value
 
     @property
@@ -8778,7 +9162,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `shut_down_electricity_consumption`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.shut_down_electricity_consumption`'.format(value))
         self._data["Shut Down Electricity Consumption"] = value
 
     @property
@@ -8807,7 +9191,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ancilliary_electricity_constant_term`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.ancilliary_electricity_constant_term`'.format(value))
         self._data["Ancilliary Electricity Constant Term"] = value
 
     @property
@@ -8836,7 +9220,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ancilliary_electricity_linear_term`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.ancilliary_electricity_linear_term`'.format(value))
         self._data["Ancilliary Electricity Linear Term"] = value
 
     @property
@@ -8869,13 +9253,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `skin_loss_calculation_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.skin_loss_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `skin_loss_calculation_mode`')
+                                 'for field `GeneratorFuelCellPowerModule.skin_loss_calculation_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `skin_loss_calculation_mode`')
+                                 'for field `GeneratorFuelCellPowerModule.skin_loss_calculation_mode`')
             vals = {}
             vals["constantrate"] = "ConstantRate"
             vals["uaforprocessgastemperature"] = "UAForProcessGasTemperature"
@@ -8899,10 +9283,10 @@ class GeneratorFuelCellPowerModule(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `skin_loss_calculation_mode`'.format(value))
+                                     'field `GeneratorFuelCellPowerModule.skin_loss_calculation_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `skin_loss_calculation_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellPowerModule.skin_loss_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Skin Loss Calculation Mode"] = value
 
@@ -8932,13 +9316,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `GeneratorFuelCellPowerModule.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `GeneratorFuelCellPowerModule.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -8969,13 +9353,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `GeneratorFuelCellPowerModule.skin_loss_radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `GeneratorFuelCellPowerModule.skin_loss_radiative_fraction`')
         self._data["Skin Loss Radiative Fraction"] = value
 
     @property
@@ -9005,7 +9389,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constant_skin_loss_rate`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.constant_skin_loss_rate`'.format(value))
         self._data["Constant Skin Loss Rate"] = value
 
     @property
@@ -9035,7 +9419,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_ufactor_times_area_term`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.skin_loss_ufactor_times_area_term`'.format(value))
         self._data["Skin Loss U-Factor Times Area Term"] = value
 
     @property
@@ -9066,13 +9450,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `skin_loss_quadratic_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.skin_loss_quadratic_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `skin_loss_quadratic_curve_name`')
+                                 'for field `GeneratorFuelCellPowerModule.skin_loss_quadratic_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `skin_loss_quadratic_curve_name`')
+                                 'for field `GeneratorFuelCellPowerModule.skin_loss_quadratic_curve_name`')
         self._data["Skin Loss Quadratic Curve Name"] = value
 
     @property
@@ -9102,7 +9486,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `dilution_air_flow_rate`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.dilution_air_flow_rate`'.format(value))
         self._data["Dilution Air Flow Rate"] = value
 
     @property
@@ -9132,7 +9516,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_heat_loss_to_dilution_air`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.stack_heat_loss_to_dilution_air`'.format(value))
         self._data["Stack Heat loss to Dilution Air"] = value
 
     @property
@@ -9161,13 +9545,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dilution_inlet_air_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.dilution_inlet_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dilution_inlet_air_node_name`')
+                                 'for field `GeneratorFuelCellPowerModule.dilution_inlet_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dilution_inlet_air_node_name`')
+                                 'for field `GeneratorFuelCellPowerModule.dilution_inlet_air_node_name`')
         self._data["Dilution Inlet Air Node Name"] = value
 
     @property
@@ -9196,13 +9580,13 @@ class GeneratorFuelCellPowerModule(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `dilution_outlet_air_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.dilution_outlet_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `dilution_outlet_air_node_name`')
+                                 'for field `GeneratorFuelCellPowerModule.dilution_outlet_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `dilution_outlet_air_node_name`')
+                                 'for field `GeneratorFuelCellPowerModule.dilution_outlet_air_node_name`')
         self._data["Dilution Outlet Air Node Name"] = value
 
     @property
@@ -9232,7 +9616,7 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_operating_point`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.minimum_operating_point`'.format(value))
         self._data["Minimum Operating Point"] = value
 
     @property
@@ -9262,17 +9646,40 @@ class GeneratorFuelCellPowerModule(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_operating_point`'.format(value))
+                                 ' for field `GeneratorFuelCellPowerModule.maximum_operating_point`'.format(value))
         self._data["Maximum Operating Point"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellPowerModule:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellPowerModule:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellPowerModule: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellPowerModule: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -9290,8 +9697,27 @@ class GeneratorFuelCellPowerModule(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -9304,8 +9730,12 @@ class GeneratorFuelCellAirSupply(object):
         Used to define details of the air supply subsystem for a fuel cell power generator.
     """
     internal_name = "Generator:FuelCell:AirSupply"
-    field_count = 22
+    field_count = 12
     required_fields = ["Name", "Air Supply Rate Calculation Mode", "Air Intake Heat Recovery Mode", "Air Supply Constituent Mode"]
+    extensible_fields = 2
+    format = None
+    min_fields = 0
+    extensible_keys = ["Constituent 1 Name", "Molar Fraction 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:AirSupply`
@@ -9323,16 +9753,7 @@ class GeneratorFuelCellAirSupply(object):
         self._data["Air Intake Heat Recovery Mode"] = None
         self._data["Air Supply Constituent Mode"] = None
         self._data["Number of UserDefined Constituents"] = None
-        self._data["Constituent 1 Name"] = None
-        self._data["Molar Fraction 1"] = None
-        self._data["Constituent 2 Name"] = None
-        self._data["Molar Fraction 2"] = None
-        self._data["Constituent 3 Name"] = None
-        self._data["Molar Fraction 3"] = None
-        self._data["Constituent 4 Name"] = None
-        self._data["Molar Fraction 4"] = None
-        self._data["Constituent 5 Name"] = None
-        self._data["Molar Fraction 5"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -9428,76 +9849,14 @@ class GeneratorFuelCellAirSupply(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.constituent_1_name = None
-        else:
-            self.constituent_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.molar_fraction_1 = None
-        else:
-            self.molar_fraction_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constituent_2_name = None
-        else:
-            self.constituent_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.molar_fraction_2 = None
-        else:
-            self.molar_fraction_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constituent_3_name = None
-        else:
-            self.constituent_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.molar_fraction_3 = None
-        else:
-            self.molar_fraction_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constituent_4_name = None
-        else:
-            self.constituent_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.molar_fraction_4 = None
-        else:
-            self.molar_fraction_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constituent_5_name = None
-        else:
-            self.constituent_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.molar_fraction_5 = None
-        else:
-            self.molar_fraction_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -9526,13 +9885,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellAirSupply.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellAirSupply.name`')
         self._data["Name"] = value
 
     @property
@@ -9561,13 +9920,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `GeneratorFuelCellAirSupply.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `GeneratorFuelCellAirSupply.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -9597,13 +9956,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `blower_power_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.blower_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `blower_power_curve_name`')
+                                 'for field `GeneratorFuelCellAirSupply.blower_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `blower_power_curve_name`')
+                                 'for field `GeneratorFuelCellAirSupply.blower_power_curve_name`')
         self._data["Blower Power Curve Name"] = value
 
     @property
@@ -9634,13 +9993,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blower_heat_loss_factor`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.blower_heat_loss_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `blower_heat_loss_factor`')
+                                 'for field `GeneratorFuelCellAirSupply.blower_heat_loss_factor`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `blower_heat_loss_factor`')
+                                 'for field `GeneratorFuelCellAirSupply.blower_heat_loss_factor`')
         self._data["Blower Heat Loss Factor"] = value
 
     @property
@@ -9673,13 +10032,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_supply_rate_calculation_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_supply_rate_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_supply_rate_calculation_mode`')
+                                 'for field `GeneratorFuelCellAirSupply.air_supply_rate_calculation_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_supply_rate_calculation_mode`')
+                                 'for field `GeneratorFuelCellAirSupply.air_supply_rate_calculation_mode`')
             vals = {}
             vals["airratiobystoics"] = "AirRatiobyStoics"
             vals["quadraticfunctionofelectricpower"] = "QuadraticFunctionofElectricPower"
@@ -9703,10 +10062,10 @@ class GeneratorFuelCellAirSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `air_supply_rate_calculation_mode`'.format(value))
+                                     'field `GeneratorFuelCellAirSupply.air_supply_rate_calculation_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `air_supply_rate_calculation_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellAirSupply.air_supply_rate_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Supply Rate Calculation Mode"] = value
 
@@ -9738,7 +10097,7 @@ class GeneratorFuelCellAirSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stoichiometric_ratio`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.stoichiometric_ratio`'.format(value))
         self._data["Stoichiometric Ratio"] = value
 
     @property
@@ -9768,13 +10127,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_rate_function_of_electric_power_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_rate_function_of_electric_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_rate_function_of_electric_power_curve_name`')
+                                 'for field `GeneratorFuelCellAirSupply.air_rate_function_of_electric_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_rate_function_of_electric_power_curve_name`')
+                                 'for field `GeneratorFuelCellAirSupply.air_rate_function_of_electric_power_curve_name`')
         self._data["Air Rate Function of Electric Power Curve Name"] = value
 
     @property
@@ -9803,7 +10162,7 @@ class GeneratorFuelCellAirSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_rate_air_temperature_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_rate_air_temperature_coefficient`'.format(value))
         self._data["Air Rate Air Temperature Coefficient"] = value
 
     @property
@@ -9833,13 +10192,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_rate_function_of_fuel_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_rate_function_of_fuel_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_rate_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelCellAirSupply.air_rate_function_of_fuel_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_rate_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelCellAirSupply.air_rate_function_of_fuel_rate_curve_name`')
         self._data["Air Rate Function of Fuel Rate Curve Name"] = value
 
     @property
@@ -9875,13 +10234,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_intake_heat_recovery_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_intake_heat_recovery_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_intake_heat_recovery_mode`')
+                                 'for field `GeneratorFuelCellAirSupply.air_intake_heat_recovery_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_intake_heat_recovery_mode`')
+                                 'for field `GeneratorFuelCellAirSupply.air_intake_heat_recovery_mode`')
             vals = {}
             vals["norecovery"] = "NoRecovery"
             vals["recoverburnerinverterstorage"] = "RecoverBurnerInverterStorage"
@@ -9908,10 +10267,10 @@ class GeneratorFuelCellAirSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `air_intake_heat_recovery_mode`'.format(value))
+                                     'field `GeneratorFuelCellAirSupply.air_intake_heat_recovery_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `air_intake_heat_recovery_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellAirSupply.air_intake_heat_recovery_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Intake Heat Recovery Mode"] = value
 
@@ -9944,13 +10303,13 @@ class GeneratorFuelCellAirSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_supply_constituent_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.air_supply_constituent_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_supply_constituent_mode`')
+                                 'for field `GeneratorFuelCellAirSupply.air_supply_constituent_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_supply_constituent_mode`')
+                                 'for field `GeneratorFuelCellAirSupply.air_supply_constituent_mode`')
             vals = {}
             vals["ambientair"] = "AmbientAir"
             vals["userdefinedconstituents"] = "UserDefinedConstituents"
@@ -9973,10 +10332,10 @@ class GeneratorFuelCellAirSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `air_supply_constituent_mode`'.format(value))
+                                     'field `GeneratorFuelCellAirSupply.air_supply_constituent_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `air_supply_constituent_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellAirSupply.air_supply_constituent_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Supply Constituent Mode"] = value
 
@@ -10007,27 +10366,21 @@ class GeneratorFuelCellAirSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_userdefined_constituents`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.number_of_userdefined_constituents`'.format(value))
             if value > 5.0:
                 raise ValueError('value need to be smaller 5.0 '
-                                 'for field `number_of_userdefined_constituents`')
+                                 'for field `GeneratorFuelCellAirSupply.number_of_userdefined_constituents`')
         self._data["Number of UserDefined Constituents"] = value
 
-    @property
-    def constituent_1_name(self):
-        """Get constituent_1_name
-
-        Returns:
-            str: the value of `constituent_1_name` or None if not set
-        """
-        return self._data["Constituent 1 Name"]
-
-    @constituent_1_name.setter
-    def constituent_1_name(self, value=None):
-        """  Corresponds to IDD Field `Constituent 1 Name`
+    def add_extensible(self,
+                       constituent_1_name=None,
+                       molar_fraction_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Constituent 1 Name`
+
+            constituent_1_name (str): value for IDD Field `Constituent 1 Name`
                 Accepted values are:
                       - CarbonDioxide
                       - Nitrogen
@@ -10037,21 +10390,38 @@ class GeneratorFuelCellAirSupply(object):
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+            molar_fraction_1 (float): value for IDD Field `Molar Fraction 1`
+                value >= 0.0
+                value <= 1.0
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_constituent_1_name(constituent_1_name))
+        vals.append(self._check_molar_fraction_1(molar_fraction_1))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_constituent_1_name(self, value):
+        """ Validates falue of field `Constituent 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_1_name`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.constituent_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_1_name`')
+                                 'for field `GeneratorFuelCellAirSupply.constituent_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_1_name`')
+                                 'for field `GeneratorFuelCellAirSupply.constituent_1_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -10077,490 +10447,61 @@ class GeneratorFuelCellAirSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_1_name`'.format(value))
+                                     'field `GeneratorFuelCellAirSupply.constituent_1_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_1_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellAirSupply.constituent_1_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
-        self._data["Constituent 1 Name"] = value
+        return value
 
-    @property
-    def molar_fraction_1(self):
-        """Get molar_fraction_1
-
-        Returns:
-            float: the value of `molar_fraction_1` or None if not set
-        """
-        return self._data["Molar Fraction 1"]
-
-    @molar_fraction_1.setter
-    def molar_fraction_1(self, value=None):
-        """  Corresponds to IDD Field `Molar Fraction 1`
-
-        Args:
-            value (float): value for IDD Field `Molar Fraction 1`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_molar_fraction_1(self, value):
+        """ Validates falue of field `Molar Fraction 1`
         """
         if value is not None:
             try:
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `molar_fraction_1`'.format(value))
+                                 ' for field `GeneratorFuelCellAirSupply.molar_fraction_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `molar_fraction_1`')
+                                 'for field `GeneratorFuelCellAirSupply.molar_fraction_1`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `molar_fraction_1`')
-        self._data["Molar Fraction 1"] = value
+                                 'for field `GeneratorFuelCellAirSupply.molar_fraction_1`')
+        return value
 
-    @property
-    def constituent_2_name(self):
-        """Get constituent_2_name
-
-        Returns:
-            str: the value of `constituent_2_name` or None if not set
-        """
-        return self._data["Constituent 2 Name"]
-
-    @constituent_2_name.setter
-    def constituent_2_name(self, value=None):
-        """  Corresponds to IDD Field `Constituent 2 Name`
-
-        Args:
-            value (str): value for IDD Field `Constituent 2 Name`
-                Accepted values are:
-                      - CarbonDioxide
-                      - Nitrogen
-                      - Oxygen
-                      - Water
-                      - Argon
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `constituent_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `constituent_2_name`')
-            vals = {}
-            vals["carbondioxide"] = "CarbonDioxide"
-            vals["nitrogen"] = "Nitrogen"
-            vals["oxygen"] = "Oxygen"
-            vals["water"] = "Water"
-            vals["argon"] = "Argon"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_2_name`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_2_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Constituent 2 Name"] = value
-
-    @property
-    def molar_fraction_2(self):
-        """Get molar_fraction_2
-
-        Returns:
-            float: the value of `molar_fraction_2` or None if not set
-        """
-        return self._data["Molar Fraction 2"]
-
-    @molar_fraction_2.setter
-    def molar_fraction_2(self, value=None):
-        """  Corresponds to IDD Field `Molar Fraction 2`
-
-        Args:
-            value (float): value for IDD Field `Molar Fraction 2`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `molar_fraction_2`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `molar_fraction_2`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `molar_fraction_2`')
-        self._data["Molar Fraction 2"] = value
-
-    @property
-    def constituent_3_name(self):
-        """Get constituent_3_name
-
-        Returns:
-            str: the value of `constituent_3_name` or None if not set
-        """
-        return self._data["Constituent 3 Name"]
-
-    @constituent_3_name.setter
-    def constituent_3_name(self, value=None):
-        """  Corresponds to IDD Field `Constituent 3 Name`
-
-        Args:
-            value (str): value for IDD Field `Constituent 3 Name`
-                Accepted values are:
-                      - CarbonDioxide
-                      - Nitrogen
-                      - Oxygen
-                      - Water
-                      - Argon
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `constituent_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `constituent_3_name`')
-            vals = {}
-            vals["carbondioxide"] = "CarbonDioxide"
-            vals["nitrogen"] = "Nitrogen"
-            vals["oxygen"] = "Oxygen"
-            vals["water"] = "Water"
-            vals["argon"] = "Argon"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_3_name`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_3_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Constituent 3 Name"] = value
-
-    @property
-    def molar_fraction_3(self):
-        """Get molar_fraction_3
-
-        Returns:
-            float: the value of `molar_fraction_3` or None if not set
-        """
-        return self._data["Molar Fraction 3"]
-
-    @molar_fraction_3.setter
-    def molar_fraction_3(self, value=None):
-        """  Corresponds to IDD Field `Molar Fraction 3`
-
-        Args:
-            value (float): value for IDD Field `Molar Fraction 3`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `molar_fraction_3`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `molar_fraction_3`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `molar_fraction_3`')
-        self._data["Molar Fraction 3"] = value
-
-    @property
-    def constituent_4_name(self):
-        """Get constituent_4_name
-
-        Returns:
-            str: the value of `constituent_4_name` or None if not set
-        """
-        return self._data["Constituent 4 Name"]
-
-    @constituent_4_name.setter
-    def constituent_4_name(self, value=None):
-        """  Corresponds to IDD Field `Constituent 4 Name`
-
-        Args:
-            value (str): value for IDD Field `Constituent 4 Name`
-                Accepted values are:
-                      - CarbonDioxide
-                      - Nitrogen
-                      - Oxygen
-                      - Water
-                      - Argon
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `constituent_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `constituent_4_name`')
-            vals = {}
-            vals["carbondioxide"] = "CarbonDioxide"
-            vals["nitrogen"] = "Nitrogen"
-            vals["oxygen"] = "Oxygen"
-            vals["water"] = "Water"
-            vals["argon"] = "Argon"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_4_name`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_4_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Constituent 4 Name"] = value
-
-    @property
-    def molar_fraction_4(self):
-        """Get molar_fraction_4
-
-        Returns:
-            float: the value of `molar_fraction_4` or None if not set
-        """
-        return self._data["Molar Fraction 4"]
-
-    @molar_fraction_4.setter
-    def molar_fraction_4(self, value=None):
-        """  Corresponds to IDD Field `Molar Fraction 4`
-
-        Args:
-            value (float): value for IDD Field `Molar Fraction 4`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `molar_fraction_4`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `molar_fraction_4`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `molar_fraction_4`')
-        self._data["Molar Fraction 4"] = value
-
-    @property
-    def constituent_5_name(self):
-        """Get constituent_5_name
-
-        Returns:
-            str: the value of `constituent_5_name` or None if not set
-        """
-        return self._data["Constituent 5 Name"]
-
-    @constituent_5_name.setter
-    def constituent_5_name(self, value=None):
-        """  Corresponds to IDD Field `Constituent 5 Name`
-
-        Args:
-            value (str): value for IDD Field `Constituent 5 Name`
-                Accepted values are:
-                      - CarbonDioxide
-                      - Nitrogen
-                      - Oxygen
-                      - Water
-                      - Argon
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `constituent_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `constituent_5_name`')
-            vals = {}
-            vals["carbondioxide"] = "CarbonDioxide"
-            vals["nitrogen"] = "Nitrogen"
-            vals["oxygen"] = "Oxygen"
-            vals["water"] = "Water"
-            vals["argon"] = "Argon"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_5_name`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_5_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Constituent 5 Name"] = value
-
-    @property
-    def molar_fraction_5(self):
-        """Get molar_fraction_5
-
-        Returns:
-            float: the value of `molar_fraction_5` or None if not set
-        """
-        return self._data["Molar Fraction 5"]
-
-    @molar_fraction_5.setter
-    def molar_fraction_5(self, value=None):
-        """  Corresponds to IDD Field `Molar Fraction 5`
-
-        Args:
-            value (float): value for IDD Field `Molar Fraction 5`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `molar_fraction_5`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `molar_fraction_5`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `molar_fraction_5`')
-        self._data["Molar Fraction 5"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellAirSupply:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellAirSupply:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellAirSupply: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellAirSupply: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10578,8 +10519,27 @@ class GeneratorFuelCellAirSupply(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10596,6 +10556,10 @@ class GeneratorFuelCellWaterSupply(object):
     internal_name = "Generator:FuelCell:WaterSupply"
     field_count = 7
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:WaterSupply`
@@ -10608,6 +10572,7 @@ class GeneratorFuelCellWaterSupply(object):
         self._data["Water Temperature Modeling Mode"] = None
         self._data["Water Temperature Reference Node Name"] = None
         self._data["Water Temperature Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -10696,13 +10661,13 @@ class GeneratorFuelCellWaterSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellWaterSupply.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellWaterSupply.name`')
         self._data["Name"] = value
 
     @property
@@ -10732,13 +10697,13 @@ class GeneratorFuelCellWaterSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reformer_water_flow_rate_function_of_fuel_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.reformer_water_flow_rate_function_of_fuel_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reformer_water_flow_rate_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.reformer_water_flow_rate_function_of_fuel_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reformer_water_flow_rate_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.reformer_water_flow_rate_function_of_fuel_rate_curve_name`')
         self._data["Reformer Water Flow Rate Function of Fuel Rate Curve Name"] = value
 
     @property
@@ -10768,13 +10733,13 @@ class GeneratorFuelCellWaterSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `reformer_water_pump_power_function_of_fuel_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.reformer_water_pump_power_function_of_fuel_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `reformer_water_pump_power_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.reformer_water_pump_power_function_of_fuel_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `reformer_water_pump_power_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.reformer_water_pump_power_function_of_fuel_rate_curve_name`')
         self._data["Reformer Water Pump Power Function of Fuel Rate Curve Name"] = value
 
     @property
@@ -10803,7 +10768,7 @@ class GeneratorFuelCellWaterSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pump_heat_loss_factor`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.pump_heat_loss_factor`'.format(value))
         self._data["Pump Heat Loss Factor"] = value
 
     @property
@@ -10837,13 +10802,13 @@ class GeneratorFuelCellWaterSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_temperature_modeling_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.water_temperature_modeling_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_temperature_modeling_mode`')
+                                 'for field `GeneratorFuelCellWaterSupply.water_temperature_modeling_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_temperature_modeling_mode`')
+                                 'for field `GeneratorFuelCellWaterSupply.water_temperature_modeling_mode`')
             vals = {}
             vals["temperaturefromairnode"] = "TemperatureFromAirNode"
             vals["temperaturefromwaternode"] = "TemperatureFromWaterNode"
@@ -10868,10 +10833,10 @@ class GeneratorFuelCellWaterSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `water_temperature_modeling_mode`'.format(value))
+                                     'field `GeneratorFuelCellWaterSupply.water_temperature_modeling_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `water_temperature_modeling_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellWaterSupply.water_temperature_modeling_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water Temperature Modeling Mode"] = value
 
@@ -10901,13 +10866,13 @@ class GeneratorFuelCellWaterSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_temperature_reference_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.water_temperature_reference_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_temperature_reference_node_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.water_temperature_reference_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_temperature_reference_node_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.water_temperature_reference_node_name`')
         self._data["Water Temperature Reference Node Name"] = value
 
     @property
@@ -10936,23 +10901,46 @@ class GeneratorFuelCellWaterSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `water_temperature_schedule_name`'.format(value))
+                                 ' for field `GeneratorFuelCellWaterSupply.water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `water_temperature_schedule_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.water_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `water_temperature_schedule_name`')
+                                 'for field `GeneratorFuelCellWaterSupply.water_temperature_schedule_name`')
         self._data["Water Temperature Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellWaterSupply:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellWaterSupply:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellWaterSupply: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellWaterSupply: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -10970,8 +10958,27 @@ class GeneratorFuelCellWaterSupply(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -10989,6 +10996,10 @@ class GeneratorFuelCellAuxiliaryHeater(object):
     internal_name = "Generator:FuelCell:AuxiliaryHeater"
     field_count = 12
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:AuxiliaryHeater`
@@ -11006,6 +11017,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
         self._data["Minimum Heating Capacity in Watts"] = None
         self._data["Maximum Heating Capacity in Kmol per Second"] = None
         self._data["Minimum Heating Capacity in Kmol per Second"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -11129,13 +11141,13 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.name`')
         self._data["Name"] = value
 
     @property
@@ -11164,7 +11176,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `excess_air_ratio`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.excess_air_ratio`'.format(value))
         self._data["Excess Air Ratio"] = value
 
     @property
@@ -11193,7 +11205,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ancilliary_power_constant_term`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.ancilliary_power_constant_term`'.format(value))
         self._data["Ancilliary Power Constant Term"] = value
 
     @property
@@ -11222,7 +11234,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ancilliary_power_linear_term`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.ancilliary_power_linear_term`'.format(value))
         self._data["Ancilliary Power Linear Term"] = value
 
     @property
@@ -11252,7 +11264,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_ufactor_times_area_value`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.skin_loss_ufactor_times_area_value`'.format(value))
         self._data["Skin Loss U-Factor Times Area Value"] = value
 
     @property
@@ -11284,13 +11296,13 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `skin_loss_destination`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.skin_loss_destination`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `skin_loss_destination`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.skin_loss_destination`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `skin_loss_destination`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.skin_loss_destination`')
             vals = {}
             vals["surroundingzone"] = "SurroundingZone"
             vals["airinletforfuelcell"] = "AirInletForFuelCell"
@@ -11313,10 +11325,10 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `skin_loss_destination`'.format(value))
+                                     'field `GeneratorFuelCellAuxiliaryHeater.skin_loss_destination`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `skin_loss_destination`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellAuxiliaryHeater.skin_loss_destination`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Skin Loss Destination"] = value
 
@@ -11346,13 +11358,13 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name_to_receive_skin_losses`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.zone_name_to_receive_skin_losses`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name_to_receive_skin_losses`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.zone_name_to_receive_skin_losses`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name_to_receive_skin_losses`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.zone_name_to_receive_skin_losses`')
         self._data["Zone Name to Receive Skin Losses"] = value
 
     @property
@@ -11384,13 +11396,13 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_capacity_units`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.heating_capacity_units`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_capacity_units`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.heating_capacity_units`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_capacity_units`')
+                                 'for field `GeneratorFuelCellAuxiliaryHeater.heating_capacity_units`')
             vals = {}
             vals["watts"] = "Watts"
             vals["kmol/s"] = "kmol/s"
@@ -11413,10 +11425,10 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heating_capacity_units`'.format(value))
+                                     'field `GeneratorFuelCellAuxiliaryHeater.heating_capacity_units`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heating_capacity_units`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellAuxiliaryHeater.heating_capacity_units`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Capacity Units"] = value
 
@@ -11447,7 +11459,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_heating_capacity_in_watts`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.maximum_heating_capacity_in_watts`'.format(value))
         self._data["Maximum Heating Capacity in Watts"] = value
 
     @property
@@ -11477,7 +11489,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_heating_capacity_in_watts`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.minimum_heating_capacity_in_watts`'.format(value))
         self._data["Minimum Heating Capacity in Watts"] = value
 
     @property
@@ -11507,7 +11519,7 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_heating_capacity_in_kmol_per_second`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.maximum_heating_capacity_in_kmol_per_second`'.format(value))
         self._data["Maximum Heating Capacity in Kmol per Second"] = value
 
     @property
@@ -11537,17 +11549,40 @@ class GeneratorFuelCellAuxiliaryHeater(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_heating_capacity_in_kmol_per_second`'.format(value))
+                                 ' for field `GeneratorFuelCellAuxiliaryHeater.minimum_heating_capacity_in_kmol_per_second`'.format(value))
         self._data["Minimum Heating Capacity in Kmol per Second"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellAuxiliaryHeater:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellAuxiliaryHeater:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellAuxiliaryHeater: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellAuxiliaryHeater: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -11565,8 +11600,27 @@ class GeneratorFuelCellAuxiliaryHeater(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -11582,6 +11636,10 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
     internal_name = "Generator:FuelCell:ExhaustGasToWaterHeatExchanger"
     field_count = 24
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:ExhaustGasToWaterHeatExchanger`
@@ -11611,6 +11669,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
         self._data["Method 4 hxl1 Coefficient"] = None
         self._data["Method 4 hxl2 Coefficient"] = None
         self._data["Method 4 Condensation Threshold"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -11818,13 +11877,13 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.name`')
         self._data["Name"] = value
 
     @property
@@ -11853,13 +11912,13 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_inlet_node_name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_inlet_node_name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_inlet_node_name`')
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
     @property
@@ -11888,13 +11947,13 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_outlet_node_name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_outlet_node_name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_outlet_node_name`')
         self._data["Heat Recovery Water Outlet Node Name"] = value
 
     @property
@@ -11924,7 +11983,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heat_recovery_water_maximum_flow_rate`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_recovery_water_maximum_flow_rate`'.format(value))
         self._data["Heat Recovery Water Maximum Flow Rate"] = value
 
     @property
@@ -11953,13 +12012,13 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `exhaust_outlet_air_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.exhaust_outlet_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `exhaust_outlet_air_node_name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.exhaust_outlet_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `exhaust_outlet_air_node_name`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.exhaust_outlet_air_node_name`')
         self._data["Exhaust Outlet Air Node Name"] = value
 
     @property
@@ -11993,13 +12052,13 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_exchanger_calculation_method`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_exchanger_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_exchanger_calculation_method`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_exchanger_calculation_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_exchanger_calculation_method`')
+                                 'for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_exchanger_calculation_method`')
             vals = {}
             vals["fixedeffectiveness"] = "FixedEffectiveness"
             vals["empiricaluaeff"] = "EmpiricalUAeff"
@@ -12024,10 +12083,10 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heat_exchanger_calculation_method`'.format(value))
+                                     'field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_exchanger_calculation_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heat_exchanger_calculation_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.heat_exchanger_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchanger Calculation Method"] = value
 
@@ -12057,7 +12116,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_1_heat_exchanger_effectiveness`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_1_heat_exchanger_effectiveness`'.format(value))
         self._data["Method 1 Heat Exchanger Effectiveness"] = value
 
     @property
@@ -12086,7 +12145,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_2_parameter_hxs0`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_2_parameter_hxs0`'.format(value))
         self._data["Method 2 Parameter hxs0"] = value
 
     @property
@@ -12115,7 +12174,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_2_parameter_hxs1`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_2_parameter_hxs1`'.format(value))
         self._data["Method 2 Parameter hxs1"] = value
 
     @property
@@ -12144,7 +12203,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_2_parameter_hxs2`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_2_parameter_hxs2`'.format(value))
         self._data["Method 2 Parameter hxs2"] = value
 
     @property
@@ -12173,7 +12232,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_2_parameter_hxs3`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_2_parameter_hxs3`'.format(value))
         self._data["Method 2 Parameter hxs3"] = value
 
     @property
@@ -12202,7 +12261,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_2_parameter_hxs4`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_2_parameter_hxs4`'.format(value))
         self._data["Method 2 Parameter hxs4"] = value
 
     @property
@@ -12231,7 +12290,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_h0gas_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_h0gas_coefficient`'.format(value))
         self._data["Method 3 h0Gas Coefficient"] = value
 
     @property
@@ -12260,7 +12319,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_ndotgasref_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_ndotgasref_coefficient`'.format(value))
         self._data["Method 3 NdotGasRef Coefficient"] = value
 
     @property
@@ -12289,7 +12348,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_n_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_n_coefficient`'.format(value))
         self._data["Method 3 n Coefficient"] = value
 
     @property
@@ -12319,7 +12378,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_gas_area`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_gas_area`'.format(value))
         self._data["Method 3 Gas Area"] = value
 
     @property
@@ -12348,7 +12407,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_h0_water_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_h0_water_coefficient`'.format(value))
         self._data["Method 3 h0 Water Coefficient"] = value
 
     @property
@@ -12377,7 +12436,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_n_dot_water_ref_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_n_dot_water_ref_coefficient`'.format(value))
         self._data["Method 3 N dot Water ref Coefficient"] = value
 
     @property
@@ -12406,7 +12465,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_m_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_m_coefficient`'.format(value))
         self._data["Method 3 m Coefficient"] = value
 
     @property
@@ -12436,7 +12495,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_water_area`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_water_area`'.format(value))
         self._data["Method 3 Water Area"] = value
 
     @property
@@ -12465,7 +12524,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_3_f_adjustment_factor`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_3_f_adjustment_factor`'.format(value))
         self._data["Method 3 F Adjustment Factor"] = value
 
     @property
@@ -12494,7 +12553,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_4_hxl1_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_4_hxl1_coefficient`'.format(value))
         self._data["Method 4 hxl1 Coefficient"] = value
 
     @property
@@ -12523,7 +12582,7 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_4_hxl2_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_4_hxl2_coefficient`'.format(value))
         self._data["Method 4 hxl2 Coefficient"] = value
 
     @property
@@ -12553,17 +12612,40 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `method_4_condensation_threshold`'.format(value))
+                                 ' for field `GeneratorFuelCellExhaustGasToWaterHeatExchanger.method_4_condensation_threshold`'.format(value))
         self._data["Method 4 Condensation Threshold"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellExhaustGasToWaterHeatExchanger:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellExhaustGasToWaterHeatExchanger:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellExhaustGasToWaterHeatExchanger: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellExhaustGasToWaterHeatExchanger: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -12581,8 +12663,27 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -12599,6 +12700,10 @@ class GeneratorFuelCellElectricalStorage(object):
     internal_name = "Generator:FuelCell:ElectricalStorage"
     field_count = 8
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:ElectricalStorage`
@@ -12612,6 +12717,7 @@ class GeneratorFuelCellElectricalStorage(object):
         self._data["Simple Maximum Power Draw"] = None
         self._data["Simple Maximum Power Store"] = None
         self._data["Initial Charge State"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -12707,13 +12813,13 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellElectricalStorage.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellElectricalStorage.name`')
         self._data["Name"] = value
 
     @property
@@ -12744,13 +12850,13 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `choice_of_model`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.choice_of_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `choice_of_model`')
+                                 'for field `GeneratorFuelCellElectricalStorage.choice_of_model`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `choice_of_model`')
+                                 'for field `GeneratorFuelCellElectricalStorage.choice_of_model`')
             vals = {}
             vals["simpleefficiencywithconstraints"] = "SimpleEfficiencyWithConstraints"
             value_lower = value.lower()
@@ -12772,10 +12878,10 @@ class GeneratorFuelCellElectricalStorage(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `choice_of_model`'.format(value))
+                                     'field `GeneratorFuelCellElectricalStorage.choice_of_model`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `choice_of_model`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellElectricalStorage.choice_of_model`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Choice of Model"] = value
 
@@ -12807,13 +12913,13 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_charging_energetic_efficiency`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.nominal_charging_energetic_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_charging_energetic_efficiency`')
+                                 'for field `GeneratorFuelCellElectricalStorage.nominal_charging_energetic_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `nominal_charging_energetic_efficiency`')
+                                 'for field `GeneratorFuelCellElectricalStorage.nominal_charging_energetic_efficiency`')
         self._data["Nominal Charging Energetic Efficiency"] = value
 
     @property
@@ -12844,13 +12950,13 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_discharging_energetic_efficiency`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.nominal_discharging_energetic_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_discharging_energetic_efficiency`')
+                                 'for field `GeneratorFuelCellElectricalStorage.nominal_discharging_energetic_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `nominal_discharging_energetic_efficiency`')
+                                 'for field `GeneratorFuelCellElectricalStorage.nominal_discharging_energetic_efficiency`')
         self._data["Nominal Discharging Energetic Efficiency"] = value
 
     @property
@@ -12880,7 +12986,7 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `simple_maximum_capacity`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.simple_maximum_capacity`'.format(value))
         self._data["Simple Maximum Capacity"] = value
 
     @property
@@ -12910,7 +13016,7 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `simple_maximum_power_draw`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.simple_maximum_power_draw`'.format(value))
         self._data["Simple Maximum Power Draw"] = value
 
     @property
@@ -12940,7 +13046,7 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `simple_maximum_power_store`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.simple_maximum_power_store`'.format(value))
         self._data["Simple Maximum Power Store"] = value
 
     @property
@@ -12970,17 +13076,40 @@ class GeneratorFuelCellElectricalStorage(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_charge_state`'.format(value))
+                                 ' for field `GeneratorFuelCellElectricalStorage.initial_charge_state`'.format(value))
         self._data["Initial Charge State"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellElectricalStorage:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellElectricalStorage:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellElectricalStorage: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellElectricalStorage: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -12998,8 +13127,27 @@ class GeneratorFuelCellElectricalStorage(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -13016,6 +13164,10 @@ class GeneratorFuelCellInverter(object):
     internal_name = "Generator:FuelCell:Inverter"
     field_count = 4
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:Inverter`
@@ -13025,6 +13177,7 @@ class GeneratorFuelCellInverter(object):
         self._data["Inverter Efficiency Calculation Mode"] = None
         self._data["Inverter Efficiency"] = None
         self._data["Efficiency Function of DC Power Curve Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13092,13 +13245,13 @@ class GeneratorFuelCellInverter(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellInverter.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellInverter.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellInverter.name`')
         self._data["Name"] = value
 
     @property
@@ -13130,13 +13283,13 @@ class GeneratorFuelCellInverter(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inverter_efficiency_calculation_mode`'.format(value))
+                                 ' for field `GeneratorFuelCellInverter.inverter_efficiency_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inverter_efficiency_calculation_mode`')
+                                 'for field `GeneratorFuelCellInverter.inverter_efficiency_calculation_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inverter_efficiency_calculation_mode`')
+                                 'for field `GeneratorFuelCellInverter.inverter_efficiency_calculation_mode`')
             vals = {}
             vals["quadratic"] = "Quadratic"
             vals["constant"] = "Constant"
@@ -13159,10 +13312,10 @@ class GeneratorFuelCellInverter(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `inverter_efficiency_calculation_mode`'.format(value))
+                                     'field `GeneratorFuelCellInverter.inverter_efficiency_calculation_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `inverter_efficiency_calculation_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelCellInverter.inverter_efficiency_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Inverter Efficiency Calculation Mode"] = value
 
@@ -13194,13 +13347,13 @@ class GeneratorFuelCellInverter(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `inverter_efficiency`'.format(value))
+                                 ' for field `GeneratorFuelCellInverter.inverter_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `inverter_efficiency`')
+                                 'for field `GeneratorFuelCellInverter.inverter_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `inverter_efficiency`')
+                                 'for field `GeneratorFuelCellInverter.inverter_efficiency`')
         self._data["Inverter Efficiency"] = value
 
     @property
@@ -13230,23 +13383,46 @@ class GeneratorFuelCellInverter(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `efficiency_function_of_dc_power_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelCellInverter.efficiency_function_of_dc_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `efficiency_function_of_dc_power_curve_name`')
+                                 'for field `GeneratorFuelCellInverter.efficiency_function_of_dc_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `efficiency_function_of_dc_power_curve_name`')
+                                 'for field `GeneratorFuelCellInverter.efficiency_function_of_dc_power_curve_name`')
         self._data["Efficiency Function of DC Power Curve Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellInverter:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellInverter:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellInverter: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellInverter: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -13264,8 +13440,27 @@ class GeneratorFuelCellInverter(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -13281,6 +13476,10 @@ class GeneratorFuelCellStackCooler(object):
     internal_name = "Generator:FuelCell:StackCooler"
     field_count = 21
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelCell:StackCooler`
@@ -13307,6 +13506,7 @@ class GeneratorFuelCellStackCooler(object):
         self._data["Stack Air Cooler Fan Coefficient f0"] = None
         self._data["Stack Air Cooler Fan Coefficient f1"] = None
         self._data["Stack Air Cooler Fan Coefficient f2"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -13493,13 +13693,13 @@ class GeneratorFuelCellStackCooler(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellStackCooler.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelCellStackCooler.name`')
         self._data["Name"] = value
 
     @property
@@ -13528,13 +13728,13 @@ class GeneratorFuelCellStackCooler(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_inlet_node_name`')
+                                 'for field `GeneratorFuelCellStackCooler.heat_recovery_water_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_inlet_node_name`')
+                                 'for field `GeneratorFuelCellStackCooler.heat_recovery_water_inlet_node_name`')
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
     @property
@@ -13563,13 +13763,13 @@ class GeneratorFuelCellStackCooler(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heat_recovery_water_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heat_recovery_water_outlet_node_name`')
+                                 'for field `GeneratorFuelCellStackCooler.heat_recovery_water_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heat_recovery_water_outlet_node_name`')
+                                 'for field `GeneratorFuelCellStackCooler.heat_recovery_water_outlet_node_name`')
         self._data["Heat Recovery Water Outlet Node Name"] = value
 
     @property
@@ -13599,7 +13799,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_stack_temperature`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.nominal_stack_temperature`'.format(value))
         self._data["Nominal Stack Temperature"] = value
 
     @property
@@ -13629,7 +13829,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `actual_stack_temperature`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.actual_stack_temperature`'.format(value))
         self._data["Actual Stack Temperature"] = value
 
     @property
@@ -13658,7 +13858,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_r0`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.coefficient_r0`'.format(value))
         self._data["Coefficient r0"] = value
 
     @property
@@ -13687,7 +13887,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_r1`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.coefficient_r1`'.format(value))
         self._data["Coefficient r1"] = value
 
     @property
@@ -13716,7 +13916,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_r2`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.coefficient_r2`'.format(value))
         self._data["Coefficient r2"] = value
 
     @property
@@ -13745,7 +13945,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_r3`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.coefficient_r3`'.format(value))
         self._data["Coefficient r3"] = value
 
     @property
@@ -13775,7 +13975,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_coolant_flow_rate`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_coolant_flow_rate`'.format(value))
         self._data["Stack Coolant Flow Rate"] = value
 
     @property
@@ -13805,7 +14005,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cooler_ufactor_times_area_value`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cooler_ufactor_times_area_value`'.format(value))
         self._data["Stack Cooler U-Factor Times Area Value"] = value
 
     @property
@@ -13834,7 +14034,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fscogen_adjustment_factor`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.fscogen_adjustment_factor`'.format(value))
         self._data["Fs-cogen Adjustment Factor"] = value
 
     @property
@@ -13864,7 +14064,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cogeneration_exchanger_area`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cogeneration_exchanger_area`'.format(value))
         self._data["Stack Cogeneration Exchanger Area"] = value
 
     @property
@@ -13894,7 +14094,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cogeneration_exchanger_nominal_flow_rate`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cogeneration_exchanger_nominal_flow_rate`'.format(value))
         self._data["Stack Cogeneration Exchanger Nominal Flow Rate"] = value
 
     @property
@@ -13924,7 +14124,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cogeneration_exchanger_nominal_heat_transfer_coefficient`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cogeneration_exchanger_nominal_heat_transfer_coefficient`'.format(value))
         self._data["Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient"] = value
 
     @property
@@ -13953,7 +14153,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cogeneration_exchanger_nominal_heat_transfer_coefficient_exponent`'.format(value))
         self._data["Stack Cogeneration Exchanger Nominal Heat Transfer Coefficient Exponent"] = value
 
     @property
@@ -13983,7 +14183,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cooler_pump_power`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cooler_pump_power`'.format(value))
         self._data["Stack Cooler Pump Power"] = value
 
     @property
@@ -14014,13 +14214,13 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_cooler_pump_heat_loss_fraction`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_cooler_pump_heat_loss_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `stack_cooler_pump_heat_loss_fraction`')
+                                 'for field `GeneratorFuelCellStackCooler.stack_cooler_pump_heat_loss_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `stack_cooler_pump_heat_loss_fraction`')
+                                 'for field `GeneratorFuelCellStackCooler.stack_cooler_pump_heat_loss_fraction`')
         self._data["Stack Cooler Pump Heat Loss Fraction"] = value
 
     @property
@@ -14049,7 +14249,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_air_cooler_fan_coefficient_f0`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_air_cooler_fan_coefficient_f0`'.format(value))
         self._data["Stack Air Cooler Fan Coefficient f0"] = value
 
     @property
@@ -14078,7 +14278,7 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_air_cooler_fan_coefficient_f1`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_air_cooler_fan_coefficient_f1`'.format(value))
         self._data["Stack Air Cooler Fan Coefficient f1"] = value
 
     @property
@@ -14107,17 +14307,40 @@ class GeneratorFuelCellStackCooler(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `stack_air_cooler_fan_coefficient_f2`'.format(value))
+                                 ' for field `GeneratorFuelCellStackCooler.stack_air_cooler_fan_coefficient_f2`'.format(value))
         self._data["Stack Air Cooler Fan Coefficient f2"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelCellStackCooler:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelCellStackCooler:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelCellStackCooler: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelCellStackCooler: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -14135,8 +14358,27 @@ class GeneratorFuelCellStackCooler(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -14154,6 +14396,10 @@ class GeneratorMicroChp(object):
     internal_name = "Generator:MicroCHP"
     field_count = 9
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:MicroCHP`
@@ -14168,6 +14414,7 @@ class GeneratorMicroChp(object):
         self._data["Air Outlet Node Name"] = None
         self._data["Generator Fuel Supply Name"] = None
         self._data["Availability Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -14270,13 +14517,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorMicroChp.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorMicroChp.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorMicroChp.name`')
         self._data["Name"] = value
 
     @property
@@ -14306,13 +14553,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `performance_parameters_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.performance_parameters_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `performance_parameters_name`')
+                                 'for field `GeneratorMicroChp.performance_parameters_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `performance_parameters_name`')
+                                 'for field `GeneratorMicroChp.performance_parameters_name`')
         self._data["Performance Parameters Name"] = value
 
     @property
@@ -14341,13 +14588,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `GeneratorMicroChp.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `GeneratorMicroChp.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -14376,13 +14623,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_water_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.cooling_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_water_inlet_node_name`')
+                                 'for field `GeneratorMicroChp.cooling_water_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_water_inlet_node_name`')
+                                 'for field `GeneratorMicroChp.cooling_water_inlet_node_name`')
         self._data["Cooling Water Inlet Node Name"] = value
 
     @property
@@ -14411,13 +14658,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_water_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.cooling_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_water_outlet_node_name`')
+                                 'for field `GeneratorMicroChp.cooling_water_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_water_outlet_node_name`')
+                                 'for field `GeneratorMicroChp.cooling_water_outlet_node_name`')
         self._data["Cooling Water Outlet Node Name"] = value
 
     @property
@@ -14446,13 +14693,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `GeneratorMicroChp.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `GeneratorMicroChp.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -14481,13 +14728,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `GeneratorMicroChp.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `GeneratorMicroChp.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -14517,13 +14764,13 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generator_fuel_supply_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.generator_fuel_supply_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generator_fuel_supply_name`')
+                                 'for field `GeneratorMicroChp.generator_fuel_supply_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generator_fuel_supply_name`')
+                                 'for field `GeneratorMicroChp.generator_fuel_supply_name`')
         self._data["Generator Fuel Supply Name"] = value
 
     @property
@@ -14554,23 +14801,46 @@ class GeneratorMicroChp(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `GeneratorMicroChp.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `GeneratorMicroChp.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `GeneratorMicroChp.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorMicroChp:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorMicroChp:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorMicroChp: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorMicroChp: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -14588,8 +14858,27 @@ class GeneratorMicroChp(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -14605,6 +14894,10 @@ class GeneratorMicroChpNonNormalizedParameters(object):
     internal_name = "Generator:MicroCHP:NonNormalizedParameters"
     field_count = 27
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:MicroCHP:NonNormalizedParameters`
@@ -14637,6 +14930,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
         self._data["Cool Down Power"] = None
         self._data["Cool Down Delay Time"] = None
         self._data["Restart Mode"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -14865,13 +15159,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.name`')
         self._data["Name"] = value
 
     @property
@@ -14901,7 +15195,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_electric_power`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.maximum_electric_power`'.format(value))
         self._data["Maximum Electric Power"] = value
 
     @property
@@ -14931,7 +15225,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_electric_power`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.minimum_electric_power`'.format(value))
         self._data["Minimum Electric Power"] = value
 
     @property
@@ -14961,7 +15255,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_cooling_water_flow_rate`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.minimum_cooling_water_flow_rate`'.format(value))
         self._data["Minimum Cooling Water Flow Rate"] = value
 
     @property
@@ -14991,7 +15285,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_cooling_water_temperature`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.maximum_cooling_water_temperature`'.format(value))
         self._data["Maximum Cooling Water Temperature"] = value
 
     @property
@@ -15022,13 +15316,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_efficiency_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.electrical_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_efficiency_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.electrical_efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_efficiency_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.electrical_efficiency_curve_name`')
         self._data["Electrical Efficiency Curve Name"] = value
 
     @property
@@ -15059,13 +15353,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `thermal_efficiency_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.thermal_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `thermal_efficiency_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.thermal_efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `thermal_efficiency_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.thermal_efficiency_curve_name`')
         self._data["Thermal Efficiency Curve Name"] = value
 
     @property
@@ -15097,13 +15391,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_water_flow_rate_mode`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_water_flow_rate_mode`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_water_flow_rate_mode`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_mode`')
             vals = {}
             vals["plantcontrol"] = "PlantControl"
             vals["internalcontrol"] = "InternalControl"
@@ -15126,10 +15420,10 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cooling_water_flow_rate_mode`'.format(value))
+                                     'field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cooling_water_flow_rate_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Water Flow Rate Mode"] = value
 
@@ -15160,13 +15454,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_water_flow_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_water_flow_rate_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_water_flow_rate_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.cooling_water_flow_rate_curve_name`')
         self._data["Cooling Water Flow Rate Curve Name"] = value
 
     @property
@@ -15196,13 +15490,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_flow_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.air_flow_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_flow_rate_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.air_flow_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_flow_rate_curve_name`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.air_flow_rate_curve_name`')
         self._data["Air Flow Rate Curve Name"] = value
 
     @property
@@ -15232,7 +15526,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_net_electrical_power_rate_of_change`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.maximum_net_electrical_power_rate_of_change`'.format(value))
         self._data["Maximum Net Electrical Power Rate of Change"] = value
 
     @property
@@ -15262,7 +15556,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_fuel_flow_rate_of_change`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.maximum_fuel_flow_rate_of_change`'.format(value))
         self._data["Maximum Fuel Flow Rate of Change"] = value
 
     @property
@@ -15292,7 +15586,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heat_exchanger_ufactor_times_area_value`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.heat_exchanger_ufactor_times_area_value`'.format(value))
         self._data["Heat Exchanger U-Factor Times Area Value"] = value
 
     @property
@@ -15322,7 +15616,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_ufactor_times_area_value`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.skin_loss_ufactor_times_area_value`'.format(value))
         self._data["Skin Loss U-Factor Times Area Value"] = value
 
     @property
@@ -15351,7 +15645,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.skin_loss_radiative_fraction`'.format(value))
         self._data["Skin Loss Radiative Fraction"] = value
 
     @property
@@ -15382,10 +15676,10 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `aggregated_thermal_mass_of_energy_conversion_portion_of_generator`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.aggregated_thermal_mass_of_energy_conversion_portion_of_generator`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `aggregated_thermal_mass_of_energy_conversion_portion_of_generator`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.aggregated_thermal_mass_of_energy_conversion_portion_of_generator`')
         self._data["Aggregated Thermal Mass of Energy Conversion Portion of Generator"] = value
 
     @property
@@ -15416,10 +15710,10 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `aggregated_thermal_mass_of_heat_recovery_portion_of_generator`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.aggregated_thermal_mass_of_heat_recovery_portion_of_generator`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `aggregated_thermal_mass_of_heat_recovery_portion_of_generator`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.aggregated_thermal_mass_of_heat_recovery_portion_of_generator`')
         self._data["Aggregated Thermal Mass of Heat Recovery Portion of Generator"] = value
 
     @property
@@ -15449,7 +15743,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `standby_power`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.standby_power`'.format(value))
         self._data["Standby Power"] = value
 
     @property
@@ -15483,13 +15777,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `warm_up_mode`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.warm_up_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `warm_up_mode`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.warm_up_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `warm_up_mode`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.warm_up_mode`')
             vals = {}
             vals["nominalenginetemperature"] = "NominalEngineTemperature"
             vals["timedelay"] = "TimeDelay"
@@ -15512,10 +15806,10 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `warm_up_mode`'.format(value))
+                                     'field `GeneratorMicroChpNonNormalizedParameters.warm_up_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `warm_up_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorMicroChpNonNormalizedParameters.warm_up_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Warm Up Mode"] = value
 
@@ -15545,7 +15839,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `warm_up_fuel_flow_rate_coefficient`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.warm_up_fuel_flow_rate_coefficient`'.format(value))
         self._data["Warm Up Fuel Flow Rate Coefficient"] = value
 
     @property
@@ -15575,7 +15869,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_engine_operating_temperature`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.nominal_engine_operating_temperature`'.format(value))
         self._data["Nominal Engine Operating Temperature"] = value
 
     @property
@@ -15604,7 +15898,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `warm_up_power_coefficient`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.warm_up_power_coefficient`'.format(value))
         self._data["Warm Up Power Coefficient"] = value
 
     @property
@@ -15633,7 +15927,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `warm_up_fuel_flow_rate_limit_ratio`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.warm_up_fuel_flow_rate_limit_ratio`'.format(value))
         self._data["Warm Up Fuel Flow Rate Limit Ratio"] = value
 
     @property
@@ -15663,7 +15957,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `warm_up_delay_time`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.warm_up_delay_time`'.format(value))
         self._data["Warm Up Delay Time"] = value
 
     @property
@@ -15693,7 +15987,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cool_down_power`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.cool_down_power`'.format(value))
         self._data["Cool Down Power"] = value
 
     @property
@@ -15723,7 +16017,7 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cool_down_delay_time`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.cool_down_delay_time`'.format(value))
         self._data["Cool Down Delay Time"] = value
 
     @property
@@ -15755,13 +16049,13 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `restart_mode`'.format(value))
+                                 ' for field `GeneratorMicroChpNonNormalizedParameters.restart_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `restart_mode`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.restart_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `restart_mode`')
+                                 'for field `GeneratorMicroChpNonNormalizedParameters.restart_mode`')
             vals = {}
             vals["mandatorycooldown"] = "MandatoryCoolDown"
             vals["optionalcooldown"] = "OptionalCoolDown"
@@ -15784,21 +16078,44 @@ class GeneratorMicroChpNonNormalizedParameters(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `restart_mode`'.format(value))
+                                     'field `GeneratorMicroChpNonNormalizedParameters.restart_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `restart_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorMicroChpNonNormalizedParameters.restart_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Restart Mode"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorMicroChpNonNormalizedParameters:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorMicroChpNonNormalizedParameters:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorMicroChpNonNormalizedParameters: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorMicroChpNonNormalizedParameters: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -15816,8 +16133,27 @@ class GeneratorMicroChpNonNormalizedParameters(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -15832,6 +16168,10 @@ class GeneratorFuelSupply(object):
     internal_name = "Generator:FuelSupply"
     field_count = 36
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:FuelSupply`
@@ -15873,6 +16213,7 @@ class GeneratorFuelSupply(object):
         self._data["Constituent 11 Molar Fraction"] = None
         self._data["Constituent 12 Name"] = None
         self._data["Constituent 12 Molar Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -16164,13 +16505,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelSupply.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorFuelSupply.name`')
         self._data["Name"] = value
 
     @property
@@ -16202,13 +16543,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_temperature_modeling_mode`'.format(value))
+                                 ' for field `GeneratorFuelSupply.fuel_temperature_modeling_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_temperature_modeling_mode`')
+                                 'for field `GeneratorFuelSupply.fuel_temperature_modeling_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_temperature_modeling_mode`')
+                                 'for field `GeneratorFuelSupply.fuel_temperature_modeling_mode`')
             vals = {}
             vals["temperaturefromairnode"] = "TemperatureFromAirNode"
             vals["scheduled"] = "Scheduled"
@@ -16231,10 +16572,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_temperature_modeling_mode`'.format(value))
+                                     'field `GeneratorFuelSupply.fuel_temperature_modeling_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_temperature_modeling_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.fuel_temperature_modeling_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Temperature Modeling Mode"] = value
 
@@ -16264,13 +16605,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_temperature_reference_node_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.fuel_temperature_reference_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_temperature_reference_node_name`')
+                                 'for field `GeneratorFuelSupply.fuel_temperature_reference_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_temperature_reference_node_name`')
+                                 'for field `GeneratorFuelSupply.fuel_temperature_reference_node_name`')
         self._data["Fuel Temperature Reference Node Name"] = value
 
     @property
@@ -16299,13 +16640,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_temperature_schedule_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.fuel_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_temperature_schedule_name`')
+                                 'for field `GeneratorFuelSupply.fuel_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_temperature_schedule_name`')
+                                 'for field `GeneratorFuelSupply.fuel_temperature_schedule_name`')
         self._data["Fuel Temperature Schedule Name"] = value
 
     @property
@@ -16335,13 +16676,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `compressor_power_function_of_fuel_rate_curve_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.compressor_power_function_of_fuel_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `compressor_power_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelSupply.compressor_power_function_of_fuel_rate_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `compressor_power_function_of_fuel_rate_curve_name`')
+                                 'for field `GeneratorFuelSupply.compressor_power_function_of_fuel_rate_curve_name`')
         self._data["Compressor Power Function of Fuel Rate Curve Name"] = value
 
     @property
@@ -16372,13 +16713,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `compressor_heat_loss_factor`'.format(value))
+                                 ' for field `GeneratorFuelSupply.compressor_heat_loss_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `compressor_heat_loss_factor`')
+                                 'for field `GeneratorFuelSupply.compressor_heat_loss_factor`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `compressor_heat_loss_factor`')
+                                 'for field `GeneratorFuelSupply.compressor_heat_loss_factor`')
         self._data["Compressor Heat Loss Factor"] = value
 
     @property
@@ -16410,13 +16751,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fuel_type`'.format(value))
+                                 ' for field `GeneratorFuelSupply.fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorFuelSupply.fuel_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fuel_type`')
+                                 'for field `GeneratorFuelSupply.fuel_type`')
             vals = {}
             vals["gaseousconstituents"] = "GaseousConstituents"
             vals["liquidgeneric"] = "LiquidGeneric"
@@ -16439,10 +16780,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fuel_type`'.format(value))
+                                     'field `GeneratorFuelSupply.fuel_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fuel_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -16473,7 +16814,7 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_generic_fuel_lower_heating_value`'.format(value))
+                                 ' for field `GeneratorFuelSupply.liquid_generic_fuel_lower_heating_value`'.format(value))
         self._data["Liquid Generic Fuel Lower Heating Value"] = value
 
     @property
@@ -16503,7 +16844,7 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_generic_fuel_higher_heating_value`'.format(value))
+                                 ' for field `GeneratorFuelSupply.liquid_generic_fuel_higher_heating_value`'.format(value))
         self._data["Liquid Generic Fuel Higher Heating Value"] = value
 
     @property
@@ -16533,7 +16874,7 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_generic_fuel_molecular_weight`'.format(value))
+                                 ' for field `GeneratorFuelSupply.liquid_generic_fuel_molecular_weight`'.format(value))
         self._data["Liquid Generic Fuel Molecular Weight"] = value
 
     @property
@@ -16562,7 +16903,7 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `liquid_generic_fuel_co2_emission_factor`'.format(value))
+                                 ' for field `GeneratorFuelSupply.liquid_generic_fuel_co2_emission_factor`'.format(value))
         self._data["Liquid Generic Fuel CO2 Emission Factor"] = value
 
     @property
@@ -16593,13 +16934,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_constituents_in_gaseous_constituent_fuel_supply`'.format(value))
+                                 ' for field `GeneratorFuelSupply.number_of_constituents_in_gaseous_constituent_fuel_supply`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `number_of_constituents_in_gaseous_constituent_fuel_supply`')
+                                 'for field `GeneratorFuelSupply.number_of_constituents_in_gaseous_constituent_fuel_supply`')
             if value > 12.0:
                 raise ValueError('value need to be smaller 12.0 '
-                                 'for field `number_of_constituents_in_gaseous_constituent_fuel_supply`')
+                                 'for field `GeneratorFuelSupply.number_of_constituents_in_gaseous_constituent_fuel_supply`')
         self._data["Number of Constituents in Gaseous Constituent Fuel Supply"] = value
 
     @property
@@ -16643,13 +16984,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_1_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_1_name`')
+                                 'for field `GeneratorFuelSupply.constituent_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_1_name`')
+                                 'for field `GeneratorFuelSupply.constituent_1_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -16684,10 +17025,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_1_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_1_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_1_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_1_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 1 Name"] = value
 
@@ -16719,13 +17060,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_1_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_1_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_1_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_1_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_1_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_1_molar_fraction`')
         self._data["Constituent 1 Molar Fraction"] = value
 
     @property
@@ -16769,13 +17110,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_2_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_2_name`')
+                                 'for field `GeneratorFuelSupply.constituent_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_2_name`')
+                                 'for field `GeneratorFuelSupply.constituent_2_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -16810,10 +17151,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_2_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_2_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_2_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_2_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 2 Name"] = value
 
@@ -16845,13 +17186,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_2_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_2_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_2_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_2_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_2_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_2_molar_fraction`')
         self._data["Constituent 2 Molar Fraction"] = value
 
     @property
@@ -16895,13 +17236,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_3_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_3_name`')
+                                 'for field `GeneratorFuelSupply.constituent_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_3_name`')
+                                 'for field `GeneratorFuelSupply.constituent_3_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -16936,10 +17277,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_3_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_3_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_3_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_3_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 3 Name"] = value
 
@@ -16971,13 +17312,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_3_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_3_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_3_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_3_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_3_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_3_molar_fraction`')
         self._data["Constituent 3 Molar Fraction"] = value
 
     @property
@@ -17021,13 +17362,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_4_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_4_name`')
+                                 'for field `GeneratorFuelSupply.constituent_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_4_name`')
+                                 'for field `GeneratorFuelSupply.constituent_4_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17062,10 +17403,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_4_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_4_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_4_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_4_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 4 Name"] = value
 
@@ -17097,13 +17438,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_4_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_4_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_4_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_4_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_4_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_4_molar_fraction`')
         self._data["Constituent 4 Molar Fraction"] = value
 
     @property
@@ -17147,13 +17488,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_5_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_5_name`')
+                                 'for field `GeneratorFuelSupply.constituent_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_5_name`')
+                                 'for field `GeneratorFuelSupply.constituent_5_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17188,10 +17529,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_5_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_5_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_5_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_5_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 5 Name"] = value
 
@@ -17223,13 +17564,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_5_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_5_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_5_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_5_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_5_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_5_molar_fraction`')
         self._data["Constituent 5 Molar Fraction"] = value
 
     @property
@@ -17273,13 +17614,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_6_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_6_name`')
+                                 'for field `GeneratorFuelSupply.constituent_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_6_name`')
+                                 'for field `GeneratorFuelSupply.constituent_6_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17314,10 +17655,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_6_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_6_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_6_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_6_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 6 Name"] = value
 
@@ -17349,13 +17690,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_6_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_6_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_6_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_6_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_6_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_6_molar_fraction`')
         self._data["Constituent 6 Molar Fraction"] = value
 
     @property
@@ -17394,13 +17735,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_7_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_7_name`')
+                                 'for field `GeneratorFuelSupply.constituent_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_7_name`')
+                                 'for field `GeneratorFuelSupply.constituent_7_name`')
             vals = {}
             vals["hydrogen"] = "Hydrogen"
             vals["methane"] = "Methane"
@@ -17430,10 +17771,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_7_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_7_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_7_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_7_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 7 Name"] = value
 
@@ -17465,13 +17806,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_7_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_7_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_7_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_7_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_7_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_7_molar_fraction`')
         self._data["Constituent 7 Molar Fraction"] = value
 
     @property
@@ -17515,13 +17856,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_8_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_8_name`')
+                                 'for field `GeneratorFuelSupply.constituent_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_8_name`')
+                                 'for field `GeneratorFuelSupply.constituent_8_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17556,10 +17897,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_8_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_8_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_8_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_8_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 8 Name"] = value
 
@@ -17591,13 +17932,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_8_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_8_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_8_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_8_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_8_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_8_molar_fraction`')
         self._data["Constituent 8 Molar Fraction"] = value
 
     @property
@@ -17641,13 +17982,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_9_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_9_name`')
+                                 'for field `GeneratorFuelSupply.constituent_9_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_9_name`')
+                                 'for field `GeneratorFuelSupply.constituent_9_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17682,10 +18023,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_9_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_9_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_9_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_9_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 9 Name"] = value
 
@@ -17717,13 +18058,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_9_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_9_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_9_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_9_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_9_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_9_molar_fraction`')
         self._data["Constituent 9 Molar Fraction"] = value
 
     @property
@@ -17767,13 +18108,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_10_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_10_name`')
+                                 'for field `GeneratorFuelSupply.constituent_10_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_10_name`')
+                                 'for field `GeneratorFuelSupply.constituent_10_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17808,10 +18149,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_10_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_10_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_10_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_10_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 10 Name"] = value
 
@@ -17843,13 +18184,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_10_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_10_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_10_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_10_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_10_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_10_molar_fraction`')
         self._data["Constituent 10 Molar Fraction"] = value
 
     @property
@@ -17893,13 +18234,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_11_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_11_name`')
+                                 'for field `GeneratorFuelSupply.constituent_11_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_11_name`')
+                                 'for field `GeneratorFuelSupply.constituent_11_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -17934,10 +18275,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_11_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_11_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_11_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_11_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 11 Name"] = value
 
@@ -17969,13 +18310,13 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_11_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_11_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_11_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_11_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_11_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_11_molar_fraction`')
         self._data["Constituent 11 Molar Fraction"] = value
 
     @property
@@ -18019,13 +18360,13 @@ class GeneratorFuelSupply(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `constituent_12_name`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `constituent_12_name`')
+                                 'for field `GeneratorFuelSupply.constituent_12_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `constituent_12_name`')
+                                 'for field `GeneratorFuelSupply.constituent_12_name`')
             vals = {}
             vals["carbondioxide"] = "CarbonDioxide"
             vals["nitrogen"] = "Nitrogen"
@@ -18060,10 +18401,10 @@ class GeneratorFuelSupply(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `constituent_12_name`'.format(value))
+                                     'field `GeneratorFuelSupply.constituent_12_name`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `constituent_12_name`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorFuelSupply.constituent_12_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constituent 12 Name"] = value
 
@@ -18095,23 +18436,46 @@ class GeneratorFuelSupply(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `constituent_12_molar_fraction`'.format(value))
+                                 ' for field `GeneratorFuelSupply.constituent_12_molar_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `constituent_12_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_12_molar_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `constituent_12_molar_fraction`')
+                                 'for field `GeneratorFuelSupply.constituent_12_molar_fraction`')
         self._data["Constituent 12 Molar Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorFuelSupply:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorFuelSupply:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorFuelSupply: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorFuelSupply: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -18129,8 +18493,27 @@ class GeneratorFuelSupply(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -18145,6 +18528,10 @@ class GeneratorWindTurbine(object):
     internal_name = "Generator:WindTurbine"
     field_count = 26
     required_fields = ["Name", "Rotor Type", "Power Control", "Rated Rotor Speed", "Rotor Diameter", "Overall Height", "Number of Blades", "Rated Power", "Rated Wind Speed", "Cut In Wind Speed", "Cut Out Wind Speed", "Maximum Tip Speed Ratio"]
+    extensible_fields = 0
+    format = None
+    min_fields = 26
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Generator:WindTurbine`
@@ -18176,6 +18563,7 @@ class GeneratorWindTurbine(object):
         self._data["Power Coefficient C4"] = None
         self._data["Power Coefficient C5"] = None
         self._data["Power Coefficient C6"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -18397,13 +18785,13 @@ class GeneratorWindTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `GeneratorWindTurbine.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `GeneratorWindTurbine.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `GeneratorWindTurbine.name`')
         self._data["Name"] = value
 
     @property
@@ -18434,13 +18822,13 @@ class GeneratorWindTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `GeneratorWindTurbine.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `GeneratorWindTurbine.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `GeneratorWindTurbine.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -18474,13 +18862,13 @@ class GeneratorWindTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `rotor_type`'.format(value))
+                                 ' for field `GeneratorWindTurbine.rotor_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `rotor_type`')
+                                 'for field `GeneratorWindTurbine.rotor_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `rotor_type`')
+                                 'for field `GeneratorWindTurbine.rotor_type`')
             vals = {}
             vals["horizontalaxiswindturbine"] = "HorizontalAxisWindTurbine"
             vals["verticalaxiswindturbine"] = "VerticalAxisWindTurbine"
@@ -18503,10 +18891,10 @@ class GeneratorWindTurbine(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `rotor_type`'.format(value))
+                                     'field `GeneratorWindTurbine.rotor_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `rotor_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorWindTurbine.rotor_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Rotor Type"] = value
 
@@ -18546,13 +18934,13 @@ class GeneratorWindTurbine(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `power_control`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `power_control`')
+                                 'for field `GeneratorWindTurbine.power_control`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `power_control`')
+                                 'for field `GeneratorWindTurbine.power_control`')
             vals = {}
             vals["fixedspeedfixedpitch"] = "FixedSpeedFixedPitch"
             vals["fixedspeedvariablepitch"] = "FixedSpeedVariablePitch"
@@ -18577,10 +18965,10 @@ class GeneratorWindTurbine(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `power_control`'.format(value))
+                                     'field `GeneratorWindTurbine.power_control`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `power_control`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `GeneratorWindTurbine.power_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Power Control"] = value
 
@@ -18612,10 +19000,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_rotor_speed`'.format(value))
+                                 ' for field `GeneratorWindTurbine.rated_rotor_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_rotor_speed`')
+                                 'for field `GeneratorWindTurbine.rated_rotor_speed`')
         self._data["Rated Rotor Speed"] = value
 
     @property
@@ -18648,10 +19036,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rotor_diameter`'.format(value))
+                                 ' for field `GeneratorWindTurbine.rotor_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rotor_diameter`')
+                                 'for field `GeneratorWindTurbine.rotor_diameter`')
         self._data["Rotor Diameter"] = value
 
     @property
@@ -18684,10 +19072,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `overall_height`'.format(value))
+                                 ' for field `GeneratorWindTurbine.overall_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `overall_height`')
+                                 'for field `GeneratorWindTurbine.overall_height`')
         self._data["Overall Height"] = value
 
     @property
@@ -18718,10 +19106,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_blades`'.format(value))
+                                 ' for field `GeneratorWindTurbine.number_of_blades`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
-                                 'for field `number_of_blades`')
+                                 'for field `GeneratorWindTurbine.number_of_blades`')
         self._data["Number of Blades"] = value
 
     @property
@@ -18754,10 +19142,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_power`'.format(value))
+                                 ' for field `GeneratorWindTurbine.rated_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_power`')
+                                 'for field `GeneratorWindTurbine.rated_power`')
         self._data["Rated Power"] = value
 
     @property
@@ -18788,10 +19176,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_wind_speed`'.format(value))
+                                 ' for field `GeneratorWindTurbine.rated_wind_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_wind_speed`')
+                                 'for field `GeneratorWindTurbine.rated_wind_speed`')
         self._data["Rated Wind Speed"] = value
 
     @property
@@ -18822,10 +19210,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cut_in_wind_speed`'.format(value))
+                                 ' for field `GeneratorWindTurbine.cut_in_wind_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `cut_in_wind_speed`')
+                                 'for field `GeneratorWindTurbine.cut_in_wind_speed`')
         self._data["Cut In Wind Speed"] = value
 
     @property
@@ -18856,10 +19244,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cut_out_wind_speed`'.format(value))
+                                 ' for field `GeneratorWindTurbine.cut_out_wind_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `cut_out_wind_speed`')
+                                 'for field `GeneratorWindTurbine.cut_out_wind_speed`')
         self._data["Cut Out Wind Speed"] = value
 
     @property
@@ -18891,13 +19279,13 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_system_efficiency`'.format(value))
+                                 ' for field `GeneratorWindTurbine.fraction_system_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fraction_system_efficiency`')
+                                 'for field `GeneratorWindTurbine.fraction_system_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_system_efficiency`')
+                                 'for field `GeneratorWindTurbine.fraction_system_efficiency`')
         self._data["Fraction system Efficiency"] = value
 
     @property
@@ -18929,13 +19317,13 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_tip_speed_ratio`'.format(value))
+                                 ' for field `GeneratorWindTurbine.maximum_tip_speed_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_tip_speed_ratio`')
+                                 'for field `GeneratorWindTurbine.maximum_tip_speed_ratio`')
             if value > 12.0:
                 raise ValueError('value need to be smaller 12.0 '
-                                 'for field `maximum_tip_speed_ratio`')
+                                 'for field `GeneratorWindTurbine.maximum_tip_speed_ratio`')
         self._data["Maximum Tip Speed Ratio"] = value
 
     @property
@@ -18968,13 +19356,13 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_power_coefficient`'.format(value))
+                                 ' for field `GeneratorWindTurbine.maximum_power_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_power_coefficient`')
+                                 'for field `GeneratorWindTurbine.maximum_power_coefficient`')
             if value > 0.59:
                 raise ValueError('value need to be smaller 0.59 '
-                                 'for field `maximum_power_coefficient`')
+                                 'for field `GeneratorWindTurbine.maximum_power_coefficient`')
         self._data["Maximum Power Coefficient"] = value
 
     @property
@@ -19005,10 +19393,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `annual_local_average_wind_speed`'.format(value))
+                                 ' for field `GeneratorWindTurbine.annual_local_average_wind_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `annual_local_average_wind_speed`')
+                                 'for field `GeneratorWindTurbine.annual_local_average_wind_speed`')
         self._data["Annual Local Average Wind Speed"] = value
 
     @property
@@ -19040,10 +19428,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_for_local_average_wind_speed`'.format(value))
+                                 ' for field `GeneratorWindTurbine.height_for_local_average_wind_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `height_for_local_average_wind_speed`')
+                                 'for field `GeneratorWindTurbine.height_for_local_average_wind_speed`')
         self._data["Height for Local Average Wind Speed"] = value
 
     @property
@@ -19073,7 +19461,7 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blade_chord_area`'.format(value))
+                                 ' for field `GeneratorWindTurbine.blade_chord_area`'.format(value))
         self._data["Blade Chord Area"] = value
 
     @property
@@ -19105,7 +19493,7 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blade_drag_coefficient`'.format(value))
+                                 ' for field `GeneratorWindTurbine.blade_drag_coefficient`'.format(value))
         self._data["Blade Drag Coefficient"] = value
 
     @property
@@ -19137,7 +19525,7 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `blade_lift_coefficient`'.format(value))
+                                 ' for field `GeneratorWindTurbine.blade_lift_coefficient`'.format(value))
         self._data["Blade Lift Coefficient"] = value
 
     @property
@@ -19175,10 +19563,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_coefficient_c1`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_coefficient_c1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `power_coefficient_c1`')
+                                 'for field `GeneratorWindTurbine.power_coefficient_c1`')
         self._data["Power Coefficient C1"] = value
 
     @property
@@ -19209,10 +19597,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_coefficient_c2`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_coefficient_c2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `power_coefficient_c2`')
+                                 'for field `GeneratorWindTurbine.power_coefficient_c2`')
         self._data["Power Coefficient C2"] = value
 
     @property
@@ -19243,10 +19631,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_coefficient_c3`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_coefficient_c3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `power_coefficient_c3`')
+                                 'for field `GeneratorWindTurbine.power_coefficient_c3`')
         self._data["Power Coefficient C3"] = value
 
     @property
@@ -19277,10 +19665,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_coefficient_c4`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_coefficient_c4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `power_coefficient_c4`')
+                                 'for field `GeneratorWindTurbine.power_coefficient_c4`')
         self._data["Power Coefficient C4"] = value
 
     @property
@@ -19311,10 +19699,10 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_coefficient_c5`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_coefficient_c5`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `power_coefficient_c5`')
+                                 'for field `GeneratorWindTurbine.power_coefficient_c5`')
         self._data["Power Coefficient C5"] = value
 
     @property
@@ -19345,20 +19733,43 @@ class GeneratorWindTurbine(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `power_coefficient_c6`'.format(value))
+                                 ' for field `GeneratorWindTurbine.power_coefficient_c6`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `power_coefficient_c6`')
+                                 'for field `GeneratorWindTurbine.power_coefficient_c6`')
         self._data["Power Coefficient C6"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field GeneratorWindTurbine:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GeneratorWindTurbine:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GeneratorWindTurbine: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GeneratorWindTurbine: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -19376,8 +19787,27 @@ class GeneratorWindTurbine(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -19392,164 +19822,19 @@ class ElectricLoadCenterGenerators(object):
         and thermal-to-electrical power ratio.
     """
     internal_name = "ElectricLoadCenter:Generators"
-    field_count = 151
-    required_fields = ["Name", "Generator 1 Name", "Generator 1 Object Type"]
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 5
+    format = None
+    min_fields = 6
+    extensible_keys = ["Generator 1 Name", "Generator 1 Object Type", "Generator 1 Rated Electric Power Output", "Generator 1 Availability Schedule Name", "Generator 1 Rated Thermal to Electrical Power Ratio"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Generators`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self._data["Generator 1 Name"] = None
-        self._data["Generator 1 Object Type"] = None
-        self._data["Generator 1 Rated Electric Power Output"] = None
-        self._data["Generator 1 Availability Schedule Name"] = None
-        self._data["Generator 1 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 2 Name"] = None
-        self._data["Generator 2 Object Type"] = None
-        self._data["Generator 2 Rated Electric Power Output"] = None
-        self._data["Generator 2 Availability Schedule Name"] = None
-        self._data["Generator 2 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 3 Name"] = None
-        self._data["Generator 3 Object Type"] = None
-        self._data["Generator 3 Rated Electric Power Output"] = None
-        self._data["Generator 3 Availability Schedule Name"] = None
-        self._data["Generator 3 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 4 Name"] = None
-        self._data["Generator 4 Object Type"] = None
-        self._data["Generator 4 Rated Electric Power Output"] = None
-        self._data["Generator 4 Availability Schedule Name"] = None
-        self._data["Generator 4 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 5 Name"] = None
-        self._data["Generator 5 Object Type"] = None
-        self._data["Generator 5 Rated Electric Power Output"] = None
-        self._data["Generator 5 Availability Schedule Name"] = None
-        self._data["Generator 5 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 6 Name"] = None
-        self._data["Generator 6 Object Type"] = None
-        self._data["Generator 6 Rated Electric Power Output"] = None
-        self._data["Generator 6 Availability Schedule Name"] = None
-        self._data["Generator 6 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 7 Name"] = None
-        self._data["Generator 7 Object Type"] = None
-        self._data["Generator 7 Rated Electric Power Output"] = None
-        self._data["Generator 7 Availability Schedule Name"] = None
-        self._data["Generator 7 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 8 Name"] = None
-        self._data["Generator 8 Object Type"] = None
-        self._data["Generator 8 Rated Electric Power Output"] = None
-        self._data["Generator 8 Availability Schedule Name"] = None
-        self._data["Generator 8 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 9 Name"] = None
-        self._data["Generator 9 Object Type"] = None
-        self._data["Generator 9 Rated Electric Power Output"] = None
-        self._data["Generator 9 Availability Schedule Name"] = None
-        self._data["Generator 9 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 10 Name"] = None
-        self._data["Generator 10 Object Type"] = None
-        self._data["Generator 10 Rated Electric Power Output"] = None
-        self._data["Generator 10 Availability Schedule Name"] = None
-        self._data["Generator 10 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 11 Name"] = None
-        self._data["Generator 11 Object Type"] = None
-        self._data["Generator 11 Rated Electric Power Output"] = None
-        self._data["Generator 11 Availability Schedule Name"] = None
-        self._data["Generator 11 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 12 Name"] = None
-        self._data["Generator 12 Object Type"] = None
-        self._data["Generator 12 Rated Electric Power Output"] = None
-        self._data["Generator 12 Availability Schedule Name"] = None
-        self._data["Generator 12 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 13 Name"] = None
-        self._data["Generator 13 Object Type"] = None
-        self._data["Generator 13 Rated Electric Power Output"] = None
-        self._data["Generator 13 Availability Schedule Name"] = None
-        self._data["Generator 13 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 14 Name"] = None
-        self._data["Generator 14 Object Type"] = None
-        self._data["Generator 14 Rated Electric Power Output"] = None
-        self._data["Generator 14 Availability Schedule Name"] = None
-        self._data["Generator 14 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 15 Name"] = None
-        self._data["Generator 15 Object Type"] = None
-        self._data["Generator 15 Rated Electric Power Output"] = None
-        self._data["Generator 15 Availability Schedule Name"] = None
-        self._data["Generator 15 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 16 Name"] = None
-        self._data["Generator 16 Object Type"] = None
-        self._data["Generator 16 Rated Electric Power Output"] = None
-        self._data["Generator 16 Availability Schedule Name"] = None
-        self._data["Generator 16 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 17 Name"] = None
-        self._data["Generator 17 Object Type"] = None
-        self._data["Generator 17 Rated Electric Power Output"] = None
-        self._data["Generator 17 Availability Schedule Name"] = None
-        self._data["Generator 17 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 18 Name"] = None
-        self._data["Generator 18 Object Type"] = None
-        self._data["Generator 18 Rated Electric Power Output"] = None
-        self._data["Generator 18 Availability Schedule Name"] = None
-        self._data["Generator 18 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 19 Name"] = None
-        self._data["Generator 19 Object Type"] = None
-        self._data["Generator 19 Rated Electric Power Output"] = None
-        self._data["Generator 19 Availability Schedule Name"] = None
-        self._data["Generator 19 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 20 Name"] = None
-        self._data["Generator 20 Object Type"] = None
-        self._data["Generator 20 Rated Electric Power Output"] = None
-        self._data["Generator 20 Availability Schedule Name"] = None
-        self._data["Generator 20 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 21 Name"] = None
-        self._data["Generator 21 Object Type"] = None
-        self._data["Generator 21 Rated Electric Power Output"] = None
-        self._data["Generator 21 Availability Schedule Name"] = None
-        self._data["Generator 21 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 22 Name"] = None
-        self._data["Generator 22 Object Type"] = None
-        self._data["Generator 22 Rated Electric Power Output"] = None
-        self._data["Generator 22 Availability Schedule Name"] = None
-        self._data["Generator 22 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 23 Name"] = None
-        self._data["Generator 23 Object Type"] = None
-        self._data["Generator 23 Rated Electric Power Output"] = None
-        self._data["Generator 23 Availability Schedule Name"] = None
-        self._data["Generator 23 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 24 Name"] = None
-        self._data["Generator 24 Object Type"] = None
-        self._data["Generator 24 Rated Electric Power Output"] = None
-        self._data["Generator 24 Availability Schedule Name"] = None
-        self._data["Generator 24 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 25 Name"] = None
-        self._data["Generator 25 Object Type"] = None
-        self._data["Generator 25 Rated Electric Power Output"] = None
-        self._data["Generator 25 Availability Schedule Name"] = None
-        self._data["Generator 25 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 26 Name"] = None
-        self._data["Generator 26 Object Type"] = None
-        self._data["Generator 26 Rated Electric Power Output"] = None
-        self._data["Generator 26 Availability Schedule Name"] = None
-        self._data["Generator 26 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 27 Name"] = None
-        self._data["Generator 27 Object Type"] = None
-        self._data["Generator 27 Rated Electric Power Output"] = None
-        self._data["Generator 27 Availability Schedule Name"] = None
-        self._data["Generator 27 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 28 Name"] = None
-        self._data["Generator 28 Object Type"] = None
-        self._data["Generator 28 Rated Electric Power Output"] = None
-        self._data["Generator 28 Availability Schedule Name"] = None
-        self._data["Generator 28 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 29 Name"] = None
-        self._data["Generator 29 Object Type"] = None
-        self._data["Generator 29 Rated Electric Power Output"] = None
-        self._data["Generator 29 Availability Schedule Name"] = None
-        self._data["Generator 29 Rated Thermal to Electrical Power Ratio"] = None
-        self._data["Generator 30 Name"] = None
-        self._data["Generator 30 Object Type"] = None
-        self._data["Generator 30 Rated Electric Power Output"] = None
-        self._data["Generator 30 Availability Schedule Name"] = None
-        self._data["Generator 30 Rated Thermal to Electrical Power Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -19568,1056 +19853,14 @@ class ElectricLoadCenterGenerators(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.generator_1_name = None
-        else:
-            self.generator_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_1_object_type = None
-        else:
-            self.generator_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_1_rated_electric_power_output = None
-        else:
-            self.generator_1_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_1_availability_schedule_name = None
-        else:
-            self.generator_1_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_1_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_1_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_2_name = None
-        else:
-            self.generator_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_2_object_type = None
-        else:
-            self.generator_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_2_rated_electric_power_output = None
-        else:
-            self.generator_2_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_2_availability_schedule_name = None
-        else:
-            self.generator_2_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_2_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_2_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_3_name = None
-        else:
-            self.generator_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_3_object_type = None
-        else:
-            self.generator_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_3_rated_electric_power_output = None
-        else:
-            self.generator_3_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_3_availability_schedule_name = None
-        else:
-            self.generator_3_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_3_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_3_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_4_name = None
-        else:
-            self.generator_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_4_object_type = None
-        else:
-            self.generator_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_4_rated_electric_power_output = None
-        else:
-            self.generator_4_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_4_availability_schedule_name = None
-        else:
-            self.generator_4_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_4_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_4_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_5_name = None
-        else:
-            self.generator_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_5_object_type = None
-        else:
-            self.generator_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_5_rated_electric_power_output = None
-        else:
-            self.generator_5_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_5_availability_schedule_name = None
-        else:
-            self.generator_5_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_5_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_5_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_6_name = None
-        else:
-            self.generator_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_6_object_type = None
-        else:
-            self.generator_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_6_rated_electric_power_output = None
-        else:
-            self.generator_6_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_6_availability_schedule_name = None
-        else:
-            self.generator_6_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_6_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_6_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_7_name = None
-        else:
-            self.generator_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_7_object_type = None
-        else:
-            self.generator_7_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_7_rated_electric_power_output = None
-        else:
-            self.generator_7_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_7_availability_schedule_name = None
-        else:
-            self.generator_7_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_7_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_7_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_8_name = None
-        else:
-            self.generator_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_8_object_type = None
-        else:
-            self.generator_8_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_8_rated_electric_power_output = None
-        else:
-            self.generator_8_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_8_availability_schedule_name = None
-        else:
-            self.generator_8_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_8_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_8_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_9_name = None
-        else:
-            self.generator_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_9_object_type = None
-        else:
-            self.generator_9_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_9_rated_electric_power_output = None
-        else:
-            self.generator_9_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_9_availability_schedule_name = None
-        else:
-            self.generator_9_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_9_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_9_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_10_name = None
-        else:
-            self.generator_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_10_object_type = None
-        else:
-            self.generator_10_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_10_rated_electric_power_output = None
-        else:
-            self.generator_10_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_10_availability_schedule_name = None
-        else:
-            self.generator_10_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_10_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_10_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_11_name = None
-        else:
-            self.generator_11_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_11_object_type = None
-        else:
-            self.generator_11_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_11_rated_electric_power_output = None
-        else:
-            self.generator_11_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_11_availability_schedule_name = None
-        else:
-            self.generator_11_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_11_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_11_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_12_name = None
-        else:
-            self.generator_12_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_12_object_type = None
-        else:
-            self.generator_12_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_12_rated_electric_power_output = None
-        else:
-            self.generator_12_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_12_availability_schedule_name = None
-        else:
-            self.generator_12_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_12_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_12_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_13_name = None
-        else:
-            self.generator_13_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_13_object_type = None
-        else:
-            self.generator_13_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_13_rated_electric_power_output = None
-        else:
-            self.generator_13_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_13_availability_schedule_name = None
-        else:
-            self.generator_13_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_13_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_13_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_14_name = None
-        else:
-            self.generator_14_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_14_object_type = None
-        else:
-            self.generator_14_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_14_rated_electric_power_output = None
-        else:
-            self.generator_14_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_14_availability_schedule_name = None
-        else:
-            self.generator_14_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_14_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_14_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_15_name = None
-        else:
-            self.generator_15_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_15_object_type = None
-        else:
-            self.generator_15_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_15_rated_electric_power_output = None
-        else:
-            self.generator_15_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_15_availability_schedule_name = None
-        else:
-            self.generator_15_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_15_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_15_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_16_name = None
-        else:
-            self.generator_16_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_16_object_type = None
-        else:
-            self.generator_16_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_16_rated_electric_power_output = None
-        else:
-            self.generator_16_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_16_availability_schedule_name = None
-        else:
-            self.generator_16_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_16_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_16_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_17_name = None
-        else:
-            self.generator_17_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_17_object_type = None
-        else:
-            self.generator_17_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_17_rated_electric_power_output = None
-        else:
-            self.generator_17_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_17_availability_schedule_name = None
-        else:
-            self.generator_17_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_17_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_17_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_18_name = None
-        else:
-            self.generator_18_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_18_object_type = None
-        else:
-            self.generator_18_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_18_rated_electric_power_output = None
-        else:
-            self.generator_18_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_18_availability_schedule_name = None
-        else:
-            self.generator_18_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_18_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_18_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_19_name = None
-        else:
-            self.generator_19_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_19_object_type = None
-        else:
-            self.generator_19_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_19_rated_electric_power_output = None
-        else:
-            self.generator_19_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_19_availability_schedule_name = None
-        else:
-            self.generator_19_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_19_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_19_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_20_name = None
-        else:
-            self.generator_20_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_20_object_type = None
-        else:
-            self.generator_20_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_20_rated_electric_power_output = None
-        else:
-            self.generator_20_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_20_availability_schedule_name = None
-        else:
-            self.generator_20_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_20_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_20_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_21_name = None
-        else:
-            self.generator_21_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_21_object_type = None
-        else:
-            self.generator_21_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_21_rated_electric_power_output = None
-        else:
-            self.generator_21_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_21_availability_schedule_name = None
-        else:
-            self.generator_21_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_21_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_21_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_22_name = None
-        else:
-            self.generator_22_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_22_object_type = None
-        else:
-            self.generator_22_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_22_rated_electric_power_output = None
-        else:
-            self.generator_22_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_22_availability_schedule_name = None
-        else:
-            self.generator_22_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_22_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_22_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_23_name = None
-        else:
-            self.generator_23_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_23_object_type = None
-        else:
-            self.generator_23_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_23_rated_electric_power_output = None
-        else:
-            self.generator_23_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_23_availability_schedule_name = None
-        else:
-            self.generator_23_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_23_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_23_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_24_name = None
-        else:
-            self.generator_24_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_24_object_type = None
-        else:
-            self.generator_24_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_24_rated_electric_power_output = None
-        else:
-            self.generator_24_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_24_availability_schedule_name = None
-        else:
-            self.generator_24_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_24_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_24_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_25_name = None
-        else:
-            self.generator_25_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_25_object_type = None
-        else:
-            self.generator_25_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_25_rated_electric_power_output = None
-        else:
-            self.generator_25_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_25_availability_schedule_name = None
-        else:
-            self.generator_25_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_25_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_25_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_26_name = None
-        else:
-            self.generator_26_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_26_object_type = None
-        else:
-            self.generator_26_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_26_rated_electric_power_output = None
-        else:
-            self.generator_26_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_26_availability_schedule_name = None
-        else:
-            self.generator_26_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_26_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_26_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_27_name = None
-        else:
-            self.generator_27_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_27_object_type = None
-        else:
-            self.generator_27_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_27_rated_electric_power_output = None
-        else:
-            self.generator_27_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_27_availability_schedule_name = None
-        else:
-            self.generator_27_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_27_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_27_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_28_name = None
-        else:
-            self.generator_28_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_28_object_type = None
-        else:
-            self.generator_28_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_28_rated_electric_power_output = None
-        else:
-            self.generator_28_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_28_availability_schedule_name = None
-        else:
-            self.generator_28_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_28_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_28_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_29_name = None
-        else:
-            self.generator_29_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_29_object_type = None
-        else:
-            self.generator_29_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_29_rated_electric_power_output = None
-        else:
-            self.generator_29_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_29_availability_schedule_name = None
-        else:
-            self.generator_29_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_29_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_29_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_30_name = None
-        else:
-            self.generator_30_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_30_object_type = None
-        else:
-            self.generator_30_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_30_rated_electric_power_output = None
-        else:
-            self.generator_30_rated_electric_power_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_30_availability_schedule_name = None
-        else:
-            self.generator_30_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.generator_30_rated_thermal_to_electrical_power_ratio = None
-        else:
-            self.generator_30_rated_thermal_to_electrical_power_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -20646,65 +19889,31 @@ class ElectricLoadCenterGenerators(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterGenerators.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterGenerators.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterGenerators.name`')
         self._data["Name"] = value
 
-    @property
-    def generator_1_name(self):
-        """Get generator_1_name
-
-        Returns:
-            str: the value of `generator_1_name` or None if not set
-        """
-        return self._data["Generator 1 Name"]
-
-    @generator_1_name.setter
-    def generator_1_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 1 Name`
+    def add_extensible(self,
+                       generator_1_name=None,
+                       generator_1_object_type=None,
+                       generator_1_rated_electric_power_output=None,
+                       generator_1_availability_schedule_name=None,
+                       generator_1_rated_thermal_to_electrical_power_ratio=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Generator 1 Name`
+
+            generator_1_name (str): value for IDD Field `Generator 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_1_name`')
-        self._data["Generator 1 Name"] = value
-
-    @property
-    def generator_1_object_type(self):
-        """Get generator_1_object_type
-
-        Returns:
-            str: the value of `generator_1_object_type` or None if not set
-        """
-        return self._data["Generator 1 Object Type"]
-
-    @generator_1_object_type.setter
-    def generator_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 1 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 1 Object Type`
+            generator_1_object_type (str): value for IDD Field `Generator 1 Object Type`
                 Accepted values are:
                       - Generator:InternalCombustionEngine
                       - Generator:CombustionTurbine
@@ -20716,21 +19925,65 @@ class ElectricLoadCenterGenerators(object):
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+            generator_1_rated_electric_power_output (float): value for IDD Field `Generator 1 Rated Electric Power Output`
+                Units: W
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            generator_1_availability_schedule_name (str): value for IDD Field `Generator 1 Availability Schedule Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            generator_1_rated_thermal_to_electrical_power_ratio (float): value for IDD Field `Generator 1 Rated Thermal to Electrical Power Ratio`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_generator_1_name(generator_1_name))
+        vals.append(self._check_generator_1_object_type(generator_1_object_type))
+        vals.append(self._check_generator_1_rated_electric_power_output(generator_1_rated_electric_power_output))
+        vals.append(self._check_generator_1_availability_schedule_name(generator_1_availability_schedule_name))
+        vals.append(self._check_generator_1_rated_thermal_to_electrical_power_ratio(generator_1_rated_thermal_to_electrical_power_ratio))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_generator_1_name(self, value):
+        """ Validates falue of field `Generator 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generator_1_object_type`'.format(value))
+                                 ' for field `ElectricLoadCenterGenerators.generator_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generator_1_object_type`')
+                                 'for field `ElectricLoadCenterGenerators.generator_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generator_1_object_type`')
+                                 'for field `ElectricLoadCenterGenerators.generator_1_name`')
+        return value
+
+    def _check_generator_1_object_type(self, value):
+        """ Validates falue of field `Generator 1 Object Type`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ElectricLoadCenterGenerators.generator_1_object_type`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ElectricLoadCenterGenerators.generator_1_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ElectricLoadCenterGenerators.generator_1_object_type`')
             vals = {}
             vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
             vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
@@ -20758,6091 +20011,83 @@ class ElectricLoadCenterGenerators(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_1_object_type`'.format(value))
+                                     'field `ElectricLoadCenterGenerators.generator_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterGenerators.generator_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
-        self._data["Generator 1 Object Type"] = value
+        return value
 
-    @property
-    def generator_1_rated_electric_power_output(self):
-        """Get generator_1_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_1_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 1 Rated Electric Power Output"]
-
-    @generator_1_rated_electric_power_output.setter
-    def generator_1_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 1 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 1 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_generator_1_rated_electric_power_output(self, value):
+        """ Validates falue of field `Generator 1 Rated Electric Power Output`
         """
         if value is not None:
             try:
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `generator_1_rated_electric_power_output`'.format(value))
-        self._data["Generator 1 Rated Electric Power Output"] = value
+                                 ' for field `ElectricLoadCenterGenerators.generator_1_rated_electric_power_output`'.format(value))
+        return value
 
-    @property
-    def generator_1_availability_schedule_name(self):
-        """Get generator_1_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_1_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 1 Availability Schedule Name"]
-
-    @generator_1_availability_schedule_name.setter
-    def generator_1_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 1 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 1 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_generator_1_availability_schedule_name(self, value):
+        """ Validates falue of field `Generator 1 Availability Schedule Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generator_1_availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterGenerators.generator_1_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generator_1_availability_schedule_name`')
+                                 'for field `ElectricLoadCenterGenerators.generator_1_availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generator_1_availability_schedule_name`')
-        self._data["Generator 1 Availability Schedule Name"] = value
+                                 'for field `ElectricLoadCenterGenerators.generator_1_availability_schedule_name`')
+        return value
 
-    @property
-    def generator_1_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_1_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_1_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 1 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_1_rated_thermal_to_electrical_power_ratio.setter
-    def generator_1_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 1 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 1 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_generator_1_rated_thermal_to_electrical_power_ratio(self, value):
+        """ Validates falue of field `Generator 1 Rated Thermal to Electrical Power Ratio`
         """
         if value is not None:
             try:
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `generator_1_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 1 Rated Thermal to Electrical Power Ratio"] = value
+                                 ' for field `ElectricLoadCenterGenerators.generator_1_rated_thermal_to_electrical_power_ratio`'.format(value))
+        return value
 
-    @property
-    def generator_2_name(self):
-        """Get generator_2_name
-
-        Returns:
-            str: the value of `generator_2_name` or None if not set
-        """
-        return self._data["Generator 2 Name"]
-
-    @generator_2_name.setter
-    def generator_2_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 2 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_2_name`')
-        self._data["Generator 2 Name"] = value
-
-    @property
-    def generator_2_object_type(self):
-        """Get generator_2_object_type
-
-        Returns:
-            str: the value of `generator_2_object_type` or None if not set
-        """
-        return self._data["Generator 2 Object Type"]
-
-    @generator_2_object_type.setter
-    def generator_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 2 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 2 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_2_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_2_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_2_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 2 Object Type"] = value
-
-    @property
-    def generator_2_rated_electric_power_output(self):
-        """Get generator_2_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_2_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 2 Rated Electric Power Output"]
-
-    @generator_2_rated_electric_power_output.setter
-    def generator_2_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 2 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 2 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_2_rated_electric_power_output`'.format(value))
-        self._data["Generator 2 Rated Electric Power Output"] = value
-
-    @property
-    def generator_2_availability_schedule_name(self):
-        """Get generator_2_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_2_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 2 Availability Schedule Name"]
-
-    @generator_2_availability_schedule_name.setter
-    def generator_2_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 2 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 2 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_2_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_2_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_2_availability_schedule_name`')
-        self._data["Generator 2 Availability Schedule Name"] = value
-
-    @property
-    def generator_2_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_2_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_2_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 2 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_2_rated_thermal_to_electrical_power_ratio.setter
-    def generator_2_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 2 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 2 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_2_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 2 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_3_name(self):
-        """Get generator_3_name
-
-        Returns:
-            str: the value of `generator_3_name` or None if not set
-        """
-        return self._data["Generator 3 Name"]
-
-    @generator_3_name.setter
-    def generator_3_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 3 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_3_name`')
-        self._data["Generator 3 Name"] = value
-
-    @property
-    def generator_3_object_type(self):
-        """Get generator_3_object_type
-
-        Returns:
-            str: the value of `generator_3_object_type` or None if not set
-        """
-        return self._data["Generator 3 Object Type"]
-
-    @generator_3_object_type.setter
-    def generator_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 3 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 3 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_3_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_3_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_3_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 3 Object Type"] = value
-
-    @property
-    def generator_3_rated_electric_power_output(self):
-        """Get generator_3_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_3_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 3 Rated Electric Power Output"]
-
-    @generator_3_rated_electric_power_output.setter
-    def generator_3_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 3 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 3 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_3_rated_electric_power_output`'.format(value))
-        self._data["Generator 3 Rated Electric Power Output"] = value
-
-    @property
-    def generator_3_availability_schedule_name(self):
-        """Get generator_3_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_3_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 3 Availability Schedule Name"]
-
-    @generator_3_availability_schedule_name.setter
-    def generator_3_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 3 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 3 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_3_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_3_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_3_availability_schedule_name`')
-        self._data["Generator 3 Availability Schedule Name"] = value
-
-    @property
-    def generator_3_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_3_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_3_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 3 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_3_rated_thermal_to_electrical_power_ratio.setter
-    def generator_3_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 3 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 3 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_3_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 3 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_4_name(self):
-        """Get generator_4_name
-
-        Returns:
-            str: the value of `generator_4_name` or None if not set
-        """
-        return self._data["Generator 4 Name"]
-
-    @generator_4_name.setter
-    def generator_4_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 4 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_4_name`')
-        self._data["Generator 4 Name"] = value
-
-    @property
-    def generator_4_object_type(self):
-        """Get generator_4_object_type
-
-        Returns:
-            str: the value of `generator_4_object_type` or None if not set
-        """
-        return self._data["Generator 4 Object Type"]
-
-    @generator_4_object_type.setter
-    def generator_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 4 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 4 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_4_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_4_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_4_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 4 Object Type"] = value
-
-    @property
-    def generator_4_rated_electric_power_output(self):
-        """Get generator_4_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_4_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 4 Rated Electric Power Output"]
-
-    @generator_4_rated_electric_power_output.setter
-    def generator_4_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 4 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 4 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_4_rated_electric_power_output`'.format(value))
-        self._data["Generator 4 Rated Electric Power Output"] = value
-
-    @property
-    def generator_4_availability_schedule_name(self):
-        """Get generator_4_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_4_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 4 Availability Schedule Name"]
-
-    @generator_4_availability_schedule_name.setter
-    def generator_4_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 4 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 4 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_4_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_4_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_4_availability_schedule_name`')
-        self._data["Generator 4 Availability Schedule Name"] = value
-
-    @property
-    def generator_4_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_4_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_4_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 4 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_4_rated_thermal_to_electrical_power_ratio.setter
-    def generator_4_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 4 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 4 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_4_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 4 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_5_name(self):
-        """Get generator_5_name
-
-        Returns:
-            str: the value of `generator_5_name` or None if not set
-        """
-        return self._data["Generator 5 Name"]
-
-    @generator_5_name.setter
-    def generator_5_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 5 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_5_name`')
-        self._data["Generator 5 Name"] = value
-
-    @property
-    def generator_5_object_type(self):
-        """Get generator_5_object_type
-
-        Returns:
-            str: the value of `generator_5_object_type` or None if not set
-        """
-        return self._data["Generator 5 Object Type"]
-
-    @generator_5_object_type.setter
-    def generator_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 5 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 5 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_5_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_5_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_5_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 5 Object Type"] = value
-
-    @property
-    def generator_5_rated_electric_power_output(self):
-        """Get generator_5_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_5_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 5 Rated Electric Power Output"]
-
-    @generator_5_rated_electric_power_output.setter
-    def generator_5_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 5 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 5 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_5_rated_electric_power_output`'.format(value))
-        self._data["Generator 5 Rated Electric Power Output"] = value
-
-    @property
-    def generator_5_availability_schedule_name(self):
-        """Get generator_5_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_5_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 5 Availability Schedule Name"]
-
-    @generator_5_availability_schedule_name.setter
-    def generator_5_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 5 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 5 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_5_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_5_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_5_availability_schedule_name`')
-        self._data["Generator 5 Availability Schedule Name"] = value
-
-    @property
-    def generator_5_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_5_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_5_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 5 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_5_rated_thermal_to_electrical_power_ratio.setter
-    def generator_5_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 5 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 5 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_5_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 5 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_6_name(self):
-        """Get generator_6_name
-
-        Returns:
-            str: the value of `generator_6_name` or None if not set
-        """
-        return self._data["Generator 6 Name"]
-
-    @generator_6_name.setter
-    def generator_6_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 6 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_6_name`')
-        self._data["Generator 6 Name"] = value
-
-    @property
-    def generator_6_object_type(self):
-        """Get generator_6_object_type
-
-        Returns:
-            str: the value of `generator_6_object_type` or None if not set
-        """
-        return self._data["Generator 6 Object Type"]
-
-    @generator_6_object_type.setter
-    def generator_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 6 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 6 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_6_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_6_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_6_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 6 Object Type"] = value
-
-    @property
-    def generator_6_rated_electric_power_output(self):
-        """Get generator_6_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_6_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 6 Rated Electric Power Output"]
-
-    @generator_6_rated_electric_power_output.setter
-    def generator_6_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 6 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 6 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_6_rated_electric_power_output`'.format(value))
-        self._data["Generator 6 Rated Electric Power Output"] = value
-
-    @property
-    def generator_6_availability_schedule_name(self):
-        """Get generator_6_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_6_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 6 Availability Schedule Name"]
-
-    @generator_6_availability_schedule_name.setter
-    def generator_6_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 6 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 6 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_6_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_6_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_6_availability_schedule_name`')
-        self._data["Generator 6 Availability Schedule Name"] = value
-
-    @property
-    def generator_6_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_6_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_6_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 6 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_6_rated_thermal_to_electrical_power_ratio.setter
-    def generator_6_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 6 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 6 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_6_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 6 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_7_name(self):
-        """Get generator_7_name
-
-        Returns:
-            str: the value of `generator_7_name` or None if not set
-        """
-        return self._data["Generator 7 Name"]
-
-    @generator_7_name.setter
-    def generator_7_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 7 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_7_name`')
-        self._data["Generator 7 Name"] = value
-
-    @property
-    def generator_7_object_type(self):
-        """Get generator_7_object_type
-
-        Returns:
-            str: the value of `generator_7_object_type` or None if not set
-        """
-        return self._data["Generator 7 Object Type"]
-
-    @generator_7_object_type.setter
-    def generator_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 7 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 7 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_7_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_7_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_7_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_7_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_7_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 7 Object Type"] = value
-
-    @property
-    def generator_7_rated_electric_power_output(self):
-        """Get generator_7_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_7_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 7 Rated Electric Power Output"]
-
-    @generator_7_rated_electric_power_output.setter
-    def generator_7_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 7 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 7 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_7_rated_electric_power_output`'.format(value))
-        self._data["Generator 7 Rated Electric Power Output"] = value
-
-    @property
-    def generator_7_availability_schedule_name(self):
-        """Get generator_7_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_7_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 7 Availability Schedule Name"]
-
-    @generator_7_availability_schedule_name.setter
-    def generator_7_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 7 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 7 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_7_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_7_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_7_availability_schedule_name`')
-        self._data["Generator 7 Availability Schedule Name"] = value
-
-    @property
-    def generator_7_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_7_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_7_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 7 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_7_rated_thermal_to_electrical_power_ratio.setter
-    def generator_7_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 7 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 7 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_7_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 7 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_8_name(self):
-        """Get generator_8_name
-
-        Returns:
-            str: the value of `generator_8_name` or None if not set
-        """
-        return self._data["Generator 8 Name"]
-
-    @generator_8_name.setter
-    def generator_8_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 8 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_8_name`')
-        self._data["Generator 8 Name"] = value
-
-    @property
-    def generator_8_object_type(self):
-        """Get generator_8_object_type
-
-        Returns:
-            str: the value of `generator_8_object_type` or None if not set
-        """
-        return self._data["Generator 8 Object Type"]
-
-    @generator_8_object_type.setter
-    def generator_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 8 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 8 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_8_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_8_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_8_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_8_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_8_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 8 Object Type"] = value
-
-    @property
-    def generator_8_rated_electric_power_output(self):
-        """Get generator_8_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_8_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 8 Rated Electric Power Output"]
-
-    @generator_8_rated_electric_power_output.setter
-    def generator_8_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 8 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 8 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_8_rated_electric_power_output`'.format(value))
-        self._data["Generator 8 Rated Electric Power Output"] = value
-
-    @property
-    def generator_8_availability_schedule_name(self):
-        """Get generator_8_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_8_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 8 Availability Schedule Name"]
-
-    @generator_8_availability_schedule_name.setter
-    def generator_8_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 8 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 8 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_8_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_8_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_8_availability_schedule_name`')
-        self._data["Generator 8 Availability Schedule Name"] = value
-
-    @property
-    def generator_8_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_8_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_8_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 8 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_8_rated_thermal_to_electrical_power_ratio.setter
-    def generator_8_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 8 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 8 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_8_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 8 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_9_name(self):
-        """Get generator_9_name
-
-        Returns:
-            str: the value of `generator_9_name` or None if not set
-        """
-        return self._data["Generator 9 Name"]
-
-    @generator_9_name.setter
-    def generator_9_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 9 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_9_name`')
-        self._data["Generator 9 Name"] = value
-
-    @property
-    def generator_9_object_type(self):
-        """Get generator_9_object_type
-
-        Returns:
-            str: the value of `generator_9_object_type` or None if not set
-        """
-        return self._data["Generator 9 Object Type"]
-
-    @generator_9_object_type.setter
-    def generator_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 9 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 9 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_9_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_9_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_9_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_9_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_9_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 9 Object Type"] = value
-
-    @property
-    def generator_9_rated_electric_power_output(self):
-        """Get generator_9_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_9_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 9 Rated Electric Power Output"]
-
-    @generator_9_rated_electric_power_output.setter
-    def generator_9_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 9 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 9 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_9_rated_electric_power_output`'.format(value))
-        self._data["Generator 9 Rated Electric Power Output"] = value
-
-    @property
-    def generator_9_availability_schedule_name(self):
-        """Get generator_9_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_9_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 9 Availability Schedule Name"]
-
-    @generator_9_availability_schedule_name.setter
-    def generator_9_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 9 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 9 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_9_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_9_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_9_availability_schedule_name`')
-        self._data["Generator 9 Availability Schedule Name"] = value
-
-    @property
-    def generator_9_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_9_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_9_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 9 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_9_rated_thermal_to_electrical_power_ratio.setter
-    def generator_9_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 9 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 9 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_9_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 9 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_10_name(self):
-        """Get generator_10_name
-
-        Returns:
-            str: the value of `generator_10_name` or None if not set
-        """
-        return self._data["Generator 10 Name"]
-
-    @generator_10_name.setter
-    def generator_10_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 10 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 10 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_10_name`')
-        self._data["Generator 10 Name"] = value
-
-    @property
-    def generator_10_object_type(self):
-        """Get generator_10_object_type
-
-        Returns:
-            str: the value of `generator_10_object_type` or None if not set
-        """
-        return self._data["Generator 10 Object Type"]
-
-    @generator_10_object_type.setter
-    def generator_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 10 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 10 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_10_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_10_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_10_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_10_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_10_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 10 Object Type"] = value
-
-    @property
-    def generator_10_rated_electric_power_output(self):
-        """Get generator_10_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_10_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 10 Rated Electric Power Output"]
-
-    @generator_10_rated_electric_power_output.setter
-    def generator_10_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 10 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 10 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_10_rated_electric_power_output`'.format(value))
-        self._data["Generator 10 Rated Electric Power Output"] = value
-
-    @property
-    def generator_10_availability_schedule_name(self):
-        """Get generator_10_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_10_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 10 Availability Schedule Name"]
-
-    @generator_10_availability_schedule_name.setter
-    def generator_10_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 10 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 10 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_10_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_10_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_10_availability_schedule_name`')
-        self._data["Generator 10 Availability Schedule Name"] = value
-
-    @property
-    def generator_10_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_10_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_10_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 10 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_10_rated_thermal_to_electrical_power_ratio.setter
-    def generator_10_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 10 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 10 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_10_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 10 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_11_name(self):
-        """Get generator_11_name
-
-        Returns:
-            str: the value of `generator_11_name` or None if not set
-        """
-        return self._data["Generator 11 Name"]
-
-    @generator_11_name.setter
-    def generator_11_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 11 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 11 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_11_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_11_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_11_name`')
-        self._data["Generator 11 Name"] = value
-
-    @property
-    def generator_11_object_type(self):
-        """Get generator_11_object_type
-
-        Returns:
-            str: the value of `generator_11_object_type` or None if not set
-        """
-        return self._data["Generator 11 Object Type"]
-
-    @generator_11_object_type.setter
-    def generator_11_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 11 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 11 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_11_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_11_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_11_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_11_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_11_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 11 Object Type"] = value
-
-    @property
-    def generator_11_rated_electric_power_output(self):
-        """Get generator_11_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_11_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 11 Rated Electric Power Output"]
-
-    @generator_11_rated_electric_power_output.setter
-    def generator_11_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 11 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 11 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_11_rated_electric_power_output`'.format(value))
-        self._data["Generator 11 Rated Electric Power Output"] = value
-
-    @property
-    def generator_11_availability_schedule_name(self):
-        """Get generator_11_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_11_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 11 Availability Schedule Name"]
-
-    @generator_11_availability_schedule_name.setter
-    def generator_11_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 11 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 11 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_11_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_11_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_11_availability_schedule_name`')
-        self._data["Generator 11 Availability Schedule Name"] = value
-
-    @property
-    def generator_11_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_11_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_11_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 11 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_11_rated_thermal_to_electrical_power_ratio.setter
-    def generator_11_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 11 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 11 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_11_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 11 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_12_name(self):
-        """Get generator_12_name
-
-        Returns:
-            str: the value of `generator_12_name` or None if not set
-        """
-        return self._data["Generator 12 Name"]
-
-    @generator_12_name.setter
-    def generator_12_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 12 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 12 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_12_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_12_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_12_name`')
-        self._data["Generator 12 Name"] = value
-
-    @property
-    def generator_12_object_type(self):
-        """Get generator_12_object_type
-
-        Returns:
-            str: the value of `generator_12_object_type` or None if not set
-        """
-        return self._data["Generator 12 Object Type"]
-
-    @generator_12_object_type.setter
-    def generator_12_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 12 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 12 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_12_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_12_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_12_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_12_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_12_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 12 Object Type"] = value
-
-    @property
-    def generator_12_rated_electric_power_output(self):
-        """Get generator_12_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_12_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 12 Rated Electric Power Output"]
-
-    @generator_12_rated_electric_power_output.setter
-    def generator_12_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 12 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 12 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_12_rated_electric_power_output`'.format(value))
-        self._data["Generator 12 Rated Electric Power Output"] = value
-
-    @property
-    def generator_12_availability_schedule_name(self):
-        """Get generator_12_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_12_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 12 Availability Schedule Name"]
-
-    @generator_12_availability_schedule_name.setter
-    def generator_12_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 12 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 12 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_12_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_12_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_12_availability_schedule_name`')
-        self._data["Generator 12 Availability Schedule Name"] = value
-
-    @property
-    def generator_12_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_12_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_12_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 12 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_12_rated_thermal_to_electrical_power_ratio.setter
-    def generator_12_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 12 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 12 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_12_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 12 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_13_name(self):
-        """Get generator_13_name
-
-        Returns:
-            str: the value of `generator_13_name` or None if not set
-        """
-        return self._data["Generator 13 Name"]
-
-    @generator_13_name.setter
-    def generator_13_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 13 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 13 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_13_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_13_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_13_name`')
-        self._data["Generator 13 Name"] = value
-
-    @property
-    def generator_13_object_type(self):
-        """Get generator_13_object_type
-
-        Returns:
-            str: the value of `generator_13_object_type` or None if not set
-        """
-        return self._data["Generator 13 Object Type"]
-
-    @generator_13_object_type.setter
-    def generator_13_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 13 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 13 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_13_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_13_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_13_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_13_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_13_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 13 Object Type"] = value
-
-    @property
-    def generator_13_rated_electric_power_output(self):
-        """Get generator_13_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_13_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 13 Rated Electric Power Output"]
-
-    @generator_13_rated_electric_power_output.setter
-    def generator_13_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 13 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 13 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_13_rated_electric_power_output`'.format(value))
-        self._data["Generator 13 Rated Electric Power Output"] = value
-
-    @property
-    def generator_13_availability_schedule_name(self):
-        """Get generator_13_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_13_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 13 Availability Schedule Name"]
-
-    @generator_13_availability_schedule_name.setter
-    def generator_13_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 13 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 13 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_13_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_13_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_13_availability_schedule_name`')
-        self._data["Generator 13 Availability Schedule Name"] = value
-
-    @property
-    def generator_13_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_13_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_13_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 13 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_13_rated_thermal_to_electrical_power_ratio.setter
-    def generator_13_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 13 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 13 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_13_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 13 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_14_name(self):
-        """Get generator_14_name
-
-        Returns:
-            str: the value of `generator_14_name` or None if not set
-        """
-        return self._data["Generator 14 Name"]
-
-    @generator_14_name.setter
-    def generator_14_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 14 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 14 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_14_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_14_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_14_name`')
-        self._data["Generator 14 Name"] = value
-
-    @property
-    def generator_14_object_type(self):
-        """Get generator_14_object_type
-
-        Returns:
-            str: the value of `generator_14_object_type` or None if not set
-        """
-        return self._data["Generator 14 Object Type"]
-
-    @generator_14_object_type.setter
-    def generator_14_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 14 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 14 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_14_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_14_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_14_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_14_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_14_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 14 Object Type"] = value
-
-    @property
-    def generator_14_rated_electric_power_output(self):
-        """Get generator_14_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_14_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 14 Rated Electric Power Output"]
-
-    @generator_14_rated_electric_power_output.setter
-    def generator_14_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 14 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 14 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_14_rated_electric_power_output`'.format(value))
-        self._data["Generator 14 Rated Electric Power Output"] = value
-
-    @property
-    def generator_14_availability_schedule_name(self):
-        """Get generator_14_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_14_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 14 Availability Schedule Name"]
-
-    @generator_14_availability_schedule_name.setter
-    def generator_14_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 14 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 14 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_14_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_14_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_14_availability_schedule_name`')
-        self._data["Generator 14 Availability Schedule Name"] = value
-
-    @property
-    def generator_14_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_14_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_14_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 14 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_14_rated_thermal_to_electrical_power_ratio.setter
-    def generator_14_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 14 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 14 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_14_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 14 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_15_name(self):
-        """Get generator_15_name
-
-        Returns:
-            str: the value of `generator_15_name` or None if not set
-        """
-        return self._data["Generator 15 Name"]
-
-    @generator_15_name.setter
-    def generator_15_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 15 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 15 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_15_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_15_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_15_name`')
-        self._data["Generator 15 Name"] = value
-
-    @property
-    def generator_15_object_type(self):
-        """Get generator_15_object_type
-
-        Returns:
-            str: the value of `generator_15_object_type` or None if not set
-        """
-        return self._data["Generator 15 Object Type"]
-
-    @generator_15_object_type.setter
-    def generator_15_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 15 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 15 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_15_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_15_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_15_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_15_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_15_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 15 Object Type"] = value
-
-    @property
-    def generator_15_rated_electric_power_output(self):
-        """Get generator_15_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_15_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 15 Rated Electric Power Output"]
-
-    @generator_15_rated_electric_power_output.setter
-    def generator_15_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 15 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 15 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_15_rated_electric_power_output`'.format(value))
-        self._data["Generator 15 Rated Electric Power Output"] = value
-
-    @property
-    def generator_15_availability_schedule_name(self):
-        """Get generator_15_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_15_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 15 Availability Schedule Name"]
-
-    @generator_15_availability_schedule_name.setter
-    def generator_15_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 15 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 15 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_15_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_15_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_15_availability_schedule_name`')
-        self._data["Generator 15 Availability Schedule Name"] = value
-
-    @property
-    def generator_15_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_15_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_15_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 15 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_15_rated_thermal_to_electrical_power_ratio.setter
-    def generator_15_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 15 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 15 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_15_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 15 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_16_name(self):
-        """Get generator_16_name
-
-        Returns:
-            str: the value of `generator_16_name` or None if not set
-        """
-        return self._data["Generator 16 Name"]
-
-    @generator_16_name.setter
-    def generator_16_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 16 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 16 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_16_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_16_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_16_name`')
-        self._data["Generator 16 Name"] = value
-
-    @property
-    def generator_16_object_type(self):
-        """Get generator_16_object_type
-
-        Returns:
-            str: the value of `generator_16_object_type` or None if not set
-        """
-        return self._data["Generator 16 Object Type"]
-
-    @generator_16_object_type.setter
-    def generator_16_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 16 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 16 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_16_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_16_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_16_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_16_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_16_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 16 Object Type"] = value
-
-    @property
-    def generator_16_rated_electric_power_output(self):
-        """Get generator_16_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_16_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 16 Rated Electric Power Output"]
-
-    @generator_16_rated_electric_power_output.setter
-    def generator_16_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 16 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 16 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_16_rated_electric_power_output`'.format(value))
-        self._data["Generator 16 Rated Electric Power Output"] = value
-
-    @property
-    def generator_16_availability_schedule_name(self):
-        """Get generator_16_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_16_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 16 Availability Schedule Name"]
-
-    @generator_16_availability_schedule_name.setter
-    def generator_16_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 16 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 16 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_16_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_16_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_16_availability_schedule_name`')
-        self._data["Generator 16 Availability Schedule Name"] = value
-
-    @property
-    def generator_16_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_16_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_16_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 16 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_16_rated_thermal_to_electrical_power_ratio.setter
-    def generator_16_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 16 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 16 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_16_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 16 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_17_name(self):
-        """Get generator_17_name
-
-        Returns:
-            str: the value of `generator_17_name` or None if not set
-        """
-        return self._data["Generator 17 Name"]
-
-    @generator_17_name.setter
-    def generator_17_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 17 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 17 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_17_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_17_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_17_name`')
-        self._data["Generator 17 Name"] = value
-
-    @property
-    def generator_17_object_type(self):
-        """Get generator_17_object_type
-
-        Returns:
-            str: the value of `generator_17_object_type` or None if not set
-        """
-        return self._data["Generator 17 Object Type"]
-
-    @generator_17_object_type.setter
-    def generator_17_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 17 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 17 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_17_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_17_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_17_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_17_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_17_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 17 Object Type"] = value
-
-    @property
-    def generator_17_rated_electric_power_output(self):
-        """Get generator_17_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_17_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 17 Rated Electric Power Output"]
-
-    @generator_17_rated_electric_power_output.setter
-    def generator_17_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 17 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 17 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_17_rated_electric_power_output`'.format(value))
-        self._data["Generator 17 Rated Electric Power Output"] = value
-
-    @property
-    def generator_17_availability_schedule_name(self):
-        """Get generator_17_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_17_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 17 Availability Schedule Name"]
-
-    @generator_17_availability_schedule_name.setter
-    def generator_17_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 17 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 17 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_17_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_17_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_17_availability_schedule_name`')
-        self._data["Generator 17 Availability Schedule Name"] = value
-
-    @property
-    def generator_17_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_17_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_17_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 17 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_17_rated_thermal_to_electrical_power_ratio.setter
-    def generator_17_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 17 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 17 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_17_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 17 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_18_name(self):
-        """Get generator_18_name
-
-        Returns:
-            str: the value of `generator_18_name` or None if not set
-        """
-        return self._data["Generator 18 Name"]
-
-    @generator_18_name.setter
-    def generator_18_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 18 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 18 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_18_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_18_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_18_name`')
-        self._data["Generator 18 Name"] = value
-
-    @property
-    def generator_18_object_type(self):
-        """Get generator_18_object_type
-
-        Returns:
-            str: the value of `generator_18_object_type` or None if not set
-        """
-        return self._data["Generator 18 Object Type"]
-
-    @generator_18_object_type.setter
-    def generator_18_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 18 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 18 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_18_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_18_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_18_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_18_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_18_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 18 Object Type"] = value
-
-    @property
-    def generator_18_rated_electric_power_output(self):
-        """Get generator_18_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_18_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 18 Rated Electric Power Output"]
-
-    @generator_18_rated_electric_power_output.setter
-    def generator_18_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 18 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 18 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_18_rated_electric_power_output`'.format(value))
-        self._data["Generator 18 Rated Electric Power Output"] = value
-
-    @property
-    def generator_18_availability_schedule_name(self):
-        """Get generator_18_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_18_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 18 Availability Schedule Name"]
-
-    @generator_18_availability_schedule_name.setter
-    def generator_18_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 18 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 18 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_18_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_18_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_18_availability_schedule_name`')
-        self._data["Generator 18 Availability Schedule Name"] = value
-
-    @property
-    def generator_18_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_18_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_18_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 18 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_18_rated_thermal_to_electrical_power_ratio.setter
-    def generator_18_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 18 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 18 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_18_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 18 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_19_name(self):
-        """Get generator_19_name
-
-        Returns:
-            str: the value of `generator_19_name` or None if not set
-        """
-        return self._data["Generator 19 Name"]
-
-    @generator_19_name.setter
-    def generator_19_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 19 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 19 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_19_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_19_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_19_name`')
-        self._data["Generator 19 Name"] = value
-
-    @property
-    def generator_19_object_type(self):
-        """Get generator_19_object_type
-
-        Returns:
-            str: the value of `generator_19_object_type` or None if not set
-        """
-        return self._data["Generator 19 Object Type"]
-
-    @generator_19_object_type.setter
-    def generator_19_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 19 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 19 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_19_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_19_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_19_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_19_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_19_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 19 Object Type"] = value
-
-    @property
-    def generator_19_rated_electric_power_output(self):
-        """Get generator_19_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_19_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 19 Rated Electric Power Output"]
-
-    @generator_19_rated_electric_power_output.setter
-    def generator_19_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 19 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 19 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_19_rated_electric_power_output`'.format(value))
-        self._data["Generator 19 Rated Electric Power Output"] = value
-
-    @property
-    def generator_19_availability_schedule_name(self):
-        """Get generator_19_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_19_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 19 Availability Schedule Name"]
-
-    @generator_19_availability_schedule_name.setter
-    def generator_19_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 19 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 19 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_19_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_19_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_19_availability_schedule_name`')
-        self._data["Generator 19 Availability Schedule Name"] = value
-
-    @property
-    def generator_19_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_19_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_19_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 19 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_19_rated_thermal_to_electrical_power_ratio.setter
-    def generator_19_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 19 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 19 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_19_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 19 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_20_name(self):
-        """Get generator_20_name
-
-        Returns:
-            str: the value of `generator_20_name` or None if not set
-        """
-        return self._data["Generator 20 Name"]
-
-    @generator_20_name.setter
-    def generator_20_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 20 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 20 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_20_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_20_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_20_name`')
-        self._data["Generator 20 Name"] = value
-
-    @property
-    def generator_20_object_type(self):
-        """Get generator_20_object_type
-
-        Returns:
-            str: the value of `generator_20_object_type` or None if not set
-        """
-        return self._data["Generator 20 Object Type"]
-
-    @generator_20_object_type.setter
-    def generator_20_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 20 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 20 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_20_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_20_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_20_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_20_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_20_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 20 Object Type"] = value
-
-    @property
-    def generator_20_rated_electric_power_output(self):
-        """Get generator_20_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_20_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 20 Rated Electric Power Output"]
-
-    @generator_20_rated_electric_power_output.setter
-    def generator_20_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 20 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 20 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_20_rated_electric_power_output`'.format(value))
-        self._data["Generator 20 Rated Electric Power Output"] = value
-
-    @property
-    def generator_20_availability_schedule_name(self):
-        """Get generator_20_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_20_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 20 Availability Schedule Name"]
-
-    @generator_20_availability_schedule_name.setter
-    def generator_20_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 20 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 20 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_20_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_20_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_20_availability_schedule_name`')
-        self._data["Generator 20 Availability Schedule Name"] = value
-
-    @property
-    def generator_20_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_20_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_20_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 20 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_20_rated_thermal_to_electrical_power_ratio.setter
-    def generator_20_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 20 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 20 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_20_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 20 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_21_name(self):
-        """Get generator_21_name
-
-        Returns:
-            str: the value of `generator_21_name` or None if not set
-        """
-        return self._data["Generator 21 Name"]
-
-    @generator_21_name.setter
-    def generator_21_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 21 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 21 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_21_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_21_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_21_name`')
-        self._data["Generator 21 Name"] = value
-
-    @property
-    def generator_21_object_type(self):
-        """Get generator_21_object_type
-
-        Returns:
-            str: the value of `generator_21_object_type` or None if not set
-        """
-        return self._data["Generator 21 Object Type"]
-
-    @generator_21_object_type.setter
-    def generator_21_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 21 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 21 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_21_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_21_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_21_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_21_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_21_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 21 Object Type"] = value
-
-    @property
-    def generator_21_rated_electric_power_output(self):
-        """Get generator_21_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_21_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 21 Rated Electric Power Output"]
-
-    @generator_21_rated_electric_power_output.setter
-    def generator_21_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 21 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 21 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_21_rated_electric_power_output`'.format(value))
-        self._data["Generator 21 Rated Electric Power Output"] = value
-
-    @property
-    def generator_21_availability_schedule_name(self):
-        """Get generator_21_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_21_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 21 Availability Schedule Name"]
-
-    @generator_21_availability_schedule_name.setter
-    def generator_21_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 21 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 21 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_21_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_21_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_21_availability_schedule_name`')
-        self._data["Generator 21 Availability Schedule Name"] = value
-
-    @property
-    def generator_21_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_21_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_21_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 21 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_21_rated_thermal_to_electrical_power_ratio.setter
-    def generator_21_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 21 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 21 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_21_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 21 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_22_name(self):
-        """Get generator_22_name
-
-        Returns:
-            str: the value of `generator_22_name` or None if not set
-        """
-        return self._data["Generator 22 Name"]
-
-    @generator_22_name.setter
-    def generator_22_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 22 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 22 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_22_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_22_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_22_name`')
-        self._data["Generator 22 Name"] = value
-
-    @property
-    def generator_22_object_type(self):
-        """Get generator_22_object_type
-
-        Returns:
-            str: the value of `generator_22_object_type` or None if not set
-        """
-        return self._data["Generator 22 Object Type"]
-
-    @generator_22_object_type.setter
-    def generator_22_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 22 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 22 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_22_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_22_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_22_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_22_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_22_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 22 Object Type"] = value
-
-    @property
-    def generator_22_rated_electric_power_output(self):
-        """Get generator_22_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_22_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 22 Rated Electric Power Output"]
-
-    @generator_22_rated_electric_power_output.setter
-    def generator_22_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 22 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 22 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_22_rated_electric_power_output`'.format(value))
-        self._data["Generator 22 Rated Electric Power Output"] = value
-
-    @property
-    def generator_22_availability_schedule_name(self):
-        """Get generator_22_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_22_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 22 Availability Schedule Name"]
-
-    @generator_22_availability_schedule_name.setter
-    def generator_22_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 22 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 22 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_22_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_22_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_22_availability_schedule_name`')
-        self._data["Generator 22 Availability Schedule Name"] = value
-
-    @property
-    def generator_22_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_22_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_22_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 22 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_22_rated_thermal_to_electrical_power_ratio.setter
-    def generator_22_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 22 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 22 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_22_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 22 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_23_name(self):
-        """Get generator_23_name
-
-        Returns:
-            str: the value of `generator_23_name` or None if not set
-        """
-        return self._data["Generator 23 Name"]
-
-    @generator_23_name.setter
-    def generator_23_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 23 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 23 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_23_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_23_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_23_name`')
-        self._data["Generator 23 Name"] = value
-
-    @property
-    def generator_23_object_type(self):
-        """Get generator_23_object_type
-
-        Returns:
-            str: the value of `generator_23_object_type` or None if not set
-        """
-        return self._data["Generator 23 Object Type"]
-
-    @generator_23_object_type.setter
-    def generator_23_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 23 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 23 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_23_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_23_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_23_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_23_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_23_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 23 Object Type"] = value
-
-    @property
-    def generator_23_rated_electric_power_output(self):
-        """Get generator_23_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_23_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 23 Rated Electric Power Output"]
-
-    @generator_23_rated_electric_power_output.setter
-    def generator_23_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 23 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 23 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_23_rated_electric_power_output`'.format(value))
-        self._data["Generator 23 Rated Electric Power Output"] = value
-
-    @property
-    def generator_23_availability_schedule_name(self):
-        """Get generator_23_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_23_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 23 Availability Schedule Name"]
-
-    @generator_23_availability_schedule_name.setter
-    def generator_23_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 23 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 23 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_23_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_23_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_23_availability_schedule_name`')
-        self._data["Generator 23 Availability Schedule Name"] = value
-
-    @property
-    def generator_23_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_23_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_23_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 23 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_23_rated_thermal_to_electrical_power_ratio.setter
-    def generator_23_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 23 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 23 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_23_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 23 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_24_name(self):
-        """Get generator_24_name
-
-        Returns:
-            str: the value of `generator_24_name` or None if not set
-        """
-        return self._data["Generator 24 Name"]
-
-    @generator_24_name.setter
-    def generator_24_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 24 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 24 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_24_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_24_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_24_name`')
-        self._data["Generator 24 Name"] = value
-
-    @property
-    def generator_24_object_type(self):
-        """Get generator_24_object_type
-
-        Returns:
-            str: the value of `generator_24_object_type` or None if not set
-        """
-        return self._data["Generator 24 Object Type"]
-
-    @generator_24_object_type.setter
-    def generator_24_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 24 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 24 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_24_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_24_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_24_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_24_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_24_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 24 Object Type"] = value
-
-    @property
-    def generator_24_rated_electric_power_output(self):
-        """Get generator_24_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_24_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 24 Rated Electric Power Output"]
-
-    @generator_24_rated_electric_power_output.setter
-    def generator_24_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 24 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 24 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_24_rated_electric_power_output`'.format(value))
-        self._data["Generator 24 Rated Electric Power Output"] = value
-
-    @property
-    def generator_24_availability_schedule_name(self):
-        """Get generator_24_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_24_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 24 Availability Schedule Name"]
-
-    @generator_24_availability_schedule_name.setter
-    def generator_24_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 24 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 24 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_24_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_24_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_24_availability_schedule_name`')
-        self._data["Generator 24 Availability Schedule Name"] = value
-
-    @property
-    def generator_24_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_24_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_24_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 24 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_24_rated_thermal_to_electrical_power_ratio.setter
-    def generator_24_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 24 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 24 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_24_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 24 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_25_name(self):
-        """Get generator_25_name
-
-        Returns:
-            str: the value of `generator_25_name` or None if not set
-        """
-        return self._data["Generator 25 Name"]
-
-    @generator_25_name.setter
-    def generator_25_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 25 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 25 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_25_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_25_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_25_name`')
-        self._data["Generator 25 Name"] = value
-
-    @property
-    def generator_25_object_type(self):
-        """Get generator_25_object_type
-
-        Returns:
-            str: the value of `generator_25_object_type` or None if not set
-        """
-        return self._data["Generator 25 Object Type"]
-
-    @generator_25_object_type.setter
-    def generator_25_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 25 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 25 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_25_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_25_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_25_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_25_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_25_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 25 Object Type"] = value
-
-    @property
-    def generator_25_rated_electric_power_output(self):
-        """Get generator_25_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_25_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 25 Rated Electric Power Output"]
-
-    @generator_25_rated_electric_power_output.setter
-    def generator_25_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 25 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 25 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_25_rated_electric_power_output`'.format(value))
-        self._data["Generator 25 Rated Electric Power Output"] = value
-
-    @property
-    def generator_25_availability_schedule_name(self):
-        """Get generator_25_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_25_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 25 Availability Schedule Name"]
-
-    @generator_25_availability_schedule_name.setter
-    def generator_25_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 25 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 25 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_25_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_25_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_25_availability_schedule_name`')
-        self._data["Generator 25 Availability Schedule Name"] = value
-
-    @property
-    def generator_25_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_25_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_25_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 25 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_25_rated_thermal_to_electrical_power_ratio.setter
-    def generator_25_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 25 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 25 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_25_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 25 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_26_name(self):
-        """Get generator_26_name
-
-        Returns:
-            str: the value of `generator_26_name` or None if not set
-        """
-        return self._data["Generator 26 Name"]
-
-    @generator_26_name.setter
-    def generator_26_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 26 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 26 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_26_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_26_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_26_name`')
-        self._data["Generator 26 Name"] = value
-
-    @property
-    def generator_26_object_type(self):
-        """Get generator_26_object_type
-
-        Returns:
-            str: the value of `generator_26_object_type` or None if not set
-        """
-        return self._data["Generator 26 Object Type"]
-
-    @generator_26_object_type.setter
-    def generator_26_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 26 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 26 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_26_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_26_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_26_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_26_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_26_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 26 Object Type"] = value
-
-    @property
-    def generator_26_rated_electric_power_output(self):
-        """Get generator_26_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_26_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 26 Rated Electric Power Output"]
-
-    @generator_26_rated_electric_power_output.setter
-    def generator_26_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 26 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 26 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_26_rated_electric_power_output`'.format(value))
-        self._data["Generator 26 Rated Electric Power Output"] = value
-
-    @property
-    def generator_26_availability_schedule_name(self):
-        """Get generator_26_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_26_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 26 Availability Schedule Name"]
-
-    @generator_26_availability_schedule_name.setter
-    def generator_26_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 26 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 26 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_26_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_26_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_26_availability_schedule_name`')
-        self._data["Generator 26 Availability Schedule Name"] = value
-
-    @property
-    def generator_26_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_26_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_26_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 26 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_26_rated_thermal_to_electrical_power_ratio.setter
-    def generator_26_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 26 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 26 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_26_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 26 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_27_name(self):
-        """Get generator_27_name
-
-        Returns:
-            str: the value of `generator_27_name` or None if not set
-        """
-        return self._data["Generator 27 Name"]
-
-    @generator_27_name.setter
-    def generator_27_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 27 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 27 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_27_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_27_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_27_name`')
-        self._data["Generator 27 Name"] = value
-
-    @property
-    def generator_27_object_type(self):
-        """Get generator_27_object_type
-
-        Returns:
-            str: the value of `generator_27_object_type` or None if not set
-        """
-        return self._data["Generator 27 Object Type"]
-
-    @generator_27_object_type.setter
-    def generator_27_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 27 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 27 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_27_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_27_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_27_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_27_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_27_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 27 Object Type"] = value
-
-    @property
-    def generator_27_rated_electric_power_output(self):
-        """Get generator_27_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_27_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 27 Rated Electric Power Output"]
-
-    @generator_27_rated_electric_power_output.setter
-    def generator_27_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 27 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 27 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_27_rated_electric_power_output`'.format(value))
-        self._data["Generator 27 Rated Electric Power Output"] = value
-
-    @property
-    def generator_27_availability_schedule_name(self):
-        """Get generator_27_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_27_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 27 Availability Schedule Name"]
-
-    @generator_27_availability_schedule_name.setter
-    def generator_27_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 27 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 27 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_27_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_27_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_27_availability_schedule_name`')
-        self._data["Generator 27 Availability Schedule Name"] = value
-
-    @property
-    def generator_27_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_27_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_27_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 27 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_27_rated_thermal_to_electrical_power_ratio.setter
-    def generator_27_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 27 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 27 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_27_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 27 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_28_name(self):
-        """Get generator_28_name
-
-        Returns:
-            str: the value of `generator_28_name` or None if not set
-        """
-        return self._data["Generator 28 Name"]
-
-    @generator_28_name.setter
-    def generator_28_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 28 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 28 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_28_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_28_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_28_name`')
-        self._data["Generator 28 Name"] = value
-
-    @property
-    def generator_28_object_type(self):
-        """Get generator_28_object_type
-
-        Returns:
-            str: the value of `generator_28_object_type` or None if not set
-        """
-        return self._data["Generator 28 Object Type"]
-
-    @generator_28_object_type.setter
-    def generator_28_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 28 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 28 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_28_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_28_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_28_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_28_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_28_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 28 Object Type"] = value
-
-    @property
-    def generator_28_rated_electric_power_output(self):
-        """Get generator_28_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_28_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 28 Rated Electric Power Output"]
-
-    @generator_28_rated_electric_power_output.setter
-    def generator_28_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 28 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 28 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_28_rated_electric_power_output`'.format(value))
-        self._data["Generator 28 Rated Electric Power Output"] = value
-
-    @property
-    def generator_28_availability_schedule_name(self):
-        """Get generator_28_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_28_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 28 Availability Schedule Name"]
-
-    @generator_28_availability_schedule_name.setter
-    def generator_28_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 28 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 28 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_28_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_28_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_28_availability_schedule_name`')
-        self._data["Generator 28 Availability Schedule Name"] = value
-
-    @property
-    def generator_28_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_28_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_28_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 28 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_28_rated_thermal_to_electrical_power_ratio.setter
-    def generator_28_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 28 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 28 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_28_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 28 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_29_name(self):
-        """Get generator_29_name
-
-        Returns:
-            str: the value of `generator_29_name` or None if not set
-        """
-        return self._data["Generator 29 Name"]
-
-    @generator_29_name.setter
-    def generator_29_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 29 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 29 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_29_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_29_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_29_name`')
-        self._data["Generator 29 Name"] = value
-
-    @property
-    def generator_29_object_type(self):
-        """Get generator_29_object_type
-
-        Returns:
-            str: the value of `generator_29_object_type` or None if not set
-        """
-        return self._data["Generator 29 Object Type"]
-
-    @generator_29_object_type.setter
-    def generator_29_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 29 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 29 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_29_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_29_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_29_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_29_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_29_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 29 Object Type"] = value
-
-    @property
-    def generator_29_rated_electric_power_output(self):
-        """Get generator_29_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_29_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 29 Rated Electric Power Output"]
-
-    @generator_29_rated_electric_power_output.setter
-    def generator_29_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 29 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 29 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_29_rated_electric_power_output`'.format(value))
-        self._data["Generator 29 Rated Electric Power Output"] = value
-
-    @property
-    def generator_29_availability_schedule_name(self):
-        """Get generator_29_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_29_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 29 Availability Schedule Name"]
-
-    @generator_29_availability_schedule_name.setter
-    def generator_29_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 29 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 29 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_29_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_29_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_29_availability_schedule_name`')
-        self._data["Generator 29 Availability Schedule Name"] = value
-
-    @property
-    def generator_29_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_29_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_29_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 29 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_29_rated_thermal_to_electrical_power_ratio.setter
-    def generator_29_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 29 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 29 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_29_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 29 Rated Thermal to Electrical Power Ratio"] = value
-
-    @property
-    def generator_30_name(self):
-        """Get generator_30_name
-
-        Returns:
-            str: the value of `generator_30_name` or None if not set
-        """
-        return self._data["Generator 30 Name"]
-
-    @generator_30_name.setter
-    def generator_30_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 30 Name`
-
-        Args:
-            value (str): value for IDD Field `Generator 30 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_30_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_30_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_30_name`')
-        self._data["Generator 30 Name"] = value
-
-    @property
-    def generator_30_object_type(self):
-        """Get generator_30_object_type
-
-        Returns:
-            str: the value of `generator_30_object_type` or None if not set
-        """
-        return self._data["Generator 30 Object Type"]
-
-    @generator_30_object_type.setter
-    def generator_30_object_type(self, value=None):
-        """  Corresponds to IDD Field `Generator 30 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Generator 30 Object Type`
-                Accepted values are:
-                      - Generator:InternalCombustionEngine
-                      - Generator:CombustionTurbine
-                      - Generator:Photovoltaic
-                      - Generator:FuelCell
-                      - Generator:MicroCHP
-                      - Generator:MicroTurbine
-                      - Generator:WindTurbine
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_30_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_30_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_30_object_type`')
-            vals = {}
-            vals["generator:internalcombustionengine"] = "Generator:InternalCombustionEngine"
-            vals["generator:combustionturbine"] = "Generator:CombustionTurbine"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            vals["generator:fuelcell"] = "Generator:FuelCell"
-            vals["generator:microchp"] = "Generator:MicroCHP"
-            vals["generator:microturbine"] = "Generator:MicroTurbine"
-            vals["generator:windturbine"] = "Generator:WindTurbine"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_30_object_type`'.format(value))
-                else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_30_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Generator 30 Object Type"] = value
-
-    @property
-    def generator_30_rated_electric_power_output(self):
-        """Get generator_30_rated_electric_power_output
-
-        Returns:
-            float: the value of `generator_30_rated_electric_power_output` or None if not set
-        """
-        return self._data["Generator 30 Rated Electric Power Output"]
-
-    @generator_30_rated_electric_power_output.setter
-    def generator_30_rated_electric_power_output(self, value=None):
-        """  Corresponds to IDD Field `Generator 30 Rated Electric Power Output`
-
-        Args:
-            value (float): value for IDD Field `Generator 30 Rated Electric Power Output`
-                Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_30_rated_electric_power_output`'.format(value))
-        self._data["Generator 30 Rated Electric Power Output"] = value
-
-    @property
-    def generator_30_availability_schedule_name(self):
-        """Get generator_30_availability_schedule_name
-
-        Returns:
-            str: the value of `generator_30_availability_schedule_name` or None if not set
-        """
-        return self._data["Generator 30 Availability Schedule Name"]
-
-    @generator_30_availability_schedule_name.setter
-    def generator_30_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generator 30 Availability Schedule Name`
-        Availability schedule name for this generator. Schedule value > 0 means the generator is available.
-        If this field is blank, the generator is always available.
-
-        Args:
-            value (str): value for IDD Field `Generator 30 Availability Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `generator_30_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `generator_30_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `generator_30_availability_schedule_name`')
-        self._data["Generator 30 Availability Schedule Name"] = value
-
-    @property
-    def generator_30_rated_thermal_to_electrical_power_ratio(self):
-        """Get generator_30_rated_thermal_to_electrical_power_ratio
-
-        Returns:
-            float: the value of `generator_30_rated_thermal_to_electrical_power_ratio` or None if not set
-        """
-        return self._data["Generator 30 Rated Thermal to Electrical Power Ratio"]
-
-    @generator_30_rated_thermal_to_electrical_power_ratio.setter
-    def generator_30_rated_thermal_to_electrical_power_ratio(self, value=None):
-        """  Corresponds to IDD Field `Generator 30 Rated Thermal to Electrical Power Ratio`
-
-        Args:
-            value (float): value for IDD Field `Generator 30 Rated Thermal to Electrical Power Ratio`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `generator_30_rated_thermal_to_electrical_power_ratio`'.format(value))
-        self._data["Generator 30 Rated Thermal to Electrical Power Ratio"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterGenerators:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterGenerators:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterGenerators: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterGenerators: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -26860,8 +20105,27 @@ class ElectricLoadCenterGenerators(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -26878,6 +20142,10 @@ class ElectricLoadCenterInverterSimple(object):
     internal_name = "ElectricLoadCenter:Inverter:Simple"
     field_count = 5
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Inverter:Simple`
@@ -26888,6 +20156,7 @@ class ElectricLoadCenterInverterSimple(object):
         self._data["Zone Name"] = None
         self._data["Radiative Fraction"] = None
         self._data["Inverter Efficiency"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -26962,13 +20231,13 @@ class ElectricLoadCenterInverterSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterSimple.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterInverterSimple.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterInverterSimple.name`')
         self._data["Name"] = value
 
     @property
@@ -26999,13 +20268,13 @@ class ElectricLoadCenterInverterSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterSimple.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterInverterSimple.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterInverterSimple.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -27036,13 +20305,13 @@ class ElectricLoadCenterInverterSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterSimple.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterInverterSimple.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterInverterSimple.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -27073,13 +20342,13 @@ class ElectricLoadCenterInverterSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radiative_fraction`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterSimple.radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterInverterSimple.radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterInverterSimple.radiative_fraction`')
         self._data["Radiative Fraction"] = value
 
     @property
@@ -27110,23 +20379,46 @@ class ElectricLoadCenterInverterSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `inverter_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterSimple.inverter_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `inverter_efficiency`')
+                                 'for field `ElectricLoadCenterInverterSimple.inverter_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `inverter_efficiency`')
+                                 'for field `ElectricLoadCenterInverterSimple.inverter_efficiency`')
         self._data["Inverter Efficiency"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterInverterSimple:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterInverterSimple:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterInverterSimple: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterInverterSimple: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -27144,8 +20436,27 @@ class ElectricLoadCenterInverterSimple(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -27163,6 +20474,10 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
     internal_name = "ElectricLoadCenter:Inverter:FunctionOfPower"
     field_count = 11
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Inverter:FunctionOfPower`
@@ -27179,6 +20494,7 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
         self._data["Minimum Power Output"] = None
         self._data["Maximum Power Output"] = None
         self._data["Ancillary Power Consumed In Standby"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -27295,13 +20611,13 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.name`')
         self._data["Name"] = value
 
     @property
@@ -27332,13 +20648,13 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -27369,13 +20685,13 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -27404,7 +20720,7 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radiative_fraction`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.radiative_fraction`'.format(value))
         self._data["Radiative Fraction"] = value
 
     @property
@@ -27436,13 +20752,13 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `efficiency_function_of_power_curve_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.efficiency_function_of_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `efficiency_function_of_power_curve_name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.efficiency_function_of_power_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `efficiency_function_of_power_curve_name`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.efficiency_function_of_power_curve_name`')
         self._data["Efficiency Function of Power Curve Name"] = value
 
     @property
@@ -27472,7 +20788,7 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_maximum_continuous_input_power`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.rated_maximum_continuous_input_power`'.format(value))
         self._data["Rated Maximum Continuous Input Power"] = value
 
     @property
@@ -27503,13 +20819,13 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.minimum_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_efficiency`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.minimum_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_efficiency`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.minimum_efficiency`')
         self._data["Minimum Efficiency"] = value
 
     @property
@@ -27540,13 +20856,13 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.maximum_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_efficiency`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.maximum_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `maximum_efficiency`')
+                                 'for field `ElectricLoadCenterInverterFunctionOfPower.maximum_efficiency`')
         self._data["Maximum Efficiency"] = value
 
     @property
@@ -27576,7 +20892,7 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_power_output`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.minimum_power_output`'.format(value))
         self._data["Minimum Power Output"] = value
 
     @property
@@ -27606,7 +20922,7 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_power_output`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.maximum_power_output`'.format(value))
         self._data["Maximum Power Output"] = value
 
     @property
@@ -27636,17 +20952,40 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ancillary_power_consumed_in_standby`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterFunctionOfPower.ancillary_power_consumed_in_standby`'.format(value))
         self._data["Ancillary Power Consumed In Standby"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterInverterFunctionOfPower:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterInverterFunctionOfPower:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterInverterFunctionOfPower: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterInverterFunctionOfPower: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -27664,8 +21003,27 @@ class ElectricLoadCenterInverterFunctionOfPower(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -27682,6 +21040,10 @@ class ElectricLoadCenterInverterLookUpTable(object):
     internal_name = "ElectricLoadCenter:Inverter:LookUpTable"
     field_count = 13
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Inverter:LookUpTable`
@@ -27700,6 +21062,7 @@ class ElectricLoadCenterInverterLookUpTable(object):
         self._data["Efficiency at 50% Power and Nominal Voltage"] = None
         self._data["Efficiency at 75% Power and Nominal Voltage"] = None
         self._data["Efficiency at 100% Power and Nominal Voltage"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -27830,13 +21193,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.name`')
         self._data["Name"] = value
 
     @property
@@ -27867,13 +21230,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -27904,13 +21267,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -27941,13 +21304,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radiative_fraction`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.radiative_fraction`')
         self._data["Radiative Fraction"] = value
 
     @property
@@ -27977,7 +21340,7 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_maximum_continuous_output_power`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.rated_maximum_continuous_output_power`'.format(value))
         self._data["Rated Maximum Continuous Output Power"] = value
 
     @property
@@ -28007,7 +21370,7 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `night_tare_loss_power`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.night_tare_loss_power`'.format(value))
         self._data["Night Tare Loss Power"] = value
 
     @property
@@ -28037,7 +21400,7 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_voltage_input`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.nominal_voltage_input`'.format(value))
         self._data["Nominal Voltage Input"] = value
 
     @property
@@ -28068,13 +21431,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `efficiency_at_10_power_and_nominal_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_10_power_and_nominal_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `efficiency_at_10_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_10_power_and_nominal_voltage`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `efficiency_at_10_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_10_power_and_nominal_voltage`')
         self._data["Efficiency at 10% Power and Nominal Voltage"] = value
 
     @property
@@ -28105,13 +21468,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `efficiency_at_20_power_and_nominal_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_20_power_and_nominal_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `efficiency_at_20_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_20_power_and_nominal_voltage`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `efficiency_at_20_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_20_power_and_nominal_voltage`')
         self._data["Efficiency at 20% Power and Nominal Voltage"] = value
 
     @property
@@ -28142,13 +21505,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `efficiency_at_30_power_and_nominal_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_30_power_and_nominal_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `efficiency_at_30_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_30_power_and_nominal_voltage`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `efficiency_at_30_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_30_power_and_nominal_voltage`')
         self._data["Efficiency at 30% Power and Nominal Voltage"] = value
 
     @property
@@ -28179,13 +21542,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `efficiency_at_50_power_and_nominal_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_50_power_and_nominal_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `efficiency_at_50_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_50_power_and_nominal_voltage`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `efficiency_at_50_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_50_power_and_nominal_voltage`')
         self._data["Efficiency at 50% Power and Nominal Voltage"] = value
 
     @property
@@ -28216,13 +21579,13 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `efficiency_at_75_power_and_nominal_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_75_power_and_nominal_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `efficiency_at_75_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_75_power_and_nominal_voltage`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `efficiency_at_75_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_75_power_and_nominal_voltage`')
         self._data["Efficiency at 75% Power and Nominal Voltage"] = value
 
     @property
@@ -28253,23 +21616,46 @@ class ElectricLoadCenterInverterLookUpTable(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `efficiency_at_100_power_and_nominal_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_100_power_and_nominal_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `efficiency_at_100_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_100_power_and_nominal_voltage`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `efficiency_at_100_power_and_nominal_voltage`')
+                                 'for field `ElectricLoadCenterInverterLookUpTable.efficiency_at_100_power_and_nominal_voltage`')
         self._data["Efficiency at 100% Power and Nominal Voltage"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterInverterLookUpTable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterInverterLookUpTable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterInverterLookUpTable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterInverterLookUpTable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -28287,8 +21673,27 @@ class ElectricLoadCenterInverterLookUpTable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -28307,6 +21712,10 @@ class ElectricLoadCenterStorageSimple(object):
     internal_name = "ElectricLoadCenter:Storage:Simple"
     field_count = 10
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Storage:Simple`
@@ -28322,6 +21731,7 @@ class ElectricLoadCenterStorageSimple(object):
         self._data["Maximum Power for Discharging"] = None
         self._data["Maximum Power for Charging"] = None
         self._data["Initial State of Charge"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -28431,13 +21841,13 @@ class ElectricLoadCenterStorageSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterStorageSimple.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterStorageSimple.name`')
         self._data["Name"] = value
 
     @property
@@ -28468,13 +21878,13 @@ class ElectricLoadCenterStorageSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterStorageSimple.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterStorageSimple.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -28505,13 +21915,13 @@ class ElectricLoadCenterStorageSimple(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterStorageSimple.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterStorageSimple.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -28542,13 +21952,13 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radiative_fraction_for_zone_heat_gains`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.radiative_fraction_for_zone_heat_gains`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `radiative_fraction_for_zone_heat_gains`')
+                                 'for field `ElectricLoadCenterStorageSimple.radiative_fraction_for_zone_heat_gains`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `radiative_fraction_for_zone_heat_gains`')
+                                 'for field `ElectricLoadCenterStorageSimple.radiative_fraction_for_zone_heat_gains`')
         self._data["Radiative Fraction for Zone Heat Gains"] = value
 
     @property
@@ -28579,13 +21989,13 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_energetic_efficiency_for_charging`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.nominal_energetic_efficiency_for_charging`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_energetic_efficiency_for_charging`')
+                                 'for field `ElectricLoadCenterStorageSimple.nominal_energetic_efficiency_for_charging`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `nominal_energetic_efficiency_for_charging`')
+                                 'for field `ElectricLoadCenterStorageSimple.nominal_energetic_efficiency_for_charging`')
         self._data["Nominal Energetic Efficiency for Charging"] = value
 
     @property
@@ -28616,13 +22026,13 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nominal_discharging_energetic_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.nominal_discharging_energetic_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `nominal_discharging_energetic_efficiency`')
+                                 'for field `ElectricLoadCenterStorageSimple.nominal_discharging_energetic_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `nominal_discharging_energetic_efficiency`')
+                                 'for field `ElectricLoadCenterStorageSimple.nominal_discharging_energetic_efficiency`')
         self._data["Nominal Discharging Energetic Efficiency"] = value
 
     @property
@@ -28652,7 +22062,7 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_storage_capacity`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.maximum_storage_capacity`'.format(value))
         self._data["Maximum Storage Capacity"] = value
 
     @property
@@ -28682,7 +22092,7 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_power_for_discharging`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.maximum_power_for_discharging`'.format(value))
         self._data["Maximum Power for Discharging"] = value
 
     @property
@@ -28712,7 +22122,7 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_power_for_charging`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.maximum_power_for_charging`'.format(value))
         self._data["Maximum Power for Charging"] = value
 
     @property
@@ -28742,17 +22152,40 @@ class ElectricLoadCenterStorageSimple(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_state_of_charge`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageSimple.initial_state_of_charge`'.format(value))
         self._data["Initial State of Charge"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterStorageSimple:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterStorageSimple:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterStorageSimple: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterStorageSimple: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -28770,8 +22203,27 @@ class ElectricLoadCenterStorageSimple(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -28792,6 +22244,10 @@ class ElectricLoadCenterStorageBattery(object):
     internal_name = "ElectricLoadCenter:Storage:Battery"
     field_count = 21
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Storage:Battery`
@@ -28818,6 +22274,7 @@ class ElectricLoadCenterStorageBattery(object):
         self._data["Battery Life Calculation"] = None
         self._data["Number of Cycle Bins"] = None
         self._data["Battery Life Curve Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -29004,13 +22461,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterStorageBattery.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterStorageBattery.name`')
         self._data["Name"] = value
 
     @property
@@ -29041,13 +22498,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterStorageBattery.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterStorageBattery.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -29078,13 +22535,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterStorageBattery.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterStorageBattery.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -29116,13 +22573,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radiative_fraction`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterStorageBattery.radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterStorageBattery.radiative_fraction`')
         self._data["Radiative Fraction"] = value
 
     @property
@@ -29159,15 +22616,15 @@ class ElectricLoadCenterStorageBattery(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_battery_modules_in_parallel`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ElectricLoadCenterStorageBattery.number_of_battery_modules_in_parallel`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_battery_modules_in_parallel`'.format(value))
+                                         'for field `ElectricLoadCenterStorageBattery.number_of_battery_modules_in_parallel`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_battery_modules_in_parallel`')
+                                 'for field `ElectricLoadCenterStorageBattery.number_of_battery_modules_in_parallel`')
         self._data["Number of Battery Modules in Parallel"] = value
 
     @property
@@ -29204,15 +22661,15 @@ class ElectricLoadCenterStorageBattery(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_battery_modules_in_series`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ElectricLoadCenterStorageBattery.number_of_battery_modules_in_series`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_battery_modules_in_series`'.format(value))
+                                         'for field `ElectricLoadCenterStorageBattery.number_of_battery_modules_in_series`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_battery_modules_in_series`')
+                                 'for field `ElectricLoadCenterStorageBattery.number_of_battery_modules_in_series`')
         self._data["Number of Battery Modules in Series"] = value
 
     @property
@@ -29245,10 +22702,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_module_capacity`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.maximum_module_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_module_capacity`')
+                                 'for field `ElectricLoadCenterStorageBattery.maximum_module_capacity`')
         self._data["Maximum Module Capacity"] = value
 
     @property
@@ -29282,13 +22739,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `initial_fractional_state_of_charge`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.initial_fractional_state_of_charge`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `initial_fractional_state_of_charge`')
+                                 'for field `ElectricLoadCenterStorageBattery.initial_fractional_state_of_charge`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `initial_fractional_state_of_charge`')
+                                 'for field `ElectricLoadCenterStorageBattery.initial_fractional_state_of_charge`')
         self._data["Initial Fractional State of Charge"] = value
 
     @property
@@ -29320,13 +22777,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_available_charge_capacity`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.fraction_of_available_charge_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_available_charge_capacity`')
+                                 'for field `ElectricLoadCenterStorageBattery.fraction_of_available_charge_capacity`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_available_charge_capacity`')
+                                 'for field `ElectricLoadCenterStorageBattery.fraction_of_available_charge_capacity`')
         self._data["Fraction of Available Charge Capacity"] = value
 
     @property
@@ -29358,10 +22815,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `change_rate_from_bound_charge_to_available_charge`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.change_rate_from_bound_charge_to_available_charge`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `change_rate_from_bound_charge_to_available_charge`')
+                                 'for field `ElectricLoadCenterStorageBattery.change_rate_from_bound_charge_to_available_charge`')
         self._data["Change Rate from Bound Charge to Available Charge"] = value
 
     @property
@@ -29393,10 +22850,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fully_charged_module_open_circuit_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.fully_charged_module_open_circuit_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fully_charged_module_open_circuit_voltage`')
+                                 'for field `ElectricLoadCenterStorageBattery.fully_charged_module_open_circuit_voltage`')
         self._data["Fully Charged Module Open Circuit Voltage"] = value
 
     @property
@@ -29428,10 +22885,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fully_discharged_module_open_circuit_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.fully_discharged_module_open_circuit_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fully_discharged_module_open_circuit_voltage`')
+                                 'for field `ElectricLoadCenterStorageBattery.fully_discharged_module_open_circuit_voltage`')
         self._data["Fully Discharged Module Open Circuit Voltage"] = value
 
     @property
@@ -29462,13 +22919,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `voltage_change_curve_name_for_charging`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.voltage_change_curve_name_for_charging`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `voltage_change_curve_name_for_charging`')
+                                 'for field `ElectricLoadCenterStorageBattery.voltage_change_curve_name_for_charging`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `voltage_change_curve_name_for_charging`')
+                                 'for field `ElectricLoadCenterStorageBattery.voltage_change_curve_name_for_charging`')
         self._data["Voltage Change Curve Name for Charging"] = value
 
     @property
@@ -29499,13 +22956,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `voltage_change_curve_name_for_discharging`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.voltage_change_curve_name_for_discharging`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `voltage_change_curve_name_for_discharging`')
+                                 'for field `ElectricLoadCenterStorageBattery.voltage_change_curve_name_for_discharging`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `voltage_change_curve_name_for_discharging`')
+                                 'for field `ElectricLoadCenterStorageBattery.voltage_change_curve_name_for_discharging`')
         self._data["Voltage Change Curve Name for Discharging"] = value
 
     @property
@@ -29539,10 +22996,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `module_internal_electrical_resistance`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.module_internal_electrical_resistance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `module_internal_electrical_resistance`')
+                                 'for field `ElectricLoadCenterStorageBattery.module_internal_electrical_resistance`')
         self._data["Module Internal Electrical Resistance"] = value
 
     @property
@@ -29574,10 +23031,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_module_discharging_current`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.maximum_module_discharging_current`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_module_discharging_current`')
+                                 'for field `ElectricLoadCenterStorageBattery.maximum_module_discharging_current`')
         self._data["Maximum Module Discharging Current"] = value
 
     @property
@@ -29609,10 +23066,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `module_cutoff_voltage`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.module_cutoff_voltage`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `module_cutoff_voltage`')
+                                 'for field `ElectricLoadCenterStorageBattery.module_cutoff_voltage`')
         self._data["Module Cut-off Voltage"] = value
 
     @property
@@ -29646,10 +23103,10 @@ class ElectricLoadCenterStorageBattery(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `module_charge_rate_limit`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.module_charge_rate_limit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `module_charge_rate_limit`')
+                                 'for field `ElectricLoadCenterStorageBattery.module_charge_rate_limit`')
         self._data["Module Charge Rate Limit"] = value
 
     @property
@@ -29682,13 +23139,13 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `battery_life_calculation`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.battery_life_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `battery_life_calculation`')
+                                 'for field `ElectricLoadCenterStorageBattery.battery_life_calculation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `battery_life_calculation`')
+                                 'for field `ElectricLoadCenterStorageBattery.battery_life_calculation`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -29711,10 +23168,10 @@ class ElectricLoadCenterStorageBattery(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `battery_life_calculation`'.format(value))
+                                     'field `ElectricLoadCenterStorageBattery.battery_life_calculation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `battery_life_calculation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterStorageBattery.battery_life_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Battery Life Calculation"] = value
 
@@ -29749,15 +23206,15 @@ class ElectricLoadCenterStorageBattery(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_cycle_bins`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ElectricLoadCenterStorageBattery.number_of_cycle_bins`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_cycle_bins`'.format(value))
+                                         'for field `ElectricLoadCenterStorageBattery.number_of_cycle_bins`'.format(value))
             if value < 5:
                 raise ValueError('value need to be greater or equal 5 '
-                                 'for field `number_of_cycle_bins`')
+                                 'for field `ElectricLoadCenterStorageBattery.number_of_cycle_bins`')
         self._data["Number of Cycle Bins"] = value
 
     @property
@@ -29789,23 +23246,46 @@ class ElectricLoadCenterStorageBattery(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `battery_life_curve_name`'.format(value))
+                                 ' for field `ElectricLoadCenterStorageBattery.battery_life_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `battery_life_curve_name`')
+                                 'for field `ElectricLoadCenterStorageBattery.battery_life_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `battery_life_curve_name`')
+                                 'for field `ElectricLoadCenterStorageBattery.battery_life_curve_name`')
         self._data["Battery Life Curve Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterStorageBattery:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterStorageBattery:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterStorageBattery: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterStorageBattery: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -29823,8 +23303,27 @@ class ElectricLoadCenterStorageBattery(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -29838,8 +23337,12 @@ class ElectricLoadCenterTransformer(object):
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
     internal_name = "ElectricLoadCenter:Transformer"
-    field_count = 28
+    field_count = 18
     required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 0
+    extensible_keys = ["Meter 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Transformer`
@@ -29863,16 +23366,7 @@ class ElectricLoadCenterTransformer(object):
         self._data["Reference Temperature for Nameplate Efficiency"] = None
         self._data["Per Unit Load for Maximum Efficiency"] = None
         self._data["Consider Transformer Loss for Utility Cost"] = None
-        self._data["Meter 1 Name"] = None
-        self._data["Meter 2 Name"] = None
-        self._data["Meter 3 Name"] = None
-        self._data["Meter 4 Name"] = None
-        self._data["Meter 5 Name"] = None
-        self._data["Meter 6 Name"] = None
-        self._data["Meter 7 Name"] = None
-        self._data["Meter 8 Name"] = None
-        self._data["Meter 9 Name"] = None
-        self._data["Meter 10 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -30010,76 +23504,14 @@ class ElectricLoadCenterTransformer(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.meter_1_name = None
-        else:
-            self.meter_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_2_name = None
-        else:
-            self.meter_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_3_name = None
-        else:
-            self.meter_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_4_name = None
-        else:
-            self.meter_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_5_name = None
-        else:
-            self.meter_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_6_name = None
-        else:
-            self.meter_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_7_name = None
-        else:
-            self.meter_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_8_name = None
-        else:
-            self.meter_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_9_name = None
-        else:
-            self.meter_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_10_name = None
-        else:
-            self.meter_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -30108,13 +23540,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterTransformer.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterTransformer.name`')
         self._data["Name"] = value
 
     @property
@@ -30145,13 +23577,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterTransformer.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `ElectricLoadCenterTransformer.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -30187,13 +23619,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `transformer_usage`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.transformer_usage`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `transformer_usage`')
+                                 'for field `ElectricLoadCenterTransformer.transformer_usage`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `transformer_usage`')
+                                 'for field `ElectricLoadCenterTransformer.transformer_usage`')
             vals = {}
             vals["powerinfromgrid"] = "PowerInFromGrid"
             vals["poweroutfromonsitegeneration"] = "PowerOutFromOnsiteGeneration"
@@ -30216,10 +23648,10 @@ class ElectricLoadCenterTransformer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `transformer_usage`'.format(value))
+                                     'field `ElectricLoadCenterTransformer.transformer_usage`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `transformer_usage`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterTransformer.transformer_usage`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Transformer Usage"] = value
 
@@ -30251,13 +23683,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterTransformer.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `ElectricLoadCenterTransformer.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -30289,13 +23721,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radiative_fraction`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterTransformer.radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `radiative_fraction`')
+                                 'for field `ElectricLoadCenterTransformer.radiative_fraction`')
         self._data["Radiative Fraction"] = value
 
     @property
@@ -30327,10 +23759,10 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_capacity`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.rated_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_capacity`')
+                                 'for field `ElectricLoadCenterTransformer.rated_capacity`')
         self._data["Rated Capacity"] = value
 
     @property
@@ -30365,13 +23797,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `phase`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.phase`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `phase`')
+                                 'for field `ElectricLoadCenterTransformer.phase`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `phase`')
+                                 'for field `ElectricLoadCenterTransformer.phase`')
             vals = {}
             vals["1"] = "1"
             vals["3"] = "3"
@@ -30394,10 +23826,10 @@ class ElectricLoadCenterTransformer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `phase`'.format(value))
+                                     'field `ElectricLoadCenterTransformer.phase`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `phase`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterTransformer.phase`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Phase"] = value
 
@@ -30432,13 +23864,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `conductor_material`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.conductor_material`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `conductor_material`')
+                                 'for field `ElectricLoadCenterTransformer.conductor_material`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `conductor_material`')
+                                 'for field `ElectricLoadCenterTransformer.conductor_material`')
             vals = {}
             vals["copper"] = "Copper"
             vals["aluminum"] = "Aluminum"
@@ -30461,10 +23893,10 @@ class ElectricLoadCenterTransformer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `conductor_material`'.format(value))
+                                     'field `ElectricLoadCenterTransformer.conductor_material`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `conductor_material`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterTransformer.conductor_material`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Conductor Material"] = value
 
@@ -30498,13 +23930,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `full_load_temperature_rise`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.full_load_temperature_rise`'.format(value))
             if value < 50.0:
                 raise ValueError('value need to be greater or equal 50.0 '
-                                 'for field `full_load_temperature_rise`')
+                                 'for field `ElectricLoadCenterTransformer.full_load_temperature_rise`')
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
-                                 'for field `full_load_temperature_rise`')
+                                 'for field `ElectricLoadCenterTransformer.full_load_temperature_rise`')
         self._data["Full Load Temperature Rise"] = value
 
     @property
@@ -30536,13 +23968,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_eddy_current_losses`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.fraction_of_eddy_current_losses`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_eddy_current_losses`')
+                                 'for field `ElectricLoadCenterTransformer.fraction_of_eddy_current_losses`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_eddy_current_losses`')
+                                 'for field `ElectricLoadCenterTransformer.fraction_of_eddy_current_losses`')
         self._data["Fraction of Eddy Current Losses"] = value
 
     @property
@@ -30578,13 +24010,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `performance_input_method`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `performance_input_method`')
+                                 'for field `ElectricLoadCenterTransformer.performance_input_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `performance_input_method`')
+                                 'for field `ElectricLoadCenterTransformer.performance_input_method`')
             vals = {}
             vals["ratedlosses"] = "RatedLosses"
             vals["nominalefficiency"] = "NominalEfficiency"
@@ -30607,10 +24039,10 @@ class ElectricLoadCenterTransformer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `performance_input_method`'.format(value))
+                                     'field `ElectricLoadCenterTransformer.performance_input_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `performance_input_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterTransformer.performance_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Performance Input Method"] = value
 
@@ -30643,10 +24075,10 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_no_load_loss`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.rated_no_load_loss`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_no_load_loss`')
+                                 'for field `ElectricLoadCenterTransformer.rated_no_load_loss`')
         self._data["Rated No Load Loss"] = value
 
     @property
@@ -30678,10 +24110,10 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_load_loss`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.rated_load_loss`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_load_loss`')
+                                 'for field `ElectricLoadCenterTransformer.rated_load_loss`')
         self._data["Rated Load Loss"] = value
 
     @property
@@ -30714,13 +24146,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `nameplate_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.nameplate_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `nameplate_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.nameplate_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `nameplate_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.nameplate_efficiency`')
         self._data["Nameplate Efficiency"] = value
 
     @property
@@ -30754,13 +24186,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `per_unit_load_for_nameplate_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.per_unit_load_for_nameplate_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `per_unit_load_for_nameplate_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.per_unit_load_for_nameplate_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `per_unit_load_for_nameplate_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.per_unit_load_for_nameplate_efficiency`')
         self._data["Per Unit Load for Nameplate Efficiency"] = value
 
     @property
@@ -30795,13 +24227,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `reference_temperature_for_nameplate_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.reference_temperature_for_nameplate_efficiency`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
-                                 'for field `reference_temperature_for_nameplate_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.reference_temperature_for_nameplate_efficiency`')
             if value > 150.0:
                 raise ValueError('value need to be smaller 150.0 '
-                                 'for field `reference_temperature_for_nameplate_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.reference_temperature_for_nameplate_efficiency`')
         self._data["Reference Temperature for Nameplate Efficiency"] = value
 
     @property
@@ -30834,13 +24266,13 @@ class ElectricLoadCenterTransformer(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `per_unit_load_for_maximum_efficiency`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.per_unit_load_for_maximum_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `per_unit_load_for_maximum_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.per_unit_load_for_maximum_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `per_unit_load_for_maximum_efficiency`')
+                                 'for field `ElectricLoadCenterTransformer.per_unit_load_for_maximum_efficiency`')
         self._data["Per Unit Load for Maximum Efficiency"] = value
 
     @property
@@ -30874,13 +24306,13 @@ class ElectricLoadCenterTransformer(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `consider_transformer_loss_for_utility_cost`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.consider_transformer_loss_for_utility_cost`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `consider_transformer_loss_for_utility_cost`')
+                                 'for field `ElectricLoadCenterTransformer.consider_transformer_loss_for_utility_cost`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `consider_transformer_loss_for_utility_cost`')
+                                 'for field `ElectricLoadCenterTransformer.consider_transformer_loss_for_utility_cost`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -30903,391 +24335,82 @@ class ElectricLoadCenterTransformer(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `consider_transformer_loss_for_utility_cost`'.format(value))
+                                     'field `ElectricLoadCenterTransformer.consider_transformer_loss_for_utility_cost`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `consider_transformer_loss_for_utility_cost`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterTransformer.consider_transformer_loss_for_utility_cost`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Consider Transformer Loss for Utility Cost"] = value
 
-    @property
-    def meter_1_name(self):
-        """Get meter_1_name
-
-        Returns:
-            str: the value of `meter_1_name` or None if not set
-        """
-        return self._data["Meter 1 Name"]
-
-    @meter_1_name.setter
-    def meter_1_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 1 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
+    def add_extensible(self,
+                       meter_1_name=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Meter 1 Name`
+
+            meter_1_name (str): value for IDD Field `Meter 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_meter_1_name(meter_1_name))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_meter_1_name(self, value):
+        """ Validates falue of field `Meter 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `meter_1_name`'.format(value))
+                                 ' for field `ElectricLoadCenterTransformer.meter_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `meter_1_name`')
+                                 'for field `ElectricLoadCenterTransformer.meter_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `meter_1_name`')
-        self._data["Meter 1 Name"] = value
+                                 'for field `ElectricLoadCenterTransformer.meter_1_name`')
+        return value
 
-    @property
-    def meter_2_name(self):
-        """Get meter_2_name
-
-        Returns:
-            str: the value of `meter_2_name` or None if not set
-        """
-        return self._data["Meter 2 Name"]
-
-    @meter_2_name.setter
-    def meter_2_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 2 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_2_name`')
-        self._data["Meter 2 Name"] = value
-
-    @property
-    def meter_3_name(self):
-        """Get meter_3_name
-
-        Returns:
-            str: the value of `meter_3_name` or None if not set
-        """
-        return self._data["Meter 3 Name"]
-
-    @meter_3_name.setter
-    def meter_3_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 3 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_3_name`')
-        self._data["Meter 3 Name"] = value
-
-    @property
-    def meter_4_name(self):
-        """Get meter_4_name
-
-        Returns:
-            str: the value of `meter_4_name` or None if not set
-        """
-        return self._data["Meter 4 Name"]
-
-    @meter_4_name.setter
-    def meter_4_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 4 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_4_name`')
-        self._data["Meter 4 Name"] = value
-
-    @property
-    def meter_5_name(self):
-        """Get meter_5_name
-
-        Returns:
-            str: the value of `meter_5_name` or None if not set
-        """
-        return self._data["Meter 5 Name"]
-
-    @meter_5_name.setter
-    def meter_5_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 5 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_5_name`')
-        self._data["Meter 5 Name"] = value
-
-    @property
-    def meter_6_name(self):
-        """Get meter_6_name
-
-        Returns:
-            str: the value of `meter_6_name` or None if not set
-        """
-        return self._data["Meter 6 Name"]
-
-    @meter_6_name.setter
-    def meter_6_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 6 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_6_name`')
-        self._data["Meter 6 Name"] = value
-
-    @property
-    def meter_7_name(self):
-        """Get meter_7_name
-
-        Returns:
-            str: the value of `meter_7_name` or None if not set
-        """
-        return self._data["Meter 7 Name"]
-
-    @meter_7_name.setter
-    def meter_7_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 7 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_7_name`')
-        self._data["Meter 7 Name"] = value
-
-    @property
-    def meter_8_name(self):
-        """Get meter_8_name
-
-        Returns:
-            str: the value of `meter_8_name` or None if not set
-        """
-        return self._data["Meter 8 Name"]
-
-    @meter_8_name.setter
-    def meter_8_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 8 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_8_name`')
-        self._data["Meter 8 Name"] = value
-
-    @property
-    def meter_9_name(self):
-        """Get meter_9_name
-
-        Returns:
-            str: the value of `meter_9_name` or None if not set
-        """
-        return self._data["Meter 9 Name"]
-
-    @meter_9_name.setter
-    def meter_9_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 9 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_9_name`')
-        self._data["Meter 9 Name"] = value
-
-    @property
-    def meter_10_name(self):
-        """Get meter_10_name
-
-        Returns:
-            str: the value of `meter_10_name` or None if not set
-        """
-        return self._data["Meter 10 Name"]
-
-    @meter_10_name.setter
-    def meter_10_name(self, value=None):
-        """  Corresponds to IDD Field `Meter 10 Name`
-        Must be an electric meter (with electricity as the resource type)
-        Only required when transformer is used for power in from the utility grid
-
-        Args:
-            value (str): value for IDD Field `Meter 10 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `meter_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `meter_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `meter_10_name`')
-        self._data["Meter 10 Name"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterTransformer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterTransformer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterTransformer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterTransformer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -31305,8 +24428,27 @@ class ElectricLoadCenterTransformer(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -31322,6 +24464,10 @@ class ElectricLoadCenterDistribution(object):
     internal_name = "ElectricLoadCenter:Distribution"
     field_count = 10
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricLoadCenter:Distribution`
@@ -31337,6 +24483,7 @@ class ElectricLoadCenterDistribution(object):
         self._data["Inverter Object Name"] = None
         self._data["Electrical Storage Object Name"] = None
         self._data["Transformer Object Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -31446,13 +24593,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterDistribution.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ElectricLoadCenterDistribution.name`')
         self._data["Name"] = value
 
     @property
@@ -31481,13 +24628,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generator_list_name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.generator_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generator_list_name`')
+                                 'for field `ElectricLoadCenterDistribution.generator_list_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generator_list_name`')
+                                 'for field `ElectricLoadCenterDistribution.generator_list_name`')
         self._data["Generator List Name"] = value
 
     @property
@@ -31525,13 +24672,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `generator_operation_scheme_type`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.generator_operation_scheme_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `generator_operation_scheme_type`')
+                                 'for field `ElectricLoadCenterDistribution.generator_operation_scheme_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `generator_operation_scheme_type`')
+                                 'for field `ElectricLoadCenterDistribution.generator_operation_scheme_type`')
             vals = {}
             vals["baseload"] = "Baseload"
             vals["demandlimit"] = "DemandLimit"
@@ -31559,10 +24706,10 @@ class ElectricLoadCenterDistribution(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `generator_operation_scheme_type`'.format(value))
+                                     'field `ElectricLoadCenterDistribution.generator_operation_scheme_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `generator_operation_scheme_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterDistribution.generator_operation_scheme_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Generator Operation Scheme Type"] = value
 
@@ -31593,7 +24740,7 @@ class ElectricLoadCenterDistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `demand_limit_scheme_purchased_electric_demand_limit`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.demand_limit_scheme_purchased_electric_demand_limit`'.format(value))
         self._data["Demand Limit Scheme Purchased Electric Demand Limit"] = value
 
     @property
@@ -31623,13 +24770,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `track_schedule_name_scheme_schedule_name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.track_schedule_name_scheme_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `track_schedule_name_scheme_schedule_name`')
+                                 'for field `ElectricLoadCenterDistribution.track_schedule_name_scheme_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `track_schedule_name_scheme_schedule_name`')
+                                 'for field `ElectricLoadCenterDistribution.track_schedule_name_scheme_schedule_name`')
         self._data["Track Schedule Name Scheme Schedule Name"] = value
 
     @property
@@ -31659,13 +24806,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `track_meter_scheme_meter_name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.track_meter_scheme_meter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `track_meter_scheme_meter_name`')
+                                 'for field `ElectricLoadCenterDistribution.track_meter_scheme_meter_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `track_meter_scheme_meter_name`')
+                                 'for field `ElectricLoadCenterDistribution.track_meter_scheme_meter_name`')
         self._data["Track Meter Scheme Meter Name"] = value
 
     @property
@@ -31701,13 +24848,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_buss_type`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.electrical_buss_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_buss_type`')
+                                 'for field `ElectricLoadCenterDistribution.electrical_buss_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_buss_type`')
+                                 'for field `ElectricLoadCenterDistribution.electrical_buss_type`')
             vals = {}
             vals["alternatingcurrent"] = "AlternatingCurrent"
             vals["alternatingcurrentwithstorage"] = "AlternatingCurrentWithStorage"
@@ -31733,10 +24880,10 @@ class ElectricLoadCenterDistribution(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `electrical_buss_type`'.format(value))
+                                     'field `ElectricLoadCenterDistribution.electrical_buss_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `electrical_buss_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ElectricLoadCenterDistribution.electrical_buss_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Electrical Buss Type"] = value
 
@@ -31768,13 +24915,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inverter_object_name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.inverter_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inverter_object_name`')
+                                 'for field `ElectricLoadCenterDistribution.inverter_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inverter_object_name`')
+                                 'for field `ElectricLoadCenterDistribution.inverter_object_name`')
         self._data["Inverter Object Name"] = value
 
     @property
@@ -31805,13 +24952,13 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `electrical_storage_object_name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.electrical_storage_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `electrical_storage_object_name`')
+                                 'for field `ElectricLoadCenterDistribution.electrical_storage_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `electrical_storage_object_name`')
+                                 'for field `ElectricLoadCenterDistribution.electrical_storage_object_name`')
         self._data["Electrical Storage Object Name"] = value
 
     @property
@@ -31841,23 +24988,46 @@ class ElectricLoadCenterDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `transformer_object_name`'.format(value))
+                                 ' for field `ElectricLoadCenterDistribution.transformer_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `transformer_object_name`')
+                                 'for field `ElectricLoadCenterDistribution.transformer_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `transformer_object_name`')
+                                 'for field `ElectricLoadCenterDistribution.transformer_object_name`')
         self._data["Transformer Object Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ElectricLoadCenterDistribution:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ElectricLoadCenterDistribution:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ElectricLoadCenterDistribution: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ElectricLoadCenterDistribution: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -31875,8 +25045,27 @@ class ElectricLoadCenterDistribution(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

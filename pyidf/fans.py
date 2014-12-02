@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class FanConstantVolume(object):
     """ Corresponds to IDD object `Fan:ConstantVolume`
         Constant volume fan that is intended to operate continuously based on a time schedule.
@@ -11,6 +14,10 @@ class FanConstantVolume(object):
     internal_name = "Fan:ConstantVolume"
     field_count = 10
     required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:ConstantVolume`
@@ -26,6 +33,7 @@ class FanConstantVolume(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -135,13 +143,13 @@ class FanConstantVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FanConstantVolume.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FanConstantVolume.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FanConstantVolume.name`')
         self._data["Name"] = value
 
     @property
@@ -172,13 +180,13 @@ class FanConstantVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FanConstantVolume.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanConstantVolume.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanConstantVolume.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -210,13 +218,13 @@ class FanConstantVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `FanConstantVolume.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanConstantVolume.fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanConstantVolume.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -247,7 +255,7 @@ class FanConstantVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_rise`'.format(value))
+                                 ' for field `FanConstantVolume.pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
     @property
@@ -280,8 +288,8 @@ class FanConstantVolume(object):
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanConstantVolume.maximum_flow_rate`'.format(value))
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -290,10 +298,10 @@ class FanConstantVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `FanConstantVolume.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `FanConstantVolume.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -325,13 +333,13 @@ class FanConstantVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `FanConstantVolume.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanConstantVolume.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanConstantVolume.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -364,13 +372,13 @@ class FanConstantVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_in_airstream_fraction`'.format(value))
+                                 ' for field `FanConstantVolume.motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanConstantVolume.motor_in_airstream_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanConstantVolume.motor_in_airstream_fraction`')
         self._data["Motor In Airstream Fraction"] = value
 
     @property
@@ -399,13 +407,13 @@ class FanConstantVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `FanConstantVolume.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanConstantVolume.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanConstantVolume.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -434,13 +442,13 @@ class FanConstantVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `FanConstantVolume.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanConstantVolume.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanConstantVolume.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -470,23 +478,46 @@ class FanConstantVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `FanConstantVolume.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanConstantVolume.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanConstantVolume.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FanConstantVolume:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FanConstantVolume:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FanConstantVolume: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FanConstantVolume: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -504,8 +535,27 @@ class FanConstantVolume(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -521,6 +571,10 @@ class FanVariableVolume(object):
     internal_name = "Fan:VariableVolume"
     field_count = 18
     required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 17
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:VariableVolume`
@@ -544,6 +598,7 @@ class FanVariableVolume(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -709,13 +764,13 @@ class FanVariableVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FanVariableVolume.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FanVariableVolume.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FanVariableVolume.name`')
         self._data["Name"] = value
 
     @property
@@ -746,13 +801,13 @@ class FanVariableVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FanVariableVolume.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanVariableVolume.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanVariableVolume.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -784,13 +839,13 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `FanVariableVolume.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanVariableVolume.fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanVariableVolume.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -821,7 +876,7 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_rise`'.format(value))
+                                 ' for field `FanVariableVolume.pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
     @property
@@ -854,8 +909,8 @@ class FanVariableVolume(object):
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanVariableVolume.maximum_flow_rate`'.format(value))
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -864,10 +919,10 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `FanVariableVolume.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `FanVariableVolume.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -900,13 +955,13 @@ class FanVariableVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_power_minimum_flow_rate_input_method`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_minimum_flow_rate_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_power_minimum_flow_rate_input_method`')
+                                 'for field `FanVariableVolume.fan_power_minimum_flow_rate_input_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_power_minimum_flow_rate_input_method`')
+                                 'for field `FanVariableVolume.fan_power_minimum_flow_rate_input_method`')
             vals = {}
             vals["fraction"] = "Fraction"
             vals["fixedflowrate"] = "FixedFlowRate"
@@ -929,10 +984,10 @@ class FanVariableVolume(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fan_power_minimum_flow_rate_input_method`'.format(value))
+                                     'field `FanVariableVolume.fan_power_minimum_flow_rate_input_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fan_power_minimum_flow_rate_input_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FanVariableVolume.fan_power_minimum_flow_rate_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Power Minimum Flow Rate Input Method"] = value
 
@@ -965,13 +1020,13 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_minimum_flow_fraction`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_minimum_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fan_power_minimum_flow_fraction`')
+                                 'for field `FanVariableVolume.fan_power_minimum_flow_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fan_power_minimum_flow_fraction`')
+                                 'for field `FanVariableVolume.fan_power_minimum_flow_fraction`')
         self._data["Fan Power Minimum Flow Fraction"] = value
 
     @property
@@ -1002,10 +1057,10 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_minimum_air_flow_rate`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_minimum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fan_power_minimum_air_flow_rate`')
+                                 'for field `FanVariableVolume.fan_power_minimum_air_flow_rate`')
         self._data["Fan Power Minimum Air Flow Rate"] = value
 
     @property
@@ -1037,13 +1092,13 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `FanVariableVolume.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanVariableVolume.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanVariableVolume.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -1076,13 +1131,13 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_in_airstream_fraction`'.format(value))
+                                 ' for field `FanVariableVolume.motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanVariableVolume.motor_in_airstream_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanVariableVolume.motor_in_airstream_fraction`')
         self._data["Motor In Airstream Fraction"] = value
 
     @property
@@ -1114,7 +1169,7 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_coefficient_1`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_coefficient_1`'.format(value))
         self._data["Fan Power Coefficient 1"] = value
 
     @property
@@ -1143,7 +1198,7 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_coefficient_2`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_coefficient_2`'.format(value))
         self._data["Fan Power Coefficient 2"] = value
 
     @property
@@ -1172,7 +1227,7 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_coefficient_3`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_coefficient_3`'.format(value))
         self._data["Fan Power Coefficient 3"] = value
 
     @property
@@ -1201,7 +1256,7 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_coefficient_4`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_coefficient_4`'.format(value))
         self._data["Fan Power Coefficient 4"] = value
 
     @property
@@ -1230,7 +1285,7 @@ class FanVariableVolume(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_power_coefficient_5`'.format(value))
+                                 ' for field `FanVariableVolume.fan_power_coefficient_5`'.format(value))
         self._data["Fan Power Coefficient 5"] = value
 
     @property
@@ -1259,13 +1314,13 @@ class FanVariableVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `FanVariableVolume.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanVariableVolume.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanVariableVolume.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -1294,13 +1349,13 @@ class FanVariableVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `FanVariableVolume.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanVariableVolume.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanVariableVolume.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -1330,23 +1385,46 @@ class FanVariableVolume(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `FanVariableVolume.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanVariableVolume.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanVariableVolume.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FanVariableVolume:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FanVariableVolume:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FanVariableVolume: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FanVariableVolume: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1364,8 +1442,27 @@ class FanVariableVolume(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1382,6 +1479,10 @@ class FanOnOff(object):
     internal_name = "Fan:OnOff"
     field_count = 12
     required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:OnOff`
@@ -1399,6 +1500,7 @@ class FanOnOff(object):
         self._data["Fan Power Ratio Function of Speed Ratio Curve Name"] = None
         self._data["Fan Efficiency Ratio Function of Speed Ratio Curve Name"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1522,13 +1624,13 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FanOnOff.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FanOnOff.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FanOnOff.name`')
         self._data["Name"] = value
 
     @property
@@ -1559,13 +1661,13 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FanOnOff.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanOnOff.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanOnOff.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1597,13 +1699,13 @@ class FanOnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `FanOnOff.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanOnOff.fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanOnOff.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -1634,7 +1736,7 @@ class FanOnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_rise`'.format(value))
+                                 ' for field `FanOnOff.pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
     @property
@@ -1667,8 +1769,8 @@ class FanOnOff(object):
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanOnOff.maximum_flow_rate`'.format(value))
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -1677,10 +1779,10 @@ class FanOnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `FanOnOff.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `FanOnOff.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -1712,13 +1814,13 @@ class FanOnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `FanOnOff.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanOnOff.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanOnOff.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -1751,13 +1853,13 @@ class FanOnOff(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_in_airstream_fraction`'.format(value))
+                                 ' for field `FanOnOff.motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanOnOff.motor_in_airstream_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanOnOff.motor_in_airstream_fraction`')
         self._data["Motor In Airstream Fraction"] = value
 
     @property
@@ -1786,13 +1888,13 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `FanOnOff.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanOnOff.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanOnOff.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -1821,13 +1923,13 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `FanOnOff.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanOnOff.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanOnOff.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -1857,13 +1959,13 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_power_ratio_function_of_speed_ratio_curve_name`'.format(value))
+                                 ' for field `FanOnOff.fan_power_ratio_function_of_speed_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_power_ratio_function_of_speed_ratio_curve_name`')
+                                 'for field `FanOnOff.fan_power_ratio_function_of_speed_ratio_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_power_ratio_function_of_speed_ratio_curve_name`')
+                                 'for field `FanOnOff.fan_power_ratio_function_of_speed_ratio_curve_name`')
         self._data["Fan Power Ratio Function of Speed Ratio Curve Name"] = value
 
     @property
@@ -1893,13 +1995,13 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_efficiency_ratio_function_of_speed_ratio_curve_name`'.format(value))
+                                 ' for field `FanOnOff.fan_efficiency_ratio_function_of_speed_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_efficiency_ratio_function_of_speed_ratio_curve_name`')
+                                 'for field `FanOnOff.fan_efficiency_ratio_function_of_speed_ratio_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_efficiency_ratio_function_of_speed_ratio_curve_name`')
+                                 'for field `FanOnOff.fan_efficiency_ratio_function_of_speed_ratio_curve_name`')
         self._data["Fan Efficiency Ratio Function of Speed Ratio Curve Name"] = value
 
     @property
@@ -1929,23 +2031,46 @@ class FanOnOff(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `FanOnOff.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanOnOff.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanOnOff.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FanOnOff:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FanOnOff:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FanOnOff: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FanOnOff: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1963,8 +2088,27 @@ class FanOnOff(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1979,6 +2123,10 @@ class FanZoneExhaust(object):
     internal_name = "Fan:ZoneExhaust"
     field_count = 12
     required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 7
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:ZoneExhaust`
@@ -1996,6 +2144,7 @@ class FanZoneExhaust(object):
         self._data["System Availability Manager Coupling Mode"] = None
         self._data["Minimum Zone Temperature Limit Schedule Name"] = None
         self._data["Balanced Exhaust Fraction Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2119,13 +2268,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FanZoneExhaust.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FanZoneExhaust.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FanZoneExhaust.name`')
         self._data["Name"] = value
 
     @property
@@ -2156,13 +2305,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FanZoneExhaust.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanZoneExhaust.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanZoneExhaust.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -2194,13 +2343,13 @@ class FanZoneExhaust(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `FanZoneExhaust.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanZoneExhaust.fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanZoneExhaust.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -2231,7 +2380,7 @@ class FanZoneExhaust(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_rise`'.format(value))
+                                 ' for field `FanZoneExhaust.pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
     @property
@@ -2262,10 +2411,10 @@ class FanZoneExhaust(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `FanZoneExhaust.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `FanZoneExhaust.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -2294,13 +2443,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `FanZoneExhaust.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanZoneExhaust.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanZoneExhaust.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -2329,13 +2478,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `FanZoneExhaust.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanZoneExhaust.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanZoneExhaust.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -2365,13 +2514,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `FanZoneExhaust.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanZoneExhaust.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanZoneExhaust.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -2401,13 +2550,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `flow_fraction_schedule_name`'.format(value))
+                                 ' for field `FanZoneExhaust.flow_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `flow_fraction_schedule_name`')
+                                 'for field `FanZoneExhaust.flow_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `flow_fraction_schedule_name`')
+                                 'for field `FanZoneExhaust.flow_fraction_schedule_name`')
         self._data["Flow Fraction Schedule Name"] = value
 
     @property
@@ -2441,13 +2590,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `system_availability_manager_coupling_mode`'.format(value))
+                                 ' for field `FanZoneExhaust.system_availability_manager_coupling_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `system_availability_manager_coupling_mode`')
+                                 'for field `FanZoneExhaust.system_availability_manager_coupling_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `system_availability_manager_coupling_mode`')
+                                 'for field `FanZoneExhaust.system_availability_manager_coupling_mode`')
             vals = {}
             vals["coupled"] = "Coupled"
             vals["decoupled"] = "Decoupled"
@@ -2470,10 +2619,10 @@ class FanZoneExhaust(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `system_availability_manager_coupling_mode`'.format(value))
+                                     'field `FanZoneExhaust.system_availability_manager_coupling_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `system_availability_manager_coupling_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FanZoneExhaust.system_availability_manager_coupling_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Availability Manager Coupling Mode"] = value
 
@@ -2504,13 +2653,13 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_zone_temperature_limit_schedule_name`'.format(value))
+                                 ' for field `FanZoneExhaust.minimum_zone_temperature_limit_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_zone_temperature_limit_schedule_name`')
+                                 'for field `FanZoneExhaust.minimum_zone_temperature_limit_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_zone_temperature_limit_schedule_name`')
+                                 'for field `FanZoneExhaust.minimum_zone_temperature_limit_schedule_name`')
         self._data["Minimum Zone Temperature Limit Schedule Name"] = value
 
     @property
@@ -2541,23 +2690,46 @@ class FanZoneExhaust(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `balanced_exhaust_fraction_schedule_name`'.format(value))
+                                 ' for field `FanZoneExhaust.balanced_exhaust_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `balanced_exhaust_fraction_schedule_name`')
+                                 'for field `FanZoneExhaust.balanced_exhaust_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `balanced_exhaust_fraction_schedule_name`')
+                                 'for field `FanZoneExhaust.balanced_exhaust_fraction_schedule_name`')
         self._data["Balanced Exhaust Fraction Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FanZoneExhaust:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FanZoneExhaust:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FanZoneExhaust: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FanZoneExhaust: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2575,8 +2747,27 @@ class FanZoneExhaust(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2596,6 +2787,10 @@ class FanPerformanceNightVentilation(object):
     internal_name = "FanPerformance:NightVentilation"
     field_count = 6
     required_fields = ["Fan Name", "Fan Total Efficiency", "Pressure Rise", "Motor Efficiency"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FanPerformance:NightVentilation`
@@ -2607,6 +2802,7 @@ class FanPerformanceNightVentilation(object):
         self._data["Maximum Flow Rate"] = None
         self._data["Motor Efficiency"] = None
         self._data["Motor in Airstream Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2688,13 +2884,13 @@ class FanPerformanceNightVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_name`'.format(value))
+                                 ' for field `FanPerformanceNightVentilation.fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_name`')
+                                 'for field `FanPerformanceNightVentilation.fan_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_name`')
+                                 'for field `FanPerformanceNightVentilation.fan_name`')
         self._data["Fan Name"] = value
 
     @property
@@ -2725,13 +2921,13 @@ class FanPerformanceNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_total_efficiency`'.format(value))
+                                 ' for field `FanPerformanceNightVentilation.fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanPerformanceNightVentilation.fan_total_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fan_total_efficiency`')
+                                 'for field `FanPerformanceNightVentilation.fan_total_efficiency`')
         self._data["Fan Total Efficiency"] = value
 
     @property
@@ -2762,7 +2958,7 @@ class FanPerformanceNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_rise`'.format(value))
+                                 ' for field `FanPerformanceNightVentilation.pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
     @property
@@ -2795,8 +2991,8 @@ class FanPerformanceNightVentilation(object):
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanPerformanceNightVentilation.maximum_flow_rate`'.format(value))
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -2805,10 +3001,10 @@ class FanPerformanceNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `FanPerformanceNightVentilation.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `FanPerformanceNightVentilation.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -2839,13 +3035,13 @@ class FanPerformanceNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `FanPerformanceNightVentilation.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanPerformanceNightVentilation.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `FanPerformanceNightVentilation.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -2879,23 +3075,46 @@ class FanPerformanceNightVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_in_airstream_fraction`'.format(value))
+                                 ' for field `FanPerformanceNightVentilation.motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanPerformanceNightVentilation.motor_in_airstream_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanPerformanceNightVentilation.motor_in_airstream_fraction`')
         self._data["Motor in Airstream Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FanPerformanceNightVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FanPerformanceNightVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FanPerformanceNightVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FanPerformanceNightVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2913,8 +3132,27 @@ class FanPerformanceNightVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2931,6 +3169,10 @@ class FanComponentModel(object):
     internal_name = "Fan:ComponentModel"
     field_count = 37
     required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Fan Wheel Diameter", "Fan Outlet Area", "Maximum Fan Static Efficiency", "Euler Number at Maximum Fan Static Efficiency", "Maximum Dimensionless Fan Airflow", "Belt Maximum Torque", "Motor Maximum Speed", "Maximum Motor Output Power", "Maximum VFD Output Power", "Fan Pressure Rise Curve Name", "Duct Static Pressure Reset Curve Name", "Normalized Fan Static Efficiency Curve Name-Non-Stall Region", "Normalized Fan Static Efficiency Curve Name-Stall Region", "Normalized Dimensionless Airflow Curve Name-Non-Stall Region", "Normalized Dimensionless Airflow Curve Name-Stall Region"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:ComponentModel`
@@ -2973,6 +3215,7 @@ class FanComponentModel(object):
         self._data["Normalized Motor Efficiency Curve Name"] = None
         self._data["VFD Efficiency Curve Name"] = None
         self._data["End-Use Subcategory"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3271,13 +3514,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FanComponentModel.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FanComponentModel.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FanComponentModel.name`')
         self._data["Name"] = value
 
     @property
@@ -3306,13 +3549,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_inlet_node_name`'.format(value))
+                                 ' for field `FanComponentModel.air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanComponentModel.air_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_inlet_node_name`')
+                                 'for field `FanComponentModel.air_inlet_node_name`')
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -3341,13 +3584,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_outlet_node_name`'.format(value))
+                                 ' for field `FanComponentModel.air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanComponentModel.air_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_outlet_node_name`')
+                                 'for field `FanComponentModel.air_outlet_node_name`')
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -3378,13 +3621,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FanComponentModel.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanComponentModel.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FanComponentModel.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -3417,8 +3660,8 @@ class FanComponentModel(object):
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanComponentModel.maximum_flow_rate`'.format(value))
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -3427,10 +3670,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `FanComponentModel.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `FanComponentModel.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -3463,8 +3706,8 @@ class FanComponentModel(object):
                     self._data["Minimum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `minimum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanComponentModel.minimum_flow_rate`'.format(value))
                     self._data["Minimum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -3473,10 +3716,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `minimum_flow_rate`'.format(value))
+                                 ' for field `FanComponentModel.minimum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_flow_rate`')
+                                 'for field `FanComponentModel.minimum_flow_rate`')
         self._data["Minimum Flow Rate"] = value
 
     @property
@@ -3508,10 +3751,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_sizing_factor`'.format(value))
+                                 ' for field `FanComponentModel.fan_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `fan_sizing_factor`')
+                                 'for field `FanComponentModel.fan_sizing_factor`')
         self._data["Fan Sizing Factor"] = value
 
     @property
@@ -3543,10 +3786,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_wheel_diameter`'.format(value))
+                                 ' for field `FanComponentModel.fan_wheel_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_wheel_diameter`')
+                                 'for field `FanComponentModel.fan_wheel_diameter`')
         self._data["Fan Wheel Diameter"] = value
 
     @property
@@ -3578,10 +3821,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fan_outlet_area`'.format(value))
+                                 ' for field `FanComponentModel.fan_outlet_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `fan_outlet_area`')
+                                 'for field `FanComponentModel.fan_outlet_area`')
         self._data["Fan Outlet Area"] = value
 
     @property
@@ -3614,13 +3857,13 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_fan_static_efficiency`'.format(value))
+                                 ' for field `FanComponentModel.maximum_fan_static_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_fan_static_efficiency`')
+                                 'for field `FanComponentModel.maximum_fan_static_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `maximum_fan_static_efficiency`')
+                                 'for field `FanComponentModel.maximum_fan_static_efficiency`')
         self._data["Maximum Fan Static Efficiency"] = value
 
     @property
@@ -3651,10 +3894,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `euler_number_at_maximum_fan_static_efficiency`'.format(value))
+                                 ' for field `FanComponentModel.euler_number_at_maximum_fan_static_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `euler_number_at_maximum_fan_static_efficiency`')
+                                 'for field `FanComponentModel.euler_number_at_maximum_fan_static_efficiency`')
         self._data["Euler Number at Maximum Fan Static Efficiency"] = value
 
     @property
@@ -3687,10 +3930,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `maximum_dimensionless_fan_airflow`'.format(value))
+                                 ' for field `FanComponentModel.maximum_dimensionless_fan_airflow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_dimensionless_fan_airflow`')
+                                 'for field `FanComponentModel.maximum_dimensionless_fan_airflow`')
         self._data["Maximum Dimensionless Fan Airflow"] = value
 
     @property
@@ -3724,8 +3967,8 @@ class FanComponentModel(object):
                     self._data["Motor Fan Pulley Ratio"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `motor_fan_pulley_ratio`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanComponentModel.motor_fan_pulley_ratio`'.format(value))
                     self._data["Motor Fan Pulley Ratio"] = "Autosize"
                     return
             except ValueError:
@@ -3734,10 +3977,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `motor_fan_pulley_ratio`'.format(value))
+                                 ' for field `FanComponentModel.motor_fan_pulley_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_fan_pulley_ratio`')
+                                 'for field `FanComponentModel.motor_fan_pulley_ratio`')
         self._data["Motor Fan Pulley Ratio"] = value
 
     @property
@@ -3771,8 +4014,8 @@ class FanComponentModel(object):
                     self._data["Belt Maximum Torque"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `belt_maximum_torque`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanComponentModel.belt_maximum_torque`'.format(value))
                     self._data["Belt Maximum Torque"] = "Autosize"
                     return
             except ValueError:
@@ -3781,10 +4024,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `belt_maximum_torque`'.format(value))
+                                 ' for field `FanComponentModel.belt_maximum_torque`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `belt_maximum_torque`')
+                                 'for field `FanComponentModel.belt_maximum_torque`')
         self._data["Belt Maximum Torque"] = value
 
     @property
@@ -3816,10 +4059,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `belt_sizing_factor`'.format(value))
+                                 ' for field `FanComponentModel.belt_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `belt_sizing_factor`')
+                                 'for field `FanComponentModel.belt_sizing_factor`')
         self._data["Belt Sizing Factor"] = value
 
     @property
@@ -3852,13 +4095,13 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `belt_fractional_torque_transition`'.format(value))
+                                 ' for field `FanComponentModel.belt_fractional_torque_transition`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `belt_fractional_torque_transition`')
+                                 'for field `FanComponentModel.belt_fractional_torque_transition`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `belt_fractional_torque_transition`')
+                                 'for field `FanComponentModel.belt_fractional_torque_transition`')
         self._data["Belt Fractional Torque Transition"] = value
 
     @property
@@ -3890,10 +4133,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_maximum_speed`'.format(value))
+                                 ' for field `FanComponentModel.motor_maximum_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_maximum_speed`')
+                                 'for field `FanComponentModel.motor_maximum_speed`')
         self._data["Motor Maximum Speed"] = value
 
     @property
@@ -3927,8 +4170,8 @@ class FanComponentModel(object):
                     self._data["Maximum Motor Output Power"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_motor_output_power`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanComponentModel.maximum_motor_output_power`'.format(value))
                     self._data["Maximum Motor Output Power"] = "Autosize"
                     return
             except ValueError:
@@ -3937,10 +4180,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_motor_output_power`'.format(value))
+                                 ' for field `FanComponentModel.maximum_motor_output_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_motor_output_power`')
+                                 'for field `FanComponentModel.maximum_motor_output_power`')
         self._data["Maximum Motor Output Power"] = value
 
     @property
@@ -3972,10 +4215,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_sizing_factor`'.format(value))
+                                 ' for field `FanComponentModel.motor_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `motor_sizing_factor`')
+                                 'for field `FanComponentModel.motor_sizing_factor`')
         self._data["Motor Sizing Factor"] = value
 
     @property
@@ -4009,13 +4252,13 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_in_airstream_fraction`'.format(value))
+                                 ' for field `FanComponentModel.motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanComponentModel.motor_in_airstream_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_in_airstream_fraction`')
+                                 'for field `FanComponentModel.motor_in_airstream_fraction`')
         self._data["Motor In Airstream Fraction"] = value
 
     @property
@@ -4050,13 +4293,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `vfd_efficiency_type`'.format(value))
+                                 ' for field `FanComponentModel.vfd_efficiency_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `vfd_efficiency_type`')
+                                 'for field `FanComponentModel.vfd_efficiency_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `vfd_efficiency_type`')
+                                 'for field `FanComponentModel.vfd_efficiency_type`')
             vals = {}
             vals["speed"] = "Speed"
             vals["power"] = "Power"
@@ -4079,10 +4322,10 @@ class FanComponentModel(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `vfd_efficiency_type`'.format(value))
+                                     'field `FanComponentModel.vfd_efficiency_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `vfd_efficiency_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FanComponentModel.vfd_efficiency_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["VFD Efficiency Type"] = value
 
@@ -4117,8 +4360,8 @@ class FanComponentModel(object):
                     self._data["Maximum VFD Output Power"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_vfd_output_power`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `FanComponentModel.maximum_vfd_output_power`'.format(value))
                     self._data["Maximum VFD Output Power"] = "Autosize"
                     return
             except ValueError:
@@ -4127,10 +4370,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_vfd_output_power`'.format(value))
+                                 ' for field `FanComponentModel.maximum_vfd_output_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `maximum_vfd_output_power`')
+                                 'for field `FanComponentModel.maximum_vfd_output_power`')
         self._data["Maximum VFD Output Power"] = value
 
     @property
@@ -4162,10 +4405,10 @@ class FanComponentModel(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `vfd_sizing_factor`'.format(value))
+                                 ' for field `FanComponentModel.vfd_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `vfd_sizing_factor`')
+                                 'for field `FanComponentModel.vfd_sizing_factor`')
         self._data["VFD Sizing Factor"] = value
 
     @property
@@ -4197,13 +4440,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fan_pressure_rise_curve_name`'.format(value))
+                                 ' for field `FanComponentModel.fan_pressure_rise_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fan_pressure_rise_curve_name`')
+                                 'for field `FanComponentModel.fan_pressure_rise_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fan_pressure_rise_curve_name`')
+                                 'for field `FanComponentModel.fan_pressure_rise_curve_name`')
         self._data["Fan Pressure Rise Curve Name"] = value
 
     @property
@@ -4236,13 +4479,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `duct_static_pressure_reset_curve_name`'.format(value))
+                                 ' for field `FanComponentModel.duct_static_pressure_reset_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `duct_static_pressure_reset_curve_name`')
+                                 'for field `FanComponentModel.duct_static_pressure_reset_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `duct_static_pressure_reset_curve_name`')
+                                 'for field `FanComponentModel.duct_static_pressure_reset_curve_name`')
         self._data["Duct Static Pressure Reset Curve Name"] = value
 
     @property
@@ -4274,13 +4517,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_fan_static_efficiency_curve_namenonstall_region`'.format(value))
+                                 ' for field `FanComponentModel.normalized_fan_static_efficiency_curve_namenonstall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_fan_static_efficiency_curve_namenonstall_region`')
+                                 'for field `FanComponentModel.normalized_fan_static_efficiency_curve_namenonstall_region`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_fan_static_efficiency_curve_namenonstall_region`')
+                                 'for field `FanComponentModel.normalized_fan_static_efficiency_curve_namenonstall_region`')
         self._data["Normalized Fan Static Efficiency Curve Name-Non-Stall Region"] = value
 
     @property
@@ -4312,13 +4555,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_fan_static_efficiency_curve_namestall_region`'.format(value))
+                                 ' for field `FanComponentModel.normalized_fan_static_efficiency_curve_namestall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_fan_static_efficiency_curve_namestall_region`')
+                                 'for field `FanComponentModel.normalized_fan_static_efficiency_curve_namestall_region`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_fan_static_efficiency_curve_namestall_region`')
+                                 'for field `FanComponentModel.normalized_fan_static_efficiency_curve_namestall_region`')
         self._data["Normalized Fan Static Efficiency Curve Name-Stall Region"] = value
 
     @property
@@ -4350,13 +4593,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_dimensionless_airflow_curve_namenonstall_region`'.format(value))
+                                 ' for field `FanComponentModel.normalized_dimensionless_airflow_curve_namenonstall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_dimensionless_airflow_curve_namenonstall_region`')
+                                 'for field `FanComponentModel.normalized_dimensionless_airflow_curve_namenonstall_region`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_dimensionless_airflow_curve_namenonstall_region`')
+                                 'for field `FanComponentModel.normalized_dimensionless_airflow_curve_namenonstall_region`')
         self._data["Normalized Dimensionless Airflow Curve Name-Non-Stall Region"] = value
 
     @property
@@ -4388,13 +4631,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_dimensionless_airflow_curve_namestall_region`'.format(value))
+                                 ' for field `FanComponentModel.normalized_dimensionless_airflow_curve_namestall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_dimensionless_airflow_curve_namestall_region`')
+                                 'for field `FanComponentModel.normalized_dimensionless_airflow_curve_namestall_region`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_dimensionless_airflow_curve_namestall_region`')
+                                 'for field `FanComponentModel.normalized_dimensionless_airflow_curve_namestall_region`')
         self._data["Normalized Dimensionless Airflow Curve Name-Stall Region"] = value
 
     @property
@@ -4428,13 +4671,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_belt_efficiency_curve_name`'.format(value))
+                                 ' for field `FanComponentModel.maximum_belt_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_belt_efficiency_curve_name`')
+                                 'for field `FanComponentModel.maximum_belt_efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_belt_efficiency_curve_name`')
+                                 'for field `FanComponentModel.maximum_belt_efficiency_curve_name`')
         self._data["Maximum Belt Efficiency Curve Name"] = value
 
     @property
@@ -4467,13 +4710,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_belt_efficiency_curve_name_region_1`'.format(value))
+                                 ' for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_belt_efficiency_curve_name_region_1`')
+                                 'for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_belt_efficiency_curve_name_region_1`')
+                                 'for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_1`')
         self._data["Normalized Belt Efficiency Curve Name - Region 1"] = value
 
     @property
@@ -4506,13 +4749,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_belt_efficiency_curve_name_region_2`'.format(value))
+                                 ' for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_belt_efficiency_curve_name_region_2`')
+                                 'for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_2`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_belt_efficiency_curve_name_region_2`')
+                                 'for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_2`')
         self._data["Normalized Belt Efficiency Curve Name - Region 2"] = value
 
     @property
@@ -4545,13 +4788,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_belt_efficiency_curve_name_region_3`'.format(value))
+                                 ' for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_belt_efficiency_curve_name_region_3`')
+                                 'for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_3`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_belt_efficiency_curve_name_region_3`')
+                                 'for field `FanComponentModel.normalized_belt_efficiency_curve_name_region_3`')
         self._data["Normalized Belt Efficiency Curve Name - Region 3"] = value
 
     @property
@@ -4583,13 +4826,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_motor_efficiency_curve_name`'.format(value))
+                                 ' for field `FanComponentModel.maximum_motor_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_motor_efficiency_curve_name`')
+                                 'for field `FanComponentModel.maximum_motor_efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_motor_efficiency_curve_name`')
+                                 'for field `FanComponentModel.maximum_motor_efficiency_curve_name`')
         self._data["Maximum Motor Efficiency Curve Name"] = value
 
     @property
@@ -4621,13 +4864,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `normalized_motor_efficiency_curve_name`'.format(value))
+                                 ' for field `FanComponentModel.normalized_motor_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `normalized_motor_efficiency_curve_name`')
+                                 'for field `FanComponentModel.normalized_motor_efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `normalized_motor_efficiency_curve_name`')
+                                 'for field `FanComponentModel.normalized_motor_efficiency_curve_name`')
         self._data["Normalized Motor Efficiency Curve Name"] = value
 
     @property
@@ -4660,13 +4903,13 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `vfd_efficiency_curve_name`'.format(value))
+                                 ' for field `FanComponentModel.vfd_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `vfd_efficiency_curve_name`')
+                                 'for field `FanComponentModel.vfd_efficiency_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `vfd_efficiency_curve_name`')
+                                 'for field `FanComponentModel.vfd_efficiency_curve_name`')
         self._data["VFD Efficiency Curve Name"] = value
 
     @property
@@ -4696,23 +4939,46 @@ class FanComponentModel(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `FanComponentModel.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanComponentModel.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `FanComponentModel.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FanComponentModel:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FanComponentModel:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FanComponentModel: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FanComponentModel: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4730,8 +4996,27 @@ class FanComponentModel(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

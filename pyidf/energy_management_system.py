@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class EnergyManagementSystemSensor(object):
     """ Corresponds to IDD object `EnergyManagementSystem:Sensor`
         Declares EMS variable as a sensor
@@ -12,6 +15,10 @@ class EnergyManagementSystemSensor(object):
     internal_name = "EnergyManagementSystem:Sensor"
     field_count = 3
     required_fields = ["Name", "Output:Variable or Output:Meter Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Sensor`
@@ -20,6 +27,7 @@ class EnergyManagementSystemSensor(object):
         self._data["Name"] = None
         self._data["Output:Variable or Output:Meter Index Key Name"] = None
         self._data["Output:Variable or Output:Meter Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -82,13 +90,13 @@ class EnergyManagementSystemSensor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemSensor.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemSensor.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemSensor.name`')
         self._data["Name"] = value
 
     @property
@@ -117,13 +125,13 @@ class EnergyManagementSystemSensor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outputvariable_or_outputmeter_index_key_name`'.format(value))
+                                 ' for field `EnergyManagementSystemSensor.outputvariable_or_outputmeter_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outputvariable_or_outputmeter_index_key_name`')
+                                 'for field `EnergyManagementSystemSensor.outputvariable_or_outputmeter_index_key_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outputvariable_or_outputmeter_index_key_name`')
+                                 'for field `EnergyManagementSystemSensor.outputvariable_or_outputmeter_index_key_name`')
         self._data["Output:Variable or Output:Meter Index Key Name"] = value
 
     @property
@@ -152,23 +160,46 @@ class EnergyManagementSystemSensor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outputvariable_or_outputmeter_name`'.format(value))
+                                 ' for field `EnergyManagementSystemSensor.outputvariable_or_outputmeter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outputvariable_or_outputmeter_name`')
+                                 'for field `EnergyManagementSystemSensor.outputvariable_or_outputmeter_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outputvariable_or_outputmeter_name`')
+                                 'for field `EnergyManagementSystemSensor.outputvariable_or_outputmeter_name`')
         self._data["Output:Variable or Output:Meter Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemSensor:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemSensor:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemSensor: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemSensor: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -186,8 +217,27 @@ class EnergyManagementSystemSensor(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -202,6 +252,10 @@ class EnergyManagementSystemActuator(object):
     internal_name = "EnergyManagementSystem:Actuator"
     field_count = 4
     required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Actuator`
@@ -211,6 +265,7 @@ class EnergyManagementSystemActuator(object):
         self._data["Actuated Component Unique Name"] = None
         self._data["Actuated Component Type"] = None
         self._data["Actuated Component Control Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -280,13 +335,13 @@ class EnergyManagementSystemActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemActuator.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemActuator.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemActuator.name`')
         self._data["Name"] = value
 
     @property
@@ -315,13 +370,13 @@ class EnergyManagementSystemActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_unique_name`'.format(value))
+                                 ' for field `EnergyManagementSystemActuator.actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `EnergyManagementSystemActuator.actuated_component_unique_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_unique_name`')
+                                 'for field `EnergyManagementSystemActuator.actuated_component_unique_name`')
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -350,13 +405,13 @@ class EnergyManagementSystemActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_type`'.format(value))
+                                 ' for field `EnergyManagementSystemActuator.actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_type`')
+                                 'for field `EnergyManagementSystemActuator.actuated_component_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_type`')
+                                 'for field `EnergyManagementSystemActuator.actuated_component_type`')
         self._data["Actuated Component Type"] = value
 
     @property
@@ -385,23 +440,46 @@ class EnergyManagementSystemActuator(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `actuated_component_control_type`'.format(value))
+                                 ' for field `EnergyManagementSystemActuator.actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `EnergyManagementSystemActuator.actuated_component_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `actuated_component_control_type`')
+                                 'for field `EnergyManagementSystemActuator.actuated_component_control_type`')
         self._data["Actuated Component Control Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemActuator:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemActuator:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemActuator: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemActuator: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -419,8 +497,27 @@ class EnergyManagementSystemActuator(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -435,8 +532,12 @@ class EnergyManagementSystemProgramCallingManager(object):
         and then lines of program code for EMS Runtime language
     """
     internal_name = "EnergyManagementSystem:ProgramCallingManager"
-    field_count = 27
-    required_fields = ["Name", "Program Name 1"]
+    field_count = 2
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 3
+    extensible_keys = ["Program Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:ProgramCallingManager`
@@ -444,31 +545,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["EnergyPlus Model Calling Point"] = None
-        self._data["Program Name 1"] = None
-        self._data["Program Name 2"] = None
-        self._data["Program Name 3"] = None
-        self._data["Program Name 4"] = None
-        self._data["Program Name 5"] = None
-        self._data["Program Name 6"] = None
-        self._data["Program Name 7"] = None
-        self._data["Program Name 8"] = None
-        self._data["Program Name 9"] = None
-        self._data["Program Name 10"] = None
-        self._data["Program Name 11"] = None
-        self._data["Program Name 12"] = None
-        self._data["Program Name 13"] = None
-        self._data["Program Name 14"] = None
-        self._data["Program Name 15"] = None
-        self._data["Program Name 16"] = None
-        self._data["Program Name 17"] = None
-        self._data["Program Name 18"] = None
-        self._data["Program Name 19"] = None
-        self._data["Program Name 20"] = None
-        self._data["Program Name 21"] = None
-        self._data["Program Name 22"] = None
-        self._data["Program Name 23"] = None
-        self._data["Program Name 24"] = None
-        self._data["Program Name 25"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -494,181 +571,14 @@ class EnergyManagementSystemProgramCallingManager(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.program_name_1 = None
-        else:
-            self.program_name_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_2 = None
-        else:
-            self.program_name_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_3 = None
-        else:
-            self.program_name_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_4 = None
-        else:
-            self.program_name_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_5 = None
-        else:
-            self.program_name_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_6 = None
-        else:
-            self.program_name_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_7 = None
-        else:
-            self.program_name_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_8 = None
-        else:
-            self.program_name_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_9 = None
-        else:
-            self.program_name_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_10 = None
-        else:
-            self.program_name_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_11 = None
-        else:
-            self.program_name_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_12 = None
-        else:
-            self.program_name_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_13 = None
-        else:
-            self.program_name_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_14 = None
-        else:
-            self.program_name_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_15 = None
-        else:
-            self.program_name_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_16 = None
-        else:
-            self.program_name_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_17 = None
-        else:
-            self.program_name_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_18 = None
-        else:
-            self.program_name_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_19 = None
-        else:
-            self.program_name_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_20 = None
-        else:
-            self.program_name_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_21 = None
-        else:
-            self.program_name_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_22 = None
-        else:
-            self.program_name_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_23 = None
-        else:
-            self.program_name_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_24 = None
-        else:
-            self.program_name_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.program_name_25 = None
-        else:
-            self.program_name_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -698,13 +608,13 @@ class EnergyManagementSystemProgramCallingManager(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemProgramCallingManager.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemProgramCallingManager.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemProgramCallingManager.name`')
         self._data["Name"] = value
 
     @property
@@ -749,13 +659,13 @@ class EnergyManagementSystemProgramCallingManager(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `energyplus_model_calling_point`'.format(value))
+                                 ' for field `EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `energyplus_model_calling_point`')
+                                 'for field `EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `energyplus_model_calling_point`')
+                                 'for field `EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point`')
             vals = {}
             vals["beginnewenvironment"] = "BeginNewEnvironment"
             vals["afternewenvironmentwarmupiscomplete"] = "AfterNewEnvironmentWarmUpIsComplete"
@@ -791,921 +701,82 @@ class EnergyManagementSystemProgramCallingManager(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `energyplus_model_calling_point`'.format(value))
+                                     'field `EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `energyplus_model_calling_point`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemProgramCallingManager.energyplus_model_calling_point`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["EnergyPlus Model Calling Point"] = value
 
-    @property
-    def program_name_1(self):
-        """Get program_name_1
-
-        Returns:
-            str: the value of `program_name_1` or None if not set
-        """
-        return self._data["Program Name 1"]
-
-    @program_name_1.setter
-    def program_name_1(self, value=None):
-        """  Corresponds to IDD Field `Program Name 1`
-        no spaces allowed in name
+    def add_extensible(self,
+                       program_name_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Program Name 1`
+
+            program_name_1 (str): value for IDD Field `Program Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_program_name_1(program_name_1))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_program_name_1(self, value):
+        """ Validates falue of field `Program Name 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_1`'.format(value))
+                                 ' for field `EnergyManagementSystemProgramCallingManager.program_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `program_name_1`')
+                                 'for field `EnergyManagementSystemProgramCallingManager.program_name_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `program_name_1`')
-        self._data["Program Name 1"] = value
+                                 'for field `EnergyManagementSystemProgramCallingManager.program_name_1`')
+        return value
 
-    @property
-    def program_name_2(self):
-        """Get program_name_2
-
-        Returns:
-            str: the value of `program_name_2` or None if not set
-        """
-        return self._data["Program Name 2"]
-
-    @program_name_2.setter
-    def program_name_2(self, value=None):
-        """  Corresponds to IDD Field `Program Name 2`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_2`')
-        self._data["Program Name 2"] = value
-
-    @property
-    def program_name_3(self):
-        """Get program_name_3
-
-        Returns:
-            str: the value of `program_name_3` or None if not set
-        """
-        return self._data["Program Name 3"]
-
-    @program_name_3.setter
-    def program_name_3(self, value=None):
-        """  Corresponds to IDD Field `Program Name 3`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_3`')
-        self._data["Program Name 3"] = value
-
-    @property
-    def program_name_4(self):
-        """Get program_name_4
-
-        Returns:
-            str: the value of `program_name_4` or None if not set
-        """
-        return self._data["Program Name 4"]
-
-    @program_name_4.setter
-    def program_name_4(self, value=None):
-        """  Corresponds to IDD Field `Program Name 4`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_4`')
-        self._data["Program Name 4"] = value
-
-    @property
-    def program_name_5(self):
-        """Get program_name_5
-
-        Returns:
-            str: the value of `program_name_5` or None if not set
-        """
-        return self._data["Program Name 5"]
-
-    @program_name_5.setter
-    def program_name_5(self, value=None):
-        """  Corresponds to IDD Field `Program Name 5`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_5`')
-        self._data["Program Name 5"] = value
-
-    @property
-    def program_name_6(self):
-        """Get program_name_6
-
-        Returns:
-            str: the value of `program_name_6` or None if not set
-        """
-        return self._data["Program Name 6"]
-
-    @program_name_6.setter
-    def program_name_6(self, value=None):
-        """  Corresponds to IDD Field `Program Name 6`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_6`')
-        self._data["Program Name 6"] = value
-
-    @property
-    def program_name_7(self):
-        """Get program_name_7
-
-        Returns:
-            str: the value of `program_name_7` or None if not set
-        """
-        return self._data["Program Name 7"]
-
-    @program_name_7.setter
-    def program_name_7(self, value=None):
-        """  Corresponds to IDD Field `Program Name 7`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 7`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_7`')
-        self._data["Program Name 7"] = value
-
-    @property
-    def program_name_8(self):
-        """Get program_name_8
-
-        Returns:
-            str: the value of `program_name_8` or None if not set
-        """
-        return self._data["Program Name 8"]
-
-    @program_name_8.setter
-    def program_name_8(self, value=None):
-        """  Corresponds to IDD Field `Program Name 8`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 8`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_8`')
-        self._data["Program Name 8"] = value
-
-    @property
-    def program_name_9(self):
-        """Get program_name_9
-
-        Returns:
-            str: the value of `program_name_9` or None if not set
-        """
-        return self._data["Program Name 9"]
-
-    @program_name_9.setter
-    def program_name_9(self, value=None):
-        """  Corresponds to IDD Field `Program Name 9`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 9`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_9`')
-        self._data["Program Name 9"] = value
-
-    @property
-    def program_name_10(self):
-        """Get program_name_10
-
-        Returns:
-            str: the value of `program_name_10` or None if not set
-        """
-        return self._data["Program Name 10"]
-
-    @program_name_10.setter
-    def program_name_10(self, value=None):
-        """  Corresponds to IDD Field `Program Name 10`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 10`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_10`')
-        self._data["Program Name 10"] = value
-
-    @property
-    def program_name_11(self):
-        """Get program_name_11
-
-        Returns:
-            str: the value of `program_name_11` or None if not set
-        """
-        return self._data["Program Name 11"]
-
-    @program_name_11.setter
-    def program_name_11(self, value=None):
-        """  Corresponds to IDD Field `Program Name 11`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 11`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_11`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_11`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_11`')
-        self._data["Program Name 11"] = value
-
-    @property
-    def program_name_12(self):
-        """Get program_name_12
-
-        Returns:
-            str: the value of `program_name_12` or None if not set
-        """
-        return self._data["Program Name 12"]
-
-    @program_name_12.setter
-    def program_name_12(self, value=None):
-        """  Corresponds to IDD Field `Program Name 12`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 12`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_12`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_12`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_12`')
-        self._data["Program Name 12"] = value
-
-    @property
-    def program_name_13(self):
-        """Get program_name_13
-
-        Returns:
-            str: the value of `program_name_13` or None if not set
-        """
-        return self._data["Program Name 13"]
-
-    @program_name_13.setter
-    def program_name_13(self, value=None):
-        """  Corresponds to IDD Field `Program Name 13`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 13`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_13`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_13`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_13`')
-        self._data["Program Name 13"] = value
-
-    @property
-    def program_name_14(self):
-        """Get program_name_14
-
-        Returns:
-            str: the value of `program_name_14` or None if not set
-        """
-        return self._data["Program Name 14"]
-
-    @program_name_14.setter
-    def program_name_14(self, value=None):
-        """  Corresponds to IDD Field `Program Name 14`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 14`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_14`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_14`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_14`')
-        self._data["Program Name 14"] = value
-
-    @property
-    def program_name_15(self):
-        """Get program_name_15
-
-        Returns:
-            str: the value of `program_name_15` or None if not set
-        """
-        return self._data["Program Name 15"]
-
-    @program_name_15.setter
-    def program_name_15(self, value=None):
-        """  Corresponds to IDD Field `Program Name 15`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 15`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_15`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_15`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_15`')
-        self._data["Program Name 15"] = value
-
-    @property
-    def program_name_16(self):
-        """Get program_name_16
-
-        Returns:
-            str: the value of `program_name_16` or None if not set
-        """
-        return self._data["Program Name 16"]
-
-    @program_name_16.setter
-    def program_name_16(self, value=None):
-        """  Corresponds to IDD Field `Program Name 16`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 16`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_16`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_16`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_16`')
-        self._data["Program Name 16"] = value
-
-    @property
-    def program_name_17(self):
-        """Get program_name_17
-
-        Returns:
-            str: the value of `program_name_17` or None if not set
-        """
-        return self._data["Program Name 17"]
-
-    @program_name_17.setter
-    def program_name_17(self, value=None):
-        """  Corresponds to IDD Field `Program Name 17`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 17`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_17`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_17`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_17`')
-        self._data["Program Name 17"] = value
-
-    @property
-    def program_name_18(self):
-        """Get program_name_18
-
-        Returns:
-            str: the value of `program_name_18` or None if not set
-        """
-        return self._data["Program Name 18"]
-
-    @program_name_18.setter
-    def program_name_18(self, value=None):
-        """  Corresponds to IDD Field `Program Name 18`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 18`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_18`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_18`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_18`')
-        self._data["Program Name 18"] = value
-
-    @property
-    def program_name_19(self):
-        """Get program_name_19
-
-        Returns:
-            str: the value of `program_name_19` or None if not set
-        """
-        return self._data["Program Name 19"]
-
-    @program_name_19.setter
-    def program_name_19(self, value=None):
-        """  Corresponds to IDD Field `Program Name 19`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 19`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_19`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_19`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_19`')
-        self._data["Program Name 19"] = value
-
-    @property
-    def program_name_20(self):
-        """Get program_name_20
-
-        Returns:
-            str: the value of `program_name_20` or None if not set
-        """
-        return self._data["Program Name 20"]
-
-    @program_name_20.setter
-    def program_name_20(self, value=None):
-        """  Corresponds to IDD Field `Program Name 20`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 20`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_20`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_20`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_20`')
-        self._data["Program Name 20"] = value
-
-    @property
-    def program_name_21(self):
-        """Get program_name_21
-
-        Returns:
-            str: the value of `program_name_21` or None if not set
-        """
-        return self._data["Program Name 21"]
-
-    @program_name_21.setter
-    def program_name_21(self, value=None):
-        """  Corresponds to IDD Field `Program Name 21`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 21`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_21`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_21`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_21`')
-        self._data["Program Name 21"] = value
-
-    @property
-    def program_name_22(self):
-        """Get program_name_22
-
-        Returns:
-            str: the value of `program_name_22` or None if not set
-        """
-        return self._data["Program Name 22"]
-
-    @program_name_22.setter
-    def program_name_22(self, value=None):
-        """  Corresponds to IDD Field `Program Name 22`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 22`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_22`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_22`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_22`')
-        self._data["Program Name 22"] = value
-
-    @property
-    def program_name_23(self):
-        """Get program_name_23
-
-        Returns:
-            str: the value of `program_name_23` or None if not set
-        """
-        return self._data["Program Name 23"]
-
-    @program_name_23.setter
-    def program_name_23(self, value=None):
-        """  Corresponds to IDD Field `Program Name 23`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 23`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_23`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_23`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_23`')
-        self._data["Program Name 23"] = value
-
-    @property
-    def program_name_24(self):
-        """Get program_name_24
-
-        Returns:
-            str: the value of `program_name_24` or None if not set
-        """
-        return self._data["Program Name 24"]
-
-    @program_name_24.setter
-    def program_name_24(self, value=None):
-        """  Corresponds to IDD Field `Program Name 24`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 24`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_24`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_24`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_24`')
-        self._data["Program Name 24"] = value
-
-    @property
-    def program_name_25(self):
-        """Get program_name_25
-
-        Returns:
-            str: the value of `program_name_25` or None if not set
-        """
-        return self._data["Program Name 25"]
-
-    @program_name_25.setter
-    def program_name_25(self, value=None):
-        """  Corresponds to IDD Field `Program Name 25`
-        no spaces allowed in name
-
-        Args:
-            value (str): value for IDD Field `Program Name 25`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `program_name_25`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `program_name_25`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `program_name_25`')
-        self._data["Program Name 25"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemProgramCallingManager:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemProgramCallingManager:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemProgramCallingManager: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemProgramCallingManager: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1723,8 +794,574 @@ class EnergyManagementSystemProgramCallingManager(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class EnergyManagementSystemProgram(object):
+    """ Corresponds to IDD object `EnergyManagementSystem:Program`
+        This input defines an Erl program
+        Each field after the name is a line of EMS Runtime Language
+    """
+    internal_name = "EnergyManagementSystem:Program"
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 2
+    extensible_keys = ["Program Line 1"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `EnergyManagementSystem:Program`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+        no spaces allowed in name
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `EnergyManagementSystemProgram.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `EnergyManagementSystemProgram.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `EnergyManagementSystemProgram.name`')
+        self._data["Name"] = value
+
+    def add_extensible(self,
+                       program_line_1=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            program_line_1 (str): value for IDD Field `Program Line 1`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_program_line_1(program_line_1))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_program_line_1(self, value):
+        """ Validates falue of field `Program Line 1`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `EnergyManagementSystemProgram.program_line_1`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `EnergyManagementSystemProgram.program_line_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `EnergyManagementSystemProgram.program_line_1`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemProgram:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemProgram:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemProgram: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemProgram: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class EnergyManagementSystemSubroutine(object):
+    """ Corresponds to IDD object `EnergyManagementSystem:Subroutine`
+        This input defines an Erl program subroutine
+        Each field after the name is a line of EMS Runtime Language
+    """
+    internal_name = "EnergyManagementSystem:Subroutine"
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 2
+    extensible_keys = ["Program Line"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `EnergyManagementSystem:Subroutine`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+        no spaces allowed in name
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `EnergyManagementSystemSubroutine.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `EnergyManagementSystemSubroutine.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `EnergyManagementSystemSubroutine.name`')
+        self._data["Name"] = value
+
+    def add_extensible(self,
+                       program_line=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            program_line (str): value for IDD Field `Program Line`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_program_line(program_line))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_program_line(self, value):
+        """ Validates falue of field `Program Line`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `EnergyManagementSystemSubroutine.program_line`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `EnergyManagementSystemSubroutine.program_line`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `EnergyManagementSystemSubroutine.program_line`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemSubroutine:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemSubroutine:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemSubroutine: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemSubroutine: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class EnergyManagementSystemGlobalVariable(object):
+    """ Corresponds to IDD object `EnergyManagementSystem:GlobalVariable`
+        Declares Erl variable as having global scope
+        No spaces allowed in names used for Erl variables
+    """
+    internal_name = "EnergyManagementSystem:GlobalVariable"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 1
+    format = None
+    min_fields = 1
+    extensible_keys = ["Erl Variable 1 Name"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `EnergyManagementSystem:GlobalVariable`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    def add_extensible(self,
+                       erl_variable_1_name=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            erl_variable_1_name (str): value for IDD Field `Erl Variable 1 Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_erl_variable_1_name(erl_variable_1_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_erl_variable_1_name(self, value):
+        """ Validates falue of field `Erl Variable 1 Name`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `EnergyManagementSystemGlobalVariable.erl_variable_1_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `EnergyManagementSystemGlobalVariable.erl_variable_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `EnergyManagementSystemGlobalVariable.erl_variable_1_name`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemGlobalVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemGlobalVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemGlobalVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemGlobalVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1739,6 +1376,10 @@ class EnergyManagementSystemOutputVariable(object):
     internal_name = "EnergyManagementSystem:OutputVariable"
     field_count = 6
     required_fields = ["Name", "EMS Variable Name", "Type of Data in Variable", "Update Frequency"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:OutputVariable`
@@ -1750,6 +1391,7 @@ class EnergyManagementSystemOutputVariable(object):
         self._data["Update Frequency"] = None
         self._data["EMS Program or Subroutine Name"] = None
         self._data["Units"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1831,13 +1473,13 @@ class EnergyManagementSystemOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemOutputVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemOutputVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemOutputVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -1867,13 +1509,13 @@ class EnergyManagementSystemOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ems_variable_name`'.format(value))
+                                 ' for field `EnergyManagementSystemOutputVariable.ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ems_variable_name`')
+                                 'for field `EnergyManagementSystemOutputVariable.ems_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ems_variable_name`')
+                                 'for field `EnergyManagementSystemOutputVariable.ems_variable_name`')
         self._data["EMS Variable Name"] = value
 
     @property
@@ -1905,13 +1547,13 @@ class EnergyManagementSystemOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `type_of_data_in_variable`'.format(value))
+                                 ' for field `EnergyManagementSystemOutputVariable.type_of_data_in_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `type_of_data_in_variable`')
+                                 'for field `EnergyManagementSystemOutputVariable.type_of_data_in_variable`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `type_of_data_in_variable`')
+                                 'for field `EnergyManagementSystemOutputVariable.type_of_data_in_variable`')
             vals = {}
             vals["averaged"] = "Averaged"
             vals["summed"] = "Summed"
@@ -1934,10 +1576,10 @@ class EnergyManagementSystemOutputVariable(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `type_of_data_in_variable`'.format(value))
+                                     'field `EnergyManagementSystemOutputVariable.type_of_data_in_variable`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `type_of_data_in_variable`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemOutputVariable.type_of_data_in_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Data in Variable"] = value
 
@@ -1970,13 +1612,13 @@ class EnergyManagementSystemOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `update_frequency`'.format(value))
+                                 ' for field `EnergyManagementSystemOutputVariable.update_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `update_frequency`')
+                                 'for field `EnergyManagementSystemOutputVariable.update_frequency`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `update_frequency`')
+                                 'for field `EnergyManagementSystemOutputVariable.update_frequency`')
             vals = {}
             vals["zonetimestep"] = "ZoneTimestep"
             vals["systemtimestep"] = "SystemTimestep"
@@ -1999,10 +1641,10 @@ class EnergyManagementSystemOutputVariable(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `update_frequency`'.format(value))
+                                     'field `EnergyManagementSystemOutputVariable.update_frequency`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `update_frequency`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemOutputVariable.update_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Update Frequency"] = value
 
@@ -2033,13 +1675,13 @@ class EnergyManagementSystemOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ems_program_or_subroutine_name`'.format(value))
+                                 ' for field `EnergyManagementSystemOutputVariable.ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ems_program_or_subroutine_name`')
+                                 'for field `EnergyManagementSystemOutputVariable.ems_program_or_subroutine_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ems_program_or_subroutine_name`')
+                                 'for field `EnergyManagementSystemOutputVariable.ems_program_or_subroutine_name`')
         self._data["EMS Program or Subroutine Name"] = value
 
     @property
@@ -2070,23 +1712,46 @@ class EnergyManagementSystemOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `units`'.format(value))
+                                 ' for field `EnergyManagementSystemOutputVariable.units`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `units`')
+                                 'for field `EnergyManagementSystemOutputVariable.units`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `units`')
+                                 'for field `EnergyManagementSystemOutputVariable.units`')
         self._data["Units"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemOutputVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemOutputVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemOutputVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemOutputVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2104,8 +1769,27 @@ class EnergyManagementSystemOutputVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2120,6 +1804,10 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     internal_name = "EnergyManagementSystem:MeteredOutputVariable"
     field_count = 9
     required_fields = ["Name", "EMS Variable Name", "Update Frequency", "Resource Type", "Group Type", "End-Use Category"]
+    extensible_fields = 0
+    format = None
+    min_fields = 7
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:MeteredOutputVariable`
@@ -2134,6 +1822,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         self._data["End-Use Category"] = None
         self._data["End-Use Subcategory"] = None
         self._data["Units"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2236,13 +1925,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -2272,13 +1961,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ems_variable_name`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ems_variable_name`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.ems_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ems_variable_name`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.ems_variable_name`')
         self._data["EMS Variable Name"] = value
 
     @property
@@ -2310,13 +1999,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `update_frequency`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.update_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `update_frequency`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.update_frequency`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `update_frequency`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.update_frequency`')
             vals = {}
             vals["zonetimestep"] = "ZoneTimestep"
             vals["systemtimestep"] = "SystemTimestep"
@@ -2339,10 +2028,10 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `update_frequency`'.format(value))
+                                     'field `EnergyManagementSystemMeteredOutputVariable.update_frequency`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `update_frequency`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemMeteredOutputVariable.update_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Update Frequency"] = value
 
@@ -2373,13 +2062,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ems_program_or_subroutine_name`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ems_program_or_subroutine_name`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.ems_program_or_subroutine_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ems_program_or_subroutine_name`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.ems_program_or_subroutine_name`')
         self._data["EMS Program or Subroutine Name"] = value
 
     @property
@@ -2433,13 +2122,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `resource_type`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.resource_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `resource_type`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.resource_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `resource_type`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.resource_type`')
             vals = {}
             vals["electricity"] = "Electricity"
             vals["naturalgas"] = "NaturalGas"
@@ -2483,10 +2172,10 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `resource_type`'.format(value))
+                                     'field `EnergyManagementSystemMeteredOutputVariable.resource_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `resource_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemMeteredOutputVariable.resource_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Resource Type"] = value
 
@@ -2521,13 +2210,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `group_type`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.group_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `group_type`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.group_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `group_type`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.group_type`')
             vals = {}
             vals["building"] = "Building"
             vals["hvac"] = "HVAC"
@@ -2551,10 +2240,10 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `group_type`'.format(value))
+                                     'field `EnergyManagementSystemMeteredOutputVariable.group_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `group_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemMeteredOutputVariable.group_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Group Type"] = value
 
@@ -2600,13 +2289,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_category`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.enduse_category`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_category`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.enduse_category`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_category`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.enduse_category`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -2641,10 +2330,10 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `enduse_category`'.format(value))
+                                     'field `EnergyManagementSystemMeteredOutputVariable.enduse_category`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `enduse_category`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `EnergyManagementSystemMeteredOutputVariable.enduse_category`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["End-Use Category"] = value
 
@@ -2675,13 +2364,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `enduse_subcategory`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `enduse_subcategory`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.enduse_subcategory`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `enduse_subcategory`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.enduse_subcategory`')
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -2712,23 +2401,46 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `units`'.format(value))
+                                 ' for field `EnergyManagementSystemMeteredOutputVariable.units`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `units`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.units`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `units`')
+                                 'for field `EnergyManagementSystemMeteredOutputVariable.units`')
         self._data["Units"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemMeteredOutputVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemMeteredOutputVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemMeteredOutputVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemMeteredOutputVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2746,8 +2458,27 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2763,6 +2494,10 @@ class EnergyManagementSystemTrendVariable(object):
     internal_name = "EnergyManagementSystem:TrendVariable"
     field_count = 3
     required_fields = ["Name", "EMS Variable Name", "Number of Timesteps to be Logged"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:TrendVariable`
@@ -2771,6 +2506,7 @@ class EnergyManagementSystemTrendVariable(object):
         self._data["Name"] = None
         self._data["EMS Variable Name"] = None
         self._data["Number of Timesteps to be Logged"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2832,13 +2568,13 @@ class EnergyManagementSystemTrendVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemTrendVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemTrendVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemTrendVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -2868,13 +2604,13 @@ class EnergyManagementSystemTrendVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ems_variable_name`'.format(value))
+                                 ' for field `EnergyManagementSystemTrendVariable.ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ems_variable_name`')
+                                 'for field `EnergyManagementSystemTrendVariable.ems_variable_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ems_variable_name`')
+                                 'for field `EnergyManagementSystemTrendVariable.ems_variable_name`')
         self._data["EMS Variable Name"] = value
 
     @property
@@ -2906,25 +2642,48 @@ class EnergyManagementSystemTrendVariable(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_timesteps_to_be_logged`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `EnergyManagementSystemTrendVariable.number_of_timesteps_to_be_logged`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_timesteps_to_be_logged`'.format(value))
+                                         'for field `EnergyManagementSystemTrendVariable.number_of_timesteps_to_be_logged`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_timesteps_to_be_logged`')
+                                 'for field `EnergyManagementSystemTrendVariable.number_of_timesteps_to_be_logged`')
         self._data["Number of Timesteps to be Logged"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemTrendVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemTrendVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemTrendVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemTrendVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2942,8 +2701,27 @@ class EnergyManagementSystemTrendVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2958,6 +2736,10 @@ class EnergyManagementSystemInternalVariable(object):
     internal_name = "EnergyManagementSystem:InternalVariable"
     field_count = 3
     required_fields = ["Name", "Internal Data Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 3
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:InternalVariable`
@@ -2966,6 +2748,7 @@ class EnergyManagementSystemInternalVariable(object):
         self._data["Name"] = None
         self._data["Internal Data Index Key Name"] = None
         self._data["Internal Data Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3028,13 +2811,13 @@ class EnergyManagementSystemInternalVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemInternalVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemInternalVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemInternalVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -3063,13 +2846,13 @@ class EnergyManagementSystemInternalVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `internal_data_index_key_name`'.format(value))
+                                 ' for field `EnergyManagementSystemInternalVariable.internal_data_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `internal_data_index_key_name`')
+                                 'for field `EnergyManagementSystemInternalVariable.internal_data_index_key_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `internal_data_index_key_name`')
+                                 'for field `EnergyManagementSystemInternalVariable.internal_data_index_key_name`')
         self._data["Internal Data Index Key Name"] = value
 
     @property
@@ -3098,23 +2881,46 @@ class EnergyManagementSystemInternalVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `internal_data_type`'.format(value))
+                                 ' for field `EnergyManagementSystemInternalVariable.internal_data_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `internal_data_type`')
+                                 'for field `EnergyManagementSystemInternalVariable.internal_data_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `internal_data_type`')
+                                 'for field `EnergyManagementSystemInternalVariable.internal_data_type`')
         self._data["Internal Data Type"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemInternalVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemInternalVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemInternalVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemInternalVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3132,8 +2938,27 @@ class EnergyManagementSystemInternalVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3148,6 +2973,10 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
     internal_name = "EnergyManagementSystem:CurveOrTableIndexVariable"
     field_count = 2
     required_fields = ["Name", "Curve or Table Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:CurveOrTableIndexVariable`
@@ -3155,6 +2984,7 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Curve or Table Object Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3210,13 +3040,13 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemCurveOrTableIndexVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemCurveOrTableIndexVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemCurveOrTableIndexVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -3245,23 +3075,46 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `curve_or_table_object_name`'.format(value))
+                                 ' for field `EnergyManagementSystemCurveOrTableIndexVariable.curve_or_table_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `curve_or_table_object_name`')
+                                 'for field `EnergyManagementSystemCurveOrTableIndexVariable.curve_or_table_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `curve_or_table_object_name`')
+                                 'for field `EnergyManagementSystemCurveOrTableIndexVariable.curve_or_table_object_name`')
         self._data["Curve or Table Object Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemCurveOrTableIndexVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemCurveOrTableIndexVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemCurveOrTableIndexVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemCurveOrTableIndexVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3279,8 +3132,27 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3295,6 +3167,10 @@ class EnergyManagementSystemConstructionIndexVariable(object):
     internal_name = "EnergyManagementSystem:ConstructionIndexVariable"
     field_count = 2
     required_fields = ["Name", "Construction Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 2
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:ConstructionIndexVariable`
@@ -3302,6 +3178,7 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Construction Object Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3357,13 +3234,13 @@ class EnergyManagementSystemConstructionIndexVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `EnergyManagementSystemConstructionIndexVariable.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemConstructionIndexVariable.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `EnergyManagementSystemConstructionIndexVariable.name`')
         self._data["Name"] = value
 
     @property
@@ -3392,23 +3269,46 @@ class EnergyManagementSystemConstructionIndexVariable(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `construction_object_name`'.format(value))
+                                 ' for field `EnergyManagementSystemConstructionIndexVariable.construction_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `construction_object_name`')
+                                 'for field `EnergyManagementSystemConstructionIndexVariable.construction_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `construction_object_name`')
+                                 'for field `EnergyManagementSystemConstructionIndexVariable.construction_object_name`')
         self._data["Construction Object Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field EnergyManagementSystemConstructionIndexVariable:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field EnergyManagementSystemConstructionIndexVariable:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for EnergyManagementSystemConstructionIndexVariable: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for EnergyManagementSystemConstructionIndexVariable: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3426,8 +3326,27 @@ class EnergyManagementSystemConstructionIndexVariable(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

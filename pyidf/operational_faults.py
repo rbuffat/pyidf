@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class FaultModelTemperatureSensorOffsetOutdoorAir(object):
     """ Corresponds to IDD object `FaultModel:TemperatureSensorOffset:OutdoorAir`
         This object describes outdoor air temperature sensor offset
@@ -9,6 +12,10 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
     internal_name = "FaultModel:TemperatureSensorOffset:OutdoorAir"
     field_count = 6
     required_fields = ["Controller Object Type", "Controller Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:TemperatureSensorOffset:OutdoorAir`
@@ -20,6 +27,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
         self._data["Controller Object Type"] = None
         self._data["Controller Object Name"] = None
         self._data["Temperature Sensor Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -101,13 +109,13 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -136,13 +144,13 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetOutdoorAir.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -171,13 +179,13 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetOutdoorAir.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -208,13 +216,13 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_type`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_type`')
             vals = {}
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
             value_lower = value.lower()
@@ -236,10 +244,10 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_object_type`'.format(value))
+                                     'field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller Object Type"] = value
 
@@ -269,13 +277,13 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.controller_object_name`')
         self._data["Controller Object Name"] = value
 
     @property
@@ -308,23 +316,46 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_sensor_offset`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetOutdoorAir.temperature_sensor_offset`'.format(value))
             if value <= -10.0:
                 raise ValueError('value need to be greater -10.0 '
-                                 'for field `temperature_sensor_offset`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.temperature_sensor_offset`')
             if value >= 10.0:
                 raise ValueError('value need to be smaller 10.0 '
-                                 'for field `temperature_sensor_offset`')
+                                 'for field `FaultModelTemperatureSensorOffsetOutdoorAir.temperature_sensor_offset`')
         self._data["Temperature Sensor Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelTemperatureSensorOffsetOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelTemperatureSensorOffsetOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelTemperatureSensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelTemperatureSensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -342,8 +373,27 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -358,6 +408,10 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
     internal_name = "FaultModel:HumiditySensorOffset:OutdoorAir"
     field_count = 6
     required_fields = ["Name", "Controller Object Type", "Controller Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:HumiditySensorOffset:OutdoorAir`
@@ -369,6 +423,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
         self._data["Controller Object Type"] = None
         self._data["Controller Object Name"] = None
         self._data["Humidity Sensor Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -450,13 +505,13 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelHumiditySensorOffsetOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -485,13 +540,13 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelHumiditySensorOffsetOutdoorAir.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -520,13 +575,13 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelHumiditySensorOffsetOutdoorAir.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -557,13 +612,13 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_type`'.format(value))
+                                 ' for field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_type`')
             vals = {}
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
             value_lower = value.lower()
@@ -585,10 +640,10 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_object_type`'.format(value))
+                                     'field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller Object Type"] = value
 
@@ -618,13 +673,13 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_name`'.format(value))
+                                 ' for field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.controller_object_name`')
         self._data["Controller Object Name"] = value
 
     @property
@@ -657,23 +712,46 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `humidity_sensor_offset`'.format(value))
+                                 ' for field `FaultModelHumiditySensorOffsetOutdoorAir.humidity_sensor_offset`'.format(value))
             if value <= -0.02:
                 raise ValueError('value need to be greater -0.02 '
-                                 'for field `humidity_sensor_offset`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.humidity_sensor_offset`')
             if value >= 0.02:
                 raise ValueError('value need to be smaller 0.02 '
-                                 'for field `humidity_sensor_offset`')
+                                 'for field `FaultModelHumiditySensorOffsetOutdoorAir.humidity_sensor_offset`')
         self._data["Humidity Sensor Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelHumiditySensorOffsetOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelHumiditySensorOffsetOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelHumiditySensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelHumiditySensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -691,8 +769,27 @@ class FaultModelHumiditySensorOffsetOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -707,6 +804,10 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
     internal_name = "FaultModel:EnthalpySensorOffset:OutdoorAir"
     field_count = 6
     required_fields = ["Name", "Controller Object Type", "Controller Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:EnthalpySensorOffset:OutdoorAir`
@@ -718,6 +819,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
         self._data["Controller Object Type"] = None
         self._data["Controller Object Name"] = None
         self._data["Enthalpy Sensor Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -799,13 +901,13 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -834,13 +936,13 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetOutdoorAir.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -869,13 +971,13 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetOutdoorAir.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -906,13 +1008,13 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_type`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_type`')
             vals = {}
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
             value_lower = value.lower()
@@ -934,10 +1036,10 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_object_type`'.format(value))
+                                     'field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller Object Type"] = value
 
@@ -967,13 +1069,13 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.controller_object_name`')
         self._data["Controller Object Name"] = value
 
     @property
@@ -1006,23 +1108,46 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_sensor_offset`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetOutdoorAir.enthalpy_sensor_offset`'.format(value))
             if value <= -20000.0:
                 raise ValueError('value need to be greater -20000.0 '
-                                 'for field `enthalpy_sensor_offset`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.enthalpy_sensor_offset`')
             if value >= 20000.0:
                 raise ValueError('value need to be smaller 20000.0 '
-                                 'for field `enthalpy_sensor_offset`')
+                                 'for field `FaultModelEnthalpySensorOffsetOutdoorAir.enthalpy_sensor_offset`')
         self._data["Enthalpy Sensor Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelEnthalpySensorOffsetOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelEnthalpySensorOffsetOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelEnthalpySensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelEnthalpySensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1040,8 +1165,27 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1056,6 +1200,10 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
     internal_name = "FaultModel:PressureSensorOffset:OutdoorAir"
     field_count = 6
     required_fields = ["Name", "Controller Object Type", "Controller Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:PressureSensorOffset:OutdoorAir`
@@ -1067,6 +1215,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
         self._data["Controller Object Type"] = None
         self._data["Controller Object Name"] = None
         self._data["Pressure Sensor Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1148,13 +1297,13 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelPressureSensorOffsetOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -1183,13 +1332,13 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelPressureSensorOffsetOutdoorAir.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1218,13 +1367,13 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelPressureSensorOffsetOutdoorAir.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -1255,13 +1404,13 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_type`'.format(value))
+                                 ' for field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_type`')
             vals = {}
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
             value_lower = value.lower()
@@ -1283,10 +1432,10 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_object_type`'.format(value))
+                                     'field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller Object Type"] = value
 
@@ -1316,13 +1465,13 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_name`'.format(value))
+                                 ' for field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.controller_object_name`')
         self._data["Controller Object Name"] = value
 
     @property
@@ -1355,23 +1504,46 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pressure_sensor_offset`'.format(value))
+                                 ' for field `FaultModelPressureSensorOffsetOutdoorAir.pressure_sensor_offset`'.format(value))
             if value <= -10000.0:
                 raise ValueError('value need to be greater -10000.0 '
-                                 'for field `pressure_sensor_offset`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.pressure_sensor_offset`')
             if value >= 10000.0:
                 raise ValueError('value need to be smaller 10000.0 '
-                                 'for field `pressure_sensor_offset`')
+                                 'for field `FaultModelPressureSensorOffsetOutdoorAir.pressure_sensor_offset`')
         self._data["Pressure Sensor Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelPressureSensorOffsetOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelPressureSensorOffsetOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelPressureSensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelPressureSensorOffsetOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1389,8 +1561,27 @@ class FaultModelPressureSensorOffsetOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1405,6 +1596,10 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
     internal_name = "FaultModel:TemperatureSensorOffset:ReturnAir"
     field_count = 6
     required_fields = ["Name", "Controller Object Type", "Controller Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:TemperatureSensorOffset:ReturnAir`
@@ -1416,6 +1611,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
         self._data["Controller Object Type"] = None
         self._data["Controller Object Name"] = None
         self._data["Temperature Sensor Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1497,13 +1693,13 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetReturnAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.name`')
         self._data["Name"] = value
 
     @property
@@ -1532,13 +1728,13 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetReturnAir.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1567,13 +1763,13 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetReturnAir.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -1604,13 +1800,13 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_type`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_type`')
             vals = {}
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
             value_lower = value.lower()
@@ -1632,10 +1828,10 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_object_type`'.format(value))
+                                     'field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller Object Type"] = value
 
@@ -1665,13 +1861,13 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_name`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.controller_object_name`')
         self._data["Controller Object Name"] = value
 
     @property
@@ -1704,23 +1900,46 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_sensor_offset`'.format(value))
+                                 ' for field `FaultModelTemperatureSensorOffsetReturnAir.temperature_sensor_offset`'.format(value))
             if value <= -10.0:
                 raise ValueError('value need to be greater -10.0 '
-                                 'for field `temperature_sensor_offset`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.temperature_sensor_offset`')
             if value >= 10.0:
                 raise ValueError('value need to be smaller 10.0 '
-                                 'for field `temperature_sensor_offset`')
+                                 'for field `FaultModelTemperatureSensorOffsetReturnAir.temperature_sensor_offset`')
         self._data["Temperature Sensor Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelTemperatureSensorOffsetReturnAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelTemperatureSensorOffsetReturnAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelTemperatureSensorOffsetReturnAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelTemperatureSensorOffsetReturnAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1738,8 +1957,27 @@ class FaultModelTemperatureSensorOffsetReturnAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1754,6 +1992,10 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
     internal_name = "FaultModel:EnthalpySensorOffset:ReturnAir"
     field_count = 6
     required_fields = ["Name", "Controller Object Type", "Controller Object Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:EnthalpySensorOffset:ReturnAir`
@@ -1765,6 +2007,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
         self._data["Controller Object Type"] = None
         self._data["Controller Object Name"] = None
         self._data["Enthalpy Sensor Offset"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1846,13 +2089,13 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetReturnAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.name`')
         self._data["Name"] = value
 
     @property
@@ -1881,13 +2124,13 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetReturnAir.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1916,13 +2159,13 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetReturnAir.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -1953,13 +2196,13 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_type`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_type`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_type`')
             vals = {}
             vals["controller:outdoorair"] = "Controller:OutdoorAir"
             value_lower = value.lower()
@@ -1981,10 +2224,10 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `controller_object_type`'.format(value))
+                                     'field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `controller_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller Object Type"] = value
 
@@ -2014,13 +2257,13 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `controller_object_name`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `controller_object_name`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.controller_object_name`')
         self._data["Controller Object Name"] = value
 
     @property
@@ -2053,23 +2296,46 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `enthalpy_sensor_offset`'.format(value))
+                                 ' for field `FaultModelEnthalpySensorOffsetReturnAir.enthalpy_sensor_offset`'.format(value))
             if value <= -20000.0:
                 raise ValueError('value need to be greater -20000.0 '
-                                 'for field `enthalpy_sensor_offset`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.enthalpy_sensor_offset`')
             if value >= 20000.0:
                 raise ValueError('value need to be smaller 20000.0 '
-                                 'for field `enthalpy_sensor_offset`')
+                                 'for field `FaultModelEnthalpySensorOffsetReturnAir.enthalpy_sensor_offset`')
         self._data["Enthalpy Sensor Offset"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelEnthalpySensorOffsetReturnAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelEnthalpySensorOffsetReturnAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelEnthalpySensorOffsetReturnAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelEnthalpySensorOffsetReturnAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2087,8 +2353,27 @@ class FaultModelEnthalpySensorOffsetReturnAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2103,6 +2388,10 @@ class FaultModelFoulingCoil(object):
     internal_name = "FaultModel:Fouling:Coil"
     field_count = 10
     required_fields = ["Name", "Coil Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FaultModel:Fouling:Coil`
@@ -2118,6 +2407,7 @@ class FaultModelFoulingCoil(object):
         self._data["Air Side Fouling Factor"] = None
         self._data["Outside Coil Surface Area"] = None
         self._data["Inside to Outside Coil Surface Area Ratio"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2227,13 +2517,13 @@ class FaultModelFoulingCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `FaultModelFoulingCoil.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `FaultModelFoulingCoil.name`')
         self._data["Name"] = value
 
     @property
@@ -2262,13 +2552,13 @@ class FaultModelFoulingCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `coil_name`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `coil_name`')
+                                 'for field `FaultModelFoulingCoil.coil_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `coil_name`')
+                                 'for field `FaultModelFoulingCoil.coil_name`')
         self._data["Coil Name"] = value
 
     @property
@@ -2297,13 +2587,13 @@ class FaultModelFoulingCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelFoulingCoil.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `FaultModelFoulingCoil.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -2332,13 +2622,13 @@ class FaultModelFoulingCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `severity_schedule_name`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.severity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelFoulingCoil.severity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `severity_schedule_name`')
+                                 'for field `FaultModelFoulingCoil.severity_schedule_name`')
         self._data["Severity Schedule Name"] = value
 
     @property
@@ -2371,13 +2661,13 @@ class FaultModelFoulingCoil(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fouling_input_method`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.fouling_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fouling_input_method`')
+                                 'for field `FaultModelFoulingCoil.fouling_input_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fouling_input_method`')
+                                 'for field `FaultModelFoulingCoil.fouling_input_method`')
             vals = {}
             vals["fouleduarated"] = "FouledUARated"
             vals["foulingfactor"] = "FoulingFactor"
@@ -2400,10 +2690,10 @@ class FaultModelFoulingCoil(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `fouling_input_method`'.format(value))
+                                     'field `FaultModelFoulingCoil.fouling_input_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `fouling_input_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `FaultModelFoulingCoil.fouling_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fouling Input Method"] = value
 
@@ -2437,10 +2727,10 @@ class FaultModelFoulingCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `uafouled`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.uafouled`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `uafouled`')
+                                 'for field `FaultModelFoulingCoil.uafouled`')
         self._data["UAFouled"] = value
 
     @property
@@ -2473,10 +2763,10 @@ class FaultModelFoulingCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `water_side_fouling_factor`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.water_side_fouling_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `water_side_fouling_factor`')
+                                 'for field `FaultModelFoulingCoil.water_side_fouling_factor`')
         self._data["Water Side Fouling Factor"] = value
 
     @property
@@ -2509,10 +2799,10 @@ class FaultModelFoulingCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `air_side_fouling_factor`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.air_side_fouling_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `air_side_fouling_factor`')
+                                 'for field `FaultModelFoulingCoil.air_side_fouling_factor`')
         self._data["Air Side Fouling Factor"] = value
 
     @property
@@ -2544,10 +2834,10 @@ class FaultModelFoulingCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `outside_coil_surface_area`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.outside_coil_surface_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `outside_coil_surface_area`')
+                                 'for field `FaultModelFoulingCoil.outside_coil_surface_area`')
         self._data["Outside Coil Surface Area"] = value
 
     @property
@@ -2580,20 +2870,43 @@ class FaultModelFoulingCoil(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `inside_to_outside_coil_surface_area_ratio`'.format(value))
+                                 ' for field `FaultModelFoulingCoil.inside_to_outside_coil_surface_area_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `inside_to_outside_coil_surface_area_ratio`')
+                                 'for field `FaultModelFoulingCoil.inside_to_outside_coil_surface_area_ratio`')
         self._data["Inside to Outside Coil Surface Area Ratio"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field FaultModelFoulingCoil:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field FaultModelFoulingCoil:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for FaultModelFoulingCoil: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for FaultModelFoulingCoil: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2611,8 +2924,27 @@ class FaultModelFoulingCoil(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

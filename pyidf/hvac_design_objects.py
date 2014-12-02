@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class DesignSpecificationOutdoorAir(object):
     """ Corresponds to IDD object `DesignSpecification:OutdoorAir`
         This object is used to describe general outdoor air requirements which
@@ -10,6 +13,10 @@ class DesignSpecificationOutdoorAir(object):
     internal_name = "DesignSpecification:OutdoorAir"
     field_count = 7
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DesignSpecification:OutdoorAir`
@@ -22,6 +29,7 @@ class DesignSpecificationOutdoorAir(object):
         self._data["Outdoor Air Flow per Zone"] = None
         self._data["Outdoor Air Flow Air Changes per Hour"] = None
         self._data["Outdoor Air Flow Rate Fraction Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -110,13 +118,13 @@ class DesignSpecificationOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `DesignSpecificationOutdoorAir.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `DesignSpecificationOutdoorAir.name`')
         self._data["Name"] = value
 
     @property
@@ -157,13 +165,13 @@ class DesignSpecificationOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outdoor_air_method`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.outdoor_air_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outdoor_air_method`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outdoor_air_method`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_method`')
             vals = {}
             vals["flow/person"] = "Flow/Person"
             vals["flow/area"] = "Flow/Area"
@@ -190,10 +198,10 @@ class DesignSpecificationOutdoorAir(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `outdoor_air_method`'.format(value))
+                                     'field `DesignSpecificationOutdoorAir.outdoor_air_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `outdoor_air_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `DesignSpecificationOutdoorAir.outdoor_air_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outdoor Air Method"] = value
 
@@ -229,10 +237,10 @@ class DesignSpecificationOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `outdoor_air_flow_per_person`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.outdoor_air_flow_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `outdoor_air_flow_per_person`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_flow_per_person`')
         self._data["Outdoor Air Flow per Person"] = value
 
     @property
@@ -266,10 +274,10 @@ class DesignSpecificationOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `outdoor_air_flow_per_zone_floor_area`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `outdoor_air_flow_per_zone_floor_area`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone_floor_area`')
         self._data["Outdoor Air Flow per Zone Floor Area"] = value
 
     @property
@@ -303,10 +311,10 @@ class DesignSpecificationOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `outdoor_air_flow_per_zone`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `outdoor_air_flow_per_zone`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone`')
         self._data["Outdoor Air Flow per Zone"] = value
 
     @property
@@ -340,10 +348,10 @@ class DesignSpecificationOutdoorAir(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `outdoor_air_flow_air_changes_per_hour`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.outdoor_air_flow_air_changes_per_hour`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `outdoor_air_flow_air_changes_per_hour`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_flow_air_changes_per_hour`')
         self._data["Outdoor Air Flow Air Changes per Hour"] = value
 
     @property
@@ -374,23 +382,46 @@ class DesignSpecificationOutdoorAir(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outdoor_air_flow_rate_fraction_schedule_name`'.format(value))
+                                 ' for field `DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outdoor_air_flow_rate_fraction_schedule_name`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outdoor_air_flow_rate_fraction_schedule_name`')
+                                 'for field `DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name`')
         self._data["Outdoor Air Flow Rate Fraction Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field DesignSpecificationOutdoorAir:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field DesignSpecificationOutdoorAir:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for DesignSpecificationOutdoorAir: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for DesignSpecificationOutdoorAir: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -408,8 +439,27 @@ class DesignSpecificationOutdoorAir(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -426,6 +476,10 @@ class DesignSpecificationZoneAirDistribution(object):
     internal_name = "DesignSpecification:ZoneAirDistribution"
     field_count = 5
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DesignSpecification:ZoneAirDistribution`
@@ -436,6 +490,7 @@ class DesignSpecificationZoneAirDistribution(object):
         self._data["Zone Air Distribution Effectiveness in Heating Mode"] = None
         self._data["Zone Air Distribution Effectiveness Schedule Name"] = None
         self._data["Zone Secondary Recirculation Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -510,13 +565,13 @@ class DesignSpecificationZoneAirDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `DesignSpecificationZoneAirDistribution.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `DesignSpecificationZoneAirDistribution.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `DesignSpecificationZoneAirDistribution.name`')
         self._data["Name"] = value
 
     @property
@@ -548,10 +603,10 @@ class DesignSpecificationZoneAirDistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_air_distribution_effectiveness_in_cooling_mode`'.format(value))
+                                 ' for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_cooling_mode`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `zone_air_distribution_effectiveness_in_cooling_mode`')
+                                 'for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_cooling_mode`')
         self._data["Zone Air Distribution Effectiveness in Cooling Mode"] = value
 
     @property
@@ -583,10 +638,10 @@ class DesignSpecificationZoneAirDistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_air_distribution_effectiveness_in_heating_mode`'.format(value))
+                                 ' for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_heating_mode`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `zone_air_distribution_effectiveness_in_heating_mode`')
+                                 'for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_heating_mode`')
         self._data["Zone Air Distribution Effectiveness in Heating Mode"] = value
 
     @property
@@ -617,13 +672,13 @@ class DesignSpecificationZoneAirDistribution(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_air_distribution_effectiveness_schedule_name`'.format(value))
+                                 ' for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_air_distribution_effectiveness_schedule_name`')
+                                 'for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_air_distribution_effectiveness_schedule_name`')
+                                 'for field `DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name`')
         self._data["Zone Air Distribution Effectiveness Schedule Name"] = value
 
     @property
@@ -655,20 +710,43 @@ class DesignSpecificationZoneAirDistribution(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_secondary_recirculation_fraction`'.format(value))
+                                 ' for field `DesignSpecificationZoneAirDistribution.zone_secondary_recirculation_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `zone_secondary_recirculation_fraction`')
+                                 'for field `DesignSpecificationZoneAirDistribution.zone_secondary_recirculation_fraction`')
         self._data["Zone Secondary Recirculation Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field DesignSpecificationZoneAirDistribution:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field DesignSpecificationZoneAirDistribution:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for DesignSpecificationZoneAirDistribution: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for DesignSpecificationZoneAirDistribution: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -686,8 +764,27 @@ class DesignSpecificationZoneAirDistribution(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -707,6 +804,10 @@ class SizingParameters(object):
     internal_name = "Sizing:Parameters"
     field_count = 3
     required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:Parameters`
@@ -715,6 +816,7 @@ class SizingParameters(object):
         self._data["Heating Sizing Factor"] = None
         self._data["Cooling Sizing Factor"] = None
         self._data["Timesteps in Averaging Window"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -777,10 +879,10 @@ class SizingParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_sizing_factor`'.format(value))
+                                 ' for field `SizingParameters.heating_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `heating_sizing_factor`')
+                                 'for field `SizingParameters.heating_sizing_factor`')
         self._data["Heating Sizing Factor"] = value
 
     @property
@@ -811,10 +913,10 @@ class SizingParameters(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_sizing_factor`'.format(value))
+                                 ' for field `SizingParameters.cooling_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `cooling_sizing_factor`')
+                                 'for field `SizingParameters.cooling_sizing_factor`')
         self._data["Cooling Sizing Factor"] = value
 
     @property
@@ -849,25 +951,48 @@ class SizingParameters(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `timesteps_in_averaging_window`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `SizingParameters.timesteps_in_averaging_window`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `timesteps_in_averaging_window`'.format(value))
+                                         'for field `SizingParameters.timesteps_in_averaging_window`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `timesteps_in_averaging_window`')
+                                 'for field `SizingParameters.timesteps_in_averaging_window`')
         self._data["Timesteps in Averaging Window"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SizingParameters:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SizingParameters:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SizingParameters: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SizingParameters: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -885,8 +1010,27 @@ class SizingParameters(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -904,6 +1048,10 @@ class SizingZone(object):
     internal_name = "Sizing:Zone"
     field_count = 23
     required_fields = ["Zone or ZoneList Name", "Zone Cooling Design Supply Air Temperature Input Method", "Zone Heating Design Supply Air Temperature Input Method", "Zone Cooling Design Supply Air Humidity Ratio", "Zone Heating Design Supply Air Humidity Ratio"]
+    extensible_fields = 0
+    format = None
+    min_fields = 18
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:Zone`
@@ -932,6 +1080,7 @@ class SizingZone(object):
         self._data["Heating Maximum Air Flow"] = None
         self._data["Heating Maximum Air Flow Fraction"] = None
         self._data["Design Specification Zone Air Distribution Object Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1132,13 +1281,13 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_or_zonelist_name`'.format(value))
+                                 ' for field `SizingZone.zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `SizingZone.zone_or_zonelist_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_or_zonelist_name`')
+                                 'for field `SizingZone.zone_or_zonelist_name`')
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -1171,13 +1320,13 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_cooling_design_supply_air_temperature_input_method`'.format(value))
+                                 ' for field `SizingZone.zone_cooling_design_supply_air_temperature_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_cooling_design_supply_air_temperature_input_method`')
+                                 'for field `SizingZone.zone_cooling_design_supply_air_temperature_input_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_cooling_design_supply_air_temperature_input_method`')
+                                 'for field `SizingZone.zone_cooling_design_supply_air_temperature_input_method`')
             vals = {}
             vals["supplyairtemperature"] = "SupplyAirTemperature"
             vals["temperaturedifference"] = "TemperatureDifference"
@@ -1200,10 +1349,10 @@ class SizingZone(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `zone_cooling_design_supply_air_temperature_input_method`'.format(value))
+                                     'field `SizingZone.zone_cooling_design_supply_air_temperature_input_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `zone_cooling_design_supply_air_temperature_input_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingZone.zone_cooling_design_supply_air_temperature_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Cooling Design Supply Air Temperature Input Method"] = value
 
@@ -1236,7 +1385,7 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_cooling_design_supply_air_temperature`'.format(value))
+                                 ' for field `SizingZone.zone_cooling_design_supply_air_temperature`'.format(value))
         self._data["Zone Cooling Design Supply Air Temperature"] = value
 
     @property
@@ -1270,7 +1419,7 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_cooling_design_supply_air_temperature_difference`'.format(value))
+                                 ' for field `SizingZone.zone_cooling_design_supply_air_temperature_difference`'.format(value))
         self._data["Zone Cooling Design Supply Air Temperature Difference"] = value
 
     @property
@@ -1303,13 +1452,13 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_heating_design_supply_air_temperature_input_method`'.format(value))
+                                 ' for field `SizingZone.zone_heating_design_supply_air_temperature_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_heating_design_supply_air_temperature_input_method`')
+                                 'for field `SizingZone.zone_heating_design_supply_air_temperature_input_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_heating_design_supply_air_temperature_input_method`')
+                                 'for field `SizingZone.zone_heating_design_supply_air_temperature_input_method`')
             vals = {}
             vals["supplyairtemperature"] = "SupplyAirTemperature"
             vals["temperaturedifference"] = "TemperatureDifference"
@@ -1332,10 +1481,10 @@ class SizingZone(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `zone_heating_design_supply_air_temperature_input_method`'.format(value))
+                                     'field `SizingZone.zone_heating_design_supply_air_temperature_input_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `zone_heating_design_supply_air_temperature_input_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingZone.zone_heating_design_supply_air_temperature_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Heating Design Supply Air Temperature Input Method"] = value
 
@@ -1368,7 +1517,7 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_heating_design_supply_air_temperature`'.format(value))
+                                 ' for field `SizingZone.zone_heating_design_supply_air_temperature`'.format(value))
         self._data["Zone Heating Design Supply Air Temperature"] = value
 
     @property
@@ -1402,7 +1551,7 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_heating_design_supply_air_temperature_difference`'.format(value))
+                                 ' for field `SizingZone.zone_heating_design_supply_air_temperature_difference`'.format(value))
         self._data["Zone Heating Design Supply Air Temperature Difference"] = value
 
     @property
@@ -1433,10 +1582,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_cooling_design_supply_air_humidity_ratio`'.format(value))
+                                 ' for field `SizingZone.zone_cooling_design_supply_air_humidity_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `zone_cooling_design_supply_air_humidity_ratio`')
+                                 'for field `SizingZone.zone_cooling_design_supply_air_humidity_ratio`')
         self._data["Zone Cooling Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -1467,10 +1616,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_heating_design_supply_air_humidity_ratio`'.format(value))
+                                 ' for field `SizingZone.zone_heating_design_supply_air_humidity_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `zone_heating_design_supply_air_humidity_ratio`')
+                                 'for field `SizingZone.zone_heating_design_supply_air_humidity_ratio`')
         self._data["Zone Heating Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -1499,13 +1648,13 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_outdoor_air_object_name`'.format(value))
+                                 ' for field `SizingZone.design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_outdoor_air_object_name`')
+                                 'for field `SizingZone.design_specification_outdoor_air_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_outdoor_air_object_name`')
+                                 'for field `SizingZone.design_specification_outdoor_air_object_name`')
         self._data["Design Specification Outdoor Air Object Name"] = value
 
     @property
@@ -1536,10 +1685,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_heating_sizing_factor`'.format(value))
+                                 ' for field `SizingZone.zone_heating_sizing_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `zone_heating_sizing_factor`')
+                                 'for field `SizingZone.zone_heating_sizing_factor`')
         self._data["Zone Heating Sizing Factor"] = value
 
     @property
@@ -1570,10 +1719,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_cooling_sizing_factor`'.format(value))
+                                 ' for field `SizingZone.zone_cooling_sizing_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `zone_cooling_sizing_factor`')
+                                 'for field `SizingZone.zone_cooling_sizing_factor`')
         self._data["Zone Cooling Sizing Factor"] = value
 
     @property
@@ -1607,13 +1756,13 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_design_air_flow_method`'.format(value))
+                                 ' for field `SizingZone.cooling_design_air_flow_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_design_air_flow_method`')
+                                 'for field `SizingZone.cooling_design_air_flow_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_design_air_flow_method`')
+                                 'for field `SizingZone.cooling_design_air_flow_method`')
             vals = {}
             vals["flow/zone"] = "Flow/Zone"
             vals["designday"] = "DesignDay"
@@ -1637,10 +1786,10 @@ class SizingZone(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cooling_design_air_flow_method`'.format(value))
+                                     'field `SizingZone.cooling_design_air_flow_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cooling_design_air_flow_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingZone.cooling_design_air_flow_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Design Air Flow Method"] = value
 
@@ -1676,10 +1825,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_design_air_flow_rate`'.format(value))
+                                 ' for field `SizingZone.cooling_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_air_flow_rate`')
+                                 'for field `SizingZone.cooling_design_air_flow_rate`')
         self._data["Cooling Design Air Flow Rate"] = value
 
     @property
@@ -1713,10 +1862,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_minimum_air_flow_per_zone_floor_area`'.format(value))
+                                 ' for field `SizingZone.cooling_minimum_air_flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_minimum_air_flow_per_zone_floor_area`')
+                                 'for field `SizingZone.cooling_minimum_air_flow_per_zone_floor_area`')
         self._data["Cooling Minimum Air Flow per Zone Floor Area"] = value
 
     @property
@@ -1749,10 +1898,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_minimum_air_flow`'.format(value))
+                                 ' for field `SizingZone.cooling_minimum_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_minimum_air_flow`')
+                                 'for field `SizingZone.cooling_minimum_air_flow`')
         self._data["Cooling Minimum Air Flow"] = value
 
     @property
@@ -1786,10 +1935,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_minimum_air_flow_fraction`'.format(value))
+                                 ' for field `SizingZone.cooling_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_minimum_air_flow_fraction`')
+                                 'for field `SizingZone.cooling_minimum_air_flow_fraction`')
         self._data["Cooling Minimum Air Flow Fraction"] = value
 
     @property
@@ -1823,13 +1972,13 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_design_air_flow_method`'.format(value))
+                                 ' for field `SizingZone.heating_design_air_flow_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_design_air_flow_method`')
+                                 'for field `SizingZone.heating_design_air_flow_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_design_air_flow_method`')
+                                 'for field `SizingZone.heating_design_air_flow_method`')
             vals = {}
             vals["flow/zone"] = "Flow/Zone"
             vals["designday"] = "DesignDay"
@@ -1853,10 +2002,10 @@ class SizingZone(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heating_design_air_flow_method`'.format(value))
+                                     'field `SizingZone.heating_design_air_flow_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heating_design_air_flow_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingZone.heating_design_air_flow_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Air Flow Method"] = value
 
@@ -1892,10 +2041,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_design_air_flow_rate`'.format(value))
+                                 ' for field `SizingZone.heating_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_air_flow_rate`')
+                                 'for field `SizingZone.heating_design_air_flow_rate`')
         self._data["Heating Design Air Flow Rate"] = value
 
     @property
@@ -1930,10 +2079,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_maximum_air_flow_per_zone_floor_area`'.format(value))
+                                 ' for field `SizingZone.heating_maximum_air_flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_maximum_air_flow_per_zone_floor_area`')
+                                 'for field `SizingZone.heating_maximum_air_flow_per_zone_floor_area`')
         self._data["Heating Maximum Air Flow per Zone Floor Area"] = value
 
     @property
@@ -1967,10 +2116,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_maximum_air_flow`'.format(value))
+                                 ' for field `SizingZone.heating_maximum_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_maximum_air_flow`')
+                                 'for field `SizingZone.heating_maximum_air_flow`')
         self._data["Heating Maximum Air Flow"] = value
 
     @property
@@ -2003,10 +2152,10 @@ class SizingZone(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_maximum_air_flow_fraction`'.format(value))
+                                 ' for field `SizingZone.heating_maximum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_maximum_air_flow_fraction`')
+                                 'for field `SizingZone.heating_maximum_air_flow_fraction`')
         self._data["Heating Maximum Air Flow Fraction"] = value
 
     @property
@@ -2035,23 +2184,46 @@ class SizingZone(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `design_specification_zone_air_distribution_object_name`'.format(value))
+                                 ' for field `SizingZone.design_specification_zone_air_distribution_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `design_specification_zone_air_distribution_object_name`')
+                                 'for field `SizingZone.design_specification_zone_air_distribution_object_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `design_specification_zone_air_distribution_object_name`')
+                                 'for field `SizingZone.design_specification_zone_air_distribution_object_name`')
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SizingZone:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SizingZone:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SizingZone: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SizingZone: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2069,8 +2241,27 @@ class SizingZone(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2086,6 +2277,10 @@ class DesignSpecificationZoneHvacSizing(object):
     internal_name = "DesignSpecification:ZoneHVAC:Sizing"
     field_count = 24
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 1
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DesignSpecification:ZoneHVAC:Sizing`
@@ -2115,6 +2310,7 @@ class DesignSpecificationZoneHvacSizing(object):
         self._data["Heating Design Capacity"] = None
         self._data["Heating Design Capacity Per Floor Area"] = None
         self._data["Fraction of Autosized Heating Design Capacity"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2322,13 +2518,13 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `DesignSpecificationZoneHvacSizing.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `DesignSpecificationZoneHvacSizing.name`')
         self._data["Name"] = value
 
     @property
@@ -2374,13 +2570,13 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_design_air_flow_method`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_design_air_flow_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_design_air_flow_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method`')
             vals = {}
             vals["none"] = "None"
             vals["supplyairflowrate"] = "SupplyAirFlowRate"
@@ -2406,10 +2602,10 @@ class DesignSpecificationZoneHvacSizing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cooling_design_air_flow_method`'.format(value))
+                                     'field `DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cooling_design_air_flow_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Design Air Flow Method"] = value
 
@@ -2446,8 +2642,8 @@ class DesignSpecificationZoneHvacSizing(object):
                     self._data["Cooling Design Supply Air Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `cooling_design_supply_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate`'.format(value))
                     self._data["Cooling Design Supply Air Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -2456,10 +2652,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `cooling_design_supply_air_flow_rate`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_supply_air_flow_rate`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate`')
         self._data["Cooling Design Supply Air Flow Rate"] = value
 
     @property
@@ -2493,10 +2689,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_design_supply_air_flow_rate_per_floor_area`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_supply_air_flow_rate_per_floor_area`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_floor_area`')
         self._data["Cooling Design Supply Air Flow Rate Per Floor Area"] = value
 
     @property
@@ -2530,10 +2726,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_cooling_design_supply_air_flow_rate`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_cooling_design_supply_air_flow_rate`')
+                                 'for field `DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_supply_air_flow_rate`')
         self._data["Fraction of Autosized Cooling Design Supply Air Flow Rate"] = value
 
     @property
@@ -2568,10 +2764,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`')
         self._data["Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity"] = value
 
     @property
@@ -2617,13 +2813,13 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`')
+                                 'for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`')
+                                 'for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`')
             vals = {}
             vals["none"] = "None"
             vals["supplyairflowrate"] = "SupplyAirFlowRate"
@@ -2649,10 +2845,10 @@ class DesignSpecificationZoneHvacSizing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
+                                     'field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = value
 
@@ -2689,8 +2885,8 @@ class DesignSpecificationZoneHvacSizing(object):
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = "Autosize"
                     return
             except ValueError:
@@ -2699,10 +2895,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`')
+                                 'for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required`')
         self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = value
 
     @property
@@ -2736,10 +2932,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`')
+                                 'for field `DesignSpecificationZoneHvacSizing.supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`')
         self._data["Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required"] = value
 
     @property
@@ -2772,10 +2968,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`')
+                                 'for field `DesignSpecificationZoneHvacSizing.fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`')
         self._data["Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required"] = value
 
     @property
@@ -2808,10 +3004,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`')
+                                 'for field `DesignSpecificationZoneHvacSizing.fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`')
         self._data["Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required"] = value
 
     @property
@@ -2857,13 +3053,13 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_design_air_flow_method`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_air_flow_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_design_air_flow_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_air_flow_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_design_air_flow_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_air_flow_method`')
             vals = {}
             vals["none"] = "None"
             vals["supplyairflowrate"] = "SupplyAirFlowRate"
@@ -2889,10 +3085,10 @@ class DesignSpecificationZoneHvacSizing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heating_design_air_flow_method`'.format(value))
+                                     'field `DesignSpecificationZoneHvacSizing.heating_design_air_flow_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heating_design_air_flow_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `DesignSpecificationZoneHvacSizing.heating_design_air_flow_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Air Flow Method"] = value
 
@@ -2929,8 +3125,8 @@ class DesignSpecificationZoneHvacSizing(object):
                     self._data["Heating Design Supply Air Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `heating_design_supply_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate`'.format(value))
                     self._data["Heating Design Supply Air Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -2939,10 +3135,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `heating_design_supply_air_flow_rate`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_supply_air_flow_rate`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate`')
         self._data["Heating Design Supply Air Flow Rate"] = value
 
     @property
@@ -2976,10 +3172,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_design_supply_air_flow_rate_per_floor_area`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_supply_air_flow_rate_per_floor_area`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_floor_area`')
         self._data["Heating Design Supply Air Flow Rate Per Floor Area"] = value
 
     @property
@@ -3013,10 +3209,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_heating_design_supply_air_flow_rate`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.fraction_of_heating_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_heating_design_supply_air_flow_rate`')
+                                 'for field `DesignSpecificationZoneHvacSizing.fraction_of_heating_design_supply_air_flow_rate`')
         self._data["Fraction of Heating Design Supply Air Flow Rate"] = value
 
     @property
@@ -3051,10 +3247,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_unit_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_unit_heating_capacity`')
         self._data["Heating Design Supply Air Flow Rate Per Unit Heating Capacity"] = value
 
     @property
@@ -3097,13 +3293,13 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_design_capacity_method`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_design_capacity_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_design_capacity_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_method`')
             vals = {}
             vals["none"] = "None"
             vals["coolingdesigncapacity"] = "CoolingDesignCapacity"
@@ -3128,10 +3324,10 @@ class DesignSpecificationZoneHvacSizing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cooling_design_capacity_method`'.format(value))
+                                     'field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cooling_design_capacity_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Design Capacity Method"] = value
 
@@ -3167,8 +3363,8 @@ class DesignSpecificationZoneHvacSizing(object):
                     self._data["Cooling Design Capacity"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `cooling_design_capacity`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity`'.format(value))
                     self._data["Cooling Design Capacity"] = "Autosize"
                     return
             except ValueError:
@@ -3177,10 +3373,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `cooling_design_capacity`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_capacity`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity`')
         self._data["Cooling Design Capacity"] = value
 
     @property
@@ -3213,10 +3409,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_design_capacity_per_floor_area`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_capacity_per_floor_area`')
+                                 'for field `DesignSpecificationZoneHvacSizing.cooling_design_capacity_per_floor_area`')
         self._data["Cooling Design Capacity Per Floor Area"] = value
 
     @property
@@ -3248,10 +3444,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_cooling_design_capacity`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_cooling_design_capacity`')
+                                 'for field `DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_capacity`')
         self._data["Fraction of Autosized Cooling Design Capacity"] = value
 
     @property
@@ -3294,13 +3490,13 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_design_capacity_method`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_design_capacity_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_capacity_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_design_capacity_method`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_capacity_method`')
             vals = {}
             vals["none"] = "None"
             vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
@@ -3325,10 +3521,10 @@ class DesignSpecificationZoneHvacSizing(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heating_design_capacity_method`'.format(value))
+                                     'field `DesignSpecificationZoneHvacSizing.heating_design_capacity_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `DesignSpecificationZoneHvacSizing.heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -3364,8 +3560,8 @@ class DesignSpecificationZoneHvacSizing(object):
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `heating_design_capacity`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_capacity`'.format(value))
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
             except ValueError:
@@ -3374,10 +3570,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `heating_design_capacity`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_capacity`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_capacity`')
         self._data["Heating Design Capacity"] = value
 
     @property
@@ -3410,10 +3606,10 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_design_capacity_per_floor_area`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_capacity_per_floor_area`')
+                                 'for field `DesignSpecificationZoneHvacSizing.heating_design_capacity_per_floor_area`')
         self._data["Heating Design Capacity Per Floor Area"] = value
 
     @property
@@ -3445,20 +3641,43 @@ class DesignSpecificationZoneHvacSizing(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
+                                 ' for field `DesignSpecificationZoneHvacSizing.fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_heating_design_capacity`')
+                                 'for field `DesignSpecificationZoneHvacSizing.fraction_of_autosized_heating_design_capacity`')
         self._data["Fraction of Autosized Heating Design Capacity"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field DesignSpecificationZoneHvacSizing:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field DesignSpecificationZoneHvacSizing:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for DesignSpecificationZoneHvacSizing: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for DesignSpecificationZoneHvacSizing: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3476,8 +3695,27 @@ class DesignSpecificationZoneHvacSizing(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3493,6 +3731,10 @@ class SizingSystem(object):
     internal_name = "Sizing:System"
     field_count = 36
     required_fields = ["AirLoop Name", "Type of Load to Size On", "Minimum System Air Flow Ratio", "Preheat Design Temperature", "Preheat Design Humidity Ratio", "Precool Design Temperature", "Precool Design Humidity Ratio", "Central Cooling Design Supply Air Temperature", "Central Heating Design Supply Air Temperature", "Central Cooling Design Supply Air Humidity Ratio", "Central Heating Design Supply Air Humidity Ratio"]
+    extensible_fields = 0
+    format = None
+    min_fields = 27
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:System`
@@ -3534,6 +3776,7 @@ class SizingSystem(object):
         self._data["Heating Design Capacity"] = None
         self._data["Heating Design Capacity Per Floor Area"] = None
         self._data["Fraction of Autosized Heating Design Capacity"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3825,13 +4068,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `airloop_name`'.format(value))
+                                 ' for field `SizingSystem.airloop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `airloop_name`')
+                                 'for field `SizingSystem.airloop_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `airloop_name`')
+                                 'for field `SizingSystem.airloop_name`')
         self._data["AirLoop Name"] = value
 
     @property
@@ -3868,13 +4111,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `type_of_load_to_size_on`'.format(value))
+                                 ' for field `SizingSystem.type_of_load_to_size_on`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `type_of_load_to_size_on`')
+                                 'for field `SizingSystem.type_of_load_to_size_on`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `type_of_load_to_size_on`')
+                                 'for field `SizingSystem.type_of_load_to_size_on`')
             vals = {}
             vals["sensible"] = "Sensible"
             vals["ventilationrequirement"] = "VentilationRequirement"
@@ -3897,10 +4140,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `type_of_load_to_size_on`'.format(value))
+                                     'field `SizingSystem.type_of_load_to_size_on`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `type_of_load_to_size_on`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.type_of_load_to_size_on`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Load to Size On"] = value
 
@@ -3935,8 +4178,8 @@ class SizingSystem(object):
                     self._data["Design Outdoor Air Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `design_outdoor_air_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `SizingSystem.design_outdoor_air_flow_rate`'.format(value))
                     self._data["Design Outdoor Air Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -3945,10 +4188,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `design_outdoor_air_flow_rate`'.format(value))
+                                 ' for field `SizingSystem.design_outdoor_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_outdoor_air_flow_rate`')
+                                 'for field `SizingSystem.design_outdoor_air_flow_rate`')
         self._data["Design Outdoor Air Flow Rate"] = value
 
     @property
@@ -3979,13 +4222,13 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_system_air_flow_ratio`'.format(value))
+                                 ' for field `SizingSystem.minimum_system_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_system_air_flow_ratio`')
+                                 'for field `SizingSystem.minimum_system_air_flow_ratio`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_system_air_flow_ratio`')
+                                 'for field `SizingSystem.minimum_system_air_flow_ratio`')
         self._data["Minimum System Air Flow Ratio"] = value
 
     @property
@@ -4015,7 +4258,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `preheat_design_temperature`'.format(value))
+                                 ' for field `SizingSystem.preheat_design_temperature`'.format(value))
         self._data["Preheat Design Temperature"] = value
 
     @property
@@ -4045,7 +4288,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `preheat_design_humidity_ratio`'.format(value))
+                                 ' for field `SizingSystem.preheat_design_humidity_ratio`'.format(value))
         self._data["Preheat Design Humidity Ratio"] = value
 
     @property
@@ -4075,7 +4318,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `precool_design_temperature`'.format(value))
+                                 ' for field `SizingSystem.precool_design_temperature`'.format(value))
         self._data["Precool Design Temperature"] = value
 
     @property
@@ -4105,7 +4348,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `precool_design_humidity_ratio`'.format(value))
+                                 ' for field `SizingSystem.precool_design_humidity_ratio`'.format(value))
         self._data["Precool Design Humidity Ratio"] = value
 
     @property
@@ -4135,7 +4378,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `central_cooling_design_supply_air_temperature`'.format(value))
+                                 ' for field `SizingSystem.central_cooling_design_supply_air_temperature`'.format(value))
         self._data["Central Cooling Design Supply Air Temperature"] = value
 
     @property
@@ -4165,7 +4408,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `central_heating_design_supply_air_temperature`'.format(value))
+                                 ' for field `SizingSystem.central_heating_design_supply_air_temperature`'.format(value))
         self._data["Central Heating Design Supply Air Temperature"] = value
 
     @property
@@ -4198,13 +4441,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sizing_option`'.format(value))
+                                 ' for field `SizingSystem.sizing_option`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sizing_option`')
+                                 'for field `SizingSystem.sizing_option`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sizing_option`')
+                                 'for field `SizingSystem.sizing_option`')
             vals = {}
             vals["coincident"] = "Coincident"
             vals["noncoincident"] = "NonCoincident"
@@ -4227,10 +4470,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `sizing_option`'.format(value))
+                                     'field `SizingSystem.sizing_option`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `sizing_option`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.sizing_option`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sizing Option"] = value
 
@@ -4264,13 +4507,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `a_100_outdoor_air_in_cooling`'.format(value))
+                                 ' for field `SizingSystem.a_100_outdoor_air_in_cooling`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `a_100_outdoor_air_in_cooling`')
+                                 'for field `SizingSystem.a_100_outdoor_air_in_cooling`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `a_100_outdoor_air_in_cooling`')
+                                 'for field `SizingSystem.a_100_outdoor_air_in_cooling`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -4293,10 +4536,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `a_100_outdoor_air_in_cooling`'.format(value))
+                                     'field `SizingSystem.a_100_outdoor_air_in_cooling`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `a_100_outdoor_air_in_cooling`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.a_100_outdoor_air_in_cooling`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["100% Outdoor Air in Cooling"] = value
 
@@ -4330,13 +4573,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `a_100_outdoor_air_in_heating`'.format(value))
+                                 ' for field `SizingSystem.a_100_outdoor_air_in_heating`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `a_100_outdoor_air_in_heating`')
+                                 'for field `SizingSystem.a_100_outdoor_air_in_heating`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `a_100_outdoor_air_in_heating`')
+                                 'for field `SizingSystem.a_100_outdoor_air_in_heating`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -4359,10 +4602,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `a_100_outdoor_air_in_heating`'.format(value))
+                                     'field `SizingSystem.a_100_outdoor_air_in_heating`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `a_100_outdoor_air_in_heating`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.a_100_outdoor_air_in_heating`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["100% Outdoor Air in Heating"] = value
 
@@ -4394,7 +4637,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `central_cooling_design_supply_air_humidity_ratio`'.format(value))
+                                 ' for field `SizingSystem.central_cooling_design_supply_air_humidity_ratio`'.format(value))
         self._data["Central Cooling Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -4425,7 +4668,7 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `central_heating_design_supply_air_humidity_ratio`'.format(value))
+                                 ' for field `SizingSystem.central_heating_design_supply_air_humidity_ratio`'.format(value))
         self._data["Central Heating Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -4461,13 +4704,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_design_air_flow_method`'.format(value))
+                                 ' for field `SizingSystem.cooling_design_air_flow_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_design_air_flow_method`')
+                                 'for field `SizingSystem.cooling_design_air_flow_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_design_air_flow_method`')
+                                 'for field `SizingSystem.cooling_design_air_flow_method`')
             vals = {}
             vals["flow/system"] = "Flow/System"
             vals["designday"] = "DesignDay"
@@ -4493,10 +4736,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cooling_design_air_flow_method`'.format(value))
+                                     'field `SizingSystem.cooling_design_air_flow_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cooling_design_air_flow_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.cooling_design_air_flow_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Design Air Flow Method"] = value
 
@@ -4532,10 +4775,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_design_air_flow_rate`'.format(value))
+                                 ' for field `SizingSystem.cooling_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_air_flow_rate`')
+                                 'for field `SizingSystem.cooling_design_air_flow_rate`')
         self._data["Cooling Design Air Flow Rate"] = value
 
     @property
@@ -4568,10 +4811,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`'.format(value))
+                                 ' for field `SizingSystem.supply_air_flow_rate_per_floor_area_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`')
+                                 'for field `SizingSystem.supply_air_flow_rate_per_floor_area_during_cooling_operation`')
         self._data["Supply Air Flow Rate Per Floor Area During Cooling Operation"] = value
 
     @property
@@ -4604,10 +4847,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
+                                 ' for field `SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`')
+                                 'for field `SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate`')
         self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = value
 
     @property
@@ -4641,10 +4884,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_supply_air_flow_rate_per_unit_cooling_capacity`'.format(value))
+                                 ' for field `SizingSystem.design_supply_air_flow_rate_per_unit_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_supply_air_flow_rate_per_unit_cooling_capacity`')
+                                 'for field `SizingSystem.design_supply_air_flow_rate_per_unit_cooling_capacity`')
         self._data["Design Supply Air Flow Rate Per Unit Cooling Capacity"] = value
 
     @property
@@ -4681,13 +4924,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_design_air_flow_method`'.format(value))
+                                 ' for field `SizingSystem.heating_design_air_flow_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_design_air_flow_method`')
+                                 'for field `SizingSystem.heating_design_air_flow_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_design_air_flow_method`')
+                                 'for field `SizingSystem.heating_design_air_flow_method`')
             vals = {}
             vals["flow/system"] = "Flow/System"
             vals["designday"] = "DesignDay"
@@ -4714,10 +4957,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heating_design_air_flow_method`'.format(value))
+                                     'field `SizingSystem.heating_design_air_flow_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heating_design_air_flow_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.heating_design_air_flow_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Air Flow Method"] = value
 
@@ -4753,10 +4996,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_design_air_flow_rate`'.format(value))
+                                 ' for field `SizingSystem.heating_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_air_flow_rate`')
+                                 'for field `SizingSystem.heating_design_air_flow_rate`')
         self._data["Heating Design Air Flow Rate"] = value
 
     @property
@@ -4789,10 +5032,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`'.format(value))
+                                 ' for field `SizingSystem.supply_air_flow_rate_per_floor_area_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`')
+                                 'for field `SizingSystem.supply_air_flow_rate_per_floor_area_during_heating_operation`')
         self._data["Supply Air Flow Rate Per Floor Area During Heating Operation"] = value
 
     @property
@@ -4825,10 +5068,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`'.format(value))
+                                 ' for field `SizingSystem.fraction_of_autosized_design_heating_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`')
+                                 'for field `SizingSystem.fraction_of_autosized_design_heating_supply_air_flow_rate`')
         self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = value
 
     @property
@@ -4861,10 +5104,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`'.format(value))
+                                 ' for field `SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`')
+                                 'for field `SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`')
         self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"] = value
 
     @property
@@ -4898,10 +5141,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_supply_air_flow_rate_per_unit_heating_capacity`'.format(value))
+                                 ' for field `SizingSystem.design_supply_air_flow_rate_per_unit_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_supply_air_flow_rate_per_unit_heating_capacity`')
+                                 'for field `SizingSystem.design_supply_air_flow_rate_per_unit_heating_capacity`')
         self._data["Design Supply Air Flow Rate Per Unit Heating Capacity"] = value
 
     @property
@@ -4934,13 +5177,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `system_outdoor_air_method`'.format(value))
+                                 ' for field `SizingSystem.system_outdoor_air_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `system_outdoor_air_method`')
+                                 'for field `SizingSystem.system_outdoor_air_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `system_outdoor_air_method`')
+                                 'for field `SizingSystem.system_outdoor_air_method`')
             vals = {}
             vals["zonesum"] = "ZoneSum"
             vals["ventilationrateprocedure"] = "VentilationRateProcedure"
@@ -4963,10 +5206,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `system_outdoor_air_method`'.format(value))
+                                     'field `SizingSystem.system_outdoor_air_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `system_outdoor_air_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.system_outdoor_air_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Outdoor Air Method"] = value
 
@@ -4999,10 +5242,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zone_maximum_outdoor_air_fraction`'.format(value))
+                                 ' for field `SizingSystem.zone_maximum_outdoor_air_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `zone_maximum_outdoor_air_fraction`')
+                                 'for field `SizingSystem.zone_maximum_outdoor_air_fraction`')
         self._data["Zone Maximum Outdoor Air Fraction"] = value
 
     @property
@@ -5046,13 +5289,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `cooling_design_capacity_method`'.format(value))
+                                 ' for field `SizingSystem.cooling_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `cooling_design_capacity_method`')
+                                 'for field `SizingSystem.cooling_design_capacity_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `cooling_design_capacity_method`')
+                                 'for field `SizingSystem.cooling_design_capacity_method`')
             vals = {}
             vals["none"] = "None"
             vals["coolingdesigncapacity"] = "CoolingDesignCapacity"
@@ -5077,10 +5320,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `cooling_design_capacity_method`'.format(value))
+                                     'field `SizingSystem.cooling_design_capacity_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `cooling_design_capacity_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.cooling_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Design Capacity Method"] = value
 
@@ -5117,8 +5360,8 @@ class SizingSystem(object):
                     self._data["Cooling Design Capacity"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `cooling_design_capacity`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `SizingSystem.cooling_design_capacity`'.format(value))
                     self._data["Cooling Design Capacity"] = "Autosize"
                     return
             except ValueError:
@@ -5127,10 +5370,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `cooling_design_capacity`'.format(value))
+                                 ' for field `SizingSystem.cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_capacity`')
+                                 'for field `SizingSystem.cooling_design_capacity`')
         self._data["Cooling Design Capacity"] = value
 
     @property
@@ -5163,10 +5406,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `cooling_design_capacity_per_floor_area`'.format(value))
+                                 ' for field `SizingSystem.cooling_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `cooling_design_capacity_per_floor_area`')
+                                 'for field `SizingSystem.cooling_design_capacity_per_floor_area`')
         self._data["Cooling Design Capacity Per Floor Area"] = value
 
     @property
@@ -5198,10 +5441,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_cooling_design_capacity`'.format(value))
+                                 ' for field `SizingSystem.fraction_of_autosized_cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_cooling_design_capacity`')
+                                 'for field `SizingSystem.fraction_of_autosized_cooling_design_capacity`')
         self._data["Fraction of Autosized Cooling Design Capacity"] = value
 
     @property
@@ -5245,13 +5488,13 @@ class SizingSystem(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `heating_design_capacity_method`'.format(value))
+                                 ' for field `SizingSystem.heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `heating_design_capacity_method`')
+                                 'for field `SizingSystem.heating_design_capacity_method`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `heating_design_capacity_method`')
+                                 'for field `SizingSystem.heating_design_capacity_method`')
             vals = {}
             vals["none"] = "None"
             vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
@@ -5276,10 +5519,10 @@ class SizingSystem(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `heating_design_capacity_method`'.format(value))
+                                     'field `SizingSystem.heating_design_capacity_method`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingSystem.heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -5316,8 +5559,8 @@ class SizingSystem(object):
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `heating_design_capacity`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `SizingSystem.heating_design_capacity`'.format(value))
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
             except ValueError:
@@ -5326,10 +5569,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `heating_design_capacity`'.format(value))
+                                 ' for field `SizingSystem.heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_capacity`')
+                                 'for field `SizingSystem.heating_design_capacity`')
         self._data["Heating Design Capacity"] = value
 
     @property
@@ -5362,10 +5605,10 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `heating_design_capacity_per_floor_area`'.format(value))
+                                 ' for field `SizingSystem.heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `heating_design_capacity_per_floor_area`')
+                                 'for field `SizingSystem.heating_design_capacity_per_floor_area`')
         self._data["Heating Design Capacity Per Floor Area"] = value
 
     @property
@@ -5397,20 +5640,43 @@ class SizingSystem(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
+                                 ' for field `SizingSystem.fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_heating_design_capacity`')
+                                 'for field `SizingSystem.fraction_of_autosized_heating_design_capacity`')
         self._data["Fraction of Autosized Heating Design Capacity"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SizingSystem:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SizingSystem:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SizingSystem: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SizingSystem: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5428,8 +5694,27 @@ class SizingSystem(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5447,6 +5732,10 @@ class SizingPlant(object):
     internal_name = "Sizing:Plant"
     field_count = 4
     required_fields = ["Plant or Condenser Loop Name", "Loop Type", "Design Loop Exit Temperature", "Loop Design Temperature Difference"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:Plant`
@@ -5456,6 +5745,7 @@ class SizingPlant(object):
         self._data["Loop Type"] = None
         self._data["Design Loop Exit Temperature"] = None
         self._data["Loop Design Temperature Difference"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5524,13 +5814,13 @@ class SizingPlant(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `plant_or_condenser_loop_name`'.format(value))
+                                 ' for field `SizingPlant.plant_or_condenser_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `plant_or_condenser_loop_name`')
+                                 'for field `SizingPlant.plant_or_condenser_loop_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `plant_or_condenser_loop_name`')
+                                 'for field `SizingPlant.plant_or_condenser_loop_name`')
         self._data["Plant or Condenser Loop Name"] = value
 
     @property
@@ -5564,13 +5854,13 @@ class SizingPlant(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `loop_type`'.format(value))
+                                 ' for field `SizingPlant.loop_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `loop_type`')
+                                 'for field `SizingPlant.loop_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `loop_type`')
+                                 'for field `SizingPlant.loop_type`')
             vals = {}
             vals["heating"] = "Heating"
             vals["cooling"] = "Cooling"
@@ -5595,10 +5885,10 @@ class SizingPlant(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `loop_type`'.format(value))
+                                     'field `SizingPlant.loop_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `loop_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `SizingPlant.loop_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Loop Type"] = value
 
@@ -5629,7 +5919,7 @@ class SizingPlant(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_loop_exit_temperature`'.format(value))
+                                 ' for field `SizingPlant.design_loop_exit_temperature`'.format(value))
         self._data["Design Loop Exit Temperature"] = value
 
     @property
@@ -5660,20 +5950,43 @@ class SizingPlant(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `loop_design_temperature_difference`'.format(value))
+                                 ' for field `SizingPlant.loop_design_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `loop_design_temperature_difference`')
+                                 'for field `SizingPlant.loop_design_temperature_difference`')
         self._data["Loop Design Temperature Difference"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field SizingPlant:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field SizingPlant:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for SizingPlant: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for SizingPlant: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5691,8 +6004,27 @@ class SizingPlant(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5710,12 +6042,17 @@ class OutputControlSizingStyle(object):
     internal_name = "OutputControl:Sizing:Style"
     field_count = 1
     required_fields = ["Column Separator"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:Sizing:Style`
         """
         self._data = OrderedDict()
         self._data["Column Separator"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5766,13 +6103,13 @@ class OutputControlSizingStyle(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `column_separator`'.format(value))
+                                 ' for field `OutputControlSizingStyle.column_separator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `column_separator`')
+                                 'for field `OutputControlSizingStyle.column_separator`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `column_separator`')
+                                 'for field `OutputControlSizingStyle.column_separator`')
             vals = {}
             vals["comma"] = "Comma"
             vals["tab"] = "Tab"
@@ -5796,21 +6133,44 @@ class OutputControlSizingStyle(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `column_separator`'.format(value))
+                                     'field `OutputControlSizingStyle.column_separator`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `column_separator`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `OutputControlSizingStyle.column_separator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Column Separator"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field OutputControlSizingStyle:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field OutputControlSizingStyle:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for OutputControlSizingStyle: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for OutputControlSizingStyle: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5828,8 +6188,27 @@ class OutputControlSizingStyle(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

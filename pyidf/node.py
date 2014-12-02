@@ -2,6 +2,9 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
 class Branch(object):
     """ Corresponds to IDD object `Branch`
         List components on the branch in simulation and connection order
@@ -9,8 +12,12 @@ class Branch(object):
         endpoints of branches
     """
     internal_name = "Branch"
-    field_count = 58
-    required_fields = ["Name", "Component 1 Object Type", "Component 1 Name", "Component 1 Inlet Node Name", "Component 1 Outlet Node Name"]
+    field_count = 3
+    required_fields = ["Name"]
+    extensible_fields = 5
+    format = None
+    min_fields = 0
+    extensible_keys = ["Component 1 Object Type", "Component 1 Name", "Component 1 Inlet Node Name", "Component 1 Outlet Node Name", "Component 1 Branch Control Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Branch`
@@ -19,61 +26,7 @@ class Branch(object):
         self._data["Name"] = None
         self._data["Maximum Flow Rate"] = None
         self._data["Pressure Drop Curve Name"] = None
-        self._data["Component 1 Object Type"] = None
-        self._data["Component 1 Name"] = None
-        self._data["Component 1 Inlet Node Name"] = None
-        self._data["Component 1 Outlet Node Name"] = None
-        self._data["Component 1 Branch Control Type"] = None
-        self._data["Component 2 Object Type"] = None
-        self._data["Component 2 Name"] = None
-        self._data["Component 2 Inlet Node Name"] = None
-        self._data["Component 2 Outlet Node Name"] = None
-        self._data["Component 2 Branch Control Type"] = None
-        self._data["Component 3 Object Type"] = None
-        self._data["Component 3 Name"] = None
-        self._data["Component 3 Inlet Node Name"] = None
-        self._data["Component 3 Outlet Node Name"] = None
-        self._data["Component 3 Branch Control Type"] = None
-        self._data["Component 4 Object Type"] = None
-        self._data["Component 4 Name"] = None
-        self._data["Component 4 Inlet Node Name"] = None
-        self._data["Component 4 Outlet Node Name"] = None
-        self._data["Component 4 Branch Control Type"] = None
-        self._data["Component 5 Object Type"] = None
-        self._data["Component 5 Name"] = None
-        self._data["Component 5 Inlet Node Name"] = None
-        self._data["Component 5 Outlet Node Name"] = None
-        self._data["Component 5 Branch Control Type"] = None
-        self._data["Component 6 Object Type"] = None
-        self._data["Component 6 Name"] = None
-        self._data["Component 6 Inlet Node Name"] = None
-        self._data["Component 6 Outlet Node Name"] = None
-        self._data["Component 6 Branch Control Type"] = None
-        self._data["Component 7 Object Type"] = None
-        self._data["Component 7 Name"] = None
-        self._data["Component 7 Inlet Node Name"] = None
-        self._data["Component 7 Outlet Node Name"] = None
-        self._data["Component 7 Branch Control Type"] = None
-        self._data["Component 8 Object Type"] = None
-        self._data["Component 8 Name"] = None
-        self._data["Component 8 Inlet Node Name"] = None
-        self._data["Component 8 Outlet Node Name"] = None
-        self._data["Component 8 Branch Control Type"] = None
-        self._data["Component 9 Object Type"] = None
-        self._data["Component 9 Name"] = None
-        self._data["Component 9 Inlet Node Name"] = None
-        self._data["Component 9 Outlet Node Name"] = None
-        self._data["Component 9 Branch Control Type"] = None
-        self._data["Component 10 Object Type"] = None
-        self._data["Component 10 Name"] = None
-        self._data["Component 10 Inlet Node Name"] = None
-        self._data["Component 10 Outlet Node Name"] = None
-        self._data["Component 10 Branch Control Type"] = None
-        self._data["Component 11 Object Type"] = None
-        self._data["Component 11 Name"] = None
-        self._data["Component 11 Inlet Node Name"] = None
-        self._data["Component 11 Outlet Node Name"] = None
-        self._data["Component 11 Branch Control Type"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -106,391 +59,14 @@ class Branch(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.component_1_object_type = None
-        else:
-            self.component_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_name = None
-        else:
-            self.component_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_inlet_node_name = None
-        else:
-            self.component_1_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_outlet_node_name = None
-        else:
-            self.component_1_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_branch_control_type = None
-        else:
-            self.component_1_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_object_type = None
-        else:
-            self.component_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_name = None
-        else:
-            self.component_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_inlet_node_name = None
-        else:
-            self.component_2_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_outlet_node_name = None
-        else:
-            self.component_2_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_branch_control_type = None
-        else:
-            self.component_2_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_object_type = None
-        else:
-            self.component_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_name = None
-        else:
-            self.component_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_inlet_node_name = None
-        else:
-            self.component_3_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_outlet_node_name = None
-        else:
-            self.component_3_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_branch_control_type = None
-        else:
-            self.component_3_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_object_type = None
-        else:
-            self.component_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_name = None
-        else:
-            self.component_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_inlet_node_name = None
-        else:
-            self.component_4_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_outlet_node_name = None
-        else:
-            self.component_4_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_branch_control_type = None
-        else:
-            self.component_4_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_object_type = None
-        else:
-            self.component_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_name = None
-        else:
-            self.component_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_inlet_node_name = None
-        else:
-            self.component_5_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_outlet_node_name = None
-        else:
-            self.component_5_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_branch_control_type = None
-        else:
-            self.component_5_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_object_type = None
-        else:
-            self.component_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_name = None
-        else:
-            self.component_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_inlet_node_name = None
-        else:
-            self.component_6_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_outlet_node_name = None
-        else:
-            self.component_6_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_branch_control_type = None
-        else:
-            self.component_6_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_object_type = None
-        else:
-            self.component_7_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_name = None
-        else:
-            self.component_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_inlet_node_name = None
-        else:
-            self.component_7_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_outlet_node_name = None
-        else:
-            self.component_7_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_branch_control_type = None
-        else:
-            self.component_7_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_object_type = None
-        else:
-            self.component_8_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_name = None
-        else:
-            self.component_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_inlet_node_name = None
-        else:
-            self.component_8_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_outlet_node_name = None
-        else:
-            self.component_8_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_branch_control_type = None
-        else:
-            self.component_8_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_object_type = None
-        else:
-            self.component_9_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_name = None
-        else:
-            self.component_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_inlet_node_name = None
-        else:
-            self.component_9_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_outlet_node_name = None
-        else:
-            self.component_9_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_branch_control_type = None
-        else:
-            self.component_9_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_10_object_type = None
-        else:
-            self.component_10_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_10_name = None
-        else:
-            self.component_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_10_inlet_node_name = None
-        else:
-            self.component_10_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_10_outlet_node_name = None
-        else:
-            self.component_10_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_10_branch_control_type = None
-        else:
-            self.component_10_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_11_object_type = None
-        else:
-            self.component_11_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_11_name = None
-        else:
-            self.component_11_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_11_inlet_node_name = None
-        else:
-            self.component_11_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_11_outlet_node_name = None
-        else:
-            self.component_11_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_11_branch_control_type = None
-        else:
-            self.component_11_branch_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -519,13 +95,13 @@ class Branch(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `Branch.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `Branch.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `Branch.name`')
         self._data["Name"] = value
 
     @property
@@ -559,8 +135,8 @@ class Branch(object):
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `maximum_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `Branch.maximum_flow_rate`'.format(value))
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -569,10 +145,10 @@ class Branch(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `maximum_flow_rate`'.format(value))
+                                 ' for field `Branch.maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `maximum_flow_rate`')
+                                 'for field `Branch.maximum_flow_rate`')
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -607,1959 +183,176 @@ class Branch(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pressure_drop_curve_name`'.format(value))
+                                 ' for field `Branch.pressure_drop_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pressure_drop_curve_name`')
+                                 'for field `Branch.pressure_drop_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pressure_drop_curve_name`')
+                                 'for field `Branch.pressure_drop_curve_name`')
         self._data["Pressure Drop Curve Name"] = value
 
-    @property
-    def component_1_object_type(self):
-        """Get component_1_object_type
-
-        Returns:
-            str: the value of `component_1_object_type` or None if not set
-        """
-        return self._data["Component 1 Object Type"]
-
-    @component_1_object_type.setter
-    def component_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Object Type`
+    def add_extensible(self,
+                       component_1_object_type=None,
+                       component_1_name=None,
+                       component_1_inlet_node_name=None,
+                       component_1_outlet_node_name=None,
+                       component_1_branch_control_type=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Component 1 Object Type`
+
+            component_1_object_type (str): value for IDD Field `Component 1 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+            component_1_name (str): value for IDD Field `Component 1 Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            component_1_inlet_node_name (str): value for IDD Field `Component 1 Inlet Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            component_1_outlet_node_name (str): value for IDD Field `Component 1 Outlet Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+            component_1_branch_control_type (str): value for IDD Field `Component 1 Branch Control Type`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_component_1_object_type(component_1_object_type))
+        vals.append(self._check_component_1_name(component_1_name))
+        vals.append(self._check_component_1_inlet_node_name(component_1_inlet_node_name))
+        vals.append(self._check_component_1_outlet_node_name(component_1_outlet_node_name))
+        vals.append(self._check_component_1_branch_control_type(component_1_branch_control_type))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_component_1_object_type(self, value):
+        """ Validates falue of field `Component 1 Object Type`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_1_object_type`'.format(value))
+                                 ' for field `Branch.component_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_1_object_type`')
+                                 'for field `Branch.component_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_1_object_type`')
-        self._data["Component 1 Object Type"] = value
+                                 'for field `Branch.component_1_object_type`')
+        return value
 
-    @property
-    def component_1_name(self):
-        """Get component_1_name
-
-        Returns:
-            str: the value of `component_1_name` or None if not set
-        """
-        return self._data["Component 1 Name"]
-
-    @component_1_name.setter
-    def component_1_name(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 1 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_component_1_name(self, value):
+        """ Validates falue of field `Component 1 Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_1_name`'.format(value))
+                                 ' for field `Branch.component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_1_name`')
+                                 'for field `Branch.component_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_1_name`')
-        self._data["Component 1 Name"] = value
+                                 'for field `Branch.component_1_name`')
+        return value
 
-    @property
-    def component_1_inlet_node_name(self):
-        """Get component_1_inlet_node_name
-
-        Returns:
-            str: the value of `component_1_inlet_node_name` or None if not set
-        """
-        return self._data["Component 1 Inlet Node Name"]
-
-    @component_1_inlet_node_name.setter
-    def component_1_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 1 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_component_1_inlet_node_name(self, value):
+        """ Validates falue of field `Component 1 Inlet Node Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_1_inlet_node_name`'.format(value))
+                                 ' for field `Branch.component_1_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_1_inlet_node_name`')
+                                 'for field `Branch.component_1_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_1_inlet_node_name`')
-        self._data["Component 1 Inlet Node Name"] = value
+                                 'for field `Branch.component_1_inlet_node_name`')
+        return value
 
-    @property
-    def component_1_outlet_node_name(self):
-        """Get component_1_outlet_node_name
-
-        Returns:
-            str: the value of `component_1_outlet_node_name` or None if not set
-        """
-        return self._data["Component 1 Outlet Node Name"]
-
-    @component_1_outlet_node_name.setter
-    def component_1_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 1 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_component_1_outlet_node_name(self, value):
+        """ Validates falue of field `Component 1 Outlet Node Name`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_1_outlet_node_name`'.format(value))
+                                 ' for field `Branch.component_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_1_outlet_node_name`')
+                                 'for field `Branch.component_1_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_1_outlet_node_name`')
-        self._data["Component 1 Outlet Node Name"] = value
+                                 'for field `Branch.component_1_outlet_node_name`')
+        return value
 
-    @property
-    def component_1_branch_control_type(self):
-        """Get component_1_branch_control_type
-
-        Returns:
-            str: the value of `component_1_branch_control_type` or None if not set
-        """
-        return self._data["Component 1 Branch Control Type"]
-
-    @component_1_branch_control_type.setter
-    def component_1_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 1 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_component_1_branch_control_type(self, value):
+        """ Validates falue of field `Component 1 Branch Control Type`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `component_1_branch_control_type`'.format(value))
+                                 ' for field `Branch.component_1_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `component_1_branch_control_type`')
+                                 'for field `Branch.component_1_branch_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `component_1_branch_control_type`')
-        self._data["Component 1 Branch Control Type"] = value
+                                 'for field `Branch.component_1_branch_control_type`')
+        return value
 
-    @property
-    def component_2_object_type(self):
-        """Get component_2_object_type
-
-        Returns:
-            str: the value of `component_2_object_type` or None if not set
-        """
-        return self._data["Component 2 Object Type"]
-
-    @component_2_object_type.setter
-    def component_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 2 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_2_object_type`')
-        self._data["Component 2 Object Type"] = value
-
-    @property
-    def component_2_name(self):
-        """Get component_2_name
-
-        Returns:
-            str: the value of `component_2_name` or None if not set
-        """
-        return self._data["Component 2 Name"]
-
-    @component_2_name.setter
-    def component_2_name(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 2 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_2_name`')
-        self._data["Component 2 Name"] = value
-
-    @property
-    def component_2_inlet_node_name(self):
-        """Get component_2_inlet_node_name
-
-        Returns:
-            str: the value of `component_2_inlet_node_name` or None if not set
-        """
-        return self._data["Component 2 Inlet Node Name"]
-
-    @component_2_inlet_node_name.setter
-    def component_2_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 2 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_2_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_2_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_2_inlet_node_name`')
-        self._data["Component 2 Inlet Node Name"] = value
-
-    @property
-    def component_2_outlet_node_name(self):
-        """Get component_2_outlet_node_name
-
-        Returns:
-            str: the value of `component_2_outlet_node_name` or None if not set
-        """
-        return self._data["Component 2 Outlet Node Name"]
-
-    @component_2_outlet_node_name.setter
-    def component_2_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 2 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_2_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_2_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_2_outlet_node_name`')
-        self._data["Component 2 Outlet Node Name"] = value
-
-    @property
-    def component_2_branch_control_type(self):
-        """Get component_2_branch_control_type
-
-        Returns:
-            str: the value of `component_2_branch_control_type` or None if not set
-        """
-        return self._data["Component 2 Branch Control Type"]
-
-    @component_2_branch_control_type.setter
-    def component_2_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 2 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_2_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_2_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_2_branch_control_type`')
-        self._data["Component 2 Branch Control Type"] = value
-
-    @property
-    def component_3_object_type(self):
-        """Get component_3_object_type
-
-        Returns:
-            str: the value of `component_3_object_type` or None if not set
-        """
-        return self._data["Component 3 Object Type"]
-
-    @component_3_object_type.setter
-    def component_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 3 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_3_object_type`')
-        self._data["Component 3 Object Type"] = value
-
-    @property
-    def component_3_name(self):
-        """Get component_3_name
-
-        Returns:
-            str: the value of `component_3_name` or None if not set
-        """
-        return self._data["Component 3 Name"]
-
-    @component_3_name.setter
-    def component_3_name(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 3 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_3_name`')
-        self._data["Component 3 Name"] = value
-
-    @property
-    def component_3_inlet_node_name(self):
-        """Get component_3_inlet_node_name
-
-        Returns:
-            str: the value of `component_3_inlet_node_name` or None if not set
-        """
-        return self._data["Component 3 Inlet Node Name"]
-
-    @component_3_inlet_node_name.setter
-    def component_3_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 3 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_3_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_3_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_3_inlet_node_name`')
-        self._data["Component 3 Inlet Node Name"] = value
-
-    @property
-    def component_3_outlet_node_name(self):
-        """Get component_3_outlet_node_name
-
-        Returns:
-            str: the value of `component_3_outlet_node_name` or None if not set
-        """
-        return self._data["Component 3 Outlet Node Name"]
-
-    @component_3_outlet_node_name.setter
-    def component_3_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 3 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_3_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_3_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_3_outlet_node_name`')
-        self._data["Component 3 Outlet Node Name"] = value
-
-    @property
-    def component_3_branch_control_type(self):
-        """Get component_3_branch_control_type
-
-        Returns:
-            str: the value of `component_3_branch_control_type` or None if not set
-        """
-        return self._data["Component 3 Branch Control Type"]
-
-    @component_3_branch_control_type.setter
-    def component_3_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Branch Control Type`
-        field is no longer useds
-
-        Args:
-            value (str): value for IDD Field `Component 3 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_3_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_3_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_3_branch_control_type`')
-        self._data["Component 3 Branch Control Type"] = value
-
-    @property
-    def component_4_object_type(self):
-        """Get component_4_object_type
-
-        Returns:
-            str: the value of `component_4_object_type` or None if not set
-        """
-        return self._data["Component 4 Object Type"]
-
-    @component_4_object_type.setter
-    def component_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 4 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_4_object_type`')
-        self._data["Component 4 Object Type"] = value
-
-    @property
-    def component_4_name(self):
-        """Get component_4_name
-
-        Returns:
-            str: the value of `component_4_name` or None if not set
-        """
-        return self._data["Component 4 Name"]
-
-    @component_4_name.setter
-    def component_4_name(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 4 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_4_name`')
-        self._data["Component 4 Name"] = value
-
-    @property
-    def component_4_inlet_node_name(self):
-        """Get component_4_inlet_node_name
-
-        Returns:
-            str: the value of `component_4_inlet_node_name` or None if not set
-        """
-        return self._data["Component 4 Inlet Node Name"]
-
-    @component_4_inlet_node_name.setter
-    def component_4_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 4 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_4_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_4_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_4_inlet_node_name`')
-        self._data["Component 4 Inlet Node Name"] = value
-
-    @property
-    def component_4_outlet_node_name(self):
-        """Get component_4_outlet_node_name
-
-        Returns:
-            str: the value of `component_4_outlet_node_name` or None if not set
-        """
-        return self._data["Component 4 Outlet Node Name"]
-
-    @component_4_outlet_node_name.setter
-    def component_4_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 4 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_4_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_4_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_4_outlet_node_name`')
-        self._data["Component 4 Outlet Node Name"] = value
-
-    @property
-    def component_4_branch_control_type(self):
-        """Get component_4_branch_control_type
-
-        Returns:
-            str: the value of `component_4_branch_control_type` or None if not set
-        """
-        return self._data["Component 4 Branch Control Type"]
-
-    @component_4_branch_control_type.setter
-    def component_4_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 4 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_4_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_4_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_4_branch_control_type`')
-        self._data["Component 4 Branch Control Type"] = value
-
-    @property
-    def component_5_object_type(self):
-        """Get component_5_object_type
-
-        Returns:
-            str: the value of `component_5_object_type` or None if not set
-        """
-        return self._data["Component 5 Object Type"]
-
-    @component_5_object_type.setter
-    def component_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 5 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_5_object_type`')
-        self._data["Component 5 Object Type"] = value
-
-    @property
-    def component_5_name(self):
-        """Get component_5_name
-
-        Returns:
-            str: the value of `component_5_name` or None if not set
-        """
-        return self._data["Component 5 Name"]
-
-    @component_5_name.setter
-    def component_5_name(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 5 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_5_name`')
-        self._data["Component 5 Name"] = value
-
-    @property
-    def component_5_inlet_node_name(self):
-        """Get component_5_inlet_node_name
-
-        Returns:
-            str: the value of `component_5_inlet_node_name` or None if not set
-        """
-        return self._data["Component 5 Inlet Node Name"]
-
-    @component_5_inlet_node_name.setter
-    def component_5_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 5 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_5_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_5_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_5_inlet_node_name`')
-        self._data["Component 5 Inlet Node Name"] = value
-
-    @property
-    def component_5_outlet_node_name(self):
-        """Get component_5_outlet_node_name
-
-        Returns:
-            str: the value of `component_5_outlet_node_name` or None if not set
-        """
-        return self._data["Component 5 Outlet Node Name"]
-
-    @component_5_outlet_node_name.setter
-    def component_5_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 5 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_5_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_5_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_5_outlet_node_name`')
-        self._data["Component 5 Outlet Node Name"] = value
-
-    @property
-    def component_5_branch_control_type(self):
-        """Get component_5_branch_control_type
-
-        Returns:
-            str: the value of `component_5_branch_control_type` or None if not set
-        """
-        return self._data["Component 5 Branch Control Type"]
-
-    @component_5_branch_control_type.setter
-    def component_5_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 5 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_5_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_5_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_5_branch_control_type`')
-        self._data["Component 5 Branch Control Type"] = value
-
-    @property
-    def component_6_object_type(self):
-        """Get component_6_object_type
-
-        Returns:
-            str: the value of `component_6_object_type` or None if not set
-        """
-        return self._data["Component 6 Object Type"]
-
-    @component_6_object_type.setter
-    def component_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 6 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_6_object_type`')
-        self._data["Component 6 Object Type"] = value
-
-    @property
-    def component_6_name(self):
-        """Get component_6_name
-
-        Returns:
-            str: the value of `component_6_name` or None if not set
-        """
-        return self._data["Component 6 Name"]
-
-    @component_6_name.setter
-    def component_6_name(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 6 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_6_name`')
-        self._data["Component 6 Name"] = value
-
-    @property
-    def component_6_inlet_node_name(self):
-        """Get component_6_inlet_node_name
-
-        Returns:
-            str: the value of `component_6_inlet_node_name` or None if not set
-        """
-        return self._data["Component 6 Inlet Node Name"]
-
-    @component_6_inlet_node_name.setter
-    def component_6_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 6 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_6_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_6_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_6_inlet_node_name`')
-        self._data["Component 6 Inlet Node Name"] = value
-
-    @property
-    def component_6_outlet_node_name(self):
-        """Get component_6_outlet_node_name
-
-        Returns:
-            str: the value of `component_6_outlet_node_name` or None if not set
-        """
-        return self._data["Component 6 Outlet Node Name"]
-
-    @component_6_outlet_node_name.setter
-    def component_6_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 6 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_6_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_6_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_6_outlet_node_name`')
-        self._data["Component 6 Outlet Node Name"] = value
-
-    @property
-    def component_6_branch_control_type(self):
-        """Get component_6_branch_control_type
-
-        Returns:
-            str: the value of `component_6_branch_control_type` or None if not set
-        """
-        return self._data["Component 6 Branch Control Type"]
-
-    @component_6_branch_control_type.setter
-    def component_6_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 6 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_6_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_6_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_6_branch_control_type`')
-        self._data["Component 6 Branch Control Type"] = value
-
-    @property
-    def component_7_object_type(self):
-        """Get component_7_object_type
-
-        Returns:
-            str: the value of `component_7_object_type` or None if not set
-        """
-        return self._data["Component 7 Object Type"]
-
-    @component_7_object_type.setter
-    def component_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 7 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_7_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_7_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_7_object_type`')
-        self._data["Component 7 Object Type"] = value
-
-    @property
-    def component_7_name(self):
-        """Get component_7_name
-
-        Returns:
-            str: the value of `component_7_name` or None if not set
-        """
-        return self._data["Component 7 Name"]
-
-    @component_7_name.setter
-    def component_7_name(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 7 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_7_name`')
-        self._data["Component 7 Name"] = value
-
-    @property
-    def component_7_inlet_node_name(self):
-        """Get component_7_inlet_node_name
-
-        Returns:
-            str: the value of `component_7_inlet_node_name` or None if not set
-        """
-        return self._data["Component 7 Inlet Node Name"]
-
-    @component_7_inlet_node_name.setter
-    def component_7_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 7 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_7_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_7_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_7_inlet_node_name`')
-        self._data["Component 7 Inlet Node Name"] = value
-
-    @property
-    def component_7_outlet_node_name(self):
-        """Get component_7_outlet_node_name
-
-        Returns:
-            str: the value of `component_7_outlet_node_name` or None if not set
-        """
-        return self._data["Component 7 Outlet Node Name"]
-
-    @component_7_outlet_node_name.setter
-    def component_7_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 7 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_7_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_7_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_7_outlet_node_name`')
-        self._data["Component 7 Outlet Node Name"] = value
-
-    @property
-    def component_7_branch_control_type(self):
-        """Get component_7_branch_control_type
-
-        Returns:
-            str: the value of `component_7_branch_control_type` or None if not set
-        """
-        return self._data["Component 7 Branch Control Type"]
-
-    @component_7_branch_control_type.setter
-    def component_7_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 7 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_7_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_7_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_7_branch_control_type`')
-        self._data["Component 7 Branch Control Type"] = value
-
-    @property
-    def component_8_object_type(self):
-        """Get component_8_object_type
-
-        Returns:
-            str: the value of `component_8_object_type` or None if not set
-        """
-        return self._data["Component 8 Object Type"]
-
-    @component_8_object_type.setter
-    def component_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 8 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_8_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_8_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_8_object_type`')
-        self._data["Component 8 Object Type"] = value
-
-    @property
-    def component_8_name(self):
-        """Get component_8_name
-
-        Returns:
-            str: the value of `component_8_name` or None if not set
-        """
-        return self._data["Component 8 Name"]
-
-    @component_8_name.setter
-    def component_8_name(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 8 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_8_name`')
-        self._data["Component 8 Name"] = value
-
-    @property
-    def component_8_inlet_node_name(self):
-        """Get component_8_inlet_node_name
-
-        Returns:
-            str: the value of `component_8_inlet_node_name` or None if not set
-        """
-        return self._data["Component 8 Inlet Node Name"]
-
-    @component_8_inlet_node_name.setter
-    def component_8_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 8 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_8_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_8_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_8_inlet_node_name`')
-        self._data["Component 8 Inlet Node Name"] = value
-
-    @property
-    def component_8_outlet_node_name(self):
-        """Get component_8_outlet_node_name
-
-        Returns:
-            str: the value of `component_8_outlet_node_name` or None if not set
-        """
-        return self._data["Component 8 Outlet Node Name"]
-
-    @component_8_outlet_node_name.setter
-    def component_8_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 8 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_8_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_8_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_8_outlet_node_name`')
-        self._data["Component 8 Outlet Node Name"] = value
-
-    @property
-    def component_8_branch_control_type(self):
-        """Get component_8_branch_control_type
-
-        Returns:
-            str: the value of `component_8_branch_control_type` or None if not set
-        """
-        return self._data["Component 8 Branch Control Type"]
-
-    @component_8_branch_control_type.setter
-    def component_8_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 8 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_8_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_8_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_8_branch_control_type`')
-        self._data["Component 8 Branch Control Type"] = value
-
-    @property
-    def component_9_object_type(self):
-        """Get component_9_object_type
-
-        Returns:
-            str: the value of `component_9_object_type` or None if not set
-        """
-        return self._data["Component 9 Object Type"]
-
-    @component_9_object_type.setter
-    def component_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 9 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_9_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_9_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_9_object_type`')
-        self._data["Component 9 Object Type"] = value
-
-    @property
-    def component_9_name(self):
-        """Get component_9_name
-
-        Returns:
-            str: the value of `component_9_name` or None if not set
-        """
-        return self._data["Component 9 Name"]
-
-    @component_9_name.setter
-    def component_9_name(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 9 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_9_name`')
-        self._data["Component 9 Name"] = value
-
-    @property
-    def component_9_inlet_node_name(self):
-        """Get component_9_inlet_node_name
-
-        Returns:
-            str: the value of `component_9_inlet_node_name` or None if not set
-        """
-        return self._data["Component 9 Inlet Node Name"]
-
-    @component_9_inlet_node_name.setter
-    def component_9_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 9 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_9_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_9_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_9_inlet_node_name`')
-        self._data["Component 9 Inlet Node Name"] = value
-
-    @property
-    def component_9_outlet_node_name(self):
-        """Get component_9_outlet_node_name
-
-        Returns:
-            str: the value of `component_9_outlet_node_name` or None if not set
-        """
-        return self._data["Component 9 Outlet Node Name"]
-
-    @component_9_outlet_node_name.setter
-    def component_9_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 9 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_9_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_9_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_9_outlet_node_name`')
-        self._data["Component 9 Outlet Node Name"] = value
-
-    @property
-    def component_9_branch_control_type(self):
-        """Get component_9_branch_control_type
-
-        Returns:
-            str: the value of `component_9_branch_control_type` or None if not set
-        """
-        return self._data["Component 9 Branch Control Type"]
-
-    @component_9_branch_control_type.setter
-    def component_9_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 9 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_9_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_9_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_9_branch_control_type`')
-        self._data["Component 9 Branch Control Type"] = value
-
-    @property
-    def component_10_object_type(self):
-        """Get component_10_object_type
-
-        Returns:
-            str: the value of `component_10_object_type` or None if not set
-        """
-        return self._data["Component 10 Object Type"]
-
-    @component_10_object_type.setter
-    def component_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 10 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 10 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_10_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_10_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_10_object_type`')
-        self._data["Component 10 Object Type"] = value
-
-    @property
-    def component_10_name(self):
-        """Get component_10_name
-
-        Returns:
-            str: the value of `component_10_name` or None if not set
-        """
-        return self._data["Component 10 Name"]
-
-    @component_10_name.setter
-    def component_10_name(self, value=None):
-        """  Corresponds to IDD Field `Component 10 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 10 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_10_name`')
-        self._data["Component 10 Name"] = value
-
-    @property
-    def component_10_inlet_node_name(self):
-        """Get component_10_inlet_node_name
-
-        Returns:
-            str: the value of `component_10_inlet_node_name` or None if not set
-        """
-        return self._data["Component 10 Inlet Node Name"]
-
-    @component_10_inlet_node_name.setter
-    def component_10_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 10 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 10 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_10_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_10_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_10_inlet_node_name`')
-        self._data["Component 10 Inlet Node Name"] = value
-
-    @property
-    def component_10_outlet_node_name(self):
-        """Get component_10_outlet_node_name
-
-        Returns:
-            str: the value of `component_10_outlet_node_name` or None if not set
-        """
-        return self._data["Component 10 Outlet Node Name"]
-
-    @component_10_outlet_node_name.setter
-    def component_10_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 10 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 10 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_10_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_10_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_10_outlet_node_name`')
-        self._data["Component 10 Outlet Node Name"] = value
-
-    @property
-    def component_10_branch_control_type(self):
-        """Get component_10_branch_control_type
-
-        Returns:
-            str: the value of `component_10_branch_control_type` or None if not set
-        """
-        return self._data["Component 10 Branch Control Type"]
-
-    @component_10_branch_control_type.setter
-    def component_10_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 10 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 10 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_10_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_10_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_10_branch_control_type`')
-        self._data["Component 10 Branch Control Type"] = value
-
-    @property
-    def component_11_object_type(self):
-        """Get component_11_object_type
-
-        Returns:
-            str: the value of `component_11_object_type` or None if not set
-        """
-        return self._data["Component 11 Object Type"]
-
-    @component_11_object_type.setter
-    def component_11_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 11 Object Type`
-
-        Args:
-            value (str): value for IDD Field `Component 11 Object Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_11_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_11_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_11_object_type`')
-        self._data["Component 11 Object Type"] = value
-
-    @property
-    def component_11_name(self):
-        """Get component_11_name
-
-        Returns:
-            str: the value of `component_11_name` or None if not set
-        """
-        return self._data["Component 11 Name"]
-
-    @component_11_name.setter
-    def component_11_name(self, value=None):
-        """  Corresponds to IDD Field `Component 11 Name`
-
-        Args:
-            value (str): value for IDD Field `Component 11 Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_11_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_11_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_11_name`')
-        self._data["Component 11 Name"] = value
-
-    @property
-    def component_11_inlet_node_name(self):
-        """Get component_11_inlet_node_name
-
-        Returns:
-            str: the value of `component_11_inlet_node_name` or None if not set
-        """
-        return self._data["Component 11 Inlet Node Name"]
-
-    @component_11_inlet_node_name.setter
-    def component_11_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 11 Inlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 11 Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_11_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_11_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_11_inlet_node_name`')
-        self._data["Component 11 Inlet Node Name"] = value
-
-    @property
-    def component_11_outlet_node_name(self):
-        """Get component_11_outlet_node_name
-
-        Returns:
-            str: the value of `component_11_outlet_node_name` or None if not set
-        """
-        return self._data["Component 11 Outlet Node Name"]
-
-    @component_11_outlet_node_name.setter
-    def component_11_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Component 11 Outlet Node Name`
-
-        Args:
-            value (str): value for IDD Field `Component 11 Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_11_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_11_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_11_outlet_node_name`')
-        self._data["Component 11 Outlet Node Name"] = value
-
-    @property
-    def component_11_branch_control_type(self):
-        """Get component_11_branch_control_type
-
-        Returns:
-            str: the value of `component_11_branch_control_type` or None if not set
-        """
-        return self._data["Component 11 Branch Control Type"]
-
-    @component_11_branch_control_type.setter
-    def component_11_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `Component 11 Branch Control Type`
-        field is no longer used
-
-        Args:
-            value (str): value for IDD Field `Component 11 Branch Control Type`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `component_11_branch_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `component_11_branch_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `component_11_branch_control_type`')
-        self._data["Component 11 Branch Control Type"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Branch:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Branch:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Branch: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Branch: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2577,8 +370,505 @@ class Branch(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class ConnectorSplitter(object):
+    """ Corresponds to IDD object `Connector:Splitter`
+        Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
+        within a single Splitter list.
+    """
+    internal_name = "Connector:Splitter"
+    field_count = 2
+    required_fields = ["Name", "Inlet Branch Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 3
+    extensible_keys = ["Outlet Branch Name"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `Connector:Splitter`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["Inlet Branch Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.inlet_branch_name = None
+        else:
+            self.inlet_branch_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ConnectorSplitter.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ConnectorSplitter.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ConnectorSplitter.name`')
+        self._data["Name"] = value
+
+    @property
+    def inlet_branch_name(self):
+        """Get inlet_branch_name
+
+        Returns:
+            str: the value of `inlet_branch_name` or None if not set
+        """
+        return self._data["Inlet Branch Name"]
+
+    @inlet_branch_name.setter
+    def inlet_branch_name(self, value=None):
+        """  Corresponds to IDD Field `Inlet Branch Name`
+
+        Args:
+            value (str): value for IDD Field `Inlet Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ConnectorSplitter.inlet_branch_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ConnectorSplitter.inlet_branch_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ConnectorSplitter.inlet_branch_name`')
+        self._data["Inlet Branch Name"] = value
+
+    def add_extensible(self,
+                       outlet_branch_name=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            outlet_branch_name (str): value for IDD Field `Outlet Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_outlet_branch_name(outlet_branch_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_outlet_branch_name(self, value):
+        """ Validates falue of field `Outlet Branch Name`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ConnectorSplitter.outlet_branch_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ConnectorSplitter.outlet_branch_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ConnectorSplitter.outlet_branch_name`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field ConnectorSplitter:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConnectorSplitter:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConnectorSplitter: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConnectorSplitter: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class ConnectorMixer(object):
+    """ Corresponds to IDD object `Connector:Mixer`
+        Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
+        a single mixer list.
+    """
+    internal_name = "Connector:Mixer"
+    field_count = 2
+    required_fields = ["Name", "Outlet Branch Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 3
+    extensible_keys = ["Inlet Branch Name"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `Connector:Mixer`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["Outlet Branch Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.outlet_branch_name = None
+        else:
+            self.outlet_branch_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ConnectorMixer.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ConnectorMixer.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ConnectorMixer.name`')
+        self._data["Name"] = value
+
+    @property
+    def outlet_branch_name(self):
+        """Get outlet_branch_name
+
+        Returns:
+            str: the value of `outlet_branch_name` or None if not set
+        """
+        return self._data["Outlet Branch Name"]
+
+    @outlet_branch_name.setter
+    def outlet_branch_name(self, value=None):
+        """  Corresponds to IDD Field `Outlet Branch Name`
+
+        Args:
+            value (str): value for IDD Field `Outlet Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ConnectorMixer.outlet_branch_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ConnectorMixer.outlet_branch_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ConnectorMixer.outlet_branch_name`')
+        self._data["Outlet Branch Name"] = value
+
+    def add_extensible(self,
+                       inlet_branch_name=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            inlet_branch_name (str): value for IDD Field `Inlet Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_inlet_branch_name(inlet_branch_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_inlet_branch_name(self, value):
+        """ Validates falue of field `Inlet Branch Name`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `ConnectorMixer.inlet_branch_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `ConnectorMixer.inlet_branch_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ConnectorMixer.inlet_branch_name`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field ConnectorMixer:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConnectorMixer:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConnectorMixer: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConnectorMixer: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2594,6 +884,10 @@ class ConnectorList(object):
     internal_name = "ConnectorList"
     field_count = 5
     required_fields = ["Name", "Connector 1 Object Type", "Connector 1 Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ConnectorList`
@@ -2604,6 +898,7 @@ class ConnectorList(object):
         self._data["Connector 1 Name"] = None
         self._data["Connector 2 Object Type"] = None
         self._data["Connector 2 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2678,13 +973,13 @@ class ConnectorList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `ConnectorList.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `ConnectorList.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `ConnectorList.name`')
         self._data["Name"] = value
 
     @property
@@ -2716,13 +1011,13 @@ class ConnectorList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `connector_1_object_type`'.format(value))
+                                 ' for field `ConnectorList.connector_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `connector_1_object_type`')
+                                 'for field `ConnectorList.connector_1_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `connector_1_object_type`')
+                                 'for field `ConnectorList.connector_1_object_type`')
             vals = {}
             vals["connector:splitter"] = "Connector:Splitter"
             vals["connector:mixer"] = "Connector:Mixer"
@@ -2745,10 +1040,10 @@ class ConnectorList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `connector_1_object_type`'.format(value))
+                                     'field `ConnectorList.connector_1_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `connector_1_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ConnectorList.connector_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Connector 1 Object Type"] = value
 
@@ -2778,13 +1073,13 @@ class ConnectorList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `connector_1_name`'.format(value))
+                                 ' for field `ConnectorList.connector_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `connector_1_name`')
+                                 'for field `ConnectorList.connector_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `connector_1_name`')
+                                 'for field `ConnectorList.connector_1_name`')
         self._data["Connector 1 Name"] = value
 
     @property
@@ -2816,13 +1111,13 @@ class ConnectorList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `connector_2_object_type`'.format(value))
+                                 ' for field `ConnectorList.connector_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `connector_2_object_type`')
+                                 'for field `ConnectorList.connector_2_object_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `connector_2_object_type`')
+                                 'for field `ConnectorList.connector_2_object_type`')
             vals = {}
             vals["connector:splitter"] = "Connector:Splitter"
             vals["connector:mixer"] = "Connector:Mixer"
@@ -2845,10 +1140,10 @@ class ConnectorList(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `connector_2_object_type`'.format(value))
+                                     'field `ConnectorList.connector_2_object_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `connector_2_object_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `ConnectorList.connector_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Connector 2 Object Type"] = value
 
@@ -2878,23 +1173,46 @@ class ConnectorList(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `connector_2_name`'.format(value))
+                                 ' for field `ConnectorList.connector_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `connector_2_name`')
+                                 'for field `ConnectorList.connector_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `connector_2_name`')
+                                 'for field `ConnectorList.connector_2_name`')
         self._data["Connector 2 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field ConnectorList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field ConnectorList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for ConnectorList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for ConnectorList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2912,8 +1230,223 @@ class ConnectorList(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class NodeList(object):
+    """ Corresponds to IDD object `NodeList`
+        This object is used in places where lists of nodes may be
+        needed, e.g. ZoneHVAC:EquipmentConnections field Zone Air Inlet Node or NodeList Name
+    """
+    internal_name = "NodeList"
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 2
+    extensible_keys = ["Node Name"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `NodeList`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `NodeList.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `NodeList.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `NodeList.name`')
+        self._data["Name"] = value
+
+    def add_extensible(self,
+                       node_name=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            node_name (str): value for IDD Field `Node Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_node_name(node_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_node_name(self, value):
+        """ Validates falue of field `Node Name`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `NodeList.node_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `NodeList.node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `NodeList.node_name`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field NodeList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field NodeList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for NodeList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for NodeList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2932,6 +1465,10 @@ class OutdoorAirNode(object):
     internal_name = "OutdoorAir:Node"
     field_count = 2
     required_fields = ["Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutdoorAir:Node`
@@ -2939,6 +1476,7 @@ class OutdoorAirNode(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Height Above Ground"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2992,13 +1530,13 @@ class OutdoorAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `OutdoorAirNode.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `OutdoorAirNode.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `OutdoorAirNode.name`')
         self._data["Name"] = value
 
     @property
@@ -3030,17 +1568,40 @@ class OutdoorAirNode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_above_ground`'.format(value))
+                                 ' for field `OutdoorAirNode.height_above_ground`'.format(value))
         self._data["Height Above Ground"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field OutdoorAirNode:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field OutdoorAirNode:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for OutdoorAirNode: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for OutdoorAirNode: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3058,8 +1619,185 @@ class OutdoorAirNode(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class OutdoorAirNodeList(object):
+    """ Corresponds to IDD object `OutdoorAir:NodeList`
+        This object sets the temperature and humidity conditions
+        for an outdoor air node using the weather data values.
+        to vary outdoor air node conditions with height above ground
+        use OutdoorAir:Node instead of this object.
+        This object may be used more than once.
+        The same node name may not appear in both an OutdoorAir:Node object and
+        an OutdoorAir:NodeList object.
+    """
+    internal_name = "OutdoorAir:NodeList"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 1
+    format = None
+    min_fields = 1
+    extensible_keys = ["Node or NodeList Name 1"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `OutdoorAir:NodeList`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    def add_extensible(self,
+                       node_or_nodelist_name_1=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            node_or_nodelist_name_1 (str): value for IDD Field `Node or NodeList Name 1`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_node_or_nodelist_name_1(node_or_nodelist_name_1))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_node_or_nodelist_name_1(self, value):
+        """ Validates falue of field `Node or NodeList Name 1`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `OutdoorAirNodeList.node_or_nodelist_name_1`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `OutdoorAirNodeList.node_or_nodelist_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `OutdoorAirNodeList.node_or_nodelist_name_1`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field OutdoorAirNodeList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field OutdoorAirNodeList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for OutdoorAirNodeList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for OutdoorAirNodeList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3074,6 +1812,10 @@ class PipeAdiabatic(object):
     internal_name = "Pipe:Adiabatic"
     field_count = 3
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Adiabatic`
@@ -3082,6 +1824,7 @@ class PipeAdiabatic(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3142,13 +1885,13 @@ class PipeAdiabatic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipeAdiabatic.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipeAdiabatic.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipeAdiabatic.name`')
         self._data["Name"] = value
 
     @property
@@ -3177,13 +1920,13 @@ class PipeAdiabatic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `PipeAdiabatic.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `PipeAdiabatic.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `PipeAdiabatic.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -3212,23 +1955,46 @@ class PipeAdiabatic(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `PipeAdiabatic.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `PipeAdiabatic.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `PipeAdiabatic.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipeAdiabatic:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipeAdiabatic:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipeAdiabatic: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipeAdiabatic: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3246,8 +2012,27 @@ class PipeAdiabatic(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3262,6 +2047,10 @@ class PipeAdiabaticSteam(object):
     internal_name = "Pipe:Adiabatic:Steam"
     field_count = 3
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Adiabatic:Steam`
@@ -3270,6 +2059,7 @@ class PipeAdiabaticSteam(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3330,13 +2120,13 @@ class PipeAdiabaticSteam(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipeAdiabaticSteam.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipeAdiabaticSteam.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipeAdiabaticSteam.name`')
         self._data["Name"] = value
 
     @property
@@ -3365,13 +2155,13 @@ class PipeAdiabaticSteam(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `PipeAdiabaticSteam.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `PipeAdiabaticSteam.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `PipeAdiabaticSteam.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -3400,23 +2190,46 @@ class PipeAdiabaticSteam(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `PipeAdiabaticSteam.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `PipeAdiabaticSteam.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `PipeAdiabaticSteam.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipeAdiabaticSteam:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipeAdiabaticSteam:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipeAdiabaticSteam: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipeAdiabaticSteam: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3434,8 +2247,27 @@ class PipeAdiabaticSteam(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3450,6 +2282,10 @@ class PipeIndoor(object):
     internal_name = "Pipe:Indoor"
     field_count = 10
     required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Indoor`
@@ -3465,6 +2301,7 @@ class PipeIndoor(object):
         self._data["Ambient Air Velocity Schedule Name"] = None
         self._data["Pipe Inside Diameter"] = None
         self._data["Pipe Length"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3574,13 +2411,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipeIndoor.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipeIndoor.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipeIndoor.name`')
         self._data["Name"] = value
 
     @property
@@ -3609,13 +2446,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `construction_name`'.format(value))
+                                 ' for field `PipeIndoor.construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `construction_name`')
+                                 'for field `PipeIndoor.construction_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `construction_name`')
+                                 'for field `PipeIndoor.construction_name`')
         self._data["Construction Name"] = value
 
     @property
@@ -3644,13 +2481,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_inlet_node_name`'.format(value))
+                                 ' for field `PipeIndoor.fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_inlet_node_name`')
+                                 'for field `PipeIndoor.fluid_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_inlet_node_name`')
+                                 'for field `PipeIndoor.fluid_inlet_node_name`')
         self._data["Fluid Inlet Node Name"] = value
 
     @property
@@ -3679,13 +2516,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_outlet_node_name`'.format(value))
+                                 ' for field `PipeIndoor.fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_outlet_node_name`')
+                                 'for field `PipeIndoor.fluid_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_outlet_node_name`')
+                                 'for field `PipeIndoor.fluid_outlet_node_name`')
         self._data["Fluid Outlet Node Name"] = value
 
     @property
@@ -3718,13 +2555,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `environment_type`'.format(value))
+                                 ' for field `PipeIndoor.environment_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `environment_type`')
+                                 'for field `PipeIndoor.environment_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `environment_type`')
+                                 'for field `PipeIndoor.environment_type`')
             vals = {}
             vals["zone"] = "Zone"
             vals["schedule"] = "Schedule"
@@ -3747,10 +2584,10 @@ class PipeIndoor(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `environment_type`'.format(value))
+                                     'field `PipeIndoor.environment_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `environment_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipeIndoor.environment_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Environment Type"] = value
 
@@ -3780,13 +2617,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_zone_name`'.format(value))
+                                 ' for field `PipeIndoor.ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `PipeIndoor.ambient_temperature_zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_zone_name`')
+                                 'for field `PipeIndoor.ambient_temperature_zone_name`')
         self._data["Ambient Temperature Zone Name"] = value
 
     @property
@@ -3815,13 +2652,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_schedule_name`'.format(value))
+                                 ' for field `PipeIndoor.ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `PipeIndoor.ambient_temperature_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_schedule_name`')
+                                 'for field `PipeIndoor.ambient_temperature_schedule_name`')
         self._data["Ambient Temperature Schedule Name"] = value
 
     @property
@@ -3850,13 +2687,13 @@ class PipeIndoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_air_velocity_schedule_name`'.format(value))
+                                 ' for field `PipeIndoor.ambient_air_velocity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_air_velocity_schedule_name`')
+                                 'for field `PipeIndoor.ambient_air_velocity_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_air_velocity_schedule_name`')
+                                 'for field `PipeIndoor.ambient_air_velocity_schedule_name`')
         self._data["Ambient Air Velocity Schedule Name"] = value
 
     @property
@@ -3888,10 +2725,10 @@ class PipeIndoor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_inside_diameter`'.format(value))
+                                 ' for field `PipeIndoor.pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_inside_diameter`')
+                                 'for field `PipeIndoor.pipe_inside_diameter`')
         self._data["Pipe Inside Diameter"] = value
 
     @property
@@ -3922,20 +2759,43 @@ class PipeIndoor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_length`'.format(value))
+                                 ' for field `PipeIndoor.pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_length`')
+                                 'for field `PipeIndoor.pipe_length`')
         self._data["Pipe Length"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipeIndoor:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipeIndoor:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipeIndoor: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipeIndoor: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3953,8 +2813,27 @@ class PipeIndoor(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3969,6 +2848,10 @@ class PipeOutdoor(object):
     internal_name = "Pipe:Outdoor"
     field_count = 7
     required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Outdoor`
@@ -3981,6 +2864,7 @@ class PipeOutdoor(object):
         self._data["Ambient Temperature Outdoor Air Node Name"] = None
         self._data["Pipe Inside Diameter"] = None
         self._data["Pipe Length"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4069,13 +2953,13 @@ class PipeOutdoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipeOutdoor.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipeOutdoor.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipeOutdoor.name`')
         self._data["Name"] = value
 
     @property
@@ -4104,13 +2988,13 @@ class PipeOutdoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `construction_name`'.format(value))
+                                 ' for field `PipeOutdoor.construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `construction_name`')
+                                 'for field `PipeOutdoor.construction_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `construction_name`')
+                                 'for field `PipeOutdoor.construction_name`')
         self._data["Construction Name"] = value
 
     @property
@@ -4139,13 +3023,13 @@ class PipeOutdoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_inlet_node_name`'.format(value))
+                                 ' for field `PipeOutdoor.fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_inlet_node_name`')
+                                 'for field `PipeOutdoor.fluid_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_inlet_node_name`')
+                                 'for field `PipeOutdoor.fluid_inlet_node_name`')
         self._data["Fluid Inlet Node Name"] = value
 
     @property
@@ -4174,13 +3058,13 @@ class PipeOutdoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_outlet_node_name`'.format(value))
+                                 ' for field `PipeOutdoor.fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_outlet_node_name`')
+                                 'for field `PipeOutdoor.fluid_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_outlet_node_name`')
+                                 'for field `PipeOutdoor.fluid_outlet_node_name`')
         self._data["Fluid Outlet Node Name"] = value
 
     @property
@@ -4209,13 +3093,13 @@ class PipeOutdoor(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
+                                 ' for field `PipeOutdoor.ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `PipeOutdoor.ambient_temperature_outdoor_air_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ambient_temperature_outdoor_air_node_name`')
+                                 'for field `PipeOutdoor.ambient_temperature_outdoor_air_node_name`')
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
 
     @property
@@ -4247,10 +3131,10 @@ class PipeOutdoor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_inside_diameter`'.format(value))
+                                 ' for field `PipeOutdoor.pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_inside_diameter`')
+                                 'for field `PipeOutdoor.pipe_inside_diameter`')
         self._data["Pipe Inside Diameter"] = value
 
     @property
@@ -4281,20 +3165,43 @@ class PipeOutdoor(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_length`'.format(value))
+                                 ' for field `PipeOutdoor.pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_length`')
+                                 'for field `PipeOutdoor.pipe_length`')
         self._data["Pipe Length"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipeOutdoor:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipeOutdoor:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipeOutdoor: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipeOutdoor: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4312,8 +3219,27 @@ class PipeOutdoor(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4330,6 +3256,10 @@ class PipeUnderground(object):
     internal_name = "Pipe:Underground"
     field_count = 11
     required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name", "Sun Exposure", "Soil Material Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Underground`
@@ -4346,6 +3276,7 @@ class PipeUnderground(object):
         self._data["Average Soil Surface Temperature"] = None
         self._data["Amplitude of Soil Surface Temperature"] = None
         self._data["Phase Constant of Soil Surface Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -4462,13 +3393,13 @@ class PipeUnderground(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipeUnderground.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipeUnderground.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipeUnderground.name`')
         self._data["Name"] = value
 
     @property
@@ -4497,13 +3428,13 @@ class PipeUnderground(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `construction_name`'.format(value))
+                                 ' for field `PipeUnderground.construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `construction_name`')
+                                 'for field `PipeUnderground.construction_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `construction_name`')
+                                 'for field `PipeUnderground.construction_name`')
         self._data["Construction Name"] = value
 
     @property
@@ -4532,13 +3463,13 @@ class PipeUnderground(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_inlet_node_name`'.format(value))
+                                 ' for field `PipeUnderground.fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_inlet_node_name`')
+                                 'for field `PipeUnderground.fluid_inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_inlet_node_name`')
+                                 'for field `PipeUnderground.fluid_inlet_node_name`')
         self._data["Fluid Inlet Node Name"] = value
 
     @property
@@ -4567,13 +3498,13 @@ class PipeUnderground(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `fluid_outlet_node_name`'.format(value))
+                                 ' for field `PipeUnderground.fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `fluid_outlet_node_name`')
+                                 'for field `PipeUnderground.fluid_outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `fluid_outlet_node_name`')
+                                 'for field `PipeUnderground.fluid_outlet_node_name`')
         self._data["Fluid Outlet Node Name"] = value
 
     @property
@@ -4605,13 +3536,13 @@ class PipeUnderground(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `sun_exposure`'.format(value))
+                                 ' for field `PipeUnderground.sun_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `sun_exposure`')
+                                 'for field `PipeUnderground.sun_exposure`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `sun_exposure`')
+                                 'for field `PipeUnderground.sun_exposure`')
             vals = {}
             vals["sunexposed"] = "SunExposed"
             vals["nosun"] = "NoSun"
@@ -4634,10 +3565,10 @@ class PipeUnderground(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `sun_exposure`'.format(value))
+                                     'field `PipeUnderground.sun_exposure`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `sun_exposure`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipeUnderground.sun_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sun Exposure"] = value
 
@@ -4671,10 +3602,10 @@ class PipeUnderground(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_inside_diameter`'.format(value))
+                                 ' for field `PipeUnderground.pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_inside_diameter`')
+                                 'for field `PipeUnderground.pipe_inside_diameter`')
         self._data["Pipe Inside Diameter"] = value
 
     @property
@@ -4705,10 +3636,10 @@ class PipeUnderground(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_length`'.format(value))
+                                 ' for field `PipeUnderground.pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_length`')
+                                 'for field `PipeUnderground.pipe_length`')
         self._data["Pipe Length"] = value
 
     @property
@@ -4737,13 +3668,13 @@ class PipeUnderground(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `soil_material_name`'.format(value))
+                                 ' for field `PipeUnderground.soil_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `soil_material_name`')
+                                 'for field `PipeUnderground.soil_material_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `soil_material_name`')
+                                 'for field `PipeUnderground.soil_material_name`')
         self._data["Soil Material Name"] = value
 
     @property
@@ -4775,7 +3706,7 @@ class PipeUnderground(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `average_soil_surface_temperature`'.format(value))
+                                 ' for field `PipeUnderground.average_soil_surface_temperature`'.format(value))
         self._data["Average Soil Surface Temperature"] = value
 
     @property
@@ -4808,10 +3739,10 @@ class PipeUnderground(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `amplitude_of_soil_surface_temperature`'.format(value))
+                                 ' for field `PipeUnderground.amplitude_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `amplitude_of_soil_surface_temperature`')
+                                 'for field `PipeUnderground.amplitude_of_soil_surface_temperature`')
         self._data["Amplitude of Soil Surface Temperature"] = value
 
     @property
@@ -4844,20 +3775,43 @@ class PipeUnderground(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `phase_constant_of_soil_surface_temperature`'.format(value))
+                                 ' for field `PipeUnderground.phase_constant_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `phase_constant_of_soil_surface_temperature`')
+                                 'for field `PipeUnderground.phase_constant_of_soil_surface_temperature`')
         self._data["Phase Constant of Soil Surface Temperature"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipeUnderground:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipeUnderground:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipeUnderground: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipeUnderground: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4875,8 +3829,27 @@ class PipeUnderground(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -4889,8 +3862,12 @@ class PipingSystemUndergroundDomain(object):
         The ground domain object for underground piping system simulation.
     """
     internal_name = "PipingSystem:Underground:Domain"
-    field_count = 37
-    required_fields = ["Name", "Xmax", "Ymax", "Zmax", "X-Direction Mesh Type", "Y-Direction Mesh Type", "Z-Direction Mesh Type", "Soil Thermal Conductivity", "Soil Density", "Soil Specific Heat", "Kusuda-Achenbach Average Surface Temperature", "Kusuda-Achenbach Average Amplitude of Surface Temperature", "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature", "Number of Pipe Circuits Entered for this Domain", "Pipe Circuit 1"]
+    field_count = 31
+    required_fields = ["Name", "Xmax", "Ymax", "Zmax", "X-Direction Mesh Type", "Y-Direction Mesh Type", "Z-Direction Mesh Type", "Soil Thermal Conductivity", "Soil Density", "Soil Specific Heat", "Kusuda-Achenbach Average Surface Temperature", "Kusuda-Achenbach Average Amplitude of Surface Temperature", "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature", "Number of Pipe Circuits Entered for this Domain"]
+    extensible_fields = 1
+    format = None
+    min_fields = 31
+    extensible_keys = ["Pipe Circuit 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PipingSystem:Underground:Domain`
@@ -4927,12 +3904,7 @@ class PipingSystemUndergroundDomain(object):
         self._data["Maximum Iterations in the Outer Cartesian Domain Iteration Loop"] = None
         self._data["Evapotranspiration Ground Cover Parameter"] = None
         self._data["Number of Pipe Circuits Entered for this Domain"] = None
-        self._data["Pipe Circuit 1"] = None
-        self._data["Pipe Circuit 2"] = None
-        self._data["Pipe Circuit 3"] = None
-        self._data["Pipe Circuit 4"] = None
-        self._data["Pipe Circuit 5"] = None
-        self._data["Pipe Circuit 6"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5161,48 +4133,14 @@ class PipingSystemUndergroundDomain(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.pipe_circuit_1 = None
-        else:
-            self.pipe_circuit_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_circuit_2 = None
-        else:
-            self.pipe_circuit_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_circuit_3 = None
-        else:
-            self.pipe_circuit_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_circuit_4 = None
-        else:
-            self.pipe_circuit_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_circuit_5 = None
-        else:
-            self.pipe_circuit_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_circuit_6 = None
-        else:
-            self.pipe_circuit_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -5231,13 +4169,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipingSystemUndergroundDomain.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipingSystemUndergroundDomain.name`')
         self._data["Name"] = value
 
     @property
@@ -5269,10 +4207,10 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `xmax`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.xmax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `xmax`')
+                                 'for field `PipingSystemUndergroundDomain.xmax`')
         self._data["Xmax"] = value
 
     @property
@@ -5304,10 +4242,10 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ymax`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.ymax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `ymax`')
+                                 'for field `PipingSystemUndergroundDomain.ymax`')
         self._data["Ymax"] = value
 
     @property
@@ -5339,10 +4277,10 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zmax`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.zmax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `zmax`')
+                                 'for field `PipingSystemUndergroundDomain.zmax`')
         self._data["Zmax"] = value
 
     @property
@@ -5376,15 +4314,15 @@ class PipingSystemUndergroundDomain(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `xdirection_mesh_density_parameter`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundDomain.xdirection_mesh_density_parameter`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `xdirection_mesh_density_parameter`'.format(value))
+                                         'for field `PipingSystemUndergroundDomain.xdirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
-                                 'for field `xdirection_mesh_density_parameter`')
+                                 'for field `PipingSystemUndergroundDomain.xdirection_mesh_density_parameter`')
         self._data["X-Direction Mesh Density Parameter"] = value
 
     @property
@@ -5416,13 +4354,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `xdirection_mesh_type`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.xdirection_mesh_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `xdirection_mesh_type`')
+                                 'for field `PipingSystemUndergroundDomain.xdirection_mesh_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `xdirection_mesh_type`')
+                                 'for field `PipingSystemUndergroundDomain.xdirection_mesh_type`')
             vals = {}
             vals["uniform"] = "Uniform"
             vals["symmetricgeometric"] = "SymmetricGeometric"
@@ -5445,10 +4383,10 @@ class PipingSystemUndergroundDomain(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `xdirection_mesh_type`'.format(value))
+                                     'field `PipingSystemUndergroundDomain.xdirection_mesh_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `xdirection_mesh_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipingSystemUndergroundDomain.xdirection_mesh_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["X-Direction Mesh Type"] = value
 
@@ -5483,13 +4421,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `xdirection_geometric_coefficient`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.xdirection_geometric_coefficient`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `xdirection_geometric_coefficient`')
+                                 'for field `PipingSystemUndergroundDomain.xdirection_geometric_coefficient`')
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
-                                 'for field `xdirection_geometric_coefficient`')
+                                 'for field `PipingSystemUndergroundDomain.xdirection_geometric_coefficient`')
         self._data["X-Direction Geometric Coefficient"] = value
 
     @property
@@ -5523,15 +4461,15 @@ class PipingSystemUndergroundDomain(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `ydirection_mesh_density_parameter`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundDomain.ydirection_mesh_density_parameter`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `ydirection_mesh_density_parameter`'.format(value))
+                                         'for field `PipingSystemUndergroundDomain.ydirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
-                                 'for field `ydirection_mesh_density_parameter`')
+                                 'for field `PipingSystemUndergroundDomain.ydirection_mesh_density_parameter`')
         self._data["Y-Direction Mesh Density Parameter"] = value
 
     @property
@@ -5563,13 +4501,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `ydirection_mesh_type`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.ydirection_mesh_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `ydirection_mesh_type`')
+                                 'for field `PipingSystemUndergroundDomain.ydirection_mesh_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `ydirection_mesh_type`')
+                                 'for field `PipingSystemUndergroundDomain.ydirection_mesh_type`')
             vals = {}
             vals["uniform"] = "Uniform"
             vals["symmetricgeometric"] = "SymmetricGeometric"
@@ -5592,10 +4530,10 @@ class PipingSystemUndergroundDomain(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `ydirection_mesh_type`'.format(value))
+                                     'field `PipingSystemUndergroundDomain.ydirection_mesh_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `ydirection_mesh_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipingSystemUndergroundDomain.ydirection_mesh_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Y-Direction Mesh Type"] = value
 
@@ -5630,13 +4568,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `ydirection_geometric_coefficient`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.ydirection_geometric_coefficient`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `ydirection_geometric_coefficient`')
+                                 'for field `PipingSystemUndergroundDomain.ydirection_geometric_coefficient`')
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
-                                 'for field `ydirection_geometric_coefficient`')
+                                 'for field `PipingSystemUndergroundDomain.ydirection_geometric_coefficient`')
         self._data["Y-Direction Geometric Coefficient"] = value
 
     @property
@@ -5670,15 +4608,15 @@ class PipingSystemUndergroundDomain(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `zdirection_mesh_density_parameter`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundDomain.zdirection_mesh_density_parameter`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `zdirection_mesh_density_parameter`'.format(value))
+                                         'for field `PipingSystemUndergroundDomain.zdirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
-                                 'for field `zdirection_mesh_density_parameter`')
+                                 'for field `PipingSystemUndergroundDomain.zdirection_mesh_density_parameter`')
         self._data["Z-Direction Mesh Density Parameter"] = value
 
     @property
@@ -5710,13 +4648,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zdirection_mesh_type`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.zdirection_mesh_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zdirection_mesh_type`')
+                                 'for field `PipingSystemUndergroundDomain.zdirection_mesh_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zdirection_mesh_type`')
+                                 'for field `PipingSystemUndergroundDomain.zdirection_mesh_type`')
             vals = {}
             vals["uniform"] = "Uniform"
             vals["symmetricgeometric"] = "SymmetricGeometric"
@@ -5739,10 +4677,10 @@ class PipingSystemUndergroundDomain(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `zdirection_mesh_type`'.format(value))
+                                     'field `PipingSystemUndergroundDomain.zdirection_mesh_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `zdirection_mesh_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipingSystemUndergroundDomain.zdirection_mesh_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Z-Direction Mesh Type"] = value
 
@@ -5777,13 +4715,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `zdirection_geometric_coefficient`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.zdirection_geometric_coefficient`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `zdirection_geometric_coefficient`')
+                                 'for field `PipingSystemUndergroundDomain.zdirection_geometric_coefficient`')
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
-                                 'for field `zdirection_geometric_coefficient`')
+                                 'for field `PipingSystemUndergroundDomain.zdirection_geometric_coefficient`')
         self._data["Z-Direction Geometric Coefficient"] = value
 
     @property
@@ -5814,10 +4752,10 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `soil_thermal_conductivity`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.soil_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `soil_thermal_conductivity`')
+                                 'for field `PipingSystemUndergroundDomain.soil_thermal_conductivity`')
         self._data["Soil Thermal Conductivity"] = value
 
     @property
@@ -5848,10 +4786,10 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `soil_density`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.soil_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `soil_density`')
+                                 'for field `PipingSystemUndergroundDomain.soil_density`')
         self._data["Soil Density"] = value
 
     @property
@@ -5884,10 +4822,10 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `soil_specific_heat`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.soil_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `soil_specific_heat`')
+                                 'for field `PipingSystemUndergroundDomain.soil_specific_heat`')
         self._data["Soil Specific Heat"] = value
 
     @property
@@ -5920,13 +4858,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `soil_moisture_content_volume_fraction`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `soil_moisture_content_volume_fraction`')
+                                 'for field `PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `soil_moisture_content_volume_fraction`')
+                                 'for field `PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction`')
         self._data["Soil Moisture Content Volume Fraction"] = value
 
     @property
@@ -5959,13 +4897,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `soil_moisture_content_volume_fraction_at_saturation`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `soil_moisture_content_volume_fraction_at_saturation`')
+                                 'for field `PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation`')
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
-                                 'for field `soil_moisture_content_volume_fraction_at_saturation`')
+                                 'for field `PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation`')
         self._data["Soil Moisture Content Volume Fraction at Saturation"] = value
 
     @property
@@ -5995,7 +4933,7 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `kusudaachenbach_average_surface_temperature`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.kusudaachenbach_average_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Average Surface Temperature"] = value
 
     @property
@@ -6025,7 +4963,7 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
     @property
@@ -6055,7 +4993,7 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
     @property
@@ -6090,13 +5028,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `this_domain_includes_basement_surface_interaction`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `this_domain_includes_basement_surface_interaction`')
+                                 'for field `PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `this_domain_includes_basement_surface_interaction`')
+                                 'for field `PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -6119,10 +5057,10 @@ class PipingSystemUndergroundDomain(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `this_domain_includes_basement_surface_interaction`'.format(value))
+                                     'field `PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `this_domain_includes_basement_surface_interaction`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["This Domain Includes Basement Surface Interaction"] = value
 
@@ -6154,7 +5092,7 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `width_of_basement_floor_in_ground_domain`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.width_of_basement_floor_in_ground_domain`'.format(value))
         self._data["Width of Basement Floor in Ground Domain"] = value
 
     @property
@@ -6185,7 +5123,7 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `depth_of_basement_wall_in_ground_domain`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.depth_of_basement_wall_in_ground_domain`'.format(value))
         self._data["Depth of Basement Wall In Ground Domain"] = value
 
     @property
@@ -6218,13 +5156,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `shift_pipe_x_coordinates_by_basement_width`')
+                                 'for field `PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `shift_pipe_x_coordinates_by_basement_width`')
+                                 'for field `PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width`')
             vals = {}
             vals["yes"] = "Yes"
             vals["no"] = "No"
@@ -6247,10 +5185,10 @@ class PipingSystemUndergroundDomain(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
+                                     'field `PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `shift_pipe_x_coordinates_by_basement_width`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Shift Pipe X Coordinates By Basement Width"] = value
 
@@ -6281,13 +5219,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name_of_basement_wall_boundary_condition_model`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name_of_basement_wall_boundary_condition_model`')
+                                 'for field `PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name_of_basement_wall_boundary_condition_model`')
+                                 'for field `PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model`')
         self._data["Name of Basement Wall Boundary Condition Model"] = value
 
     @property
@@ -6317,13 +5255,13 @@ class PipingSystemUndergroundDomain(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name_of_basement_floor_boundary_condition_model`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name_of_basement_floor_boundary_condition_model`')
+                                 'for field `PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name_of_basement_floor_boundary_condition_model`')
+                                 'for field `PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model`')
         self._data["Name of Basement Floor Boundary Condition Model"] = value
 
     @property
@@ -6356,13 +5294,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`'.format(value))
             if value < 1e-06:
                 raise ValueError('value need to be greater or equal 1e-06 '
-                                 'for field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`')
+                                 'for field `PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`')
+                                 'for field `PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`')
         self._data["Convergence Criterion for the Outer Cartesian Domain Iteration Loop"] = value
 
     @property
@@ -6396,18 +5334,18 @@ class PipingSystemUndergroundDomain(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value))
+                                         'for field `PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value))
             if value < 3:
                 raise ValueError('value need to be greater or equal 3 '
-                                 'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`')
+                                 'for field `PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`')
             if value > 10000:
                 raise ValueError('value need to be smaller 10000 '
-                                 'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`')
+                                 'for field `PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`')
         self._data["Maximum Iterations in the Outer Cartesian Domain Iteration Loop"] = value
 
     @property
@@ -6445,13 +5383,13 @@ class PipingSystemUndergroundDomain(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `evapotranspiration_ground_cover_parameter`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `evapotranspiration_ground_cover_parameter`')
+                                 'for field `PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter`')
             if value > 1.5:
                 raise ValueError('value need to be smaller 1.5 '
-                                 'for field `evapotranspiration_ground_cover_parameter`')
+                                 'for field `PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter`')
         self._data["Evapotranspiration Ground Cover Parameter"] = value
 
     @property
@@ -6483,246 +5421,86 @@ class PipingSystemUndergroundDomain(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_pipe_circuits_entered_for_this_domain`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_pipe_circuits_entered_for_this_domain`'.format(value))
+                                         'for field `PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_pipe_circuits_entered_for_this_domain`')
+                                 'for field `PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain`')
         self._data["Number of Pipe Circuits Entered for this Domain"] = value
 
-    @property
-    def pipe_circuit_1(self):
-        """Get pipe_circuit_1
-
-        Returns:
-            str: the value of `pipe_circuit_1` or None if not set
-        """
-        return self._data["Pipe Circuit 1"]
-
-    @pipe_circuit_1.setter
-    def pipe_circuit_1(self, value=None):
-        """  Corresponds to IDD Field `Pipe Circuit 1`
-        Name of a pipe circuit to be simulated in this domain
+    def add_extensible(self,
+                       pipe_circuit_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Pipe Circuit 1`
+
+            pipe_circuit_1 (str): value for IDD Field `Pipe Circuit 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_pipe_circuit_1(pipe_circuit_1))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_pipe_circuit_1(self, value):
+        """ Validates falue of field `Pipe Circuit 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_circuit_1`'.format(value))
+                                 ' for field `PipingSystemUndergroundDomain.pipe_circuit_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pipe_circuit_1`')
+                                 'for field `PipingSystemUndergroundDomain.pipe_circuit_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pipe_circuit_1`')
-        self._data["Pipe Circuit 1"] = value
+                                 'for field `PipingSystemUndergroundDomain.pipe_circuit_1`')
+        return value
 
-    @property
-    def pipe_circuit_2(self):
-        """Get pipe_circuit_2
-
-        Returns:
-            str: the value of `pipe_circuit_2` or None if not set
-        """
-        return self._data["Pipe Circuit 2"]
-
-    @pipe_circuit_2.setter
-    def pipe_circuit_2(self, value=None):
-        """  Corresponds to IDD Field `Pipe Circuit 2`
-        optional
-        Name of a pipe circuit to be simulated in this domain
-
-        Args:
-            value (str): value for IDD Field `Pipe Circuit 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_circuit_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_circuit_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_circuit_2`')
-        self._data["Pipe Circuit 2"] = value
-
-    @property
-    def pipe_circuit_3(self):
-        """Get pipe_circuit_3
-
-        Returns:
-            str: the value of `pipe_circuit_3` or None if not set
-        """
-        return self._data["Pipe Circuit 3"]
-
-    @pipe_circuit_3.setter
-    def pipe_circuit_3(self, value=None):
-        """  Corresponds to IDD Field `Pipe Circuit 3`
-        optional
-        Name of a pipe circuit to be simulated in this domain
-
-        Args:
-            value (str): value for IDD Field `Pipe Circuit 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_circuit_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_circuit_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_circuit_3`')
-        self._data["Pipe Circuit 3"] = value
-
-    @property
-    def pipe_circuit_4(self):
-        """Get pipe_circuit_4
-
-        Returns:
-            str: the value of `pipe_circuit_4` or None if not set
-        """
-        return self._data["Pipe Circuit 4"]
-
-    @pipe_circuit_4.setter
-    def pipe_circuit_4(self, value=None):
-        """  Corresponds to IDD Field `Pipe Circuit 4`
-        optional
-        Name of a pipe circuit to be simulated in this domain
-
-        Args:
-            value (str): value for IDD Field `Pipe Circuit 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_circuit_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_circuit_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_circuit_4`')
-        self._data["Pipe Circuit 4"] = value
-
-    @property
-    def pipe_circuit_5(self):
-        """Get pipe_circuit_5
-
-        Returns:
-            str: the value of `pipe_circuit_5` or None if not set
-        """
-        return self._data["Pipe Circuit 5"]
-
-    @pipe_circuit_5.setter
-    def pipe_circuit_5(self, value=None):
-        """  Corresponds to IDD Field `Pipe Circuit 5`
-        optional
-        Name of a pipe circuit to be simulated in this domain
-
-        Args:
-            value (str): value for IDD Field `Pipe Circuit 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_circuit_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_circuit_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_circuit_5`')
-        self._data["Pipe Circuit 5"] = value
-
-    @property
-    def pipe_circuit_6(self):
-        """Get pipe_circuit_6
-
-        Returns:
-            str: the value of `pipe_circuit_6` or None if not set
-        """
-        return self._data["Pipe Circuit 6"]
-
-    @pipe_circuit_6.setter
-    def pipe_circuit_6(self, value=None):
-        """  Corresponds to IDD Field `Pipe Circuit 6`
-        optional
-        Name of a pipe circuit to be simulated in this domain
-
-        Args:
-            value (str): value for IDD Field `Pipe Circuit 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_circuit_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_circuit_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_circuit_6`')
-        self._data["Pipe Circuit 6"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipingSystemUndergroundDomain:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipingSystemUndergroundDomain:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipingSystemUndergroundDomain: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipingSystemUndergroundDomain: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6740,8 +5518,27 @@ class PipingSystemUndergroundDomain(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6756,8 +5553,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         and connected on a branch on a plant loop.
     """
     internal_name = "PipingSystem:Underground:PipeCircuit"
-    field_count = 20
-    required_fields = ["Name", "Pipe Thermal Conductivity", "Pipe Density", "Pipe Specific Heat", "Pipe Inner Diameter", "Pipe Outer Diameter", "Design Flow Rate", "Circuit Inlet Node", "Circuit Outlet Node", "Radial Thickness of Inner Radial Near Pipe Mesh Region", "Number of Pipe Segments Entered for this Pipe Circuit", "Pipe Segment 1"]
+    field_count = 14
+    required_fields = ["Name", "Pipe Thermal Conductivity", "Pipe Density", "Pipe Specific Heat", "Pipe Inner Diameter", "Pipe Outer Diameter", "Design Flow Rate", "Circuit Inlet Node", "Circuit Outlet Node", "Radial Thickness of Inner Radial Near Pipe Mesh Region", "Number of Pipe Segments Entered for this Pipe Circuit"]
+    extensible_fields = 1
+    format = None
+    min_fields = 15
+    extensible_keys = ["Pipe Segment 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PipingSystem:Underground:PipeCircuit`
@@ -6777,12 +5578,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         self._data["Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region"] = None
         self._data["Radial Thickness of Inner Radial Near Pipe Mesh Region"] = None
         self._data["Number of Pipe Segments Entered for this Pipe Circuit"] = None
-        self._data["Pipe Segment 1"] = None
-        self._data["Pipe Segment 2"] = None
-        self._data["Pipe Segment 3"] = None
-        self._data["Pipe Segment 4"] = None
-        self._data["Pipe Segment 5"] = None
-        self._data["Pipe Segment 6"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6892,48 +5688,14 @@ class PipingSystemUndergroundPipeCircuit(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.pipe_segment_1 = None
-        else:
-            self.pipe_segment_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_segment_2 = None
-        else:
-            self.pipe_segment_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_segment_3 = None
-        else:
-            self.pipe_segment_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_segment_4 = None
-        else:
-            self.pipe_segment_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_segment_5 = None
-        else:
-            self.pipe_segment_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_segment_6 = None
-        else:
-            self.pipe_segment_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -6962,13 +5724,13 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.name`')
         self._data["Name"] = value
 
     @property
@@ -6999,10 +5761,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_thermal_conductivity`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.pipe_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_thermal_conductivity`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_thermal_conductivity`')
         self._data["Pipe Thermal Conductivity"] = value
 
     @property
@@ -7033,10 +5795,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_density`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.pipe_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_density`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_density`')
         self._data["Pipe Density"] = value
 
     @property
@@ -7067,10 +5829,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_specific_heat`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.pipe_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_specific_heat`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_specific_heat`')
         self._data["Pipe Specific Heat"] = value
 
     @property
@@ -7101,10 +5863,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_inner_diameter`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.pipe_inner_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_inner_diameter`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_inner_diameter`')
         self._data["Pipe Inner Diameter"] = value
 
     @property
@@ -7135,10 +5897,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pipe_outer_diameter`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.pipe_outer_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `pipe_outer_diameter`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_outer_diameter`')
         self._data["Pipe Outer Diameter"] = value
 
     @property
@@ -7169,10 +5931,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `design_flow_rate`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `design_flow_rate`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.design_flow_rate`')
         self._data["Design Flow Rate"] = value
 
     @property
@@ -7201,13 +5963,13 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `circuit_inlet_node`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.circuit_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `circuit_inlet_node`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.circuit_inlet_node`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `circuit_inlet_node`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.circuit_inlet_node`')
         self._data["Circuit Inlet Node"] = value
 
     @property
@@ -7236,13 +5998,13 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `circuit_outlet_node`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.circuit_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `circuit_outlet_node`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.circuit_outlet_node`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `circuit_outlet_node`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.circuit_outlet_node`')
         self._data["Circuit Outlet Node"] = value
 
     @property
@@ -7275,13 +6037,13 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `convergence_criterion_for_the_inner_radial_iteration_loop`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop`'.format(value))
             if value < 1e-06:
                 raise ValueError('value need to be greater or equal 1e-06 '
-                                 'for field `convergence_criterion_for_the_inner_radial_iteration_loop`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop`')
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
-                                 'for field `convergence_criterion_for_the_inner_radial_iteration_loop`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop`')
         self._data["Convergence Criterion for the Inner Radial Iteration Loop"] = value
 
     @property
@@ -7315,18 +6077,18 @@ class PipingSystemUndergroundPipeCircuit(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value))
+                                         'for field `PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value))
             if value < 3:
                 raise ValueError('value need to be greater or equal 3 '
-                                 'for field `maximum_iterations_in_the_inner_radial_iteration_loop`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop`')
             if value > 10000:
                 raise ValueError('value need to be smaller 10000 '
-                                 'for field `maximum_iterations_in_the_inner_radial_iteration_loop`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop`')
         self._data["Maximum Iterations in the Inner Radial Iteration Loop"] = value
 
     @property
@@ -7360,18 +6122,18 @@ class PipingSystemUndergroundPipeCircuit(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value))
+                                         'for field `PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`')
             if value > 15:
                 raise ValueError('value need to be smaller 15 '
-                                 'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`')
         self._data["Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region"] = value
 
     @property
@@ -7403,10 +6165,10 @@ class PipingSystemUndergroundPipeCircuit(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `radial_thickness_of_inner_radial_near_pipe_mesh_region`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.radial_thickness_of_inner_radial_near_pipe_mesh_region`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `radial_thickness_of_inner_radial_near_pipe_mesh_region`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.radial_thickness_of_inner_radial_near_pipe_mesh_region`')
         self._data["Radial Thickness of Inner Radial Near Pipe Mesh Region"] = value
 
     @property
@@ -7438,246 +6200,86 @@ class PipingSystemUndergroundPipeCircuit(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value))
+                                         'for field `PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
-                                 'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit`')
         self._data["Number of Pipe Segments Entered for this Pipe Circuit"] = value
 
-    @property
-    def pipe_segment_1(self):
-        """Get pipe_segment_1
-
-        Returns:
-            str: the value of `pipe_segment_1` or None if not set
-        """
-        return self._data["Pipe Segment 1"]
-
-    @pipe_segment_1.setter
-    def pipe_segment_1(self, value=None):
-        """  Corresponds to IDD Field `Pipe Segment 1`
-        Name of a pipe segment to be included in this pipe circuit
+    def add_extensible(self,
+                       pipe_segment_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Pipe Segment 1`
+
+            pipe_segment_1 (str): value for IDD Field `Pipe Segment 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_pipe_segment_1(pipe_segment_1))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_pipe_segment_1(self, value):
+        """ Validates falue of field `Pipe Segment 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_segment_1`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeCircuit.pipe_segment_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pipe_segment_1`')
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_segment_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pipe_segment_1`')
-        self._data["Pipe Segment 1"] = value
+                                 'for field `PipingSystemUndergroundPipeCircuit.pipe_segment_1`')
+        return value
 
-    @property
-    def pipe_segment_2(self):
-        """Get pipe_segment_2
-
-        Returns:
-            str: the value of `pipe_segment_2` or None if not set
-        """
-        return self._data["Pipe Segment 2"]
-
-    @pipe_segment_2.setter
-    def pipe_segment_2(self, value=None):
-        """  Corresponds to IDD Field `Pipe Segment 2`
-        optional
-        Name of a pipe segment to be included in this pipe circuit
-
-        Args:
-            value (str): value for IDD Field `Pipe Segment 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_segment_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_segment_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_segment_2`')
-        self._data["Pipe Segment 2"] = value
-
-    @property
-    def pipe_segment_3(self):
-        """Get pipe_segment_3
-
-        Returns:
-            str: the value of `pipe_segment_3` or None if not set
-        """
-        return self._data["Pipe Segment 3"]
-
-    @pipe_segment_3.setter
-    def pipe_segment_3(self, value=None):
-        """  Corresponds to IDD Field `Pipe Segment 3`
-        optional
-        Name of a pipe segment to be included in this pipe circuit
-
-        Args:
-            value (str): value for IDD Field `Pipe Segment 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_segment_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_segment_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_segment_3`')
-        self._data["Pipe Segment 3"] = value
-
-    @property
-    def pipe_segment_4(self):
-        """Get pipe_segment_4
-
-        Returns:
-            str: the value of `pipe_segment_4` or None if not set
-        """
-        return self._data["Pipe Segment 4"]
-
-    @pipe_segment_4.setter
-    def pipe_segment_4(self, value=None):
-        """  Corresponds to IDD Field `Pipe Segment 4`
-        optional
-        Name of a pipe segment to be included in this pipe circuit
-
-        Args:
-            value (str): value for IDD Field `Pipe Segment 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_segment_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_segment_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_segment_4`')
-        self._data["Pipe Segment 4"] = value
-
-    @property
-    def pipe_segment_5(self):
-        """Get pipe_segment_5
-
-        Returns:
-            str: the value of `pipe_segment_5` or None if not set
-        """
-        return self._data["Pipe Segment 5"]
-
-    @pipe_segment_5.setter
-    def pipe_segment_5(self, value=None):
-        """  Corresponds to IDD Field `Pipe Segment 5`
-        optional
-        Name of a pipe segment to be included in this pipe circuit
-
-        Args:
-            value (str): value for IDD Field `Pipe Segment 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_segment_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_segment_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_segment_5`')
-        self._data["Pipe Segment 5"] = value
-
-    @property
-    def pipe_segment_6(self):
-        """Get pipe_segment_6
-
-        Returns:
-            str: the value of `pipe_segment_6` or None if not set
-        """
-        return self._data["Pipe Segment 6"]
-
-    @pipe_segment_6.setter
-    def pipe_segment_6(self, value=None):
-        """  Corresponds to IDD Field `Pipe Segment 6`
-        optional
-        Name of a pipe segment to be included in this pipe circuit
-
-        Args:
-            value (str): value for IDD Field `Pipe Segment 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `pipe_segment_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pipe_segment_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pipe_segment_6`')
-        self._data["Pipe Segment 6"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipingSystemUndergroundPipeCircuit:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipingSystemUndergroundPipeCircuit:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipingSystemUndergroundPipeCircuit: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipingSystemUndergroundPipeCircuit: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7695,8 +6297,27 @@ class PipingSystemUndergroundPipeCircuit(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7713,6 +6334,10 @@ class PipingSystemUndergroundPipeSegment(object):
     internal_name = "PipingSystem:Underground:PipeSegment"
     field_count = 4
     required_fields = ["Name", "X Position", "Y Position", "Flow Direction"]
+    extensible_fields = 0
+    format = None
+    min_fields = 4
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PipingSystem:Underground:PipeSegment`
@@ -7722,6 +6347,7 @@ class PipingSystemUndergroundPipeSegment(object):
         self._data["X Position"] = None
         self._data["Y Position"] = None
         self._data["Flow Direction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7789,13 +6415,13 @@ class PipingSystemUndergroundPipeSegment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeSegment.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PipingSystemUndergroundPipeSegment.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PipingSystemUndergroundPipeSegment.name`')
         self._data["Name"] = value
 
     @property
@@ -7830,10 +6456,10 @@ class PipingSystemUndergroundPipeSegment(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `x_position`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeSegment.x_position`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `x_position`')
+                                 'for field `PipingSystemUndergroundPipeSegment.x_position`')
         self._data["X Position"] = value
 
     @property
@@ -7867,10 +6493,10 @@ class PipingSystemUndergroundPipeSegment(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `y_position`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeSegment.y_position`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `y_position`')
+                                 'for field `PipingSystemUndergroundPipeSegment.y_position`')
         self._data["Y Position"] = value
 
     @property
@@ -7905,13 +6531,13 @@ class PipingSystemUndergroundPipeSegment(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `flow_direction`'.format(value))
+                                 ' for field `PipingSystemUndergroundPipeSegment.flow_direction`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `flow_direction`')
+                                 'for field `PipingSystemUndergroundPipeSegment.flow_direction`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `flow_direction`')
+                                 'for field `PipingSystemUndergroundPipeSegment.flow_direction`')
             vals = {}
             vals["increasingz"] = "IncreasingZ"
             vals["decreasingz"] = "DecreasingZ"
@@ -7934,21 +6560,44 @@ class PipingSystemUndergroundPipeSegment(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `flow_direction`'.format(value))
+                                     'field `PipingSystemUndergroundPipeSegment.flow_direction`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `flow_direction`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PipingSystemUndergroundPipeSegment.flow_direction`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Flow Direction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PipingSystemUndergroundPipeSegment:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PipingSystemUndergroundPipeSegment:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PipingSystemUndergroundPipeSegment: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PipingSystemUndergroundPipeSegment: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7966,8 +6615,27 @@ class PipingSystemUndergroundPipeSegment(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7982,6 +6650,10 @@ class Duct(object):
     internal_name = "Duct"
     field_count = 3
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Duct`
@@ -7990,6 +6662,7 @@ class Duct(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8050,13 +6723,13 @@ class Duct(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `Duct.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `Duct.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `Duct.name`')
         self._data["Name"] = value
 
     @property
@@ -8085,13 +6758,13 @@ class Duct(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `Duct.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `Duct.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `Duct.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -8120,23 +6793,46 @@ class Duct(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `Duct.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `Duct.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `Duct.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field Duct:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field Duct:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for Duct: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for Duct: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8154,8 +6850,27 @@ class Duct(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

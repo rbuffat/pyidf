@@ -2,6 +2,651 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
+class GroundHeatTransferSlabXface(object):
+    """ Corresponds to IDD object `GroundHeatTransfer:Slab:XFACE`
+        This is only needed when using manual gridding (not recommended)
+        XFACE: X Direction cell face coordinates: m
+    """
+    internal_name = "GroundHeatTransfer:Slab:XFACE"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:XFACE`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        self.strict = old_strict
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field GroundHeatTransferSlabXface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GroundHeatTransferSlabXface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GroundHeatTransferSlabXface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GroundHeatTransferSlabXface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class GroundHeatTransferSlabYface(object):
+    """ Corresponds to IDD object `GroundHeatTransfer:Slab:YFACE`
+        This is only needed when using manual gridding (not recommended)
+        YFACE: Y Direction cell face coordinates: m,
+    """
+    internal_name = "GroundHeatTransfer:Slab:YFACE"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:YFACE`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        self.strict = old_strict
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field GroundHeatTransferSlabYface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GroundHeatTransferSlabYface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GroundHeatTransferSlabYface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GroundHeatTransferSlabYface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class GroundHeatTransferSlabZface(object):
+    """ Corresponds to IDD object `GroundHeatTransfer:Slab:ZFACE`
+        This is only needed when usuing manual gridding (not recommended)
+        ZFACE: Z Direction cell face coordinates: m
+    """
+    internal_name = "GroundHeatTransfer:Slab:ZFACE"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:ZFACE`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        self.strict = old_strict
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field GroundHeatTransferSlabZface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GroundHeatTransferSlabZface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GroundHeatTransferSlabZface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GroundHeatTransferSlabZface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class GroundHeatTransferBasementXface(object):
+    """ Corresponds to IDD object `GroundHeatTransfer:Basement:XFACE`
+        This is only needed when using manual gridding (not recommended)
+        XFACE: X Direction cell face coordinates: m
+    """
+    internal_name = "GroundHeatTransfer:Basement:XFACE"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:XFACE`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        self.strict = old_strict
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field GroundHeatTransferBasementXface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GroundHeatTransferBasementXface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GroundHeatTransferBasementXface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GroundHeatTransferBasementXface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class GroundHeatTransferBasementYface(object):
+    """ Corresponds to IDD object `GroundHeatTransfer:Basement:YFACE`
+        This is only needed when using manual gridding (not recommended)
+        YFACE: Y Direction cell face coordinates: m
+    """
+    internal_name = "GroundHeatTransfer:Basement:YFACE"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:YFACE`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        self.strict = old_strict
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field GroundHeatTransferBasementYface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GroundHeatTransferBasementYface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GroundHeatTransferBasementYface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GroundHeatTransferBasementYface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class GroundHeatTransferBasementZface(object):
+    """ Corresponds to IDD object `GroundHeatTransfer:Basement:ZFACE`
+        This is only needed when using manual gridding (not recommended)
+        ZFACE: Z Direction cell face coordinates: m
+    """
+    internal_name = "GroundHeatTransfer:Basement:ZFACE"
+    field_count = 0
+    required_fields = []
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ZFACE`
+        """
+        self._data = OrderedDict()
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        self.strict = old_strict
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field GroundHeatTransferBasementZface:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field GroundHeatTransferBasementZface:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for GroundHeatTransferBasementZface: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for GroundHeatTransferBasementZface: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
 class RoomAirModelType(object):
     """ Corresponds to IDD object `RoomAirModelType`
         Selects the type of room air model to be used in a given zone. If no RoomAirModelType
@@ -11,6 +656,10 @@ class RoomAirModelType(object):
     internal_name = "RoomAirModelType"
     field_count = 4
     required_fields = ["Name", "Zone Name", "Room-Air Modeling Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirModelType`
@@ -20,6 +669,7 @@ class RoomAirModelType(object):
         self._data["Zone Name"] = None
         self._data["Room-Air Modeling Type"] = None
         self._data["Air Temperature Coupling Strategy"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -87,13 +737,13 @@ class RoomAirModelType(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirModelType.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirModelType.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirModelType.name`')
         self._data["Name"] = value
 
     @property
@@ -122,13 +772,13 @@ class RoomAirModelType(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirModelType.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirModelType.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirModelType.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -179,13 +829,13 @@ class RoomAirModelType(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `roomair_modeling_type`'.format(value))
+                                 ' for field `RoomAirModelType.roomair_modeling_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `roomair_modeling_type`')
+                                 'for field `RoomAirModelType.roomair_modeling_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `roomair_modeling_type`')
+                                 'for field `RoomAirModelType.roomair_modeling_type`')
             vals = {}
             vals["mixing"] = "Mixing"
             vals["userdefined"] = "UserDefined"
@@ -213,10 +863,10 @@ class RoomAirModelType(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `roomair_modeling_type`'.format(value))
+                                     'field `RoomAirModelType.roomair_modeling_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `roomair_modeling_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirModelType.roomair_modeling_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Room-Air Modeling Type"] = value
 
@@ -250,13 +900,13 @@ class RoomAirModelType(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `air_temperature_coupling_strategy`'.format(value))
+                                 ' for field `RoomAirModelType.air_temperature_coupling_strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `air_temperature_coupling_strategy`')
+                                 'for field `RoomAirModelType.air_temperature_coupling_strategy`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `air_temperature_coupling_strategy`')
+                                 'for field `RoomAirModelType.air_temperature_coupling_strategy`')
             vals = {}
             vals["direct"] = "Direct"
             vals["indirect"] = "Indirect"
@@ -279,21 +929,44 @@ class RoomAirModelType(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `air_temperature_coupling_strategy`'.format(value))
+                                     'field `RoomAirModelType.air_temperature_coupling_strategy`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `air_temperature_coupling_strategy`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirModelType.air_temperature_coupling_strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Temperature Coupling Strategy"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirModelType:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirModelType:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirModelType: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirModelType: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -311,8 +984,27 @@ class RoomAirModelType(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -328,6 +1020,10 @@ class RoomAirTemperaturePatternUserDefined(object):
     internal_name = "RoomAir:TemperaturePattern:UserDefined"
     field_count = 4
     required_fields = ["Name", "Zone Name", "Pattern Control Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:UserDefined`
@@ -337,6 +1033,7 @@ class RoomAirTemperaturePatternUserDefined(object):
         self._data["Zone Name"] = None
         self._data["Availability Schedule Name"] = None
         self._data["Pattern Control Schedule Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -404,13 +1101,13 @@ class RoomAirTemperaturePatternUserDefined(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternUserDefined.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.name`')
         self._data["Name"] = value
 
     @property
@@ -439,13 +1136,13 @@ class RoomAirTemperaturePatternUserDefined(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternUserDefined.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -477,13 +1174,13 @@ class RoomAirTemperaturePatternUserDefined(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `availability_schedule_name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternUserDefined.availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.availability_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `availability_schedule_name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.availability_schedule_name`')
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -515,23 +1212,46 @@ class RoomAirTemperaturePatternUserDefined(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pattern_control_schedule_name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pattern_control_schedule_name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pattern_control_schedule_name`')
+                                 'for field `RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name`')
         self._data["Pattern Control Schedule Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirTemperaturePatternUserDefined:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirTemperaturePatternUserDefined:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirTemperaturePatternUserDefined: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirTemperaturePatternUserDefined: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -549,8 +1269,27 @@ class RoomAirTemperaturePatternUserDefined(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -566,6 +1305,10 @@ class RoomAirTemperaturePatternConstantGradient(object):
     internal_name = "RoomAir:TemperaturePattern:ConstantGradient"
     field_count = 6
     required_fields = ["Name", "Control Integer for Pattern Control Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:ConstantGradient`
@@ -577,6 +1320,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
         self._data["Return Air Offset"] = None
         self._data["Exhaust Air Offset"] = None
         self._data["Temperature Gradient"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -658,13 +1402,13 @@ class RoomAirTemperaturePatternConstantGradient(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternConstantGradient.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternConstantGradient.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternConstantGradient.name`')
         self._data["Name"] = value
 
     @property
@@ -696,12 +1440,12 @@ class RoomAirTemperaturePatternConstantGradient(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `RoomAirTemperaturePatternConstantGradient.control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                                         'for field `RoomAirTemperaturePatternConstantGradient.control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -732,7 +1476,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternConstantGradient.thermostat_offset`'.format(value))
         self._data["Thermostat Offset"] = value
 
     @property
@@ -763,7 +1507,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `return_air_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternConstantGradient.return_air_offset`'.format(value))
         self._data["Return Air Offset"] = value
 
     @property
@@ -794,7 +1538,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `exhaust_air_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternConstantGradient.exhaust_air_offset`'.format(value))
         self._data["Exhaust Air Offset"] = value
 
     @property
@@ -825,17 +1569,40 @@ class RoomAirTemperaturePatternConstantGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_gradient`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternConstantGradient.temperature_gradient`'.format(value))
         self._data["Temperature Gradient"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirTemperaturePatternConstantGradient:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirTemperaturePatternConstantGradient:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirTemperaturePatternConstantGradient: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirTemperaturePatternConstantGradient: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -853,8 +1620,27 @@ class RoomAirTemperaturePatternConstantGradient(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -870,6 +1656,10 @@ class RoomAirTemperaturePatternTwoGradient(object):
     internal_name = "RoomAir:TemperaturePattern:TwoGradient"
     field_count = 12
     required_fields = ["Name", "Control Integer for Pattern Control Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:TwoGradient`
@@ -887,6 +1677,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
         self._data["Lower Temperature Bound"] = None
         self._data["Upper Heat Rate Bound"] = None
         self._data["Lower Heat Rate Bound"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1010,13 +1801,13 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternTwoGradient.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternTwoGradient.name`')
         self._data["Name"] = value
 
     @property
@@ -1048,12 +1839,12 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `RoomAirTemperaturePatternTwoGradient.control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                                         'for field `RoomAirTemperaturePatternTwoGradient.control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -1084,7 +1875,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_height`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.thermostat_height`'.format(value))
         self._data["Thermostat Height"] = value
 
     @property
@@ -1115,7 +1906,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `return_air_height`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.return_air_height`'.format(value))
         self._data["Return Air Height"] = value
 
     @property
@@ -1146,7 +1937,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `exhaust_air_height`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.exhaust_air_height`'.format(value))
         self._data["Exhaust Air Height"] = value
 
     @property
@@ -1177,7 +1968,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_gradient_lower_bound`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.temperature_gradient_lower_bound`'.format(value))
         self._data["Temperature Gradient Lower Bound"] = value
 
     @property
@@ -1208,7 +1999,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_gradient_upper_bound`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.temperature_gradient_upper_bound`'.format(value))
         self._data["Temperature Gradient Upper  Bound"] = value
 
     @property
@@ -1243,13 +2034,13 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gradient_interpolation_mode`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gradient_interpolation_mode`')
+                                 'for field `RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gradient_interpolation_mode`')
+                                 'for field `RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode`')
             vals = {}
             vals["outdoordrybulbtemperature"] = "OutdoorDryBulbTemperature"
             vals["zonedrybulbtemperature"] = "ZoneDryBulbTemperature"
@@ -1275,10 +2066,10 @@ class RoomAirTemperaturePatternTwoGradient(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `gradient_interpolation_mode`'.format(value))
+                                     'field `RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `gradient_interpolation_mode`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirTemperaturePatternTwoGradient.gradient_interpolation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gradient Interpolation Mode"] = value
 
@@ -1309,7 +2100,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `upper_temperature_bound`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.upper_temperature_bound`'.format(value))
         self._data["Upper Temperature Bound"] = value
 
     @property
@@ -1339,7 +2130,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `lower_temperature_bound`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.lower_temperature_bound`'.format(value))
         self._data["Lower Temperature Bound"] = value
 
     @property
@@ -1369,7 +2160,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `upper_heat_rate_bound`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.upper_heat_rate_bound`'.format(value))
         self._data["Upper Heat Rate Bound"] = value
 
     @property
@@ -1399,17 +2190,40 @@ class RoomAirTemperaturePatternTwoGradient(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `lower_heat_rate_bound`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternTwoGradient.lower_heat_rate_bound`'.format(value))
         self._data["Lower Heat Rate Bound"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirTemperaturePatternTwoGradient:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirTemperaturePatternTwoGradient:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirTemperaturePatternTwoGradient: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirTemperaturePatternTwoGradient: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1427,8 +2241,27 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1444,8 +2277,12 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
     """
     internal_name = "RoomAir:TemperaturePattern:NondimensionalHeight"
-    field_count = 43
-    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name", "Pair 1 Zeta Nondimensional Height", "Pair 1 Delta Adjacent Air Temperature", "Pair 2 Zeta Nondimensional Height", "Pair 2 Delta Adjacent Air Temperature"]
+    field_count = 5
+    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name"]
+    extensible_fields = 2
+    format = None
+    min_fields = 0
+    extensible_keys = ["Pair 1 Zeta Nondimensional Height", "Pair 1 Delta Adjacent Air Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:NondimensionalHeight`
@@ -1456,44 +2293,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         self._data["Thermostat Offset"] = None
         self._data["Return Air Offset"] = None
         self._data["Exhaust Air Offset"] = None
-        self._data["Pair 1 Zeta Nondimensional Height"] = None
-        self._data["Pair 1 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 2 Zeta Nondimensional Height"] = None
-        self._data["Pair 2 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 3 Zeta Nondimensional Height"] = None
-        self._data["Pair 3 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 4 Zeta Nondimensional Height"] = None
-        self._data["Pair 4 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 5 Zeta Nondimensional Height"] = None
-        self._data["Pair 5 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 6 Zeta Nondimensional Height"] = None
-        self._data["Pair 6 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 7 Zeta Nondimensional Height"] = None
-        self._data["Pair 7 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 8 Zeta Nondimensional Height"] = None
-        self._data["Pair 8 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 9 Zeta Nondimensional Height"] = None
-        self._data["Pair 9 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 10 Zeta Nondimensional Height"] = None
-        self._data["Pair 10 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 11 Zeta Nondimensional Height"] = None
-        self._data["Pair 11 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 12 Zeta Nondimensional Height"] = None
-        self._data["Pair 12 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 13 Zeta Nondimensional Height"] = None
-        self._data["Pair 13 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 14 Zeta Nondimensional Height"] = None
-        self._data["Pair 14 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 15 Zeta Nondimensional Height"] = None
-        self._data["Pair 15 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 16 Zeta Nondimensional Height"] = None
-        self._data["Pair 16 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 17 Zeta Nondimensional Height"] = None
-        self._data["Pair 17 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 18 Zeta Nondimensional Height"] = None
-        self._data["Pair 18 Delta Adjacent Air Temperature"] = None
-        self._data["Pair 19 Zeta Nondimensional Height"] = None
-        self._data["Pair 19 Delta Adjacent Air Temperature"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1540,272 +2340,14 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.pair_1_zeta_nondimensional_height = None
-        else:
-            self.pair_1_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_1_delta_adjacent_air_temperature = None
-        else:
-            self.pair_1_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_2_zeta_nondimensional_height = None
-        else:
-            self.pair_2_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_2_delta_adjacent_air_temperature = None
-        else:
-            self.pair_2_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_3_zeta_nondimensional_height = None
-        else:
-            self.pair_3_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_3_delta_adjacent_air_temperature = None
-        else:
-            self.pair_3_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_4_zeta_nondimensional_height = None
-        else:
-            self.pair_4_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_4_delta_adjacent_air_temperature = None
-        else:
-            self.pair_4_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_5_zeta_nondimensional_height = None
-        else:
-            self.pair_5_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_5_delta_adjacent_air_temperature = None
-        else:
-            self.pair_5_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_6_zeta_nondimensional_height = None
-        else:
-            self.pair_6_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_6_delta_adjacent_air_temperature = None
-        else:
-            self.pair_6_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_7_zeta_nondimensional_height = None
-        else:
-            self.pair_7_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_7_delta_adjacent_air_temperature = None
-        else:
-            self.pair_7_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_8_zeta_nondimensional_height = None
-        else:
-            self.pair_8_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_8_delta_adjacent_air_temperature = None
-        else:
-            self.pair_8_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_9_zeta_nondimensional_height = None
-        else:
-            self.pair_9_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_9_delta_adjacent_air_temperature = None
-        else:
-            self.pair_9_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_10_zeta_nondimensional_height = None
-        else:
-            self.pair_10_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_10_delta_adjacent_air_temperature = None
-        else:
-            self.pair_10_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_11_zeta_nondimensional_height = None
-        else:
-            self.pair_11_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_11_delta_adjacent_air_temperature = None
-        else:
-            self.pair_11_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_12_zeta_nondimensional_height = None
-        else:
-            self.pair_12_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_12_delta_adjacent_air_temperature = None
-        else:
-            self.pair_12_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_13_zeta_nondimensional_height = None
-        else:
-            self.pair_13_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_13_delta_adjacent_air_temperature = None
-        else:
-            self.pair_13_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_14_zeta_nondimensional_height = None
-        else:
-            self.pair_14_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_14_delta_adjacent_air_temperature = None
-        else:
-            self.pair_14_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_15_zeta_nondimensional_height = None
-        else:
-            self.pair_15_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_15_delta_adjacent_air_temperature = None
-        else:
-            self.pair_15_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_16_zeta_nondimensional_height = None
-        else:
-            self.pair_16_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_16_delta_adjacent_air_temperature = None
-        else:
-            self.pair_16_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_17_zeta_nondimensional_height = None
-        else:
-            self.pair_17_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_17_delta_adjacent_air_temperature = None
-        else:
-            self.pair_17_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_18_zeta_nondimensional_height = None
-        else:
-            self.pair_18_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_18_delta_adjacent_air_temperature = None
-        else:
-            self.pair_18_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_19_zeta_nondimensional_height = None
-        else:
-            self.pair_19_zeta_nondimensional_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pair_19_delta_adjacent_air_temperature = None
-        else:
-            self.pair_19_delta_adjacent_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -1834,13 +2376,13 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternNondimensionalHeight.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternNondimensionalHeight.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternNondimensionalHeight.name`')
         self._data["Name"] = value
 
     @property
@@ -1872,12 +2414,12 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `RoomAirTemperaturePatternNondimensionalHeight.control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                                         'for field `RoomAirTemperaturePatternNondimensionalHeight.control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -1908,7 +2450,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternNondimensionalHeight.thermostat_offset`'.format(value))
         self._data["Thermostat Offset"] = value
 
     @property
@@ -1939,7 +2481,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `return_air_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternNondimensionalHeight.return_air_offset`'.format(value))
         self._data["Return Air Offset"] = value
 
     @property
@@ -1975,1290 +2517,98 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `exhaust_air_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternNondimensionalHeight.exhaust_air_offset`'.format(value))
         self._data["Exhaust Air Offset"] = value
 
-    @property
-    def pair_1_zeta_nondimensional_height(self):
-        """Get pair_1_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_1_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 1 Zeta Nondimensional Height"]
-
-    @pair_1_zeta_nondimensional_height.setter
-    def pair_1_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 1 Zeta Nondimensional Height`
+    def add_extensible(self,
+                       pair_1_zeta_nondimensional_height=None,
+                       pair_1_delta_adjacent_air_temperature=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (float): value for IDD Field `Pair 1 Zeta Nondimensional Height`
+
+            pair_1_zeta_nondimensional_height (float): value for IDD Field `Pair 1 Zeta Nondimensional Height`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_1_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 1 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_1_delta_adjacent_air_temperature(self):
-        """Get pair_1_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_1_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 1 Delta Adjacent Air Temperature"]
-
-    @pair_1_delta_adjacent_air_temperature.setter
-    def pair_1_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 1 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 1 Delta Adjacent Air Temperature`
+            pair_1_delta_adjacent_air_temperature (float): value for IDD Field `Pair 1 Delta Adjacent Air Temperature`
                 Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_pair_1_zeta_nondimensional_height(pair_1_zeta_nondimensional_height))
+        vals.append(self._check_pair_1_delta_adjacent_air_temperature(pair_1_delta_adjacent_air_temperature))
+        self._data["extensibles"].append(vals)
 
-        Raises:
-            ValueError: if `value` is not a valid value
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_pair_1_zeta_nondimensional_height(self, value):
+        """ Validates falue of field `Pair 1 Zeta Nondimensional Height`
         """
         if value is not None:
             try:
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `pair_1_delta_adjacent_air_temperature`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternNondimensionalHeight.pair_1_zeta_nondimensional_height`'.format(value))
+        return value
+
+    def _check_pair_1_delta_adjacent_air_temperature(self, value):
+        """ Validates falue of field `Pair 1 Delta Adjacent Air Temperature`
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type float'
+                                 ' for field `RoomAirTemperaturePatternNondimensionalHeight.pair_1_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_1_delta_adjacent_air_temperature`')
+                                 'for field `RoomAirTemperaturePatternNondimensionalHeight.pair_1_delta_adjacent_air_temperature`')
             if value > 20.0:
                 raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_1_delta_adjacent_air_temperature`')
-        self._data["Pair 1 Delta Adjacent Air Temperature"] = value
+                                 'for field `RoomAirTemperaturePatternNondimensionalHeight.pair_1_delta_adjacent_air_temperature`')
+        return value
 
-    @property
-    def pair_2_zeta_nondimensional_height(self):
-        """Get pair_2_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_2_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 2 Zeta Nondimensional Height"]
-
-    @pair_2_zeta_nondimensional_height.setter
-    def pair_2_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 2 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 2 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_2_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 2 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_2_delta_adjacent_air_temperature(self):
-        """Get pair_2_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_2_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 2 Delta Adjacent Air Temperature"]
-
-    @pair_2_delta_adjacent_air_temperature.setter
-    def pair_2_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 2 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 2 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_2_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_2_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_2_delta_adjacent_air_temperature`')
-        self._data["Pair 2 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_3_zeta_nondimensional_height(self):
-        """Get pair_3_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_3_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 3 Zeta Nondimensional Height"]
-
-    @pair_3_zeta_nondimensional_height.setter
-    def pair_3_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 3 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 3 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_3_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 3 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_3_delta_adjacent_air_temperature(self):
-        """Get pair_3_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_3_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 3 Delta Adjacent Air Temperature"]
-
-    @pair_3_delta_adjacent_air_temperature.setter
-    def pair_3_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 3 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 3 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_3_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_3_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_3_delta_adjacent_air_temperature`')
-        self._data["Pair 3 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_4_zeta_nondimensional_height(self):
-        """Get pair_4_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_4_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 4 Zeta Nondimensional Height"]
-
-    @pair_4_zeta_nondimensional_height.setter
-    def pair_4_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 4 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 4 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_4_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 4 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_4_delta_adjacent_air_temperature(self):
-        """Get pair_4_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_4_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 4 Delta Adjacent Air Temperature"]
-
-    @pair_4_delta_adjacent_air_temperature.setter
-    def pair_4_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 4 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 4 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_4_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_4_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_4_delta_adjacent_air_temperature`')
-        self._data["Pair 4 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_5_zeta_nondimensional_height(self):
-        """Get pair_5_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_5_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 5 Zeta Nondimensional Height"]
-
-    @pair_5_zeta_nondimensional_height.setter
-    def pair_5_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 5 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 5 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_5_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 5 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_5_delta_adjacent_air_temperature(self):
-        """Get pair_5_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_5_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 5 Delta Adjacent Air Temperature"]
-
-    @pair_5_delta_adjacent_air_temperature.setter
-    def pair_5_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 5 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 5 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_5_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_5_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_5_delta_adjacent_air_temperature`')
-        self._data["Pair 5 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_6_zeta_nondimensional_height(self):
-        """Get pair_6_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_6_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 6 Zeta Nondimensional Height"]
-
-    @pair_6_zeta_nondimensional_height.setter
-    def pair_6_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 6 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 6 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_6_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 6 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_6_delta_adjacent_air_temperature(self):
-        """Get pair_6_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_6_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 6 Delta Adjacent Air Temperature"]
-
-    @pair_6_delta_adjacent_air_temperature.setter
-    def pair_6_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 6 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 6 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_6_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_6_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_6_delta_adjacent_air_temperature`')
-        self._data["Pair 6 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_7_zeta_nondimensional_height(self):
-        """Get pair_7_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_7_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 7 Zeta Nondimensional Height"]
-
-    @pair_7_zeta_nondimensional_height.setter
-    def pair_7_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 7 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 7 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_7_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 7 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_7_delta_adjacent_air_temperature(self):
-        """Get pair_7_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_7_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 7 Delta Adjacent Air Temperature"]
-
-    @pair_7_delta_adjacent_air_temperature.setter
-    def pair_7_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 7 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 7 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_7_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_7_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_7_delta_adjacent_air_temperature`')
-        self._data["Pair 7 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_8_zeta_nondimensional_height(self):
-        """Get pair_8_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_8_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 8 Zeta Nondimensional Height"]
-
-    @pair_8_zeta_nondimensional_height.setter
-    def pair_8_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 8 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 8 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_8_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 8 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_8_delta_adjacent_air_temperature(self):
-        """Get pair_8_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_8_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 8 Delta Adjacent Air Temperature"]
-
-    @pair_8_delta_adjacent_air_temperature.setter
-    def pair_8_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 8 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 8 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_8_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_8_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_8_delta_adjacent_air_temperature`')
-        self._data["Pair 8 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_9_zeta_nondimensional_height(self):
-        """Get pair_9_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_9_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 9 Zeta Nondimensional Height"]
-
-    @pair_9_zeta_nondimensional_height.setter
-    def pair_9_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 9 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 9 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_9_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 9 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_9_delta_adjacent_air_temperature(self):
-        """Get pair_9_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_9_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 9 Delta Adjacent Air Temperature"]
-
-    @pair_9_delta_adjacent_air_temperature.setter
-    def pair_9_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 9 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 9 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_9_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_9_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_9_delta_adjacent_air_temperature`')
-        self._data["Pair 9 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_10_zeta_nondimensional_height(self):
-        """Get pair_10_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_10_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 10 Zeta Nondimensional Height"]
-
-    @pair_10_zeta_nondimensional_height.setter
-    def pair_10_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 10 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 10 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_10_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 10 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_10_delta_adjacent_air_temperature(self):
-        """Get pair_10_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_10_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 10 Delta Adjacent Air Temperature"]
-
-    @pair_10_delta_adjacent_air_temperature.setter
-    def pair_10_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 10 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 10 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_10_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_10_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_10_delta_adjacent_air_temperature`')
-        self._data["Pair 10 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_11_zeta_nondimensional_height(self):
-        """Get pair_11_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_11_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 11 Zeta Nondimensional Height"]
-
-    @pair_11_zeta_nondimensional_height.setter
-    def pair_11_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 11 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 11 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_11_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 11 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_11_delta_adjacent_air_temperature(self):
-        """Get pair_11_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_11_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 11 Delta Adjacent Air Temperature"]
-
-    @pair_11_delta_adjacent_air_temperature.setter
-    def pair_11_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 11 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 11 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_11_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_11_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_11_delta_adjacent_air_temperature`')
-        self._data["Pair 11 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_12_zeta_nondimensional_height(self):
-        """Get pair_12_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_12_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 12 Zeta Nondimensional Height"]
-
-    @pair_12_zeta_nondimensional_height.setter
-    def pair_12_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 12 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 12 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_12_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 12 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_12_delta_adjacent_air_temperature(self):
-        """Get pair_12_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_12_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 12 Delta Adjacent Air Temperature"]
-
-    @pair_12_delta_adjacent_air_temperature.setter
-    def pair_12_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 12 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 12 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_12_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_12_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_12_delta_adjacent_air_temperature`')
-        self._data["Pair 12 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_13_zeta_nondimensional_height(self):
-        """Get pair_13_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_13_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 13 Zeta Nondimensional Height"]
-
-    @pair_13_zeta_nondimensional_height.setter
-    def pair_13_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 13 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 13 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_13_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 13 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_13_delta_adjacent_air_temperature(self):
-        """Get pair_13_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_13_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 13 Delta Adjacent Air Temperature"]
-
-    @pair_13_delta_adjacent_air_temperature.setter
-    def pair_13_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 13 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 13 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_13_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_13_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_13_delta_adjacent_air_temperature`')
-        self._data["Pair 13 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_14_zeta_nondimensional_height(self):
-        """Get pair_14_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_14_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 14 Zeta Nondimensional Height"]
-
-    @pair_14_zeta_nondimensional_height.setter
-    def pair_14_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 14 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 14 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_14_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 14 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_14_delta_adjacent_air_temperature(self):
-        """Get pair_14_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_14_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 14 Delta Adjacent Air Temperature"]
-
-    @pair_14_delta_adjacent_air_temperature.setter
-    def pair_14_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 14 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 14 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_14_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_14_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_14_delta_adjacent_air_temperature`')
-        self._data["Pair 14 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_15_zeta_nondimensional_height(self):
-        """Get pair_15_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_15_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 15 Zeta Nondimensional Height"]
-
-    @pair_15_zeta_nondimensional_height.setter
-    def pair_15_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 15 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 15 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_15_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 15 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_15_delta_adjacent_air_temperature(self):
-        """Get pair_15_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_15_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 15 Delta Adjacent Air Temperature"]
-
-    @pair_15_delta_adjacent_air_temperature.setter
-    def pair_15_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 15 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 15 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_15_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_15_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_15_delta_adjacent_air_temperature`')
-        self._data["Pair 15 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_16_zeta_nondimensional_height(self):
-        """Get pair_16_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_16_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 16 Zeta Nondimensional Height"]
-
-    @pair_16_zeta_nondimensional_height.setter
-    def pair_16_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 16 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 16 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_16_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 16 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_16_delta_adjacent_air_temperature(self):
-        """Get pair_16_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_16_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 16 Delta Adjacent Air Temperature"]
-
-    @pair_16_delta_adjacent_air_temperature.setter
-    def pair_16_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 16 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 16 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_16_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_16_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_16_delta_adjacent_air_temperature`')
-        self._data["Pair 16 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_17_zeta_nondimensional_height(self):
-        """Get pair_17_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_17_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 17 Zeta Nondimensional Height"]
-
-    @pair_17_zeta_nondimensional_height.setter
-    def pair_17_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 17 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 17 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_17_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 17 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_17_delta_adjacent_air_temperature(self):
-        """Get pair_17_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_17_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 17 Delta Adjacent Air Temperature"]
-
-    @pair_17_delta_adjacent_air_temperature.setter
-    def pair_17_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 17 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 17 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_17_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_17_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_17_delta_adjacent_air_temperature`')
-        self._data["Pair 17 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_18_zeta_nondimensional_height(self):
-        """Get pair_18_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_18_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 18 Zeta Nondimensional Height"]
-
-    @pair_18_zeta_nondimensional_height.setter
-    def pair_18_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 18 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 18 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_18_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 18 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_18_delta_adjacent_air_temperature(self):
-        """Get pair_18_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_18_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 18 Delta Adjacent Air Temperature"]
-
-    @pair_18_delta_adjacent_air_temperature.setter
-    def pair_18_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 18 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 18 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_18_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_18_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_18_delta_adjacent_air_temperature`')
-        self._data["Pair 18 Delta Adjacent Air Temperature"] = value
-
-    @property
-    def pair_19_zeta_nondimensional_height(self):
-        """Get pair_19_zeta_nondimensional_height
-
-        Returns:
-            float: the value of `pair_19_zeta_nondimensional_height` or None if not set
-        """
-        return self._data["Pair 19 Zeta Nondimensional Height"]
-
-    @pair_19_zeta_nondimensional_height.setter
-    def pair_19_zeta_nondimensional_height(self, value=None):
-        """  Corresponds to IDD Field `Pair 19 Zeta Nondimensional Height`
-
-        Args:
-            value (float): value for IDD Field `Pair 19 Zeta Nondimensional Height`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_19_zeta_nondimensional_height`'.format(value))
-        self._data["Pair 19 Zeta Nondimensional Height"] = value
-
-    @property
-    def pair_19_delta_adjacent_air_temperature(self):
-        """Get pair_19_delta_adjacent_air_temperature
-
-        Returns:
-            float: the value of `pair_19_delta_adjacent_air_temperature` or None if not set
-        """
-        return self._data["Pair 19 Delta Adjacent Air Temperature"]
-
-    @pair_19_delta_adjacent_air_temperature.setter
-    def pair_19_delta_adjacent_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `Pair 19 Delta Adjacent Air Temperature`
-
-        Args:
-            value (float): value for IDD Field `Pair 19 Delta Adjacent Air Temperature`
-                Units: deltaC
-                value >= -10.0
-                value <= 20.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `pair_19_delta_adjacent_air_temperature`'.format(value))
-            if value < -10.0:
-                raise ValueError('value need to be greater or equal -10.0 '
-                                 'for field `pair_19_delta_adjacent_air_temperature`')
-            if value > 20.0:
-                raise ValueError('value need to be smaller 20.0 '
-                                 'for field `pair_19_delta_adjacent_air_temperature`')
-        self._data["Pair 19 Delta Adjacent Air Temperature"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirTemperaturePatternNondimensionalHeight:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirTemperaturePatternNondimensionalHeight:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirTemperaturePatternNondimensionalHeight: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirTemperaturePatternNondimensionalHeight: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3276,8 +2626,27 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3294,8 +2663,12 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         RoomAir:TemperaturePattern:UserDefined.
     """
     internal_name = "RoomAir:TemperaturePattern:SurfaceMapping"
-    field_count = 47
-    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name", "Surface Name Pair 1", "Delta Adjacent Air Temperature Pair 1"]
+    field_count = 5
+    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name"]
+    extensible_fields = 2
+    format = None
+    min_fields = 0
+    extensible_keys = ["Surface Name Pair 1", "Delta Adjacent Air Temperature Pair 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:SurfaceMapping`
@@ -3306,48 +2679,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         self._data["Thermostat Offset"] = None
         self._data["Return Air Offset"] = None
         self._data["Exhaust Air Offset"] = None
-        self._data["Surface Name Pair 1"] = None
-        self._data["Delta Adjacent Air Temperature Pair 1"] = None
-        self._data["Surface Name Pair 2"] = None
-        self._data["Delta Adjacent Air Temperature Pair 2"] = None
-        self._data["Surface Name Pair 3"] = None
-        self._data["Delta Adjacent Air Temperature Pair 3"] = None
-        self._data["Surface Name Pair 4"] = None
-        self._data["Delta Adjacent Air Temperature Pair 4"] = None
-        self._data["Surface Name Pair 5"] = None
-        self._data["Delta Adjacent Air Temperature Pair 5"] = None
-        self._data["Surface Name Pair 6"] = None
-        self._data["Delta Adjacent Air Temperature Pair 6"] = None
-        self._data["Surface Name Pair 7"] = None
-        self._data["Delta Adjacent Air Temperature Pair 7"] = None
-        self._data["Surface Name Pair 8"] = None
-        self._data["Delta Adjacent Air Temperature Pair 8"] = None
-        self._data["Surface Name Pair 9"] = None
-        self._data["Delta Adjacent Air Temperature Pair 9"] = None
-        self._data["Surface Name Pair 10"] = None
-        self._data["Delta Adjacent Air Temperature Pair 10"] = None
-        self._data["Surface Name Pair 11"] = None
-        self._data["Delta Adjacent Air Temperature Pair 11"] = None
-        self._data["Surface Name Pair 12"] = None
-        self._data["Delta Adjacent Air Temperature Pair 12"] = None
-        self._data["Surface Name Pair 13"] = None
-        self._data["Delta Adjacent Air Temperature Pair 13"] = None
-        self._data["Surface Name Pair 14"] = None
-        self._data["Delta Adjacent Air Temperature Pair 14"] = None
-        self._data["Surface Name Pair 15"] = None
-        self._data["Delta Adjacent Air Temperature Pair 15"] = None
-        self._data["Surface Name Pair 16"] = None
-        self._data["Delta Adjacent Air Temperature Pair 16"] = None
-        self._data["Surface Name Pair 17"] = None
-        self._data["Delta Adjacent Air Temperature Pair 17"] = None
-        self._data["Surface Name Pair 18"] = None
-        self._data["Delta Adjacent Air Temperature Pair 18"] = None
-        self._data["Surface Name Pair 19"] = None
-        self._data["Delta Adjacent Air Temperature Pair 19"] = None
-        self._data["Surface Name Pair 20"] = None
-        self._data["Delta Adjacent Air Temperature Pair 20"] = None
-        self._data["Surface Name Pair 21"] = None
-        self._data["Delta Adjacent Air Temperature Pair 21"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3394,300 +2726,14 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         i += 1
         if i >= len(vals):
             return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_1 = None
-        else:
-            self.surface_name_pair_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_1 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_2 = None
-        else:
-            self.surface_name_pair_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_2 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_3 = None
-        else:
-            self.surface_name_pair_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_3 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_4 = None
-        else:
-            self.surface_name_pair_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_4 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_5 = None
-        else:
-            self.surface_name_pair_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_5 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_6 = None
-        else:
-            self.surface_name_pair_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_6 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_7 = None
-        else:
-            self.surface_name_pair_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_7 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_8 = None
-        else:
-            self.surface_name_pair_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_8 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_9 = None
-        else:
-            self.surface_name_pair_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_9 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_10 = None
-        else:
-            self.surface_name_pair_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_10 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_11 = None
-        else:
-            self.surface_name_pair_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_11 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_12 = None
-        else:
-            self.surface_name_pair_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_12 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_13 = None
-        else:
-            self.surface_name_pair_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_13 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_14 = None
-        else:
-            self.surface_name_pair_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_14 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_15 = None
-        else:
-            self.surface_name_pair_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_15 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_16 = None
-        else:
-            self.surface_name_pair_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_16 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_17 = None
-        else:
-            self.surface_name_pair_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_17 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_18 = None
-        else:
-            self.surface_name_pair_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_18 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_19 = None
-        else:
-            self.surface_name_pair_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_19 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_20 = None
-        else:
-            self.surface_name_pair_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_20 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name_pair_21 = None
-        else:
-            self.surface_name_pair_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_adjacent_air_temperature_pair_21 = None
-        else:
-            self.delta_adjacent_air_temperature_pair_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
         self.strict = old_strict
 
     @property
@@ -3716,13 +2762,13 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternSurfaceMapping.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternSurfaceMapping.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirTemperaturePatternSurfaceMapping.name`')
         self._data["Name"] = value
 
     @property
@@ -3754,12 +2800,12 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `RoomAirTemperaturePatternSurfaceMapping.control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                                         'for field `RoomAirTemperaturePatternSurfaceMapping.control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -3790,7 +2836,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternSurfaceMapping.thermostat_offset`'.format(value))
         self._data["Thermostat Offset"] = value
 
     @property
@@ -3821,7 +2867,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `return_air_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternSurfaceMapping.return_air_offset`'.format(value))
         self._data["Return Air Offset"] = value
 
     @property
@@ -3852,1382 +2898,96 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `exhaust_air_offset`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternSurfaceMapping.exhaust_air_offset`'.format(value))
         self._data["Exhaust Air Offset"] = value
 
-    @property
-    def surface_name_pair_1(self):
-        """Get surface_name_pair_1
-
-        Returns:
-            str: the value of `surface_name_pair_1` or None if not set
-        """
-        return self._data["Surface Name Pair 1"]
-
-    @surface_name_pair_1.setter
-    def surface_name_pair_1(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 1`
+    def add_extensible(self,
+                       surface_name_pair_1=None,
+                       delta_adjacent_air_temperature_pair_1=None,
+                       ):
+        """ Add values for extensible fields
 
         Args:
-            value (str): value for IDD Field `Surface Name Pair 1`
+
+            surface_name_pair_1 (str): value for IDD Field `Surface Name Pair 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
-        Raises:
-            ValueError: if `value` is not a valid value
+            delta_adjacent_air_temperature_pair_1 (float): value for IDD Field `Delta Adjacent Air Temperature Pair 1`
+                Units: deltaC
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_surface_name_pair_1(surface_name_pair_1))
+        vals.append(self._check_delta_adjacent_air_temperature_pair_1(delta_adjacent_air_temperature_pair_1))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_surface_name_pair_1(self, value):
+        """ Validates falue of field `Surface Name Pair 1`
         """
         if value is not None:
             try:
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_1`'.format(value))
+                                 ' for field `RoomAirTemperaturePatternSurfaceMapping.surface_name_pair_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_1`')
+                                 'for field `RoomAirTemperaturePatternSurfaceMapping.surface_name_pair_1`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_1`')
-        self._data["Surface Name Pair 1"] = value
+                                 'for field `RoomAirTemperaturePatternSurfaceMapping.surface_name_pair_1`')
+        return value
 
-    @property
-    def delta_adjacent_air_temperature_pair_1(self):
-        """Get delta_adjacent_air_temperature_pair_1
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_1` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 1"]
-
-    @delta_adjacent_air_temperature_pair_1.setter
-    def delta_adjacent_air_temperature_pair_1(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 1`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 1`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
+    def _check_delta_adjacent_air_temperature_pair_1(self, value):
+        """ Validates falue of field `Delta Adjacent Air Temperature Pair 1`
         """
         if value is not None:
             try:
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_1`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 1"] = value
+                                 ' for field `RoomAirTemperaturePatternSurfaceMapping.delta_adjacent_air_temperature_pair_1`'.format(value))
+        return value
 
-    @property
-    def surface_name_pair_2(self):
-        """Get surface_name_pair_2
-
-        Returns:
-            str: the value of `surface_name_pair_2` or None if not set
-        """
-        return self._data["Surface Name Pair 2"]
-
-    @surface_name_pair_2.setter
-    def surface_name_pair_2(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 2`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 2`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_2`')
-        self._data["Surface Name Pair 2"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_2(self):
-        """Get delta_adjacent_air_temperature_pair_2
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_2` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 2"]
-
-    @delta_adjacent_air_temperature_pair_2.setter
-    def delta_adjacent_air_temperature_pair_2(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 2`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 2`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_2`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 2"] = value
-
-    @property
-    def surface_name_pair_3(self):
-        """Get surface_name_pair_3
-
-        Returns:
-            str: the value of `surface_name_pair_3` or None if not set
-        """
-        return self._data["Surface Name Pair 3"]
-
-    @surface_name_pair_3.setter
-    def surface_name_pair_3(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 3`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 3`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_3`')
-        self._data["Surface Name Pair 3"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_3(self):
-        """Get delta_adjacent_air_temperature_pair_3
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_3` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 3"]
-
-    @delta_adjacent_air_temperature_pair_3.setter
-    def delta_adjacent_air_temperature_pair_3(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 3`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 3`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_3`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 3"] = value
-
-    @property
-    def surface_name_pair_4(self):
-        """Get surface_name_pair_4
-
-        Returns:
-            str: the value of `surface_name_pair_4` or None if not set
-        """
-        return self._data["Surface Name Pair 4"]
-
-    @surface_name_pair_4.setter
-    def surface_name_pair_4(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 4`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 4`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_4`')
-        self._data["Surface Name Pair 4"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_4(self):
-        """Get delta_adjacent_air_temperature_pair_4
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_4` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 4"]
-
-    @delta_adjacent_air_temperature_pair_4.setter
-    def delta_adjacent_air_temperature_pair_4(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 4`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 4`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_4`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 4"] = value
-
-    @property
-    def surface_name_pair_5(self):
-        """Get surface_name_pair_5
-
-        Returns:
-            str: the value of `surface_name_pair_5` or None if not set
-        """
-        return self._data["Surface Name Pair 5"]
-
-    @surface_name_pair_5.setter
-    def surface_name_pair_5(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 5`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 5`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_5`')
-        self._data["Surface Name Pair 5"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_5(self):
-        """Get delta_adjacent_air_temperature_pair_5
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_5` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 5"]
-
-    @delta_adjacent_air_temperature_pair_5.setter
-    def delta_adjacent_air_temperature_pair_5(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 5`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 5`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_5`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 5"] = value
-
-    @property
-    def surface_name_pair_6(self):
-        """Get surface_name_pair_6
-
-        Returns:
-            str: the value of `surface_name_pair_6` or None if not set
-        """
-        return self._data["Surface Name Pair 6"]
-
-    @surface_name_pair_6.setter
-    def surface_name_pair_6(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 6`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 6`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_6`')
-        self._data["Surface Name Pair 6"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_6(self):
-        """Get delta_adjacent_air_temperature_pair_6
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_6` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 6"]
-
-    @delta_adjacent_air_temperature_pair_6.setter
-    def delta_adjacent_air_temperature_pair_6(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 6`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 6`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_6`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 6"] = value
-
-    @property
-    def surface_name_pair_7(self):
-        """Get surface_name_pair_7
-
-        Returns:
-            str: the value of `surface_name_pair_7` or None if not set
-        """
-        return self._data["Surface Name Pair 7"]
-
-    @surface_name_pair_7.setter
-    def surface_name_pair_7(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 7`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 7`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_7`')
-        self._data["Surface Name Pair 7"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_7(self):
-        """Get delta_adjacent_air_temperature_pair_7
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_7` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 7"]
-
-    @delta_adjacent_air_temperature_pair_7.setter
-    def delta_adjacent_air_temperature_pair_7(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 7`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 7`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_7`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 7"] = value
-
-    @property
-    def surface_name_pair_8(self):
-        """Get surface_name_pair_8
-
-        Returns:
-            str: the value of `surface_name_pair_8` or None if not set
-        """
-        return self._data["Surface Name Pair 8"]
-
-    @surface_name_pair_8.setter
-    def surface_name_pair_8(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 8`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 8`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_8`')
-        self._data["Surface Name Pair 8"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_8(self):
-        """Get delta_adjacent_air_temperature_pair_8
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_8` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 8"]
-
-    @delta_adjacent_air_temperature_pair_8.setter
-    def delta_adjacent_air_temperature_pair_8(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 8`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 8`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_8`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 8"] = value
-
-    @property
-    def surface_name_pair_9(self):
-        """Get surface_name_pair_9
-
-        Returns:
-            str: the value of `surface_name_pair_9` or None if not set
-        """
-        return self._data["Surface Name Pair 9"]
-
-    @surface_name_pair_9.setter
-    def surface_name_pair_9(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 9`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 9`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_9`')
-        self._data["Surface Name Pair 9"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_9(self):
-        """Get delta_adjacent_air_temperature_pair_9
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_9` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 9"]
-
-    @delta_adjacent_air_temperature_pair_9.setter
-    def delta_adjacent_air_temperature_pair_9(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 9`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 9`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_9`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 9"] = value
-
-    @property
-    def surface_name_pair_10(self):
-        """Get surface_name_pair_10
-
-        Returns:
-            str: the value of `surface_name_pair_10` or None if not set
-        """
-        return self._data["Surface Name Pair 10"]
-
-    @surface_name_pair_10.setter
-    def surface_name_pair_10(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 10`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 10`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_10`')
-        self._data["Surface Name Pair 10"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_10(self):
-        """Get delta_adjacent_air_temperature_pair_10
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_10` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 10"]
-
-    @delta_adjacent_air_temperature_pair_10.setter
-    def delta_adjacent_air_temperature_pair_10(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 10`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 10`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_10`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 10"] = value
-
-    @property
-    def surface_name_pair_11(self):
-        """Get surface_name_pair_11
-
-        Returns:
-            str: the value of `surface_name_pair_11` or None if not set
-        """
-        return self._data["Surface Name Pair 11"]
-
-    @surface_name_pair_11.setter
-    def surface_name_pair_11(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 11`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 11`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_11`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_11`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_11`')
-        self._data["Surface Name Pair 11"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_11(self):
-        """Get delta_adjacent_air_temperature_pair_11
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_11` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 11"]
-
-    @delta_adjacent_air_temperature_pair_11.setter
-    def delta_adjacent_air_temperature_pair_11(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 11`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 11`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_11`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 11"] = value
-
-    @property
-    def surface_name_pair_12(self):
-        """Get surface_name_pair_12
-
-        Returns:
-            str: the value of `surface_name_pair_12` or None if not set
-        """
-        return self._data["Surface Name Pair 12"]
-
-    @surface_name_pair_12.setter
-    def surface_name_pair_12(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 12`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 12`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_12`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_12`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_12`')
-        self._data["Surface Name Pair 12"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_12(self):
-        """Get delta_adjacent_air_temperature_pair_12
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_12` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 12"]
-
-    @delta_adjacent_air_temperature_pair_12.setter
-    def delta_adjacent_air_temperature_pair_12(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 12`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 12`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_12`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 12"] = value
-
-    @property
-    def surface_name_pair_13(self):
-        """Get surface_name_pair_13
-
-        Returns:
-            str: the value of `surface_name_pair_13` or None if not set
-        """
-        return self._data["Surface Name Pair 13"]
-
-    @surface_name_pair_13.setter
-    def surface_name_pair_13(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 13`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 13`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_13`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_13`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_13`')
-        self._data["Surface Name Pair 13"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_13(self):
-        """Get delta_adjacent_air_temperature_pair_13
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_13` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 13"]
-
-    @delta_adjacent_air_temperature_pair_13.setter
-    def delta_adjacent_air_temperature_pair_13(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 13`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 13`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_13`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 13"] = value
-
-    @property
-    def surface_name_pair_14(self):
-        """Get surface_name_pair_14
-
-        Returns:
-            str: the value of `surface_name_pair_14` or None if not set
-        """
-        return self._data["Surface Name Pair 14"]
-
-    @surface_name_pair_14.setter
-    def surface_name_pair_14(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 14`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 14`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_14`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_14`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_14`')
-        self._data["Surface Name Pair 14"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_14(self):
-        """Get delta_adjacent_air_temperature_pair_14
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_14` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 14"]
-
-    @delta_adjacent_air_temperature_pair_14.setter
-    def delta_adjacent_air_temperature_pair_14(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 14`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 14`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_14`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 14"] = value
-
-    @property
-    def surface_name_pair_15(self):
-        """Get surface_name_pair_15
-
-        Returns:
-            str: the value of `surface_name_pair_15` or None if not set
-        """
-        return self._data["Surface Name Pair 15"]
-
-    @surface_name_pair_15.setter
-    def surface_name_pair_15(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 15`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 15`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_15`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_15`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_15`')
-        self._data["Surface Name Pair 15"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_15(self):
-        """Get delta_adjacent_air_temperature_pair_15
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_15` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 15"]
-
-    @delta_adjacent_air_temperature_pair_15.setter
-    def delta_adjacent_air_temperature_pair_15(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 15`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 15`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_15`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 15"] = value
-
-    @property
-    def surface_name_pair_16(self):
-        """Get surface_name_pair_16
-
-        Returns:
-            str: the value of `surface_name_pair_16` or None if not set
-        """
-        return self._data["Surface Name Pair 16"]
-
-    @surface_name_pair_16.setter
-    def surface_name_pair_16(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 16`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 16`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_16`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_16`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_16`')
-        self._data["Surface Name Pair 16"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_16(self):
-        """Get delta_adjacent_air_temperature_pair_16
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_16` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 16"]
-
-    @delta_adjacent_air_temperature_pair_16.setter
-    def delta_adjacent_air_temperature_pair_16(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 16`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 16`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_16`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 16"] = value
-
-    @property
-    def surface_name_pair_17(self):
-        """Get surface_name_pair_17
-
-        Returns:
-            str: the value of `surface_name_pair_17` or None if not set
-        """
-        return self._data["Surface Name Pair 17"]
-
-    @surface_name_pair_17.setter
-    def surface_name_pair_17(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 17`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 17`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_17`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_17`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_17`')
-        self._data["Surface Name Pair 17"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_17(self):
-        """Get delta_adjacent_air_temperature_pair_17
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_17` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 17"]
-
-    @delta_adjacent_air_temperature_pair_17.setter
-    def delta_adjacent_air_temperature_pair_17(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 17`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 17`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_17`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 17"] = value
-
-    @property
-    def surface_name_pair_18(self):
-        """Get surface_name_pair_18
-
-        Returns:
-            str: the value of `surface_name_pair_18` or None if not set
-        """
-        return self._data["Surface Name Pair 18"]
-
-    @surface_name_pair_18.setter
-    def surface_name_pair_18(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 18`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 18`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_18`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_18`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_18`')
-        self._data["Surface Name Pair 18"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_18(self):
-        """Get delta_adjacent_air_temperature_pair_18
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_18` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 18"]
-
-    @delta_adjacent_air_temperature_pair_18.setter
-    def delta_adjacent_air_temperature_pair_18(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 18`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 18`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_18`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 18"] = value
-
-    @property
-    def surface_name_pair_19(self):
-        """Get surface_name_pair_19
-
-        Returns:
-            str: the value of `surface_name_pair_19` or None if not set
-        """
-        return self._data["Surface Name Pair 19"]
-
-    @surface_name_pair_19.setter
-    def surface_name_pair_19(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 19`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 19`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_19`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_19`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_19`')
-        self._data["Surface Name Pair 19"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_19(self):
-        """Get delta_adjacent_air_temperature_pair_19
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_19` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 19"]
-
-    @delta_adjacent_air_temperature_pair_19.setter
-    def delta_adjacent_air_temperature_pair_19(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 19`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 19`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_19`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 19"] = value
-
-    @property
-    def surface_name_pair_20(self):
-        """Get surface_name_pair_20
-
-        Returns:
-            str: the value of `surface_name_pair_20` or None if not set
-        """
-        return self._data["Surface Name Pair 20"]
-
-    @surface_name_pair_20.setter
-    def surface_name_pair_20(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 20`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 20`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_20`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_20`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_20`')
-        self._data["Surface Name Pair 20"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_20(self):
-        """Get delta_adjacent_air_temperature_pair_20
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_20` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 20"]
-
-    @delta_adjacent_air_temperature_pair_20.setter
-    def delta_adjacent_air_temperature_pair_20(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 20`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 20`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_20`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 20"] = value
-
-    @property
-    def surface_name_pair_21(self):
-        """Get surface_name_pair_21
-
-        Returns:
-            str: the value of `surface_name_pair_21` or None if not set
-        """
-        return self._data["Surface Name Pair 21"]
-
-    @surface_name_pair_21.setter
-    def surface_name_pair_21(self, value=None):
-        """  Corresponds to IDD Field `Surface Name Pair 21`
-
-        Args:
-            value (str): value for IDD Field `Surface Name Pair 21`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 'for field `surface_name_pair_21`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `surface_name_pair_21`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `surface_name_pair_21`')
-        self._data["Surface Name Pair 21"] = value
-
-    @property
-    def delta_adjacent_air_temperature_pair_21(self):
-        """Get delta_adjacent_air_temperature_pair_21
-
-        Returns:
-            float: the value of `delta_adjacent_air_temperature_pair_21` or None if not set
-        """
-        return self._data["Delta Adjacent Air Temperature Pair 21"]
-
-    @delta_adjacent_air_temperature_pair_21.setter
-    def delta_adjacent_air_temperature_pair_21(self, value=None):
-        """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 21`
-
-        Args:
-            value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 21`
-                Units: deltaC
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 'for field `delta_adjacent_air_temperature_pair_21`'.format(value))
-        self._data["Delta Adjacent Air Temperature Pair 21"] = value
-
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirTemperaturePatternSurfaceMapping:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirTemperaturePatternSurfaceMapping:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirTemperaturePatternSurfaceMapping: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirTemperaturePatternSurfaceMapping: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -5245,8 +3005,27 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -5261,6 +3040,10 @@ class RoomAirNode(object):
     internal_name = "RoomAir:Node"
     field_count = 25
     required_fields = ["Node Type", "Zone Name", "Height of Nodal Control Volume Center"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:Node`
@@ -5291,6 +3074,7 @@ class RoomAirNode(object):
         self._data["Surface 19 Name"] = None
         self._data["Surface 20 Name"] = None
         self._data["Surface 21 Name"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -5505,13 +3289,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `RoomAirNode.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `RoomAirNode.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `RoomAirNode.name`')
         self._data["Name"] = value
 
     @property
@@ -5547,13 +3331,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `node_type`'.format(value))
+                                 ' for field `RoomAirNode.node_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `node_type`')
+                                 'for field `RoomAirNode.node_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `node_type`')
+                                 'for field `RoomAirNode.node_type`')
             vals = {}
             vals["inlet"] = "Inlet"
             vals["floor"] = "Floor"
@@ -5580,10 +3364,10 @@ class RoomAirNode(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `node_type`'.format(value))
+                                     'field `RoomAirNode.node_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `node_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirNode.node_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Node Type"] = value
 
@@ -5613,13 +3397,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirNode.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirNode.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirNode.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -5649,7 +3433,7 @@ class RoomAirNode(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `height_of_nodal_control_volume_center`'.format(value))
+                                 ' for field `RoomAirNode.height_of_nodal_control_volume_center`'.format(value))
         self._data["Height of Nodal Control Volume Center"] = value
 
     @property
@@ -5678,13 +3462,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_1_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_1_name`')
+                                 'for field `RoomAirNode.surface_1_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_1_name`')
+                                 'for field `RoomAirNode.surface_1_name`')
         self._data["Surface 1 Name"] = value
 
     @property
@@ -5713,13 +3497,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_2_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_2_name`')
+                                 'for field `RoomAirNode.surface_2_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_2_name`')
+                                 'for field `RoomAirNode.surface_2_name`')
         self._data["Surface 2 Name"] = value
 
     @property
@@ -5748,13 +3532,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_3_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_3_name`')
+                                 'for field `RoomAirNode.surface_3_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_3_name`')
+                                 'for field `RoomAirNode.surface_3_name`')
         self._data["Surface 3 Name"] = value
 
     @property
@@ -5783,13 +3567,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_4_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_4_name`')
+                                 'for field `RoomAirNode.surface_4_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_4_name`')
+                                 'for field `RoomAirNode.surface_4_name`')
         self._data["Surface 4 Name"] = value
 
     @property
@@ -5818,13 +3602,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_5_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_5_name`')
+                                 'for field `RoomAirNode.surface_5_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_5_name`')
+                                 'for field `RoomAirNode.surface_5_name`')
         self._data["Surface 5 Name"] = value
 
     @property
@@ -5853,13 +3637,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_6_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_6_name`')
+                                 'for field `RoomAirNode.surface_6_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_6_name`')
+                                 'for field `RoomAirNode.surface_6_name`')
         self._data["Surface 6 Name"] = value
 
     @property
@@ -5888,13 +3672,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_7_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_7_name`')
+                                 'for field `RoomAirNode.surface_7_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_7_name`')
+                                 'for field `RoomAirNode.surface_7_name`')
         self._data["Surface 7 Name"] = value
 
     @property
@@ -5923,13 +3707,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_8_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_8_name`')
+                                 'for field `RoomAirNode.surface_8_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_8_name`')
+                                 'for field `RoomAirNode.surface_8_name`')
         self._data["Surface 8 Name"] = value
 
     @property
@@ -5958,13 +3742,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_9_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_9_name`')
+                                 'for field `RoomAirNode.surface_9_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_9_name`')
+                                 'for field `RoomAirNode.surface_9_name`')
         self._data["Surface 9 Name"] = value
 
     @property
@@ -5993,13 +3777,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_10_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_10_name`')
+                                 'for field `RoomAirNode.surface_10_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_10_name`')
+                                 'for field `RoomAirNode.surface_10_name`')
         self._data["Surface 10 Name"] = value
 
     @property
@@ -6028,13 +3812,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_11_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_11_name`')
+                                 'for field `RoomAirNode.surface_11_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_11_name`')
+                                 'for field `RoomAirNode.surface_11_name`')
         self._data["Surface 11 Name"] = value
 
     @property
@@ -6063,13 +3847,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_12_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_12_name`')
+                                 'for field `RoomAirNode.surface_12_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_12_name`')
+                                 'for field `RoomAirNode.surface_12_name`')
         self._data["Surface 12 Name"] = value
 
     @property
@@ -6098,13 +3882,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_13_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_13_name`')
+                                 'for field `RoomAirNode.surface_13_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_13_name`')
+                                 'for field `RoomAirNode.surface_13_name`')
         self._data["Surface 13 Name"] = value
 
     @property
@@ -6133,13 +3917,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_14_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_14_name`')
+                                 'for field `RoomAirNode.surface_14_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_14_name`')
+                                 'for field `RoomAirNode.surface_14_name`')
         self._data["Surface 14 Name"] = value
 
     @property
@@ -6168,13 +3952,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_15_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_15_name`')
+                                 'for field `RoomAirNode.surface_15_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_15_name`')
+                                 'for field `RoomAirNode.surface_15_name`')
         self._data["Surface 15 Name"] = value
 
     @property
@@ -6203,13 +3987,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_16_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_16_name`')
+                                 'for field `RoomAirNode.surface_16_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_16_name`')
+                                 'for field `RoomAirNode.surface_16_name`')
         self._data["Surface 16 Name"] = value
 
     @property
@@ -6238,13 +4022,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_17_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_17_name`')
+                                 'for field `RoomAirNode.surface_17_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_17_name`')
+                                 'for field `RoomAirNode.surface_17_name`')
         self._data["Surface 17 Name"] = value
 
     @property
@@ -6273,13 +4057,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_18_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_18_name`')
+                                 'for field `RoomAirNode.surface_18_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_18_name`')
+                                 'for field `RoomAirNode.surface_18_name`')
         self._data["Surface 18 Name"] = value
 
     @property
@@ -6308,13 +4092,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_19_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_19_name`')
+                                 'for field `RoomAirNode.surface_19_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_19_name`')
+                                 'for field `RoomAirNode.surface_19_name`')
         self._data["Surface 19 Name"] = value
 
     @property
@@ -6343,13 +4127,13 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_20_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_20_name`')
+                                 'for field `RoomAirNode.surface_20_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_20_name`')
+                                 'for field `RoomAirNode.surface_20_name`')
         self._data["Surface 20 Name"] = value
 
     @property
@@ -6378,23 +4162,46 @@ class RoomAirNode(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `surface_21_name`'.format(value))
+                                 ' for field `RoomAirNode.surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `surface_21_name`')
+                                 'for field `RoomAirNode.surface_21_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `surface_21_name`')
+                                 'for field `RoomAirNode.surface_21_name`')
         self._data["Surface 21 Name"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirNode:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirNode:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirNode: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirNode: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6412,8 +4219,27 @@ class RoomAirNode(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6428,6 +4254,10 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
     internal_name = "RoomAirSettings:OneNodeDisplacementVentilation"
     field_count = 3
     required_fields = ["Zone Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:OneNodeDisplacementVentilation`
@@ -6436,6 +4266,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
         self._data["Zone Name"] = None
         self._data["Fraction of Convective Internal Loads Added to Floor Air"] = None
         self._data["Fraction of Infiltration Internal Loads Added to Floor Air"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6496,13 +4327,13 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirSettingsOneNodeDisplacementVentilation.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsOneNodeDisplacementVentilation.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsOneNodeDisplacementVentilation.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -6533,13 +4364,13 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_convective_internal_loads_added_to_floor_air`'.format(value))
+                                 ' for field `RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_convective_internal_loads_added_to_floor_air`')
+                                 'for field `RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_convective_internal_loads_added_to_floor_air`')
+                                 'for field `RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air`')
         self._data["Fraction of Convective Internal Loads Added to Floor Air"] = value
 
     @property
@@ -6570,23 +4401,46 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_infiltration_internal_loads_added_to_floor_air`'.format(value))
+                                 ' for field `RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_infiltration_internal_loads_added_to_floor_air`')
+                                 'for field `RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_infiltration_internal_loads_added_to_floor_air`')
+                                 'for field `RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air`')
         self._data["Fraction of Infiltration Internal Loads Added to Floor Air"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirSettingsOneNodeDisplacementVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirSettingsOneNodeDisplacementVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirSettingsOneNodeDisplacementVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirSettingsOneNodeDisplacementVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6604,8 +4458,27 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6620,6 +4493,10 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
     internal_name = "RoomAirSettings:ThreeNodeDisplacementVentilation"
     field_count = 6
     required_fields = ["Zone Name", "Gain Distribution Schedule Name", "Number of Plumes per Occupant", "Temperature Difference Threshold for Reporting"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:ThreeNodeDisplacementVentilation`
@@ -6631,6 +4508,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         self._data["Thermostat Height"] = None
         self._data["Comfort Height"] = None
         self._data["Temperature Difference Threshold for Reporting"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -6713,13 +4591,13 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirSettingsThreeNodeDisplacementVentilation.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -6751,13 +4629,13 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gain_distribution_schedule_name`'.format(value))
+                                 ' for field `RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gain_distribution_schedule_name`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gain_distribution_schedule_name`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name`')
         self._data["Gain Distribution Schedule Name"] = value
 
     @property
@@ -6791,10 +4669,10 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `number_of_plumes_per_occupant`'.format(value))
+                                 ' for field `RoomAirSettingsThreeNodeDisplacementVentilation.number_of_plumes_per_occupant`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `number_of_plumes_per_occupant`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.number_of_plumes_per_occupant`')
         self._data["Number of Plumes per Occupant"] = value
 
     @property
@@ -6827,10 +4705,10 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_height`'.format(value))
+                                 ' for field `RoomAirSettingsThreeNodeDisplacementVentilation.thermostat_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermostat_height`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.thermostat_height`')
         self._data["Thermostat Height"] = value
 
     @property
@@ -6863,10 +4741,10 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `comfort_height`'.format(value))
+                                 ' for field `RoomAirSettingsThreeNodeDisplacementVentilation.comfort_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `comfort_height`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.comfort_height`')
         self._data["Comfort Height"] = value
 
     @property
@@ -6904,20 +4782,43 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_difference_threshold_for_reporting`'.format(value))
+                                 ' for field `RoomAirSettingsThreeNodeDisplacementVentilation.temperature_difference_threshold_for_reporting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `temperature_difference_threshold_for_reporting`')
+                                 'for field `RoomAirSettingsThreeNodeDisplacementVentilation.temperature_difference_threshold_for_reporting`')
         self._data["Temperature Difference Threshold for Reporting"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirSettingsThreeNodeDisplacementVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirSettingsThreeNodeDisplacementVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirSettingsThreeNodeDisplacementVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirSettingsThreeNodeDisplacementVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -6935,8 +4836,27 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -6955,6 +4875,10 @@ class RoomAirSettingsCrossVentilation(object):
     internal_name = "RoomAirSettings:CrossVentilation"
     field_count = 3
     required_fields = ["Zone Name", "Gain Distribution Schedule Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 0
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:CrossVentilation`
@@ -6963,6 +4887,7 @@ class RoomAirSettingsCrossVentilation(object):
         self._data["Zone Name"] = None
         self._data["Gain Distribution Schedule Name"] = None
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7024,13 +4949,13 @@ class RoomAirSettingsCrossVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirSettingsCrossVentilation.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsCrossVentilation.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsCrossVentilation.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -7062,13 +4987,13 @@ class RoomAirSettingsCrossVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `gain_distribution_schedule_name`'.format(value))
+                                 ' for field `RoomAirSettingsCrossVentilation.gain_distribution_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `gain_distribution_schedule_name`')
+                                 'for field `RoomAirSettingsCrossVentilation.gain_distribution_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `gain_distribution_schedule_name`')
+                                 'for field `RoomAirSettingsCrossVentilation.gain_distribution_schedule_name`')
         self._data["Gain Distribution Schedule Name"] = value
 
     @property
@@ -7103,13 +5028,13 @@ class RoomAirSettingsCrossVentilation(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
+                                 ' for field `RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `airflow_region_used_for_thermal_comfort_evaluation`')
+                                 'for field `RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `airflow_region_used_for_thermal_comfort_evaluation`')
+                                 'for field `RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation`')
             vals = {}
             vals["jet"] = "Jet"
             vals["recirculation"] = "Recirculation"
@@ -7132,21 +5057,44 @@ class RoomAirSettingsCrossVentilation(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
+                                     'field `RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirSettingsCrossVentilation:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirSettingsCrossVentilation:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirSettingsCrossVentilation: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirSettingsCrossVentilation: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -7164,8 +5112,27 @@ class RoomAirSettingsCrossVentilation(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -7185,6 +5152,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
     internal_name = "RoomAirSettings:UnderFloorAirDistributionInterior"
     field_count = 15
     required_fields = ["Zone Name", "Temperature Difference Threshold for Reporting", "Floor Diffuser Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 15
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:UnderFloorAirDistributionInterior`
@@ -7205,6 +5176,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         self._data["Coefficient C"] = None
         self._data["Coefficient D"] = None
         self._data["Coefficient E"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -7350,13 +5322,13 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -7390,8 +5362,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Number of Diffusers"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `number_of_diffusers`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers`'.format(value))
                     self._data["Number of Diffusers"] = "Autocalculate"
                     return
             except ValueError:
@@ -7400,10 +5372,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `number_of_diffusers`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `number_of_diffusers`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers`')
         self._data["Number of Diffusers"] = value
 
     @property
@@ -7437,8 +5409,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Power per Plume"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `power_per_plume`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume`'.format(value))
                     self._data["Power per Plume"] = "Autocalculate"
                     return
             except ValueError:
@@ -7447,10 +5419,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `power_per_plume`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `power_per_plume`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume`')
         self._data["Power per Plume"] = value
 
     @property
@@ -7484,8 +5456,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `design_effective_area_of_diffuser`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser`'.format(value))
                     self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
             except ValueError:
@@ -7494,10 +5466,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `design_effective_area_of_diffuser`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `design_effective_area_of_diffuser`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser`')
         self._data["Design Effective Area of Diffuser"] = value
 
     @property
@@ -7532,8 +5504,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `diffuser_slot_angle_from_vertical`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical`'.format(value))
                     self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
             except ValueError:
@@ -7542,13 +5514,13 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `diffuser_slot_angle_from_vertical`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `diffuser_slot_angle_from_vertical`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical`')
             if value > 90.0:
                 raise ValueError('value need to be smaller 90.0 '
-                                 'for field `diffuser_slot_angle_from_vertical`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical`')
         self._data["Diffuser Slot Angle from Vertical"] = value
 
     @property
@@ -7581,10 +5553,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_height`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.thermostat_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermostat_height`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.thermostat_height`')
         self._data["Thermostat Height"] = value
 
     @property
@@ -7617,10 +5589,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `comfort_height`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.comfort_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `comfort_height`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.comfort_height`')
         self._data["Comfort Height"] = value
 
     @property
@@ -7657,10 +5629,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_difference_threshold_for_reporting`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.temperature_difference_threshold_for_reporting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `temperature_difference_threshold_for_reporting`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.temperature_difference_threshold_for_reporting`')
         self._data["Temperature Difference Threshold for Reporting"] = value
 
     @property
@@ -7696,13 +5668,13 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `floor_diffuser_type`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `floor_diffuser_type`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `floor_diffuser_type`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type`')
             vals = {}
             vals["custom"] = "Custom"
             vals["swirl"] = "Swirl"
@@ -7728,10 +5700,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `floor_diffuser_type`'.format(value))
+                                     'field `RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `floor_diffuser_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Diffuser Type"] = value
 
@@ -7767,8 +5739,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Transition Height"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `transition_height`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.transition_height`'.format(value))
                     self._data["Transition Height"] = "Autocalculate"
                     return
             except ValueError:
@@ -7777,10 +5749,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `transition_height`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.transition_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `transition_height`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.transition_height`')
         self._data["Transition Height"] = value
 
     @property
@@ -7814,8 +5786,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Coefficient A"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_a`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_a`'.format(value))
                     self._data["Coefficient A"] = "Autocalculate"
                     return
             except ValueError:
@@ -7824,7 +5796,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_a`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_a`'.format(value))
         self._data["Coefficient A"] = value
 
     @property
@@ -7858,8 +5830,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Coefficient B"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_b`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_b`'.format(value))
                     self._data["Coefficient B"] = "Autocalculate"
                     return
             except ValueError:
@@ -7868,7 +5840,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_b`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_b`'.format(value))
         self._data["Coefficient B"] = value
 
     @property
@@ -7902,8 +5874,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Coefficient C"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_c`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_c`'.format(value))
                     self._data["Coefficient C"] = "Autocalculate"
                     return
             except ValueError:
@@ -7912,7 +5884,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_c`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_c`'.format(value))
         self._data["Coefficient C"] = value
 
     @property
@@ -7946,8 +5918,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Coefficient D"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_d`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_d`'.format(value))
                     self._data["Coefficient D"] = "Autocalculate"
                     return
             except ValueError:
@@ -7956,7 +5928,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_d`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_d`'.format(value))
         self._data["Coefficient D"] = value
 
     @property
@@ -7990,8 +5962,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                     self._data["Coefficient E"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_e`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_e`'.format(value))
                     self._data["Coefficient E"] = "Autocalculate"
                     return
             except ValueError:
@@ -8000,17 +5972,40 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_e`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_e`'.format(value))
         self._data["Coefficient E"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirSettingsUnderFloorAirDistributionInterior:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirSettingsUnderFloorAirDistributionInterior:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirSettingsUnderFloorAirDistributionInterior: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirSettingsUnderFloorAirDistributionInterior: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8028,8 +6023,27 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -8047,6 +6061,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
     internal_name = "RoomAirSettings:UnderFloorAirDistributionExterior"
     field_count = 15
     required_fields = ["Zone Name", "Temperature Difference Threshold for Reporting", "Floor Diffuser Type"]
+    extensible_fields = 0
+    format = None
+    min_fields = 15
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:UnderFloorAirDistributionExterior`
@@ -8067,6 +6085,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
         self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
         self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -8212,13 +6231,13 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -8251,8 +6270,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Number of Diffusers per Zone"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `number_of_diffusers_per_zone`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone`'.format(value))
                     self._data["Number of Diffusers per Zone"] = "Autocalculate"
                     return
             except ValueError:
@@ -8261,10 +6280,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `number_of_diffusers_per_zone`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `number_of_diffusers_per_zone`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone`')
         self._data["Number of Diffusers per Zone"] = value
 
     @property
@@ -8298,8 +6317,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Power per Plume"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `power_per_plume`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume`'.format(value))
                     self._data["Power per Plume"] = "Autocalculate"
                     return
             except ValueError:
@@ -8308,10 +6327,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `power_per_plume`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `power_per_plume`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume`')
         self._data["Power per Plume"] = value
 
     @property
@@ -8345,8 +6364,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `design_effective_area_of_diffuser`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser`'.format(value))
                     self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
             except ValueError:
@@ -8355,10 +6374,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `design_effective_area_of_diffuser`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `design_effective_area_of_diffuser`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser`')
         self._data["Design Effective Area of Diffuser"] = value
 
     @property
@@ -8393,8 +6412,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `diffuser_slot_angle_from_vertical`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical`'.format(value))
                     self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
             except ValueError:
@@ -8403,13 +6422,13 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `diffuser_slot_angle_from_vertical`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `diffuser_slot_angle_from_vertical`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical`')
             if value > 90.0:
                 raise ValueError('value need to be smaller 90.0 '
-                                 'for field `diffuser_slot_angle_from_vertical`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical`')
         self._data["Diffuser Slot Angle from Vertical"] = value
 
     @property
@@ -8442,10 +6461,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `thermostat_height`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.thermostat_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `thermostat_height`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.thermostat_height`')
         self._data["Thermostat Height"] = value
 
     @property
@@ -8478,10 +6497,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `comfort_height`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.comfort_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `comfort_height`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.comfort_height`')
         self._data["Comfort Height"] = value
 
     @property
@@ -8518,10 +6537,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `temperature_difference_threshold_for_reporting`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.temperature_difference_threshold_for_reporting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `temperature_difference_threshold_for_reporting`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.temperature_difference_threshold_for_reporting`')
         self._data["Temperature Difference Threshold for Reporting"] = value
 
     @property
@@ -8557,13 +6576,13 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `floor_diffuser_type`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `floor_diffuser_type`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `floor_diffuser_type`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type`')
             vals = {}
             vals["custom"] = "Custom"
             vals["swirl"] = "Swirl"
@@ -8589,10 +6608,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `floor_diffuser_type`'.format(value))
+                                     'field `RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `floor_diffuser_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Diffuser Type"] = value
 
@@ -8628,8 +6647,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Transition Height"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `transition_height`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.transition_height`'.format(value))
                     self._data["Transition Height"] = "Autocalculate"
                     return
             except ValueError:
@@ -8638,10 +6657,10 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `transition_height`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.transition_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `transition_height`')
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.transition_height`')
         self._data["Transition Height"] = value
 
     @property
@@ -8674,8 +6693,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
                     self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
@@ -8684,7 +6703,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
     @property
@@ -8717,8 +6736,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
                     self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
@@ -8727,7 +6746,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
     @property
@@ -8760,8 +6779,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
                     self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
@@ -8770,7 +6789,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
     @property
@@ -8803,8 +6822,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
                     self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
@@ -8813,7 +6832,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
     @property
@@ -8846,8 +6865,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                     self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autocalculate" '
-                                 'for field `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    logger.warn('Accept value {} as "Autocalculate" '
+                                 'for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
                     self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
@@ -8856,17 +6875,40 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 'for field `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                                 ' for field `RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field RoomAirSettingsUnderFloorAirDistributionExterior:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field RoomAirSettingsUnderFloorAirDistributionExterior:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for RoomAirSettingsUnderFloorAirDistributionExterior: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for RoomAirSettingsUnderFloorAirDistributionExterior: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -8884,8 +6926,27 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):

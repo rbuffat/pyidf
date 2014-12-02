@@ -2,6 +2,205 @@ from collections import OrderedDict
 import logging
 import re
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
+
+class BranchList(object):
+    """ Corresponds to IDD object `BranchList`
+        Branches MUST be listed in Flow order: Inlet branch, then parallel branches, then Outlet branch.
+        Branches are simulated in the order listed.  Branch names cannot be duplicated within a single branch list.
+    """
+    internal_name = "BranchList"
+    field_count = 1
+    required_fields = ["Name"]
+    extensible_fields = 1
+    format = None
+    min_fields = 2
+    extensible_keys = ["Branch Name"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `BranchList`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["extensibles"] = []
+        self.strict = True
+
+    def read(self, vals, strict=False):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        old_strict = self.strict
+        self.strict = strict
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        while i < len(vals):
+            ext_vals = [None] * self.extensible_fields
+            for j, val in enumerate(vals[i:i + self.extensible_fields]):
+                if len(val) == 0:
+                    val = None
+                ext_vals[j] = val
+            self.add_extensible(*ext_vals)
+            i += self.extensible_fields
+        self.strict = old_strict
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `Name`
+
+        Args:
+            value (str): value for IDD Field `Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `BranchList.name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `BranchList.name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `BranchList.name`')
+        self._data["Name"] = value
+
+    def add_extensible(self,
+                       branch_name=None,
+                       ):
+        """ Add values for extensible fields
+
+        Args:
+
+            branch_name (str): value for IDD Field `Branch Name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+        """
+        vals = []
+        vals.append(self._check_branch_name(branch_name))
+        self._data["extensibles"].append(vals)
+
+    @property
+    def extensibles(self):
+        """ Get list of all extensibles
+        """
+        return self._data["extensibles"]
+
+    def _check_branch_name(self, value):
+        """ Validates falue of field `Branch Name`
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError('value {} need to be of type str'
+                                 ' for field `BranchList.branch_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `BranchList.branch_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `BranchList.branch_name`')
+        return value
+
+    def check(self, strict=True):
+        """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                if strict:
+                    raise ValueError("Required field BranchList:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field BranchList:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for BranchList: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for BranchList: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
 class PumpVariableSpeed(object):
     """ Corresponds to IDD object `Pump:VariableSpeed`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
@@ -9,6 +208,10 @@ class PumpVariableSpeed(object):
     internal_name = "Pump:VariableSpeed"
     field_count = 25
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 14
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pump:VariableSpeed`
@@ -39,6 +242,7 @@ class PumpVariableSpeed(object):
         self._data["Maximum RPM Schedule"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -253,13 +457,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PumpVariableSpeed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PumpVariableSpeed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PumpVariableSpeed.name`')
         self._data["Name"] = value
 
     @property
@@ -288,13 +492,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `PumpVariableSpeed.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `PumpVariableSpeed.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `PumpVariableSpeed.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -323,13 +527,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `PumpVariableSpeed.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `PumpVariableSpeed.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `PumpVariableSpeed.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -363,8 +567,8 @@ class PumpVariableSpeed(object):
                     self._data["Rated Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PumpVariableSpeed.rated_flow_rate`'.format(value))
                     self._data["Rated Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -373,10 +577,10 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_flow_rate`'.format(value))
+                                 ' for field `PumpVariableSpeed.rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_flow_rate`')
+                                 'for field `PumpVariableSpeed.rated_flow_rate`')
         self._data["Rated Flow Rate"] = value
 
     @property
@@ -409,7 +613,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_pump_head`'.format(value))
+                                 ' for field `PumpVariableSpeed.rated_pump_head`'.format(value))
         self._data["Rated Pump Head"] = value
 
     @property
@@ -444,8 +648,8 @@ class PumpVariableSpeed(object):
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_power_consumption`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PumpVariableSpeed.rated_power_consumption`'.format(value))
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
             except ValueError:
@@ -454,7 +658,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_power_consumption`'.format(value))
+                                 ' for field `PumpVariableSpeed.rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -488,13 +692,13 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `PumpVariableSpeed.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `PumpVariableSpeed.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `PumpVariableSpeed.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -526,13 +730,13 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
+                                 ' for field `PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -562,7 +766,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeed.coefficient_1_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 1 of the Part Load Performance Curve"] = value
 
     @property
@@ -592,7 +796,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeed.coefficient_2_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 2 of the Part Load Performance Curve"] = value
 
     @property
@@ -622,7 +826,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeed.coefficient_3_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 3 of the Part Load Performance Curve"] = value
 
     @property
@@ -652,7 +856,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeed.coefficient_4_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 4 of the Part Load Performance Curve"] = value
 
     @property
@@ -685,7 +889,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_flow_rate`'.format(value))
+                                 ' for field `PumpVariableSpeed.minimum_flow_rate`'.format(value))
         self._data["Minimum Flow Rate"] = value
 
     @property
@@ -718,13 +922,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_control_type`'.format(value))
+                                 ' for field `PumpVariableSpeed.pump_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
+                                 'for field `PumpVariableSpeed.pump_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
+                                 'for field `PumpVariableSpeed.pump_control_type`')
             vals = {}
             vals["continuous"] = "Continuous"
             vals["intermittent"] = "Intermittent"
@@ -747,10 +951,10 @@ class PumpVariableSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
+                                     'field `PumpVariableSpeed.pump_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pump_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PumpVariableSpeed.pump_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pump Control Type"] = value
 
@@ -783,13 +987,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
+                                 ' for field `PumpVariableSpeed.pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `PumpVariableSpeed.pump_flow_rate_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `PumpVariableSpeed.pump_flow_rate_schedule_name`')
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -827,13 +1031,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_curve_name`'.format(value))
+                                 ' for field `PumpVariableSpeed.pump_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_curve_name`')
+                                 'for field `PumpVariableSpeed.pump_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_curve_name`')
+                                 'for field `PumpVariableSpeed.pump_curve_name`')
         self._data["Pump Curve Name"] = value
 
     @property
@@ -864,7 +1068,7 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `impeller_diameter`'.format(value))
+                                 ' for field `PumpVariableSpeed.impeller_diameter`'.format(value))
         self._data["Impeller Diameter"] = value
 
     @property
@@ -896,13 +1100,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `vfd_control_type`'.format(value))
+                                 ' for field `PumpVariableSpeed.vfd_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `vfd_control_type`')
+                                 'for field `PumpVariableSpeed.vfd_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `vfd_control_type`')
+                                 'for field `PumpVariableSpeed.vfd_control_type`')
             vals = {}
             vals["manualcontrol"] = "ManualControl"
             vals["pressuresetpointcontrol"] = "PressureSetpointControl"
@@ -925,10 +1129,10 @@ class PumpVariableSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `vfd_control_type`'.format(value))
+                                     'field `PumpVariableSpeed.vfd_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `vfd_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PumpVariableSpeed.vfd_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["VFD Control Type"] = value
 
@@ -961,13 +1165,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_rpm_schedule_name`'.format(value))
+                                 ' for field `PumpVariableSpeed.pump_rpm_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_rpm_schedule_name`')
+                                 'for field `PumpVariableSpeed.pump_rpm_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_rpm_schedule_name`')
+                                 'for field `PumpVariableSpeed.pump_rpm_schedule_name`')
         self._data["Pump rpm Schedule Name"] = value
 
     @property
@@ -997,13 +1201,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_pressure_schedule`'.format(value))
+                                 ' for field `PumpVariableSpeed.minimum_pressure_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_pressure_schedule`')
+                                 'for field `PumpVariableSpeed.minimum_pressure_schedule`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_pressure_schedule`')
+                                 'for field `PumpVariableSpeed.minimum_pressure_schedule`')
         self._data["Minimum Pressure Schedule"] = value
 
     @property
@@ -1033,13 +1237,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_pressure_schedule`'.format(value))
+                                 ' for field `PumpVariableSpeed.maximum_pressure_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_pressure_schedule`')
+                                 'for field `PumpVariableSpeed.maximum_pressure_schedule`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_pressure_schedule`')
+                                 'for field `PumpVariableSpeed.maximum_pressure_schedule`')
         self._data["Maximum Pressure Schedule"] = value
 
     @property
@@ -1069,13 +1273,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `minimum_rpm_schedule`'.format(value))
+                                 ' for field `PumpVariableSpeed.minimum_rpm_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `minimum_rpm_schedule`')
+                                 'for field `PumpVariableSpeed.minimum_rpm_schedule`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `minimum_rpm_schedule`')
+                                 'for field `PumpVariableSpeed.minimum_rpm_schedule`')
         self._data["Minimum RPM Schedule"] = value
 
     @property
@@ -1105,13 +1309,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `maximum_rpm_schedule`'.format(value))
+                                 ' for field `PumpVariableSpeed.maximum_rpm_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `maximum_rpm_schedule`')
+                                 'for field `PumpVariableSpeed.maximum_rpm_schedule`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `maximum_rpm_schedule`')
+                                 'for field `PumpVariableSpeed.maximum_rpm_schedule`')
         self._data["Maximum RPM Schedule"] = value
 
     @property
@@ -1141,13 +1345,13 @@ class PumpVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `PumpVariableSpeed.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `PumpVariableSpeed.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `PumpVariableSpeed.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -1180,23 +1384,46 @@ class PumpVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `PumpVariableSpeed.skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `PumpVariableSpeed.skin_loss_radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `PumpVariableSpeed.skin_loss_radiative_fraction`')
         self._data["Skin Loss Radiative Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PumpVariableSpeed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PumpVariableSpeed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PumpVariableSpeed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PumpVariableSpeed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1214,8 +1441,27 @@ class PumpVariableSpeed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -1230,6 +1476,10 @@ class PumpConstantSpeed(object):
     internal_name = "Pump:ConstantSpeed"
     field_count = 15
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pump:ConstantSpeed`
@@ -1250,6 +1500,7 @@ class PumpConstantSpeed(object):
         self._data["Rotational Speed"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -1394,13 +1645,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PumpConstantSpeed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PumpConstantSpeed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PumpConstantSpeed.name`')
         self._data["Name"] = value
 
     @property
@@ -1429,13 +1680,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `PumpConstantSpeed.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `PumpConstantSpeed.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `PumpConstantSpeed.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -1464,13 +1715,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `PumpConstantSpeed.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `PumpConstantSpeed.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `PumpConstantSpeed.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -1504,8 +1755,8 @@ class PumpConstantSpeed(object):
                     self._data["Rated Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PumpConstantSpeed.rated_flow_rate`'.format(value))
                     self._data["Rated Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -1514,10 +1765,10 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_flow_rate`'.format(value))
+                                 ' for field `PumpConstantSpeed.rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_flow_rate`')
+                                 'for field `PumpConstantSpeed.rated_flow_rate`')
         self._data["Rated Flow Rate"] = value
 
     @property
@@ -1550,7 +1801,7 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_pump_head`'.format(value))
+                                 ' for field `PumpConstantSpeed.rated_pump_head`'.format(value))
         self._data["Rated Pump Head"] = value
 
     @property
@@ -1585,8 +1836,8 @@ class PumpConstantSpeed(object):
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_power_consumption`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PumpConstantSpeed.rated_power_consumption`'.format(value))
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
             except ValueError:
@@ -1595,7 +1846,7 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_power_consumption`'.format(value))
+                                 ' for field `PumpConstantSpeed.rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -1629,13 +1880,13 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `PumpConstantSpeed.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `PumpConstantSpeed.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `PumpConstantSpeed.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -1667,13 +1918,13 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
+                                 ' for field `PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -1706,13 +1957,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_control_type`'.format(value))
+                                 ' for field `PumpConstantSpeed.pump_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
+                                 'for field `PumpConstantSpeed.pump_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
+                                 'for field `PumpConstantSpeed.pump_control_type`')
             vals = {}
             vals["continuous"] = "Continuous"
             vals["intermittent"] = "Intermittent"
@@ -1735,10 +1986,10 @@ class PumpConstantSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
+                                     'field `PumpConstantSpeed.pump_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pump_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `PumpConstantSpeed.pump_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pump Control Type"] = value
 
@@ -1771,13 +2022,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
+                                 ' for field `PumpConstantSpeed.pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `PumpConstantSpeed.pump_flow_rate_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `PumpConstantSpeed.pump_flow_rate_schedule_name`')
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -1815,13 +2066,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_curve_name`'.format(value))
+                                 ' for field `PumpConstantSpeed.pump_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_curve_name`')
+                                 'for field `PumpConstantSpeed.pump_curve_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_curve_name`')
+                                 'for field `PumpConstantSpeed.pump_curve_name`')
         self._data["Pump Curve Name"] = value
 
     @property
@@ -1852,7 +2103,7 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `impeller_diameter`'.format(value))
+                                 ' for field `PumpConstantSpeed.impeller_diameter`'.format(value))
         self._data["Impeller Diameter"] = value
 
     @property
@@ -1883,7 +2134,7 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rotational_speed`'.format(value))
+                                 ' for field `PumpConstantSpeed.rotational_speed`'.format(value))
         self._data["Rotational Speed"] = value
 
     @property
@@ -1913,13 +2164,13 @@ class PumpConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `PumpConstantSpeed.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `PumpConstantSpeed.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `PumpConstantSpeed.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -1952,23 +2203,46 @@ class PumpConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `PumpConstantSpeed.skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `PumpConstantSpeed.skin_loss_radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `PumpConstantSpeed.skin_loss_radiative_fraction`')
         self._data["Skin Loss Radiative Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PumpConstantSpeed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PumpConstantSpeed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PumpConstantSpeed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PumpConstantSpeed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -1986,8 +2260,27 @@ class PumpConstantSpeed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2003,6 +2296,10 @@ class PumpVariableSpeedCondensate(object):
     internal_name = "Pump:VariableSpeed:Condensate"
     field_count = 15
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 13
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pump:VariableSpeed:Condensate`
@@ -2023,6 +2320,7 @@ class PumpVariableSpeedCondensate(object):
         self._data["Pump Flow Rate Schedule Name"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2167,13 +2465,13 @@ class PumpVariableSpeedCondensate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `PumpVariableSpeedCondensate.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `PumpVariableSpeedCondensate.name`')
         self._data["Name"] = value
 
     @property
@@ -2202,13 +2500,13 @@ class PumpVariableSpeedCondensate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `PumpVariableSpeedCondensate.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `PumpVariableSpeedCondensate.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -2237,13 +2535,13 @@ class PumpVariableSpeedCondensate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `PumpVariableSpeedCondensate.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `PumpVariableSpeedCondensate.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -2277,8 +2575,8 @@ class PumpVariableSpeedCondensate(object):
                     self._data["Rated Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PumpVariableSpeedCondensate.rated_flow_rate`'.format(value))
                     self._data["Rated Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -2287,10 +2585,10 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_flow_rate`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_flow_rate`')
+                                 'for field `PumpVariableSpeedCondensate.rated_flow_rate`')
         self._data["Rated Flow Rate"] = value
 
     @property
@@ -2323,7 +2621,7 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_pump_head`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.rated_pump_head`'.format(value))
         self._data["Rated Pump Head"] = value
 
     @property
@@ -2358,8 +2656,8 @@ class PumpVariableSpeedCondensate(object):
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_power_consumption`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `PumpVariableSpeedCondensate.rated_power_consumption`'.format(value))
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
             except ValueError:
@@ -2368,7 +2666,7 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_power_consumption`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -2402,13 +2700,13 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `PumpVariableSpeedCondensate.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `PumpVariableSpeedCondensate.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -2440,13 +2738,13 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream`')
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -2476,7 +2774,7 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.coefficient_1_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 1 of the Part Load Performance Curve"] = value
 
     @property
@@ -2506,7 +2804,7 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.coefficient_2_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 2 of the Part Load Performance Curve"] = value
 
     @property
@@ -2536,7 +2834,7 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.coefficient_3_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 3 of the Part Load Performance Curve"] = value
 
     @property
@@ -2566,7 +2864,7 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.coefficient_4_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 4 of the Part Load Performance Curve"] = value
 
     @property
@@ -2598,13 +2896,13 @@ class PumpVariableSpeedCondensate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `PumpVariableSpeedCondensate.pump_flow_rate_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `PumpVariableSpeedCondensate.pump_flow_rate_schedule_name`')
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -2634,13 +2932,13 @@ class PumpVariableSpeedCondensate(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `PumpVariableSpeedCondensate.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `PumpVariableSpeedCondensate.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -2673,23 +2971,46 @@ class PumpVariableSpeedCondensate(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `PumpVariableSpeedCondensate.skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `PumpVariableSpeedCondensate.skin_loss_radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `PumpVariableSpeedCondensate.skin_loss_radiative_fraction`')
         self._data["Skin Loss Radiative Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field PumpVariableSpeedCondensate:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field PumpVariableSpeedCondensate:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for PumpVariableSpeedCondensate: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for PumpVariableSpeedCondensate: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -2707,8 +3028,27 @@ class PumpVariableSpeedCondensate(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -2723,6 +3063,10 @@ class HeaderedPumpsConstantSpeed(object):
     internal_name = "HeaderedPumps:ConstantSpeed"
     field_count = 14
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 9
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeaderedPumps:ConstantSpeed`
@@ -2742,6 +3086,7 @@ class HeaderedPumpsConstantSpeed(object):
         self._data["Pump Flow Rate Schedule Name"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -2879,13 +3224,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `HeaderedPumpsConstantSpeed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `HeaderedPumpsConstantSpeed.name`')
         self._data["Name"] = value
 
     @property
@@ -2914,13 +3259,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -2949,13 +3294,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -2991,8 +3336,8 @@ class HeaderedPumpsConstantSpeed(object):
                     self._data["Total Rated Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `total_rated_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `HeaderedPumpsConstantSpeed.total_rated_flow_rate`'.format(value))
                     self._data["Total Rated Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -3001,10 +3346,10 @@ class HeaderedPumpsConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `total_rated_flow_rate`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.total_rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `total_rated_flow_rate`')
+                                 'for field `HeaderedPumpsConstantSpeed.total_rated_flow_rate`')
         self._data["Total Rated Flow Rate"] = value
 
     @property
@@ -3035,12 +3380,12 @@ class HeaderedPumpsConstantSpeed(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_pumps_in_bank`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `HeaderedPumpsConstantSpeed.number_of_pumps_in_bank`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_pumps_in_bank`'.format(value))
+                                         'for field `HeaderedPumpsConstantSpeed.number_of_pumps_in_bank`'.format(value))
         self._data["Number of Pumps in Bank"] = value
 
     @property
@@ -3072,13 +3417,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `flow_sequencing_control_scheme`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `flow_sequencing_control_scheme`')
+                                 'for field `HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `flow_sequencing_control_scheme`')
+                                 'for field `HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme`')
             vals = {}
             vals["sequential"] = "Sequential"
             value_lower = value.lower()
@@ -3100,10 +3445,10 @@ class HeaderedPumpsConstantSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `flow_sequencing_control_scheme`'.format(value))
+                                     'field `HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `flow_sequencing_control_scheme`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Flow Sequencing Control Scheme"] = value
 
@@ -3137,7 +3482,7 @@ class HeaderedPumpsConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_pump_head`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.rated_pump_head`'.format(value))
         self._data["Rated Pump Head"] = value
 
     @property
@@ -3174,8 +3519,8 @@ class HeaderedPumpsConstantSpeed(object):
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_power_consumption`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `HeaderedPumpsConstantSpeed.rated_power_consumption`'.format(value))
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
             except ValueError:
@@ -3184,7 +3529,7 @@ class HeaderedPumpsConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_power_consumption`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -3218,13 +3563,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `HeaderedPumpsConstantSpeed.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `HeaderedPumpsConstantSpeed.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -3256,13 +3601,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -3295,13 +3640,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_control_type`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.pump_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
+                                 'for field `HeaderedPumpsConstantSpeed.pump_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
+                                 'for field `HeaderedPumpsConstantSpeed.pump_control_type`')
             vals = {}
             vals["continuous"] = "Continuous"
             vals["intermittent"] = "Intermittent"
@@ -3324,10 +3669,10 @@ class HeaderedPumpsConstantSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
+                                     'field `HeaderedPumpsConstantSpeed.pump_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pump_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `HeaderedPumpsConstantSpeed.pump_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pump Control Type"] = value
 
@@ -3360,13 +3705,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name`')
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -3396,13 +3741,13 @@ class HeaderedPumpsConstantSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `HeaderedPumpsConstantSpeed.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -3435,23 +3780,46 @@ class HeaderedPumpsConstantSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction`')
         self._data["Skin Loss Radiative Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field HeaderedPumpsConstantSpeed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field HeaderedPumpsConstantSpeed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for HeaderedPumpsConstantSpeed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for HeaderedPumpsConstantSpeed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -3469,8 +3837,27 @@ class HeaderedPumpsConstantSpeed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
@@ -3485,6 +3872,10 @@ class HeaderedPumpsVariableSpeed(object):
     internal_name = "HeaderedPumps:VariableSpeed"
     field_count = 19
     required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
+    extensible_fields = 0
+    format = None
+    min_fields = 14
+    extensible_keys = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeaderedPumps:VariableSpeed`
@@ -3509,6 +3900,7 @@ class HeaderedPumpsVariableSpeed(object):
         self._data["Pump Flow Rate Schedule Name"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self._data["extensibles"] = []
         self.strict = True
 
     def read(self, vals, strict=False):
@@ -3681,13 +4073,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `name`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `name`')
+                                 'for field `HeaderedPumpsVariableSpeed.name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `name`')
+                                 'for field `HeaderedPumpsVariableSpeed.name`')
         self._data["Name"] = value
 
     @property
@@ -3716,13 +4108,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `inlet_node_name`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.inlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.inlet_node_name`')
         self._data["Inlet Node Name"] = value
 
     @property
@@ -3751,13 +4143,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `outlet_node_name`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.outlet_node_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.outlet_node_name`')
         self._data["Outlet Node Name"] = value
 
     @property
@@ -3793,8 +4185,8 @@ class HeaderedPumpsVariableSpeed(object):
                     self._data["Total Rated Flow Rate"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `total_rated_flow_rate`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `HeaderedPumpsVariableSpeed.total_rated_flow_rate`'.format(value))
                     self._data["Total Rated Flow Rate"] = "Autosize"
                     return
             except ValueError:
@@ -3803,10 +4195,10 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `total_rated_flow_rate`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.total_rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `total_rated_flow_rate`')
+                                 'for field `HeaderedPumpsVariableSpeed.total_rated_flow_rate`')
         self._data["Total Rated Flow Rate"] = value
 
     @property
@@ -3837,12 +4229,12 @@ class HeaderedPumpsVariableSpeed(object):
                 if not self.strict:
                     try:
                         conv_value = int(float(value))
-                        logging.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `number_of_pumps_in_bank`'.format(value, conv_value))
+                        logger.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `HeaderedPumpsVariableSpeed.number_of_pumps_in_bank`'.format(value, conv_value))
                         value = conv_value
                     except ValueError:
                         raise ValueError('value {} need to be of type int '
-                                         'for field `number_of_pumps_in_bank`'.format(value))
+                                         'for field `HeaderedPumpsVariableSpeed.number_of_pumps_in_bank`'.format(value))
         self._data["Number of Pumps in Bank"] = value
 
     @property
@@ -3874,13 +4266,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `flow_sequencing_control_scheme`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `flow_sequencing_control_scheme`')
+                                 'for field `HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `flow_sequencing_control_scheme`')
+                                 'for field `HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme`')
             vals = {}
             vals["sequential"] = "Sequential"
             value_lower = value.lower()
@@ -3902,10 +4294,10 @@ class HeaderedPumpsVariableSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `flow_sequencing_control_scheme`'.format(value))
+                                     'field `HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `flow_sequencing_control_scheme`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Flow Sequencing Control Scheme"] = value
 
@@ -3939,7 +4331,7 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `rated_pump_head`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.rated_pump_head`'.format(value))
         self._data["Rated Pump Head"] = value
 
     @property
@@ -3976,8 +4368,8 @@ class HeaderedPumpsVariableSpeed(object):
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
                 if not self.strict and "auto" in value_lower:
-                    logging.warn('Accept value {} as "Autosize" '
-                                 'for field `rated_power_consumption`'.format(value))
+                    logger.warn('Accept value {} as "Autosize" '
+                                 'for field `HeaderedPumpsVariableSpeed.rated_power_consumption`'.format(value))
                     self._data["Rated Power Consumption"] = "Autosize"
                     return
             except ValueError:
@@ -3986,7 +4378,7 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float or "Autosize"'
-                                 'for field `rated_power_consumption`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -4020,13 +4412,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `motor_efficiency`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `HeaderedPumpsVariableSpeed.motor_efficiency`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
+                                 'for field `HeaderedPumpsVariableSpeed.motor_efficiency`')
         self._data["Motor Efficiency"] = value
 
     @property
@@ -4058,13 +4450,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
+                                 'for field `HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream`')
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -4094,7 +4486,7 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.coefficient_1_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 1 of the Part Load Performance Curve"] = value
 
     @property
@@ -4124,7 +4516,7 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.coefficient_2_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 2 of the Part Load Performance Curve"] = value
 
     @property
@@ -4154,7 +4546,7 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.coefficient_3_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 3 of the Part Load Performance Curve"] = value
 
     @property
@@ -4184,7 +4576,7 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.coefficient_4_of_the_part_load_performance_curve`'.format(value))
         self._data["Coefficient 4 of the Part Load Performance Curve"] = value
 
     @property
@@ -4217,13 +4609,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `minimum_flow_rate_fraction`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `minimum_flow_rate_fraction`')
+                                 'for field `HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `minimum_flow_rate_fraction`')
+                                 'for field `HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction`')
         self._data["Minimum Flow Rate Fraction"] = value
 
     @property
@@ -4256,13 +4648,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_control_type`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.pump_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
+                                 'for field `HeaderedPumpsVariableSpeed.pump_control_type`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
+                                 'for field `HeaderedPumpsVariableSpeed.pump_control_type`')
             vals = {}
             vals["continuous"] = "Continuous"
             vals["intermittent"] = "Intermittent"
@@ -4285,10 +4677,10 @@ class HeaderedPumpsVariableSpeed(object):
                                 break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
+                                     'field `HeaderedPumpsVariableSpeed.pump_control_type`'.format(value))
                 else:
-                    logging.warn('change value {} to accepted value {} for '
-                                 'field `pump_control_type`'.format(value, vals[value_lower]))
+                    logger.warn('change value {} to accepted value {} for '
+                                 'field `HeaderedPumpsVariableSpeed.pump_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pump Control Type"] = value
 
@@ -4321,13 +4713,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name`')
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -4357,13 +4749,13 @@ class HeaderedPumpsVariableSpeed(object):
                 value = str(value)
             except ValueError:
                 raise ValueError('value {} need to be of type str'
-                                 'for field `zone_name`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.zone_name`')
             if '!' in value:
                 raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
+                                 'for field `HeaderedPumpsVariableSpeed.zone_name`')
         self._data["Zone Name"] = value
 
     @property
@@ -4396,23 +4788,46 @@ class HeaderedPumpsVariableSpeed(object):
                 value = float(value)
             except ValueError:
                 raise ValueError('value {} need to be of type float'
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
+                                 ' for field `HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction`')
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
+                                 'for field `HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction`')
         self._data["Skin Loss Radiative Fraction"] = value
 
-    def check(self):
+    def check(self, strict=True):
         """ Checks if all required fields are not None
+
+        Args:
+            strict (bool):
+                True: raises an Execption in case of error
+                False: logs a warning in case of error
+
+        Raises:
+            ValueError
         """
         good = True
         for key in self.required_fields:
             if self._data[key] is None:
                 good = False
-                break
+                if strict:
+                    raise ValueError("Required field HeaderedPumpsVariableSpeed:{} is None".format(key))
+                    break
+                else:
+                    logger.warn("Required field HeaderedPumpsVariableSpeed:{} is None".format(key))
+
+        out_fields = len(self.export())
+        has_minfields = out_fields >= self.min_fields
+        if not has_minfields and strict:
+            raise ValueError("Not enough fields set for HeaderedPumpsVariableSpeed: {} / {}".format(out_fields,
+                                                                                            self.min_fields))
+        elif not has_minfields and not strict:
+            logger.warn("Not enough fields set for HeaderedPumpsVariableSpeed: {} / {}".format(out_fields,
+                                                                                       self.min_fields))
+        good = good and has_minfields
+
         return good
 
     @classmethod
@@ -4430,8 +4845,27 @@ class HeaderedPumpsVariableSpeed(object):
     def export(self):
         """ Export values of data object as list of strings"""
         out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
+
+        has_extensibles = False
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                if value is not None:
+                    has_extensibles = True
+
+        if has_extensibles:
+            maxel = len(self._data) - 1
+
+        for i, key in reversed(list(enumerate(self._data))):
+            maxel = i
+            if self._data[key] is not None:
+                break
+
+        for key in self._data.keys()[0:maxel]:
+            if not key == "extensibles":
+                out.append((key, self._to_str(self._data[key])))
+        for vals in self._data["extensibles"]:
+            for i, value in enumerate(vals):
+                out.append((self.extensible_keys[i], self._to_str(value)))
         return out
 
     def __str__(self):
