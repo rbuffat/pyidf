@@ -45,5 +45,13 @@ def generate_idf(objs):
     context["unique_objects"] = ", ".join(unique_objects)
     return template.render(context)
 
+
+def generate_helper(objs):
+
+    template = env.get_template('helper.py')
+    context = {}
+    context["objs"] = objs
+    return template.render(context)
+
 if __name__ == '__main__':
     pass

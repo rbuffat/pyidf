@@ -47,14 +47,13 @@ class {{ obj.class_name }}(object):
         self.strict = strict
         i = 0
         {%- for field in obj.fields %}
-        if len(vals[i]) == 0:
+        if i < len(vals) and len(vals[i]) == 0:
             self.{{field.field_name}} = None
-        else:
+        elif i < len(vals):
             self.{{field.field_name}} = vals[i]
         i += 1
-        if i >= len(vals):
-            return
         {%- endfor %}
+
         {%- if obj.extensible_fields|count > 0 %}
         while i < len(vals):
             ext_vals = [None] * self.extensible_fields
@@ -65,6 +64,28 @@ class {{ obj.class_name }}(object):
             self.add_extensible(*ext_vals)
             i += self.extensible_fields
         {%- endif %}
+
+        {%- for field in obj.fields %}
+        {%- if field.attributes["required-field"] and field.attributes.default %}
+        if not strict and self.{{field.field_name}} is None:
+            value = {%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}
+            self.{{field.field_name}} = value
+            logger.warn('No value present for required  field `{{obj.class_name}}.{{field.field_name}}, '
+                        'using default value {}`'.format(value))
+
+        elif strict and self.{{field.field_name}} is None:
+            raise ValueError('No value present for required field `{{obj.class_name}}.{{field.field_name}}')
+
+        {%- elif field.attributes["required-field"] and not field.attributes.default %}
+        if not strict and self.{{field.field_name}} is None:
+            logger.warn('No value present for required  field `{{obj.class_name}}.{{field.field_name}}')
+
+        elif strict and self.{{field.field_name}} is None:
+            raise ValueError('No value present for required  field `{{obj.class_name}}.{{field.field_name}}')
+        {%- endif %}
+        {%- endfor %}
+
+
         self.strict = old_strict
 
     {%- for field in obj.fields %}
@@ -496,9 +517,10 @@ class {{ obj.class_name }}(object):
         if has_extensibles:
             maxel = len(self._data) - 1
         else:
+            maxel = 0
             for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
                 if self._data[key] is not None:
+                    maxel = i + 1
                     break
 
         maxel = max(maxel, self.min_fields)
@@ -512,6 +534,16 @@ class {{ obj.class_name }}(object):
         return out
 
     def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        out = self.export()
+        string = ",".join([self.internal_name] + [o[1] for o in out])
+        if len(string) > 77:
+            string = string[:77] + "..."
+        return string
+
+    def __getitem__(self, val):
+        self._data[val]
+
+    def __iter__(self):
+        for val in self._data.values():
+            yield val
+
